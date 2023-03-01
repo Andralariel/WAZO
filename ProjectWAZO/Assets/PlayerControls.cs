@@ -125,7 +125,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""1ee1070a-8048-4957-a4a0-e6867c331f86"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Mouse>/middleButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

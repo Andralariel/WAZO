@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using DG.Tweening;
 
 public class Controller : MonoBehaviour
 {
@@ -34,15 +35,16 @@ public class Controller : MonoBehaviour
     public bool isGrounded;
     public bool canPlaner;
     public bool isPressing;
-    
-    [Header("Utilitaire")]
+
+    [Header("Utilitaire")] 
+    public float rotationSpeed;
     public float globalGravity;
     public Vector3 moveInput;
     public LayerMask groundMask;
     private Rigidbody rb;
     private bool DoOnce = true;
 
-    [Header("Autre")] 
+    [Header("Autre")]
     public TrailRenderer trail;
     private MeshRenderer meshRenderer;
     public Material planingMaterial;
@@ -58,7 +60,7 @@ public class Controller : MonoBehaviour
         inputAction.Player.Jump.performed += ctx => Sauter();
         inputAction.Player.Jump.performed += ctx => isPressing = true;
         inputAction.Player.Jump.canceled += ctx => isPressing = false;
-        inputAction.Player.PickUp.performed += ctx => Prendre();
+       
     }
 
     void FixedUpdate ()
@@ -69,8 +71,14 @@ public class Controller : MonoBehaviour
     
     void Update()
     {
-        Debug.DrawRay(transform.position, Vector3.down*1f, Color.green,2);
-        if (Physics.Raycast(transform.position, Vector3.down, 1f, groundMask))  //si le personnage est au sol
+        if (moveInput != Vector3.zero)
+        {
+            Debug.Log("rotate");
+            Quaternion newRotation = Quaternion.LookRotation(moveInput, Vector3.up);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation,newRotation,rotationSpeed*Time.deltaTime);
+        }
+        
+        if (Physics.Raycast(transform.position, Vector3.down, 1.2f, groundMask))  //si le personnage est au sol
         {
             trail.emitting = false;
             meshRenderer.material = nonPlaningMaterial;
@@ -80,7 +88,7 @@ public class Controller : MonoBehaviour
                 globalGravity = 9.81f;
                 isGrounded = true;
                 canPlaner = true;
-                StopPlaner();
+                //StopPlaner();
                 DoOnce = false;
             }
            
@@ -103,13 +111,16 @@ public class Controller : MonoBehaviour
     
     private void Sauter()
     {
+        
         if (isGrounded)
         {
-            Debug.Log("suate !");
+            Debug.DrawRay(transform.position, Vector3.down*1.2f, Color.green,2);
             rb.AddForce(new Vector3(0,jumpForce,0),ForceMode.Impulse);
         }
-        
-        
+        else
+        {
+            Debug.DrawRay(transform.position, Vector3.down*1.2f, Color.red,2);
+        }
     }
     
     private void Planer()
@@ -134,15 +145,10 @@ public class Controller : MonoBehaviour
 
     }
 
-    private void StopPlaner()
+   /* private void StopPlaner()
     {
         Debug.Log("j'arrete de voler");
-    }
-    
-    private void Prendre()
-    {
-        Debug.Log("objet en bec");
-    }
+    }*/
 }
 
 
