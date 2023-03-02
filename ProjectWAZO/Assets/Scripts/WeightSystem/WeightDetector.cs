@@ -4,7 +4,7 @@ namespace WeightSystem
 {
     public class WeightDetector : MonoBehaviour
     {
-        [SerializeField] protected int LocalWeight;
+        protected int LocalWeight;
         
         public virtual void OnTriggerEnter(Collider other)
         {
