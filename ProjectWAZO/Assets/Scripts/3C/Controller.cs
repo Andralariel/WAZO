@@ -30,6 +30,7 @@ public class Controller : MonoBehaviour
     public float jumpForce;
     public float gravityScale;
     public float planingGravity;
+    public float DASHSPEED;
 
     [Header("Tracker Controller")] 
     public bool isGrounded;
@@ -60,7 +61,7 @@ public class Controller : MonoBehaviour
         inputAction.Player.Jump.performed += ctx => Sauter();
         inputAction.Player.Jump.performed += ctx => isPressing = true;
         inputAction.Player.Jump.canceled += ctx => isPressing = false;
-       
+        inputAction.Player.Dash.performed += ctx => Dash();
     }
 
     void FixedUpdate ()
@@ -73,7 +74,6 @@ public class Controller : MonoBehaviour
     {
         if (moveInput != Vector3.zero)
         {
-            Debug.Log("rotate");
             Quaternion newRotation = Quaternion.LookRotation(moveInput, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation,newRotation,rotationSpeed*Time.deltaTime);
         }
@@ -145,10 +145,10 @@ public class Controller : MonoBehaviour
 
     }
 
-   /* private void StopPlaner()
+    public void Dash()
     {
-        Debug.Log("j'arrete de voler");
-    }*/
+        rb.AddForce(moveInput*DASHSPEED,ForceMode.Impulse);
+    }
 }
 
 

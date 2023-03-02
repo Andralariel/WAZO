@@ -37,13 +37,13 @@ public class CameraController : MonoBehaviour
         Move();
     }
 
-    void Zoom(int zoomAmount)  // zoomAmount est entre 0 et 1
+    public void Zoom(float zoomAmount)  // zoomAmount est entre 0 et 1
     {
         float newZoom = Mathf.Lerp(minZoom, maxZoom,zoomAmount);
         camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, newZoom, Time.deltaTime);
     }
     
-    void Move()
+    public void Move()
     {
         if (!isTopDown)
         {

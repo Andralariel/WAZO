@@ -7,7 +7,7 @@ public class PickUpObjects : MonoBehaviour
 {
     
     #region Trucs Chelou pour les Input
-    private PlayerControls inputAction;
+    public PlayerControls inputAction;
     private void OnEnable()
     {
        
@@ -34,6 +34,7 @@ public class PickUpObjects : MonoBehaviour
   
     private void Awake()
     {
+        inputAction = new PlayerControls();
         inputAction.Player.PickUp.performed += ctx => Prendre();
         inputAction.Player.PickUp.canceled += ctx => Lacher();
     }
@@ -46,7 +47,7 @@ public class PickUpObjects : MonoBehaviour
             Debug.Log("je prend ce qui est devant moi");
             pickedObject.transform.DOMove(pickUpPosition.transform.position, pickUpSpeed);
             pickedObject.transform.parent = pickUpPosition.transform;
-            pickedObject.GetComponent<WindSpirit>().canFall = false;
+            pickedObject.GetComponent<WindSpirit>().isTaken = true;
         }
     }
     
@@ -55,7 +56,7 @@ public class PickUpObjects : MonoBehaviour
         if (pickedObject != null)
         {
             Debug.Log("je relache l'objet devant moi");
-            pickedObject.GetComponent<WindSpirit>().canFall = true;
+            pickedObject.GetComponent<WindSpirit>().isTaken = false;
             pickedObject.transform.parent = null;
             pickedObject = null;
         }
@@ -63,8 +64,10 @@ public class PickUpObjects : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
+     
         if (other.gameObject.CompareTag("PickableObject"))
         {
+            GetClosestObject();
             objectsInRange.Add(other.gameObject);
         }
     }
@@ -73,6 +76,7 @@ public class PickUpObjects : MonoBehaviour
     {
         if (other.gameObject.CompareTag("PickableObject"))
         {
+            GetClosestObject();
             objectsInRange.Remove(other.gameObject);
         }
     }
@@ -92,7 +96,16 @@ public class PickUpObjects : MonoBehaviour
                     closestDistance = newDistance;
                     closestObject = objectsInRange[i];
                 }
+                else
+                {
+                    objectsInRange[i].GetComponent<WindSpirit>().isClosest = false;
+                }
             }
+        }
+
+        if (closestObject != null)
+        {
+            closestObject.GetComponent<WindSpirit>().isClosest = true;
         }
         return closestObject;
     }
