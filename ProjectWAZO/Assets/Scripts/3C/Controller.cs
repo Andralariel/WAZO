@@ -45,7 +45,8 @@ public class Controller : MonoBehaviour
     private Rigidbody rb;
     private bool DoOnce = true;
 
-    [Header("Autre")]
+    [Header("Autre")] 
+    public static Controller instance;
     public TrailRenderer trail;
     private MeshRenderer meshRenderer;
     public Material planingMaterial;
@@ -53,6 +54,12 @@ public class Controller : MonoBehaviour
     
     private void Awake()
     {
+        if (instance != default && instance!=this)
+        {
+            DestroyImmediate(this);
+        }
+        instance = this;
+        
         rb = GetComponent<Rigidbody>();
         meshRenderer = GetComponent<MeshRenderer>();
 
