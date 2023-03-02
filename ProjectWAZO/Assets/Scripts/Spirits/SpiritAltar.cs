@@ -18,14 +18,14 @@ namespace Spirits
         
         private int _spiritAmount;
         
-        public virtual void OnTriggerEnter(Collider other)
+        public void OnTriggerEnter(Collider other)
         {
             if ((int)other.attachedRigidbody.drag != (int)spiritType) return;
             _spiritAmount++;
             if(_spiritAmount==spiritSlots) linkedObject.Activate();
         }
 
-        public virtual void OnTriggerExit(Collider other)
+        public void OnTriggerExit(Collider other)
         {
             if ((int)other.attachedRigidbody.drag != (int)spiritType) return;
             _spiritAmount--;
