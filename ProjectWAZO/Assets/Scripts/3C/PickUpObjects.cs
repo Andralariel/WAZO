@@ -43,9 +43,9 @@ public class PickUpObjects : MonoBehaviour
     private void Prendre()
     {
         pickedObject = GetClosestObject();
-        pickedObjectMass = Mathf.RoundToInt(pickedObject.GetComponent<Rigidbody>().mass);
         if (pickedObject != null)
         {
+            pickedObjectMass = Mathf.RoundToInt(pickedObject.GetComponent<Rigidbody>().mass);
             Debug.Log("je prend ce qui est devant moi");
             transform.parent.gameObject.GetComponent<Rigidbody>().mass += pickedObjectMass;
             pickedObject.GetComponent<Rigidbody>().mass -= pickedObjectMass;
