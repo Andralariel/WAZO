@@ -190,7 +190,6 @@ GameObject:
   - component: {fileID: 5452850306739789012}
   - component: {fileID: 5452850306739789022}
   - component: {fileID: 5452850306739789011}
-  - component: {fileID: 897679795}
   m_Layer: 6
   m_Name: WAZO
   m_TagString: Player
@@ -284,6 +283,7 @@ MonoBehaviour:
   jumpForce: 30
   gravityScale: -4
   planingGravity: 0.8
+  DASHSPEED: 0
   isGrounded: 0
   canPlaner: 1
   isPressing: 0
@@ -326,19 +326,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &897679795
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5452850306739789013}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.9600157, y: 1.2106125, z: 2.047299}
-  m_Center: {x: 0.0040251613, y: -0.39469373, z: 0.52364945}
 --- !u!1 &5452850307208470981
 GameObject:
   m_ObjectHideFlags: 0

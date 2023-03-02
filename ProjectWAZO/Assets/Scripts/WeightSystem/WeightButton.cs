@@ -8,10 +8,11 @@ namespace WeightSystem
         [SerializeField] private Material materialOn;
         [SerializeField] private Material materialOff;
         [SerializeField] private Activator linkedObject;
+        [SerializeField] private int triggerWeight;
         public override void OnTriggerEnter(Collider other)
         {
             base.OnTriggerEnter(other);
-            if (LocalWeight < 5) return;
+            if (LocalWeight < triggerWeight) return;
             meshRenderer.material = materialOn;
             linkedObject.Activate();
         }
@@ -19,7 +20,7 @@ namespace WeightSystem
         public override void OnTriggerExit(Collider other)
         {
             base.OnTriggerExit(other);
-            if (LocalWeight > 4) return;
+            if (LocalWeight >= triggerWeight) return;
             meshRenderer.material = materialOff;
             linkedObject.Deactivate();
         }

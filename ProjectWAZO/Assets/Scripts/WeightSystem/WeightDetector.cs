@@ -1,11 +1,10 @@
-using System;
 using UnityEngine;
 
 namespace WeightSystem
 {
     public class WeightDetector : MonoBehaviour
     {
-        protected int LocalWeight;
+        [SerializeField] protected int LocalWeight;
         
         public virtual void OnTriggerEnter(Collider other)
         {
