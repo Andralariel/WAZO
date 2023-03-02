@@ -30,8 +30,9 @@ public class PickUpObjects : MonoBehaviour
     private float velocity;
     public GameObject pickedObject;
     public List<GameObject> objectsInRange;
-  
-  
+    public int pickedObjectMass;
+
+
     private void Awake()
     {
         inputAction = new PlayerControls();
@@ -42,9 +43,12 @@ public class PickUpObjects : MonoBehaviour
     private void Prendre()
     {
         pickedObject = GetClosestObject();
+        pickedObjectMass = Mathf.RoundToInt(pickedObject.GetComponent<Rigidbody>().mass);
         if (pickedObject != null)
         {
             Debug.Log("je prend ce qui est devant moi");
+            transform.parent.gameObject.GetComponent<Rigidbody>().mass += pickedObjectMass;
+            pickedObject.GetComponent<Rigidbody>().mass -= pickedObjectMass;
             pickedObject.transform.DOMove(pickUpPosition.transform.position, pickUpSpeed);
             pickedObject.transform.parent = pickUpPosition.transform;
             pickedObject.GetComponent<WindSpirit>().isTaken = true;
@@ -56,15 +60,17 @@ public class PickUpObjects : MonoBehaviour
         if (pickedObject != null)
         {
             Debug.Log("je relache l'objet devant moi");
+            transform.parent.gameObject.GetComponent<Rigidbody>().mass -= pickedObjectMass;
+            pickedObject.GetComponent<Rigidbody>().mass += pickedObjectMass;
             pickedObject.GetComponent<WindSpirit>().isTaken = false;
             pickedObject.transform.parent = null;
             pickedObject = null;
+            pickedObjectMass = 0;
         }
     }
     
     private void OnTriggerEnter(Collider other)
     {
-     
         if (other.gameObject.CompareTag("PickableObject"))
         {
             GetClosestObject();
