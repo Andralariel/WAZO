@@ -71,11 +71,11 @@ public class Controller : MonoBehaviour
         inputAction.Player.Dash.performed += ctx => Dash();
     }
 
-    void FixedUpdate ()
-    {
-        Vector3 gravity = globalGravity * gravityScale * Vector3.up;
-        rb.AddForce(gravity, ForceMode.Acceleration);
-    }
+     void FixedUpdate ()
+     {
+         Vector3 gravity = globalGravity * gravityScale * Vector3.up;
+         rb.AddForce(rb.mass*gravity, ForceMode.Force);
+     }
     
     void Update()
     {
@@ -122,7 +122,7 @@ public class Controller : MonoBehaviour
         if (isGrounded)
         {
             Debug.DrawRay(transform.position, Vector3.down*1.2f, Color.green,2);
-            rb.AddForce(new Vector3(0,jumpForce,0),ForceMode.Impulse);
+            rb.AddForce(new Vector3(0,jumpForce,0),ForceMode.VelocityChange);
         }
         else
         {
