@@ -25,7 +25,7 @@ namespace WeightSystem
             linkedObject.Deactivate();
         }
 
-        public override void LimitCheck()
+        protected override void LimitCheck()
         {
             if (LocalWeight >= triggerWeight)
             {

@@ -1007,6 +1007,7 @@ GameObject:
   - component: {fileID: 786153771}
   - component: {fileID: 786153770}
   - component: {fileID: 786153769}
+  - component: {fileID: 786153774}
   m_Layer: 0
   m_Name: Wind
   m_TagString: Untagged
@@ -1105,6 +1106,18 @@ Transform:
   m_Father: {fileID: 1623916304}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &786153774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 786153768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20df8b8cd0367b34abaaf2755864e831, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &897679794 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5452850306739789013, guid: e07b87b27ceea89439d82e1e04d4ca7a,
@@ -2697,7 +2710,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58ae6543e10ca514fb5716d364f9f54f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 1750701529}
   cameraEffect: 1
   newOffset: {x: 0, y: 0, z: 0}
   objectToFocus: {fileID: 0}
@@ -3430,6 +3442,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WindAltar
       objectReference: {fileID: 0}
+    - target: {fileID: 2900416356162566218, guid: a9f73ca02948d4c43a12bed566629d41,
+        type: 3}
+      propertyPath: linkedObject
+      value: 
+      objectReference: {fileID: 786153774}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a9f73ca02948d4c43a12bed566629d41, type: 3}
 --- !u!1001 &1489068459110308235

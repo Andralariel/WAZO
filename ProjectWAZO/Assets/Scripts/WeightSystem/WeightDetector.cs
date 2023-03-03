@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,18 +5,18 @@ namespace WeightSystem
 {
     public class WeightDetector : MonoBehaviour
     {
-        [SerializeField] protected int LocalWeight;
-        protected List<Rigidbody> RbList;
+        protected int LocalWeight;
+        private List<Rigidbody> _rbList;
 
         private void Awake()
         {
-            RbList = new List<Rigidbody>();
+            _rbList = new List<Rigidbody>();
         }
 
         public virtual void OnTriggerEnter(Collider other)
         {
-            RbList.Add(other.attachedRigidbody);
-            LocalWeight += (int)RbList[^1].mass;
+            _rbList.Add(other.attachedRigidbody);
+            LocalWeight += (int)_rbList[^1].mass;
             
             //PlayerCollision
             if(other.gameObject.layer == 6) Controller.instance.SetDetector(this);
@@ -25,21 +24,21 @@ namespace WeightSystem
 
         public virtual void OnTriggerExit(Collider other)
         {
-            RbList.Remove(other.attachedRigidbody);
+            _rbList.Remove(other.attachedRigidbody);
             LocalWeight -= (int)other.attachedRigidbody.mass;
         }
 
         public void ResetWeight()
         {
             LocalWeight = 0;
-            foreach (var rb in RbList)
+            foreach (var rb in _rbList)
             {
                 LocalWeight += (int)rb.mass;
             }
             LimitCheck();
         }
-        
-        public virtual void LimitCheck()
+
+        protected virtual void LimitCheck()
         {}
     }
 }
