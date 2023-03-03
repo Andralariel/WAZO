@@ -19,11 +19,18 @@ public class CameraController : MonoBehaviour
     public float minZoom;
     public float maxZoom;
     private float zoomController = 15;
-    
-    public bool isTopDown;
+    public Transform focusedObject;
     public float SmoothRotateFactor;
     public Vector3 topDownOffset;
     public Quaternion topDownRotation;
+    
+    [Header("Camera State")]
+    public bool isIso;
+    public bool isTopDown;
+    public bool isFocused;
+    
+    
+  
    
 
     private void Start()
@@ -45,18 +52,31 @@ public class CameraController : MonoBehaviour
     
     public void Move()
     {
-        if (!isTopDown)
+        if (isIso)
         {
             Vector3 newPosition = player.transform.position + offset;
             transform.localPosition = Vector3.SmoothDamp(transform.position,newPosition,ref velocity,SmoothMoveFactor);
             transform.rotation = Quaternion.Slerp(transform.rotation, normalRotation, Time.deltaTime/SmoothRotateFactor);
         }
-        else
+        else if(isTopDown)
         {
             Vector3 newPosition = player.transform.position + topDownOffset;
             transform.localPosition = Vector3.SmoothDamp(transform.position,newPosition,ref velocity,SmoothMoveFactor);
             transform.rotation = Quaternion.Slerp(transform.rotation, topDownRotation,Time.deltaTime/ SmoothRotateFactor);
         }
+        else if (isFocused)
+        {
+            Vector3 newPosition = GetCenterPoint() + offset;
+            transform.localPosition = Vector3.SmoothDamp(transform.position,newPosition,ref velocity,SmoothMoveFactor);
+            transform.rotation = Quaternion.Slerp(transform.rotation, normalRotation, Time.deltaTime/SmoothRotateFactor);
+        }
 
+    }
+
+    Vector3 GetCenterPoint()
+    {
+        var bounds = new Bounds(player.transform.position, Vector3.zero);
+        bounds.Encapsulate(focusedObject.transform.position);
+        return bounds.center;
     }
 }
