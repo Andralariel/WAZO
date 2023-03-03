@@ -1,4 +1,4 @@
-namespace WeightSystem
+namespace WeightSystem.Activator
 {
     public class ObjectActivator : Activator
     {

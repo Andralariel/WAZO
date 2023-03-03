@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace WeightSystem
+namespace WeightSystem.Detector
 {
     public class WeightDetector : MonoBehaviour
     {

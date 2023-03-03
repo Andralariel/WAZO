@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using DG.Tweening;
 using WeightSystem;
+using WeightSystem.Detector;
 
 public class Controller : MonoBehaviour
 {

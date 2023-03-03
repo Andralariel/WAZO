@@ -1,13 +1,13 @@
 using UnityEngine;
 
-namespace WeightSystem
+namespace WeightSystem.Detector
 {
     public class WeightButton : WeightDetector
     {
         [SerializeField] private MeshRenderer meshRenderer;
         [SerializeField] private Material materialOn;
         [SerializeField] private Material materialOff;
-        [SerializeField] private Activator linkedObject;
+        [SerializeField] private Activator.Activator linkedObject;
         [SerializeField] private int triggerWeight;
         public override void OnTriggerEnter(Collider other)
         {

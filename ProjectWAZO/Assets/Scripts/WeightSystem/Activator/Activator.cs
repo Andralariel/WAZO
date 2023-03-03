@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace WeightSystem
+namespace WeightSystem.Activator
 {
     public abstract class Activator : MonoBehaviour
     {
