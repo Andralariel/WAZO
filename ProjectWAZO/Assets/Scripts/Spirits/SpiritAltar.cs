@@ -17,19 +17,34 @@ namespace Spirits
         
         
         private int _spiritAmount;
+        private bool _activated;
         
         public void OnTriggerEnter(Collider other)
         {
             if ((int)other.attachedRigidbody.drag != (int)spiritType) return;
+            Debug.Log("Enter");
             _spiritAmount++;
-            if(_spiritAmount==spiritSlots) linkedObject.Activate();
+
+            if (_activated) return;
+            if (_spiritAmount == spiritSlots)
+            {
+                linkedObject.Activate();
+                _activated = true;
+            }
         }
 
         public void OnTriggerExit(Collider other)
         {
             if ((int)other.attachedRigidbody.drag != (int)spiritType) return;
+            Debug.Log("Leave");
             _spiritAmount--;
-            if(_spiritAmount<spiritSlots) linkedObject.Deactivate();
+            
+            if (!_activated) return;
+            if (_spiritAmount < spiritSlots)
+            {
+                linkedObject.Deactivate();
+                _activated = false;
+            }
         }
     }
 }

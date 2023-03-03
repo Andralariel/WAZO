@@ -24,5 +24,20 @@ namespace WeightSystem
             meshRenderer.material = materialOff;
             linkedObject.Deactivate();
         }
+
+        public override void LimitCheck()
+        {
+            if (LocalWeight >= triggerWeight)
+            {
+                meshRenderer.material = materialOn;
+                linkedObject.Activate();
+            }
+            
+            if (LocalWeight < triggerWeight)
+            {
+                meshRenderer.material = materialOff;
+                linkedObject.Deactivate();
+            }
+        }
     }
 }

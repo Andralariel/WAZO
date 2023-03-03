@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using DG.Tweening;
+using WeightSystem;
 
 public class Controller : MonoBehaviour
 {
@@ -51,7 +52,7 @@ public class Controller : MonoBehaviour
     private MeshRenderer meshRenderer;
     public Material planingMaterial;
     public Material nonPlaningMaterial;
-    
+
     private void Awake()
     {
         if (instance != default && instance!=this)
@@ -155,6 +156,20 @@ public class Controller : MonoBehaviour
     public void Dash()
     {
         rb.AddForce(moveInput*DASHSPEED,ForceMode.Impulse);
+    }
+    
+    //WeightSystem
+    private WeightDetector _currentDetector;
+
+    public void SetDetector(WeightDetector detector)
+    {
+        _currentDetector = detector;
+    }
+
+    public void ResetWeightOnDetector()
+    {
+        if (_currentDetector == default) return;
+        _currentDetector.ResetWeight();
     }
 }
 

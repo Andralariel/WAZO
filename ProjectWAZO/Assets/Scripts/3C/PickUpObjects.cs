@@ -45,14 +45,22 @@ public class PickUpObjects : MonoBehaviour
         pickedObject = GetClosestObject();
         if (pickedObject != null)
         {
-            pickedObjectMass = Mathf.RoundToInt(pickedObject.GetComponent<Rigidbody>().mass);
             Debug.Log("je prend ce qui est devant moi");
+
+            pickedObjectMass = Mathf.RoundToInt(pickedObject.GetComponent<Rigidbody>().mass);
             transform.parent.gameObject.GetComponent<Rigidbody>().mass += pickedObjectMass;
             pickedObject.GetComponent<Rigidbody>().mass -= pickedObjectMass;
-            pickedObject.transform.DOMove(pickUpPosition.transform.position, pickUpSpeed);
-            pickedObject.transform.parent = pickUpPosition.transform;
+            var tween = pickedObject.transform.DOMove(pickUpPosition.transform.position, pickUpSpeed);
+            tween.OnComplete(ChangeParent);
             pickedObject.GetComponent<WindSpirit>().isTaken = true;
+            
+            Controller.instance.ResetWeightOnDetector();
         }
+    }
+
+    private void ChangeParent()
+    {
+        pickedObject.transform.parent = pickUpPosition.transform;
     }
     
     private void Lacher()
@@ -60,12 +68,15 @@ public class PickUpObjects : MonoBehaviour
         if (pickedObject != null)
         {
             Debug.Log("je relache l'objet devant moi");
+            
             transform.parent.gameObject.GetComponent<Rigidbody>().mass -= pickedObjectMass;
             pickedObject.GetComponent<Rigidbody>().mass += pickedObjectMass;
             pickedObject.GetComponent<WindSpirit>().isTaken = false;
             pickedObject.transform.parent = null;
             pickedObject = null;
             pickedObjectMass = 0;
+            
+            Controller.instance.ResetWeightOnDetector();
         }
     }
     
