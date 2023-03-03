@@ -48,6 +48,7 @@ public class Controller : MonoBehaviour
     private bool DoOnce = true;
 
     [Header("Autre")] 
+    public GameObject flyIndicator;
     public static Controller instance;
     public TrailRenderer trail;
     private MeshRenderer meshRenderer;
@@ -113,8 +114,28 @@ public class Controller : MonoBehaviour
             rb.velocity +=(new Vector3(moveInput.x,moveInput.y,moveInput.z) * (airControlSpeed * Time.deltaTime));
             gravityScale -= 5f * Time.deltaTime;
         }
-        
-        
+
+        RaycastHit hit;   // L'indication de la trajectoire de chute pendant le planage
+        if (!isGrounded && isPressing)
+        {
+            if(Physics.Raycast(transform.position, Vector3.down, out hit,Mathf.Infinity, groundMask))
+            {
+                var transformLocalScale = new Vector3(0.4f*hit.distance, 0.1f,0.4f*hit.distance);
+                transformLocalScale.x = Mathf.Clamp( transformLocalScale.x, 0.5f,3);
+                transformLocalScale.z = Mathf.Clamp(transformLocalScale.z, 0.5f,3);
+                flyIndicator.transform.localScale = transformLocalScale;
+                flyIndicator.SetActive(true);
+                flyIndicator.transform.position = hit.point;
+            }
+            else
+            {
+                flyIndicator.SetActive(false);
+            }
+        }
+        else
+        {
+            flyIndicator.SetActive(false);
+        }
     }
     
     
