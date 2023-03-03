@@ -6,26 +6,25 @@ namespace WeightSystem.Detector
     public class PistonTrigger : WeightDetector
     {
         [SerializeField] private PistonBalance linkedPiston;
-        [SerializeField] private PistonTrigger opposingTrigger;
 
         public override void OnTriggerEnter(Collider other)
         {
             base.OnTriggerEnter(other);
             CheckState();
-            opposingTrigger.CheckState();
+            linkedPiston.opposingPiston.linkedTrigger.CheckState();
         }
 
         public override void OnTriggerExit(Collider other)
         {
             base.OnTriggerExit(other);
             CheckState();
-            opposingTrigger.CheckState();
+            linkedPiston.opposingPiston.linkedTrigger.CheckState();
         }
 
         private void CheckState()
         {
-            var opposingWeight = opposingTrigger.LocalWeight;
-            if (LocalWeight>opposingWeight)
+            var opposingWeight = linkedPiston.opposingPiston.linkedTrigger.LocalWeight;
+            if (LocalWeight<opposingWeight)
             {
                 linkedPiston.HighState();
             }
@@ -35,7 +34,7 @@ namespace WeightSystem.Detector
                 linkedPiston.MiddleState();
             }
 
-            if (LocalWeight<opposingWeight)
+            if (LocalWeight>opposingWeight)
             {
                 linkedPiston.LowState();
             }

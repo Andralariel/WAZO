@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 9196650603988625070}
   - component: {fileID: 8045266202568457312}
-  m_Layer: 0
+  - component: {fileID: 4243692522748495683}
+  m_Layer: 8
   m_Name: PistonTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,11 +41,24 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5854079278673421118}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4243692522748495683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5854079278673421118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 113d50bc4f829bb42bf51080c10e8b1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  linkedPiston: {fileID: 3553898683721013500}
 --- !u!1 &8802385949793433258
 GameObject:
   m_ObjectHideFlags: 0
@@ -57,6 +71,7 @@ GameObject:
   - component: {fileID: 6803553906286727098}
   - component: {fileID: 3241631071258359185}
   - component: {fileID: 5293183674405351626}
+  - component: {fileID: 3553898683721013500}
   m_Layer: 0
   m_Name: Piston
   m_TagString: Untagged
@@ -143,3 +158,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3553898683721013500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8802385949793433258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e344871c32849b4c947b31fdcc9f0d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  linkedTrigger: {fileID: 4243692522748495683}
+  opposingPiston: {fileID: 0}
+  halfHeight: 0
+  movingSpeed: 2
