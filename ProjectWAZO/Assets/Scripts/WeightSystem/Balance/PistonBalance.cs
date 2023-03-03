@@ -28,7 +28,7 @@ namespace WeightSystem.Balance
 
         public override void MiddleState()
         {
-            transform.DOLocalMove(_startPos + Vector3.up * halfHeight, movingSpeed);
+            transform.DOLocalMove(_startPos, movingSpeed);
         }
 
         public override void LowState()
