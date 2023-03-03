@@ -17,7 +17,7 @@ namespace WeightSystem.Activator
 
         public override void Activate()
         {
-            transform.DOLocalMove(_startPos + Vector3.up * transform.localScale.y, openingSpeed);
+            transform.DOLocalMove(_startPos - Vector3.up * transform.localScale.y, openingSpeed);
         }
 
         public override void Deactivate()

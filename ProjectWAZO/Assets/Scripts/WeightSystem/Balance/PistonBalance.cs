@@ -23,17 +23,20 @@ namespace WeightSystem.Balance
 
         public override void HighState()
         {
-            transform.DOLocalMove(_startPos + Vector3.up * halfHeight, movingSpeed);
+            gameObject.layer = 0;
+            transform.DOLocalMove(_startPos + Vector3.up * halfHeight, movingSpeed).OnComplete((() => gameObject.layer = 3));
         }
 
         public override void MiddleState()
         {
-            transform.DOLocalMove(_startPos + Vector3.up * halfHeight, movingSpeed);
+            gameObject.layer = 0;
+            transform.DOLocalMove(_startPos + Vector3.up * halfHeight, movingSpeed).OnComplete((() => gameObject.layer = 3));
         }
 
         public override void LowState()
         {
-            transform.DOLocalMove(_startPos - Vector3.up * halfHeight, movingSpeed);
+            gameObject.layer = 0;
+            transform.DOLocalMove(_startPos - Vector3.up * halfHeight, movingSpeed).OnComplete((() => gameObject.layer = 3));
         }
     }
 }
