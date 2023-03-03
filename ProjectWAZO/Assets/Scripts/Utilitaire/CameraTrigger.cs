@@ -9,13 +9,23 @@ public class CameraTrigger : MonoBehaviour
   {
      GoTopDown,
      GoIso,
-     Zoom
+     Zoom,
+     ChangeOffest,
+     FocusOn,
   }
-  public CameraController camera;
+  private CameraController camera;
   public Effect cameraEffect;
+  public Vector3 newOffset;
+  public GameObject objectToFocus;
 
   //----------------------------------------------------------------------------------------------
-   private void OnTriggerEnter(Collider other)
+
+  private void Start()
+  {
+     camera = GameObject.Find("Main Camera").GetComponent<CameraController>();
+  }
+
+  private void OnTriggerEnter(Collider other)
    {
       if (other.CompareTag("Player"))
       {
@@ -23,12 +33,25 @@ public class CameraTrigger : MonoBehaviour
          {
             case Effect.GoTopDown:
                camera.isTopDown = true;
+               camera.isIso = false;
+               camera.isFocused = false;
                break;
             case Effect.GoIso:
+               camera.isIso = true;
                camera.isTopDown = false;
+               camera.isFocused = false;
+               break;
+            case Effect.FocusOn:
+               camera.isFocused = true;
+               camera.isTopDown = false;
+               camera.isIso = false;
+               camera.focusedObject = objectToFocus.transform;
                break;
             case Effect.Zoom:
                camera.Zoom(0.5f);
+               break;
+            case Effect.ChangeOffest:
+               camera.offset = newOffset;
                break;
          }
       }
