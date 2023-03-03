@@ -10,17 +10,21 @@ namespace WeightSystem.Detector
         public override void OnTriggerEnter(Collider other)
         {
             base.OnTriggerEnter(other);
-            CheckState();
-            linkedPiston.opposingPiston.linkedTrigger.CheckState();
+            LimitCheck();
         }
 
         public override void OnTriggerExit(Collider other)
         {
             base.OnTriggerExit(other);
+            LimitCheck();
+        }
+
+        protected override void LimitCheck()
+        {
             CheckState();
             linkedPiston.opposingPiston.linkedTrigger.CheckState();
         }
-
+        
         private void CheckState()
         {
             var opposingWeight = linkedPiston.opposingPiston.linkedTrigger.LocalWeight;

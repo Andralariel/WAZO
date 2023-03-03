@@ -5,7 +5,7 @@ namespace WeightSystem.Detector
 {
     public class WeightDetector : MonoBehaviour
     {
-        protected int LocalWeight;
+        [SerializeField] protected int LocalWeight;
         private List<Rigidbody> _rbList;
 
         private void Awake()
