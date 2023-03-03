@@ -21,8 +21,9 @@ public class PickUpObjects : MonoBehaviour
     }
 
     #endregion
-    
-    [Header("Valeurs")]
+
+    [Header("Valeurs")] 
+    public bool isThingTaken;
     public float pickUpSpeed;
     public Transform pickUpPosition; 
     
@@ -46,7 +47,7 @@ public class PickUpObjects : MonoBehaviour
         if (pickedObject != null)
         {
             Debug.Log("je prend ce qui est devant moi");
-
+            isThingTaken = true;
             pickedObjectMass = Mathf.RoundToInt(pickedObject.GetComponent<Rigidbody>().mass);
             transform.parent.gameObject.GetComponent<Rigidbody>().mass += pickedObjectMass;
             pickedObject.GetComponent<Rigidbody>().mass -= pickedObjectMass;
@@ -68,7 +69,7 @@ public class PickUpObjects : MonoBehaviour
         if (pickedObject != null)
         {
             Debug.Log("je relache l'objet devant moi");
-            
+            isThingTaken = false;
             transform.parent.gameObject.GetComponent<Rigidbody>().mass -= pickedObjectMass;
             pickedObject.GetComponent<Rigidbody>().mass += pickedObjectMass;
             pickedObject.GetComponent<WindSpirit>().isTaken = false;
