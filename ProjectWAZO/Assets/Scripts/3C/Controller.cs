@@ -46,6 +46,7 @@ public class Controller : MonoBehaviour
     public LayerMask groundMask;
     private Rigidbody rb;
     private bool DoOnce = true;
+    public bool isEchelle;
 
     [Header("Autre")] 
     public GameObject flyIndicator;
@@ -76,13 +77,16 @@ public class Controller : MonoBehaviour
 
      void FixedUpdate ()
      {
-         Vector3 gravity = globalGravity * gravityScale * Vector3.up;
-         rb.AddForce(rb.mass*gravity, ForceMode.Force);
+         if (!isEchelle)
+         {
+             Vector3 gravity = globalGravity * gravityScale * Vector3.up;
+             rb.AddForce(rb.mass*gravity, ForceMode.Force);
+         }
      }
     
     void Update()
     {
-        if (moveInput != Vector3.zero)
+        if (moveInput != Vector3.zero && !isEchelle)
         {
             Quaternion newRotation = Quaternion.LookRotation(moveInput, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation,newRotation,rotationSpeed*Time.deltaTime);
@@ -101,9 +105,11 @@ public class Controller : MonoBehaviour
                 //StopPlaner();
                 DoOnce = false;
             }
-           
             moveInput = moveInput.normalized;
-            rb.velocity +=(new Vector3(moveInput.x,moveInput.y,moveInput.z) * (moveSpeed * Time.deltaTime));
+            if (!isEchelle)
+            {
+                rb.velocity += (new Vector3(moveInput.x, moveInput.y, moveInput.z) * (moveSpeed * Time.deltaTime));
+            }
         }
         else  //si le personnage n'est pas au sol
         {
@@ -111,10 +117,18 @@ public class Controller : MonoBehaviour
             DoOnce = true;
             isGrounded = false;
             moveInput = moveInput.normalized;
-            rb.velocity +=(new Vector3(moveInput.x,moveInput.y,moveInput.z) * (airControlSpeed * Time.deltaTime));
-            gravityScale -= 5f * Time.deltaTime;
+            if (!isEchelle)
+            {
+                rb.velocity +=(new Vector3(moveInput.x,moveInput.y,moveInput.z) * (airControlSpeed * Time.deltaTime));
+                gravityScale -= 5f * Time.deltaTime;
+            }
         }
 
+        if(isEchelle)
+        {
+            rb.velocity +=(new Vector3(0,-moveInput.x,0) * (airControlSpeed * Time.deltaTime));
+        }
+        
         RaycastHit hit;   // L'indication de la trajectoire de chute pendant le planage
         if (!isGrounded && isPressing)
         {

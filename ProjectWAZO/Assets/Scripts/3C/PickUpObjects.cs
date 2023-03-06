@@ -32,31 +32,52 @@ public class PickUpObjects : MonoBehaviour
     public GameObject pickedObject;
     public List<GameObject> objectsInRange;
     public int pickedObjectMass;
+    private bool isEchelle;
+    private GameObject currentEchelle;
 
+    public static PickUpObjects instance;
 
     private void Awake()
     {
+        if (instance != default && instance!=this)
+        {
+            DestroyImmediate(this);
+        }
+        instance = this;
+        
         inputAction = new PlayerControls();
         inputAction.Player.PickUp.performed += ctx => Prendre();
         inputAction.Player.PickUp.canceled += ctx => Lacher();
     }
     
-    private void Prendre()
+    public void Prendre()
     {
-        pickedObject = GetClosestObject();
-        if (pickedObject != null)
+        if (isThingTaken == false && !isEchelle)
         {
-            Debug.Log("je prend ce qui est devant moi");
-            isThingTaken = true;
-            pickedObjectMass = Mathf.RoundToInt(pickedObject.GetComponent<Rigidbody>().mass);
-            transform.parent.gameObject.GetComponent<Rigidbody>().mass += pickedObjectMass;
-            pickedObject.GetComponent<Rigidbody>().mass -= pickedObjectMass;
-            var tween = pickedObject.transform.DOMove(pickUpPosition.transform.position, pickUpSpeed);
-            tween.OnComplete(ChangeParent);
-            pickedObject.GetComponent<WindSpirit>().isTaken = true;
-            
-            Controller.instance.ResetWeightOnDetector();
+            pickedObject = GetClosestObject();
+            if (pickedObject != null)
+            {
+                Debug.Log("je prend ce qui est devant moi");
+                isThingTaken = true;
+                pickedObjectMass = Mathf.RoundToInt(pickedObject.GetComponent<Rigidbody>().mass);
+                transform.parent.gameObject.GetComponent<Rigidbody>().mass += pickedObjectMass;
+                pickedObject.GetComponent<Rigidbody>().mass -= pickedObjectMass;
+                var tween = pickedObject.transform.DOMove(pickUpPosition.transform.position, pickUpSpeed);
+                tween.OnComplete(ChangeParent);
+                pickedObject.GetComponent<WindSpirit>().isTaken = true;
+                Controller.instance.ResetWeightOnDetector();
+            }
         }
+
+        if (isEchelle)
+        {
+            isThingTaken = true;
+            Controller.instance.isEchelle = true;
+            Controller.instance.GetComponent<Rigidbody>().useGravity = false;
+            Controller.instance.transform.LookAt(currentEchelle.transform);
+            Controller.instance.transform.DOMove(new Vector3(currentEchelle.transform.position.x+1, Controller.instance.transform.position.y , currentEchelle.transform.position.z),0.5f);
+        }
+      
     }
 
     private void ChangeParent()
@@ -66,7 +87,7 @@ public class PickUpObjects : MonoBehaviour
     
     private void Lacher()
     {
-        if (pickedObject != null)
+        if (pickedObject != null && isThingTaken && !isEchelle)
         {
             Debug.Log("je relache l'objet devant moi");
             isThingTaken = false;
@@ -79,6 +100,13 @@ public class PickUpObjects : MonoBehaviour
             
             Controller.instance.ResetWeightOnDetector();
         }
+
+        if (isEchelle)
+        {
+            isThingTaken = false;
+            Controller.instance.isEchelle = false;
+            Controller.instance.GetComponent<Rigidbody>().useGravity = true;
+        }
     }
     
     private void OnTriggerEnter(Collider other)
@@ -88,6 +116,12 @@ public class PickUpObjects : MonoBehaviour
             GetClosestObject();
             objectsInRange.Add(other.gameObject);
         }
+        
+        if (other.gameObject.layer == 9) // Si l'objet est une echelle
+        {
+            isEchelle = true;
+            currentEchelle = other.gameObject;
+        }
     }
     
     private void OnTriggerExit(Collider other)
@@ -96,6 +130,13 @@ public class PickUpObjects : MonoBehaviour
         {
             GetClosestObject();
             objectsInRange.Remove(other.gameObject);
+        }
+        
+        if (other.gameObject.layer == 9) // Si l'objet est une echelle
+        {
+            isEchelle = false;
+            Controller.instance.isEchelle = false;
+            currentEchelle = null;
         }
     }
 
