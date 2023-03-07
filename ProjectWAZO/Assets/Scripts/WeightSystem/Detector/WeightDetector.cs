@@ -15,6 +15,7 @@ namespace WeightSystem.Detector
 
         public virtual void OnTriggerEnter(Collider other)
         {
+            other.transform.SetParent(transform);
             _rbList.Add(other.attachedRigidbody);
             LocalWeight += (int)_rbList[^1].mass;
             
