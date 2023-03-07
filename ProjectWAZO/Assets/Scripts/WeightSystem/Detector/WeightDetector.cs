@@ -25,6 +25,7 @@ namespace WeightSystem.Detector
 
         public virtual void OnTriggerExit(Collider other)
         {
+            other.transform.SetParent(null);
             _rbList.Remove(other.attachedRigidbody);
             LocalWeight -= (int)other.attachedRigidbody.mass;
         }
