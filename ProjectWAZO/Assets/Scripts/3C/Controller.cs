@@ -52,6 +52,7 @@ public class Controller : MonoBehaviour
     public GameObject flyIndicator;
     public static Controller instance;
     public TrailRenderer trail;
+    public TrailRenderer trail2;
     private MeshRenderer meshRenderer;
     public Material planingMaterial;
     public Material nonPlaningMaterial;
@@ -95,6 +96,7 @@ public class Controller : MonoBehaviour
         if (Physics.Raycast(transform.position, Vector3.down, 1.2f, groundMask))  //si le personnage est au sol
         {
             trail.emitting = false;
+            trail2.emitting = false;
             meshRenderer.material = nonPlaningMaterial;
             if (DoOnce)
             {
@@ -174,6 +176,7 @@ public class Controller : MonoBehaviour
             if (isPressing)
             {
                 trail.emitting = true;
+                trail2.emitting = true;
                 meshRenderer.material = planingMaterial;
                 globalGravity = planingGravity;
                 Debug.Log("je crois que je peux voler");
@@ -181,6 +184,7 @@ public class Controller : MonoBehaviour
             else
             {
                 trail.emitting = false;
+                trail2.emitting = false;
                 meshRenderer.material = nonPlaningMaterial;
                 globalGravity = 9.81f;
             }
