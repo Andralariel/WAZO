@@ -234,12 +234,12 @@ MonoBehaviour:
   airControlSpeed: 50
   jumpForce: 30
   gravityScale: -4
-  planingGravity: 0.8
+  planingGravity: 1
   DASHSPEED: 25
   isGrounded: 0
   canPlaner: 1
   isPressing: 0
-  rotationSpeed: 720
+  rotationSpeed: 1800
   globalGravity: 9.81
   moveInput: {x: 0, y: 0, z: 0}
   groundMask:
@@ -278,9 +278,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.75
-  m_Height: 1.7103164
+  m_Height: 1.8179295
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: -0.053806543, z: 0}
 --- !u!1001 &5452850307741542399
 PrefabInstance:
   m_ObjectHideFlags: 0
