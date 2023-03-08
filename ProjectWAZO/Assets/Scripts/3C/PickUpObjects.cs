@@ -113,8 +113,8 @@ public class PickUpObjects : MonoBehaviour
     {
         if (other.gameObject.CompareTag("PickableObject"))
         {
-            GetClosestObject();
             objectsInRange.Add(other.gameObject);
+            GetClosestObject();
         }
         
         if (other.gameObject.layer == 9) // Si l'objet est une echelle
@@ -128,8 +128,8 @@ public class PickUpObjects : MonoBehaviour
     {
         if (other.gameObject.CompareTag("PickableObject"))
         {
-            GetClosestObject();
             objectsInRange.Remove(other.gameObject);
+            GetClosestObject();
         }
         
         if (other.gameObject.layer == 9) // Si l'objet est une echelle
@@ -160,7 +160,14 @@ public class PickUpObjects : MonoBehaviour
                     objectsInRange[i].GetComponent<WindSpirit>().isClosest = false;
                 }
             }
+            
+            if (objectsInRange.Count == 1)
+            {
+                closestObject = objectsInRange[0];
+                closestObject.GetComponent<WindSpirit>().isClosest = true;
+            }
         }
+      
 
         if (closestObject != null)
         {
