@@ -46,11 +46,13 @@ public class Controller : MonoBehaviour
     public LayerMask groundMask;
     private Rigidbody rb;
     private bool DoOnce = true;
+    public bool isEchelle;
 
     [Header("Autre")] 
     public GameObject flyIndicator;
     public static Controller instance;
     public TrailRenderer trail;
+    public TrailRenderer trail2;
     private MeshRenderer meshRenderer;
     public Material planingMaterial;
     public Material nonPlaningMaterial;
@@ -76,13 +78,16 @@ public class Controller : MonoBehaviour
 
      void FixedUpdate ()
      {
-         Vector3 gravity = globalGravity * gravityScale * Vector3.up;
-         rb.AddForce(rb.mass*gravity, ForceMode.Force);
+         if (!isEchelle)
+         {
+             Vector3 gravity = globalGravity * gravityScale * Vector3.up;
+             rb.AddForce(rb.mass*gravity, ForceMode.Force);
+         }
      }
     
     void Update()
     {
-        if (moveInput != Vector3.zero)
+        if (moveInput != Vector3.zero && !isEchelle)
         {
             Quaternion newRotation = Quaternion.LookRotation(moveInput, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation,newRotation,rotationSpeed*Time.deltaTime);
@@ -91,6 +96,7 @@ public class Controller : MonoBehaviour
         if (Physics.Raycast(transform.position, Vector3.down, 1.2f, groundMask))  //si le personnage est au sol
         {
             trail.emitting = false;
+            trail2.emitting = false;
             meshRenderer.material = nonPlaningMaterial;
             if (DoOnce)
             {
@@ -101,9 +107,11 @@ public class Controller : MonoBehaviour
                 //StopPlaner();
                 DoOnce = false;
             }
-           
             moveInput = moveInput.normalized;
-            rb.velocity +=(new Vector3(moveInput.x,moveInput.y,moveInput.z) * (moveSpeed * Time.deltaTime));
+            if (!isEchelle)
+            {
+                rb.velocity += (new Vector3(moveInput.x, moveInput.y, moveInput.z) * (moveSpeed * Time.deltaTime));
+            }
         }
         else  //si le personnage n'est pas au sol
         {
@@ -111,10 +119,18 @@ public class Controller : MonoBehaviour
             DoOnce = true;
             isGrounded = false;
             moveInput = moveInput.normalized;
-            rb.velocity +=(new Vector3(moveInput.x,moveInput.y,moveInput.z) * (airControlSpeed * Time.deltaTime));
-            gravityScale -= 5f * Time.deltaTime;
+            if (!isEchelle)
+            {
+                rb.velocity +=(new Vector3(moveInput.x,moveInput.y,moveInput.z) * (airControlSpeed * Time.deltaTime));
+                gravityScale -= 5f * Time.deltaTime;
+            }
         }
 
+        if(isEchelle)
+        {
+            rb.velocity +=(new Vector3(0,-moveInput.x,0) * (airControlSpeed * Time.deltaTime));
+        }
+        
         RaycastHit hit;   // L'indication de la trajectoire de chute pendant le planage
         if (!isGrounded && isPressing)
         {
@@ -160,6 +176,7 @@ public class Controller : MonoBehaviour
             if (isPressing)
             {
                 trail.emitting = true;
+                trail2.emitting = true;
                 meshRenderer.material = planingMaterial;
                 globalGravity = planingGravity;
                 Debug.Log("je crois que je peux voler");
@@ -167,6 +184,7 @@ public class Controller : MonoBehaviour
             else
             {
                 trail.emitting = false;
+                trail2.emitting = false;
                 meshRenderer.material = nonPlaningMaterial;
                 globalGravity = 9.81f;
             }
