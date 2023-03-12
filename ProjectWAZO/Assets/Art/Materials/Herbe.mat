@@ -80,6 +80,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlphaClip: 0
+    - _Attenuation: 1
     - _Blend: 0
     - _BumpScale: 1
     - _ClearCoatMask: 0
@@ -89,9 +90,12 @@ Material:
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
+    - _Displace_Size: 0.7
+    - _Displace_Strenght: 5
+    - _Displace_Y: -3.79
     - _DstBlend: 0
     - _EnvironmentReflections: 1
-    - _Float: -0.21
+    - _Float: 0.45
     - _Float_1: 0.45
     - _GlossMapScale: 0
     - _Glossiness: 0
@@ -114,15 +118,18 @@ Material:
     - _Wind_Checker: 0
     - _Wind_Direction: -0.46
     - _Wind_Scale: 0.2
-    - _Wind_Speed: 7
+    - _Wind_Speed: 9
     - _Wind_strongness: 1
     - _WorkflowMode: 1
     - _ZWrite: 1
     - _attenuation: 0.94
+    - _contrasto: 20
     - _hauteur_herbe: -4.1
+    - _lerping: 0
     - _lessisless: 2.34
     - _moreismore: 5
     - _noise_scale: 0.2
+    - _scale: 200
     - _size: 1.28
     - _sizev2: 0.72
     - _speed: 8
@@ -131,17 +138,23 @@ Material:
     - _time_speed: 0
     m_Colors:
     - _Add_Mult: {r: -0.07, g: 1, b: 0, a: 0}
+    - _Attenuation: {r: 0, g: 1, b: 0, a: 0}
     - _BaseColor: {r: 0.1738163, g: 0.5849056, b: 0.35411862, a: 1}
-    - _Characterpos: {r: -1.89, g: 0.99277127, b: -9.8, a: 0}
-    - _Color: {r: 0.17381626, g: 0.5849056, b: 0.3541186, a: 1}
+    - _Characterpos: {r: -3.5898728, g: 0.9927713, b: -24.645496, a: 0}
+    - _Color: {r: 0.6132076, g: 0.4078409, b: 0.4078409, a: 1}
+    - _Color_Displacement: {r: 1, g: 0, b: 0, a: 0}
     - _Color_Fields: {r: -0.46, g: 1, b: 0, a: 0}
     - _Color_Highlight: {r: 0.5686275, g: 0.8117647, b: 0.21960784, a: 0}
     - _Color_Occlusion: {r: 0.08235294, g: 0.30980393, b: 0.12941177, a: 0}
+    - _Color_Variation: {r: 0, g: 1, b: 0, a: 0}
     - _Direction: {r: 1, g: 0.3, b: 0, a: 0}
+    - _Displace_Clamp: {r: -0.5, g: 0.5, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _Vector2: {r: 0.44, g: 1, b: 0, a: 0}
+    - _Vector2: {r: 0, g: 0.2, b: 0, a: 0}
+    - _Vector2_1: {r: -0.37, g: 1.01, b: 0, a: 0}
     - _Vector3: {r: 0, g: 0, b: 0, a: 0}
+    - _Wind_Roughness: {r: 0, g: 1, b: 0, a: 0}
     - _clamp: {r: -1, g: 1, b: 0, a: 0}
     - _maxdisplacement: {r: -1, g: 0, b: -1, a: 0}
   m_BuildTextureStacks: []
