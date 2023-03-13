@@ -1,5 +1,4 @@
 using UnityEngine;
-using WeightSystem;
 using WeightSystem.Activator;
 
 namespace Spirits
