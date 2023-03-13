@@ -54,8 +54,6 @@ public class Controller : MonoBehaviour
     public TrailRenderer trail;
     public TrailRenderer trail2;
     private MeshRenderer meshRenderer;
-    public Material planingMaterial;
-    public Material nonPlaningMaterial;
 
     private void Awake()
     {
@@ -97,7 +95,6 @@ public class Controller : MonoBehaviour
         {
             trail.emitting = false;
             trail2.emitting = false;
-            meshRenderer.material = nonPlaningMaterial;
             if (DoOnce)
             {
                 gravityScale = -4;
@@ -177,15 +174,12 @@ public class Controller : MonoBehaviour
             {
                 trail.emitting = true;
                 trail2.emitting = true;
-                meshRenderer.material = planingMaterial;
                 globalGravity = planingGravity;
-                Debug.Log("je crois que je peux voler");
             }
             else
             {
                 trail.emitting = false;
                 trail2.emitting = false;
-                meshRenderer.material = nonPlaningMaterial;
                 globalGravity = 9.81f;
             }
           
