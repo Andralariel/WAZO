@@ -32,12 +32,14 @@ public class Controller : MonoBehaviour
     public float jumpForce;
     public float gravityScale;
     public float planingGravity;
-    public float DASHSPEED;
+    public float coyoteTime;
 
     [Header("Tracker Controller")] 
     public bool isGrounded;
     public bool canPlaner;
+    public bool canJump;
     public bool isPressing;
+    public bool isCoyote;
 
     [Header("Utilitaire")] 
     public float rotationSpeed;
@@ -45,7 +47,7 @@ public class Controller : MonoBehaviour
     public Vector3 moveInput;
     public LayerMask groundMask;
     private Rigidbody rb;
-    private bool DoOnce = true;
+    public bool DoOnce = true;
     public bool isEchelle;
 
     [Header("Autre")] 
@@ -71,7 +73,6 @@ public class Controller : MonoBehaviour
         inputAction.Player.Jump.performed += ctx => Sauter();
         inputAction.Player.Jump.performed += ctx => isPressing = true;
         inputAction.Player.Jump.canceled += ctx => isPressing = false;
-        inputAction.Player.Dash.performed += ctx => Dash();
     }
 
      void FixedUpdate ()
@@ -85,6 +86,7 @@ public class Controller : MonoBehaviour
     
     void Update()
     {
+        IEnumerator coyote = CoyoteTime();
         if (moveInput != Vector3.zero && !isEchelle)
         {
             Quaternion newRotation = Quaternion.LookRotation(moveInput, Vector3.up);
@@ -95,6 +97,9 @@ public class Controller : MonoBehaviour
         {
             trail.emitting = false;
             trail2.emitting = false;
+            StopAllCoroutines();
+            canJump = true;
+            isCoyote = false;
             if (DoOnce)
             {
                 gravityScale = -4;
@@ -112,6 +117,7 @@ public class Controller : MonoBehaviour
         }
         else  //si le personnage n'est pas au sol
         {
+            StartCoroutine(coyote);
             Planer();
             DoOnce = true;
             isGrounded = false;
@@ -137,6 +143,9 @@ public class Controller : MonoBehaviour
                 transformLocalScale.x = Mathf.Clamp( transformLocalScale.x, 0.5f,3);
                 transformLocalScale.z = Mathf.Clamp(transformLocalScale.z, 0.5f,3);
                 flyIndicator.transform.localScale = transformLocalScale;
+                flyIndicator.transform.rotation =
+                    Quaternion.LookRotation(Vector3.Cross(Vector3.left,
+                        hit.normal));
                 flyIndicator.SetActive(true);
                 flyIndicator.transform.position = hit.point;
             }
@@ -154,9 +163,11 @@ public class Controller : MonoBehaviour
     
     private void Sauter()
     {
-        
-        if (isGrounded)
+        if (canJump)
         {
+            canJump = false;
+            isCoyote = false;
+            StopAllCoroutines();
             Debug.DrawRay(transform.position, Vector3.down*1.2f, Color.green,2);
             rb.AddForce(new Vector3(0,jumpForce,0),ForceMode.VelocityChange);
         }
@@ -187,10 +198,15 @@ public class Controller : MonoBehaviour
 
     }
 
-    public void Dash()
+    
+    public IEnumerator CoyoteTime()
     {
-        rb.AddForce(moveInput*DASHSPEED,ForceMode.Impulse);
+        isCoyote = true;
+        yield return new WaitForSeconds(coyoteTime);
+        isCoyote = false;
+        canJump = false;
     }
+    
     
     //WeightSystem
     private WeightDetector _currentDetector;
