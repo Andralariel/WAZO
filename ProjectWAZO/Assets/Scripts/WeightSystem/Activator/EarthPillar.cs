@@ -1,0 +1,81 @@
+using DG.Tweening;
+using DG.Tweening.Core;
+using DG.Tweening.Plugins.Options;
+using UnityEngine;
+
+namespace WeightSystem.Activator
+{
+    public class EarthPillar : Activator
+    {
+        [SerializeField] private float speed;
+        [SerializeField] private Vector3[] wayPoints;
+
+        private TweenerCore<Vector3, Vector3, VectorOptions> _currentTween;
+        private int _nextPoint, _numberOfPoints;
+        private bool _played, _rewind;
+
+        private void Awake()
+        {
+            _numberOfPoints = wayPoints.Length;
+        }
+
+        public override void Activate()
+        {
+            _currentTween.Kill();
+            
+            _played = true;
+            _rewind = false;
+            
+            FindNextPoint();
+        }
+
+        public override void Deactivate()
+        {
+            _currentTween.Kill();
+            
+            _played = false;
+            _rewind = true;
+            
+            FindNextPoint();
+        }
+
+        private void Movement()
+        {
+            _currentTween = transform.DOMove(wayPoints[_nextPoint], CalculateSpeed()).OnComplete(FindNextPoint);
+        }
+
+        private void FindNextPoint()
+        {
+            if (_rewind)
+            {
+                if (_nextPoint - 1 < 0)
+                {
+                    if(!_played) return;
+                    _rewind = false;
+                    _nextPoint = 1;
+                }
+                else _nextPoint -= 1;
+            }
+            else
+            {
+                if (_nextPoint == _numberOfPoints -1)
+                {
+                    _rewind = true;
+                    _nextPoint = _numberOfPoints-2;
+                }
+                else _nextPoint += 1;
+            }
+            
+            Movement();
+        }
+
+        private float CalculateSpeed()
+        {
+            var distance = (wayPoints[_nextPoint] - transform.position).magnitude;
+            Debug.Log((wayPoints[_nextPoint] - transform.position));
+            Debug.Log(distance);
+            return distance;
+        }
+        //Add SetParent on independent script
+    }
+}

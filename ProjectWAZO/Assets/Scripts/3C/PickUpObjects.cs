@@ -64,7 +64,7 @@ public class PickUpObjects : MonoBehaviour
                 pickedObject.GetComponent<Rigidbody>().mass -= pickedObjectMass;
                 var tween = pickedObject.transform.DOMove(pickUpPosition.transform.position, pickUpSpeed);
                 tween.OnComplete(ChangeParent);
-                pickedObject.GetComponent<WindSpirit>().isTaken = true;
+                pickedObject.GetComponent<Spirit>().isTaken = true;
                 Controller.instance.ResetWeightOnDetector();
             }
         }
@@ -93,7 +93,7 @@ public class PickUpObjects : MonoBehaviour
             isThingTaken = false;
             transform.parent.gameObject.GetComponent<Rigidbody>().mass -= pickedObjectMass;
             pickedObject.GetComponent<Rigidbody>().mass += pickedObjectMass;
-            pickedObject.GetComponent<WindSpirit>().isTaken = false;
+            pickedObject.GetComponent<Spirit>().isTaken = false;
             pickedObject.transform.parent = null;
             pickedObject = null;
             pickedObjectMass = 0;
@@ -111,7 +111,7 @@ public class PickUpObjects : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("PickableObject"))
+        if (other.gameObject.layer == 7)
         {
             objectsInRange.Add(other.gameObject);
             GetClosestObject();
@@ -126,7 +126,7 @@ public class PickUpObjects : MonoBehaviour
     
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("PickableObject"))
+        if (other.gameObject.layer == 7)
         {
             objectsInRange.Remove(other.gameObject);
             GetClosestObject();
@@ -157,21 +157,21 @@ public class PickUpObjects : MonoBehaviour
                 }
                 else
                 {
-                    objectsInRange[i].GetComponent<WindSpirit>().isClosest = false;
+                    objectsInRange[i].GetComponent<Spirit>().isClosest = false;
                 }
             }
             
             if (objectsInRange.Count == 1)
             {
                 closestObject = objectsInRange[0];
-                closestObject.GetComponent<WindSpirit>().isClosest = true;
+                closestObject.GetComponent<Spirit>().isClosest = true;
             }
         }
       
 
         if (closestObject != null)
         {
-            closestObject.GetComponent<WindSpirit>().isClosest = true;
+            closestObject.GetComponent<Spirit>().isClosest = true;
         }
         return closestObject;
     }
