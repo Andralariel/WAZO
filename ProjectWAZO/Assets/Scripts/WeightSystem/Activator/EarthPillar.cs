@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
@@ -10,7 +8,7 @@ namespace WeightSystem.Activator
     public class EarthPillar : Activator
     {
         [SerializeField] private float speed;
-        [SerializeField] private List<Vector3> wayPoints;
+        [SerializeField] private Vector3[] wayPoints;
 
         private TweenerCore<Vector3, Vector3, VectorOptions> _currentTween;
         private int _nextPoint, _numberOfPoints;
@@ -18,7 +16,7 @@ namespace WeightSystem.Activator
 
         private void Awake()
         {
-            _numberOfPoints = wayPoints.Count;
+            _numberOfPoints = wayPoints.Length;
         }
 
         public override void Activate()
@@ -43,7 +41,7 @@ namespace WeightSystem.Activator
 
         private void Movement()
         {
-            _currentTween = transform.DOMove(wayPoints[_nextPoint], speed).OnComplete(FindNextPoint);
+            _currentTween = transform.DOMove(wayPoints[_nextPoint], CalculateSpeed()).OnComplete(FindNextPoint);
         }
 
         private void FindNextPoint()
@@ -70,8 +68,14 @@ namespace WeightSystem.Activator
             
             Movement();
         }
-        
-        //Calculate Speed with distance !!!
+
+        private float CalculateSpeed()
+        {
+            var distance = (wayPoints[_nextPoint] - transform.position).magnitude;
+            Debug.Log((wayPoints[_nextPoint] - transform.position));
+            Debug.Log(distance);
+            return distance;
+        }
         //Add SetParent on independent script
     }
 }
