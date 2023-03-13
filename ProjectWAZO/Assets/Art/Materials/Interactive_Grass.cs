@@ -12,4 +12,9 @@ public class Interactive_Grass : MonoBehaviour
     {
         mat.SetVector("_Characterpos", character.transform.position);
     }
+
+    void OnDestroy()
+    {
+        mat.SetVector("_Characterpos", new Vector3(0,0,0));
+    }
 }
