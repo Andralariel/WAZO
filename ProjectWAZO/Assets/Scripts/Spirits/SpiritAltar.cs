@@ -8,7 +8,8 @@ namespace Spirits
         private enum SpiritType
         {
             Wind,
-            Earth
+            Earth,
+            Cosmos
         }
         
         [SerializeField] private SpiritType spiritType;
