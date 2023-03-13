@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using WeightSystem.Detector;
 
-public class PlancheABascule : MonoBehaviour
+public class PlancheABascule : WeightDetector
 {
     public enum HitboxType
     {
@@ -75,6 +75,7 @@ public class PlancheABascule : MonoBehaviour
         }
         
         master.ResetWeight();
+        Controller.instance.SetDetector(master);
     }
     
     private void OnTriggerExit(Collider other)
@@ -104,7 +105,7 @@ public class PlancheABascule : MonoBehaviour
         master.ResetWeight();
     }
 
-    public void ResetWeight()
+    protected override void LimitCheck()
     {
         poidDroite = 0;
         poidGauche = 0;
