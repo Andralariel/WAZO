@@ -5,7 +5,7 @@ namespace WeightSystem.Detector
 {
     public class WeightDetector : MonoBehaviour
     {
-        [SerializeField] protected int LocalWeight;
+        protected int LocalWeight;
         private List<Rigidbody> _rbList;
 
         private void Awake()
@@ -13,21 +13,26 @@ namespace WeightSystem.Detector
             _rbList = new List<Rigidbody>();
         }
 
-        public virtual void OnTriggerEnter(Collider other)
+        public void OnTriggerEnter(Collider other)
         {
             _rbList.Add(other.attachedRigidbody);
             LocalWeight += (int)_rbList[^1].mass;
             
-            //PlayerCollision
+            //PlayerCollision = 6
             if(other.gameObject.layer == 6) Controller.instance.SetDetector(this);
+            
+            LimitCheck();
         }
 
-        public virtual void OnTriggerExit(Collider other)
+        public void OnTriggerExit(Collider other)
         {
             _rbList.Remove(other.attachedRigidbody);
             LocalWeight -= (int)other.attachedRigidbody.mass;
+            
+            LimitCheck();
         }
 
+        //Fonction call quand le joueur lache un objet de son bec
         public void ResetWeight()
         {
             LocalWeight = 0;
@@ -38,6 +43,8 @@ namespace WeightSystem.Detector
             LimitCheck();
         }
 
+        //Fonction vérifiant l'état de l'objet et l'actualisant si besoin
+        //A modifier dans tous les enfants !!
         protected virtual void LimitCheck()
         {}
     }

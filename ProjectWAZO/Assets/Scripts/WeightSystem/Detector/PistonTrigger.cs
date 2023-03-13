@@ -6,19 +6,7 @@ namespace WeightSystem.Detector
     public class PistonTrigger : WeightDetector
     {
         [SerializeField] private PistonBalance linkedPiston;
-
-        public override void OnTriggerEnter(Collider other)
-        {
-            base.OnTriggerEnter(other);
-            LimitCheck();
-        }
-
-        public override void OnTriggerExit(Collider other)
-        {
-            base.OnTriggerExit(other);
-            LimitCheck();
-        }
-
+        
         protected override void LimitCheck()
         {
             CheckState();
