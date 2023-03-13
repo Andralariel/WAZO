@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
-public class WindSpirit : MonoBehaviour
+public class Spirit : MonoBehaviour
 {
     public bool isTaken;
     public bool isClosest;
     private Rigidbody rb;
-    private MeshRenderer meshRenderer;
     public Material selectedMaterial;
     public Material unselectedMaterial;
+    private MeshRenderer meshRenderer;
 
     void Start()
     {
@@ -22,7 +22,7 @@ public class WindSpirit : MonoBehaviour
    
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("PickUpTrigger"))
+        if (other.gameObject.layer == 10)
         {
             isClosest = false;
         }    
