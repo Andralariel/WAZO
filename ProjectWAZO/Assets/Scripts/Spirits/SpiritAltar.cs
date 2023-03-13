@@ -1,5 +1,4 @@
 using UnityEngine;
-using WeightSystem;
 using WeightSystem.Activator;
 
 namespace Spirits
@@ -23,7 +22,6 @@ namespace Spirits
         public void OnTriggerEnter(Collider other)
         {
             if ((int)other.attachedRigidbody.drag != (int)spiritType) return;
-            Debug.Log("Enter");
             _spiritAmount++;
 
             if (_activated) return;
@@ -37,7 +35,6 @@ namespace Spirits
         public void OnTriggerExit(Collider other)
         {
             if ((int)other.attachedRigidbody.drag != (int)spiritType) return;
-            Debug.Log("Leave");
             _spiritAmount--;
             
             if (!_activated) return;
