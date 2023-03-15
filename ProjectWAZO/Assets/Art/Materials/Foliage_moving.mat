@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Foliage_moving
-  m_Shader: {fileID: -6465566751694194690, guid: 6735a296bbb2a1a40bd0866ff45ee70c,
+  m_Shader: {fileID: -6465566751694194690, guid: 48a6ef93ab6962444894459a2f93e4de,
     type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -133,6 +133,10 @@ Material:
     - _Direction: {r: 0.61, g: -0.67, b: 0, a: 0}
     - _Displace_Clamp: {r: -1, g: 1, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Limit_X: {r: -0.2, g: 0.2, b: 0, a: 0}
+    - _Limit_Y: {r: -0.2, g: 0.2, b: 0, a: 0}
+    - _Limit_Z: {r: -0.2, g: 0.2, b: 0, a: 0}
+    - _Main_Color: {r: 0.5803922, g: 0.76470596, b: 0.3137255, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Vector3: {r: 0, g: 0, b: 0, a: 0}
     - _Wind_Roughness: {r: 0, g: 0.2, b: 0, a: 0}
