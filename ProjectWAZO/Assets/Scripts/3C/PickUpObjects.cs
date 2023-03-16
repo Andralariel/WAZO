@@ -74,11 +74,11 @@ public class PickUpObjects : MonoBehaviour
 
         if (isEchelle)
         {
-            isThingTaken = true;
+            isThingTaken = false;
             Controller.instance.isEchelle = true;
             Controller.instance.GetComponent<Rigidbody>().useGravity = false;
             Controller.instance.transform.LookAt(currentEchelle.transform);
-            Controller.instance.transform.DOMove(new Vector3(currentEchelle.transform.position.x+1, Controller.instance.transform.position.y , currentEchelle.transform.position.z),0.5f);
+            Controller.instance.transform.DOMove(new Vector3(currentEchelle.transform.position.x, Controller.instance.transform.position.y , currentEchelle.transform.position.z),0.5f);
         }
       
     }
@@ -140,6 +140,7 @@ public class PickUpObjects : MonoBehaviour
             isEchelle = false;
             Controller.instance.isEchelle = false;
             currentEchelle = null;
+            
         }
     }
 
