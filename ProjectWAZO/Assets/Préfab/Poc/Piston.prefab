@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9196650603988625070}
   - component: {fileID: 8045266202568457312}
   - component: {fileID: 4243692522748495683}
+  - component: {fileID: 5557643708204784475}
   m_Layer: 8
   m_Name: PistonTrigger
   m_TagString: Untagged
@@ -58,8 +59,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 113d50bc4f829bb42bf51080c10e8b1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LocalWeight: 0
   linkedPiston: {fileID: 3553898683721013500}
+--- !u!114 &5557643708204784475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5854079278673421118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc5f037c0236d2e4aab66b3475312005, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8802385949793433258
 GameObject:
   m_ObjectHideFlags: 0
