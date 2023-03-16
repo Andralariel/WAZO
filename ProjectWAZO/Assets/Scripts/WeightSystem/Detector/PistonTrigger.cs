@@ -6,6 +6,7 @@ namespace WeightSystem.Detector
     public class PistonTrigger : WeightDetector
     {
         [SerializeField] private PistonBalance linkedPiston;
+        public WeightUI associatedUI;
         
         protected override void LimitCheck()
         {
@@ -15,6 +16,7 @@ namespace WeightSystem.Detector
         
         private void CheckState()
         {
+            associatedUI.currentWeight = LocalWeight;
             var opposingWeight = linkedPiston.opposingPiston.linkedTrigger.LocalWeight;
             if (LocalWeight<opposingWeight)
             {

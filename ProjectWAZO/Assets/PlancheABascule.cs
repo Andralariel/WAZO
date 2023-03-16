@@ -23,26 +23,30 @@ public class PlancheABascule : WeightDetector
     public HitboxType type;
     public List<Rigidbody> massListG;
     public List<Rigidbody> massListD;
+    public WeightUI associatedLeftUI;
+    public WeightUI associatedRightUI;
+    
     void Update()
     {
         if (type == HitboxType.centre)
         {
             if (poidDroite > poidGauche && poidDroite != poidGauche)
             {
-                Debug.Log("droite");
                 transform.rotation = Quaternion.RotateTowards(transform.rotation,positionDroite,rotationSpeed*Time.deltaTime);
             }
             else if (poidDroite < poidGauche && poidDroite != poidGauche)
             {
-                Debug.Log("gauche");
                 transform.rotation = Quaternion.RotateTowards(transform.rotation,positionGauche,rotationSpeed*Time.deltaTime);
             }
             
             if (poidDroite == poidGauche)
             {
-                Debug.Log("Equilibre");
                 transform.rotation = Quaternion.RotateTowards(transform.rotation,positionNeutre,rotationSpeed*Time.deltaTime);
             }
+
+            associatedLeftUI.currentWeight = poidGauche;
+            associatedRightUI.currentWeight = poidDroite;
+          
         }
         var transformRotation = transform.rotation;
         transformRotation.y = 0;
