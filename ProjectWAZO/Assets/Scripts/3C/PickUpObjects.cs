@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -32,10 +33,12 @@ public class PickUpObjects : MonoBehaviour
     public GameObject pickedObject;
     public List<GameObject> objectsInRange;
     public int pickedObjectMass;
-    private bool isEchelle;
-    private GameObject currentEchelle;
+    public bool isEchelle;
+    public GameObject currentEchelle;
 
     public static PickUpObjects instance;
+
+ 
 
     private void Awake()
     {
@@ -49,7 +52,7 @@ public class PickUpObjects : MonoBehaviour
         inputAction.Player.PickUp.performed += ctx => Prendre();
         inputAction.Player.PickUp.canceled += ctx => Lacher();
     }
-    
+
     public void Prendre()
     {
         if (isThingTaken == false && !isEchelle)
@@ -71,11 +74,11 @@ public class PickUpObjects : MonoBehaviour
 
         if (isEchelle)
         {
-            isThingTaken = true;
+            isThingTaken = false;
             Controller.instance.isEchelle = true;
             Controller.instance.GetComponent<Rigidbody>().useGravity = false;
             Controller.instance.transform.LookAt(currentEchelle.transform);
-            Controller.instance.transform.DOMove(new Vector3(currentEchelle.transform.position.x+1, Controller.instance.transform.position.y , currentEchelle.transform.position.z),0.5f);
+            Controller.instance.transform.DOMove(new Vector3(currentEchelle.transform.position.x, Controller.instance.transform.position.y , currentEchelle.transform.position.z),0.5f);
         }
       
     }
@@ -120,7 +123,6 @@ public class PickUpObjects : MonoBehaviour
         if (other.gameObject.layer == 9) // Si l'objet est une echelle
         {
             isEchelle = true;
-            Controller.instance.isEchelle = true;
             currentEchelle = other.gameObject;
         }
     }
@@ -138,6 +140,7 @@ public class PickUpObjects : MonoBehaviour
             isEchelle = false;
             Controller.instance.isEchelle = false;
             currentEchelle = null;
+            
         }
     }
 
