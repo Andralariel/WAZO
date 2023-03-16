@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 
 namespace WeightSystem.Detector
 {
@@ -9,9 +10,11 @@ namespace WeightSystem.Detector
         [SerializeField] private Material materialOff;
         [SerializeField] private Activator.Activator linkedObject;
         [SerializeField] private int triggerWeight;
-        
+        public WeightUI associatedUI;
         protected override void LimitCheck()
         {
+            associatedUI.currentWeight = LocalWeight;
+            associatedUI.maxWeight = triggerWeight;
             if (LocalWeight >= triggerWeight)
             {
                 meshRenderer.material = materialOn;
