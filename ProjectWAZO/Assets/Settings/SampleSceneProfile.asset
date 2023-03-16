@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c01700fd266d6914ababb731e09af2eb, type: 3}
   m_Name: DepthOfField
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   mode:
     m_OverrideState: 1
     m_Value: 1
@@ -119,7 +119,7 @@ MonoBehaviour:
     m_Value: {x: 0.09415436, y: 1, z: 0.7348512, w: 0.96141255}
   gain:
     m_OverrideState: 1
-    m_Value: {x: 0.7485194, y: 0.7398347, z: 1, w: -0.04578156}
+    m_Value: {x: 0.6964078, y: 0.7760995, z: 1, w: -0.04578156}
 --- !u!114 &5080587400405298997
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -135,19 +135,19 @@ MonoBehaviour:
   active: 1
   threshold:
     m_OverrideState: 1
-    m_Value: 0.96
+    m_Value: 0.94
   intensity:
     m_OverrideState: 1
-    m_Value: 2.04
+    m_Value: 1.64
   scatter:
     m_OverrideState: 1
-    m_Value: 0.188
+    m_Value: 0.078
   clamp:
     m_OverrideState: 0
     m_Value: 65472
   tint:
     m_OverrideState: 1
-    m_Value: {r: 1, g: 0.9935299, b: 0, a: 1}
+    m_Value: {r: 1, g: 0.42192516, b: 0, a: 1}
   highQualityFiltering:
     m_OverrideState: 0
     m_Value: 0
