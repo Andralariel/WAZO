@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -32,10 +33,12 @@ public class PickUpObjects : MonoBehaviour
     public GameObject pickedObject;
     public List<GameObject> objectsInRange;
     public int pickedObjectMass;
-    private bool isEchelle;
-    private GameObject currentEchelle;
+    public bool isEchelle;
+    public GameObject currentEchelle;
 
     public static PickUpObjects instance;
+
+ 
 
     private void Awake()
     {
@@ -49,7 +52,7 @@ public class PickUpObjects : MonoBehaviour
         inputAction.Player.PickUp.performed += ctx => Prendre();
         inputAction.Player.PickUp.canceled += ctx => Lacher();
     }
-    
+
     public void Prendre()
     {
         if (isThingTaken == false && !isEchelle)
@@ -120,7 +123,6 @@ public class PickUpObjects : MonoBehaviour
         if (other.gameObject.layer == 9) // Si l'objet est une echelle
         {
             isEchelle = true;
-            Controller.instance.isEchelle = true;
             currentEchelle = other.gameObject;
         }
     }

@@ -46,7 +46,7 @@ public class Controller : MonoBehaviour
     public float globalGravity;
     public Vector3 moveInput;
     public LayerMask groundMask;
-    private Rigidbody rb;
+    [HideInInspector] public Rigidbody rb;
     public bool DoOnce = true;
     public bool isEchelle;
 
@@ -129,10 +129,7 @@ public class Controller : MonoBehaviour
             }
         }
 
-        if(isEchelle)
-        {
-            rb.velocity +=(new Vector3(0,-moveInput.x,0) * (airControlSpeed * Time.deltaTime));
-        }
+        
         
         RaycastHit hit;   // L'indication de la trajectoire de chute pendant le planage
         if (!isGrounded && isPressing)
