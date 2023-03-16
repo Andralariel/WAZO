@@ -29,6 +29,7 @@ public class Controller : MonoBehaviour
     [Header("Métrics Controller")]
     public float moveSpeed;
     public float airControlSpeed;
+    public float slopeSpeed = 10;
     public float jumpForce;
     public float gravityScale;
     public float planingGravity;
@@ -112,7 +113,7 @@ public class Controller : MonoBehaviour
             moveInput = moveInput.normalized;
             if (!isEchelle)
             {
-                rb.velocity += (new Vector3(moveInput.x, moveInput.y, moveInput.z) * (moveSpeed * Time.deltaTime));
+                FixSpeedOnSlope();
             }
         }
         else  //si le personnage n'est pas au sol
@@ -165,6 +166,8 @@ public class Controller : MonoBehaviour
     {
         if (canJump)
         {
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
+            
             canJump = false;
             isCoyote = false;
             StopAllCoroutines();
@@ -220,6 +223,27 @@ public class Controller : MonoBehaviour
     {
         if (_currentDetector == default) return;
         _currentDetector.ResetWeight();
+    }
+
+    private void FixSpeedOnSlope()
+    {
+        Physics.Raycast(transform.position+transform.forward*0.1f, Vector3.down, out RaycastHit hit, groundMask);
+            
+        if (Vector3.Dot(hit.normal, Vector3.up) < 1)
+        {
+            if(canJump)rb.constraints = moveInput.magnitude == 0
+                ? RigidbodyConstraints.FreezeRotation|RigidbodyConstraints.FreezePositionY
+                : RigidbodyConstraints.FreezeRotation;
+            
+            var direction = Vector3.Cross(hit.normal, moveInput);
+            direction = Vector3.Cross(direction,hit.normal);
+
+            rb.velocity = direction.normalized * slopeSpeed;
+        }
+        else
+        {
+            rb.velocity += moveInput * (moveSpeed * Time.deltaTime);
+        }
     }
 }
 
