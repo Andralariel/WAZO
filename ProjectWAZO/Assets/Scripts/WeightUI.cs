@@ -25,6 +25,7 @@ public class WeightUI : MonoBehaviour
    
    void Start()
    {
+       camera = GameObject.Find("Main Camera").GetComponent<CameraController>();
        rectTransform = GetComponent<RectTransform>();
        canvasGroup = GetComponent<CanvasGroup>();
    }
