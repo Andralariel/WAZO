@@ -86,22 +86,22 @@ public class Controller : MonoBehaviour
     
     void Update()
     {
-        IEnumerator coyote = CoyoteTime();
         if (moveInput != Vector3.zero && !isEchelle)
         {
             Quaternion newRotation = Quaternion.LookRotation(moveInput, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation,newRotation,rotationSpeed*Time.deltaTime);
         }
         
-        if (Physics.Raycast(transform.position, Vector3.down, 1.2f, groundMask))  //si le personnage est au sol
+        if (Physics.Raycast(transform.position, Vector3.down, 0.2f, groundMask))  //si le personnage est au sol
         {
             trail.emitting = false;
             trail2.emitting = false;
             StopAllCoroutines();
-            canJump = true;
+            
             isCoyote = false;
             if (DoOnce)
             {
+                canJump = true;
                 gravityScale = -4;
                 globalGravity = 9.81f;
                 isGrounded = true;
@@ -117,7 +117,7 @@ public class Controller : MonoBehaviour
         }
         else  //si le personnage n'est pas au sol
         {
-            StartCoroutine(coyote);
+            //StartCoroutine(coyote);
             Planer();
             DoOnce = true;
             isGrounded = false;
@@ -168,12 +168,12 @@ public class Controller : MonoBehaviour
             canJump = false;
             isCoyote = false;
             StopAllCoroutines();
-            Debug.DrawRay(transform.position, Vector3.down*1.2f, Color.green,2);
+            Debug.DrawRay(transform.position, Vector3.down*0.2f, Color.green,2);
             rb.AddForce(new Vector3(0,jumpForce,0),ForceMode.VelocityChange);
         }
         else
         {
-            Debug.DrawRay(transform.position, Vector3.down*1.2f, Color.red,2);
+            Debug.DrawRay(transform.position, Vector3.down*0.2f, Color.red,2);
         }
     }
     
@@ -198,14 +198,14 @@ public class Controller : MonoBehaviour
 
     }
 
-    
-    public IEnumerator CoyoteTime()
+ 
+    /*public IEnumerator CoyoteTime()
     {
         isCoyote = true;
         yield return new WaitForSeconds(coyoteTime);
         isCoyote = false;
         canJump = false;
-    }
+    }*/
     
     
     //WeightSystem

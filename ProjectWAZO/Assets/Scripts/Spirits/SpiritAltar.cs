@@ -30,7 +30,6 @@ namespace Spirits
 
         public void OnTriggerEnter(Collider other)
         {
-            
             if ((int)other.attachedRigidbody.drag != (int)spiritType) return;
             _spiritAmount++;
 

@@ -120,6 +120,7 @@ public class PickUpObjects : MonoBehaviour
         if (other.gameObject.layer == 9) // Si l'objet est une echelle
         {
             isEchelle = true;
+            Controller.instance.isEchelle = true;
             currentEchelle = other.gameObject;
         }
     }
