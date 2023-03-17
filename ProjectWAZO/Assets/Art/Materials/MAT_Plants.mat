@@ -7,16 +7,16 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Plane Grass
-  m_Shader: {fileID: -6465566751694194690, guid: 87438122dc281c9479de5c1b6ecb4c23,
-    type: 3}
+  m_Name: MAT_Plants
+  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
-  m_EnableInstancingVariants: 1
+  m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2000
-  stringTagMap: {}
+  m_CustomRenderQueue: -1
+  stringTagMap:
+    RenderType: Opaque
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -80,90 +80,38 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlphaClip: 0
-    - _Attenuation: 1
     - _Blend: 0
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
-    - _Contrast: 0.57
     - _Cull: 2
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _Displace_Size: 0.7
-    - _Displace_Strenght: 5
-    - _Displace_Y: -3.79
     - _DstBlend: 0
     - _EnvironmentReflections: 1
-    - _Float: 0.45
-    - _Float_1: 0.45
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _HeightScale: 0
     - _Metallic: 0
-    - _Noise_Scale: 0.2
     - _OcclusionStrength: 1
-    - _Opacity_Fields: 0.01
     - _Parallax: 0.005
-    - _Position_Add: 0.15
-    - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Roughness: 0
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
-    - _Wind_Checker: 0
-    - _Wind_Direction: -0.46
-    - _Wind_Scale: 0
-    - _Wind_Speed: 0
-    - _Wind_strongness: 1
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - _attenuation: 0.94
-    - _contrasto: 20
-    - _hauteur_herbe: -4.1
-    - _lerping: 0
-    - _lessisless: 2.34
-    - _moreismore: 5
-    - _noise_scale: 0.2
-    - _scale: 200
-    - _size: 1.28
-    - _sizev2: 0.72
-    - _speed: 8
-    - _strongh: 2.8
-    - _stroong: 5
-    - _time_speed: 0
     m_Colors:
-    - _Add_Mult: {r: 0, g: 0, b: 0, a: 0}
-    - _Attenuation: {r: 0, g: 1, b: 0, a: 0}
-    - _BaseColor: {r: 0.1738163, g: 0.5849056, b: 0.35411862, a: 1}
-    - _Characterpos: {r: 0, g: 0, b: 0, a: 0}
-    - _Color: {r: 0.6132076, g: 0.4078409, b: 0.4078409, a: 1}
-    - _Color_Displacement: {r: 1, g: 0, b: 0, a: 0}
-    - _Color_Fields: {r: 0.79, g: 1, b: 0, a: 0}
-    - _Color_Highlight: {r: 0.1098039, g: 0.47058824, b: 0.3602904, a: 0}
-    - _Color_Occlusion: {r: 0.24705882, g: 0.30619338, b: 0.3882353, a: 0}
-    - _Color_Variation: {r: 0, g: 1, b: 0, a: 0}
-    - _Direction: {r: 0, g: 0, b: 0, a: 0}
-    - _Displace_Clamp: {r: -0.5, g: 0.5, b: 0, a: 0}
+    - _BaseColor: {r: 0.16447133, g: 0.4528302, b: 0.33748668, a: 1}
+    - _Color: {r: 0.1644713, g: 0.45283014, b: 0.33748665, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Height_Remap: {r: 0, g: 1, b: 0, a: 0}
-    - _Limit_X: {r: 0, g: 0, b: 0, a: 0}
-    - _Limit_Y: {r: 0, g: 0, b: 0, a: 0}
-    - _Limit_Z: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _Vector2: {r: 0, g: 0.2, b: 0, a: 0}
-    - _Vector2_1: {r: -0.37, g: 1.01, b: 0, a: 0}
-    - _Vector3: {r: 0, g: 0, b: 0, a: 0}
-    - _Wind_Roughness: {r: 0, g: 0, b: 0, a: 0}
-    - _clamp: {r: -1, g: 1, b: 0, a: 0}
-    - _maxdisplacement: {r: -1, g: 0, b: -1, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &8906034363912302277
+--- !u!114 &684118941119405915
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
