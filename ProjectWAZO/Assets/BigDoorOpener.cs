@@ -45,7 +45,7 @@ public class BigDoorOpener : MonoBehaviour
 
    IEnumerator Cinematique()
    {
-      //player.canMove = false;
+      player.canMove = false;
       camera.player = gameObject;
       yield return new WaitForSeconds(1.5f);
       UpdateText();
@@ -53,6 +53,7 @@ public class BigDoorOpener : MonoBehaviour
       camera.transform.DOShakePosition(0.2f, 0.1f);
       transform.DOMove(transform.position - new Vector3(0,amountToGo,0), 0.5f);
       yield return new WaitForSeconds(2f);
+      player.canMove = true;
       camera.player = player.gameObject;
    }
 }
