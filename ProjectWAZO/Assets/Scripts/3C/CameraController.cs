@@ -10,8 +10,10 @@ public class CameraController : MonoBehaviour
    
     public float SmoothMoveFactor;
     public Quaternion normalRotation;
-    
+
     [Header("Utilitaire")] 
+    public bool canMove;
+    public bool canRotate;
     public GameObject player;
     private Vector3 velocity;
     private Camera camera;
@@ -19,7 +21,8 @@ public class CameraController : MonoBehaviour
     [Header("Experimental")]
     public float minZoom;
     public float maxZoom;
-    private float zoomController = 15;
+    private float zoomFactor = 15;
+    private float rotationFactor = 15;
     public Transform focusedObject;
     public float SmoothRotateFactor;
     public Vector3 topDownOffset;
@@ -51,13 +54,27 @@ public class CameraController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Move();
+        if (canMove)
+        {
+            Move();
+        }
+        else if(canRotate)
+        {
+            RotateStill();
+        }
     }
 
     public void Zoom(float zoomAmount)  // zoomAmount est entre 0 et 1
     {
         float newZoom = Mathf.Lerp(minZoom, maxZoom,zoomAmount);
         camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, newZoom, Time.deltaTime);
+    }
+
+    void RotateStill()
+    {
+        var targetRotation = Quaternion.LookRotation(player.transform.position - transform.position);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationFactor * Time.deltaTime);
+
     }
     
     public void Move()

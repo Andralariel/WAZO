@@ -64,6 +64,8 @@ MonoBehaviour:
   pickedObject: {fileID: 0}
   objectsInRange: []
   pickedObjectMass: 0
+  isEchelle: 0
+  currentEchelle: {fileID: 0}
 --- !u!1 &726642129016094486
 GameObject:
   m_ObjectHideFlags: 0
@@ -91,7 +93,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 726642129016094486}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -2.51, y: 0.037, z: -45.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -115,7 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cdf12e275349054583cc5f0682336e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 55
+  moveSpeed: 65
   airControlSpeed: 50
   slopeSpeed: 8
   jumpForce: 14.5
@@ -125,7 +127,9 @@ MonoBehaviour:
   isGrounded: 1
   canPlaner: 1
   canJump: 1
+  canMove: 1
   isPressing: 0
+  isWind: 0
   isCoyote: 0
   rotationSpeed: 720
   globalGravity: 9.81
@@ -133,6 +137,7 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 8
+  rb: {fileID: 0}
   DoOnce: 0
   isEchelle: 0
   flyIndicator: {fileID: 726642129209541156}
@@ -167,7 +172,7 @@ CapsuleCollider:
   m_Radius: 0.5
   m_Height: 1
   m_Direction: 1
-  m_Center: {x: 0, y: 0.5, z: 0}
+  m_Center: {x: 0, y: 0.5, z: 0.6}
 --- !u!1 &726642129209541156
 GameObject:
   m_ObjectHideFlags: 0
@@ -19906,7 +19911,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
+  - {fileID: 2100000, guid: af4850cdb31427842b023528003ace78, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -39725,7 +39730,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4736070866369715322}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.6, z: 0.6}
+  m_LocalPosition: {x: 0, y: 0.7621, z: 1.1185}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -39757,7 +39762,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 01eba39e2d6bd904e9f3d4cbba1d9ccb,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.535
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 01eba39e2d6bd904e9f3d4cbba1d9ccb,
         type: 3}
@@ -39799,6 +39804,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wazo
       objectReference: {fileID: 0}
+    - target: {fileID: 1269588409617038511, guid: 01eba39e2d6bd904e9f3d4cbba1d9ccb,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: af4850cdb31427842b023528003ace78, type: 2}
+    - target: {fileID: 1633562032255298237, guid: 01eba39e2d6bd904e9f3d4cbba1d9ccb,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: af4850cdb31427842b023528003ace78, type: 2}
+    - target: {fileID: 5393240299240004766, guid: 01eba39e2d6bd904e9f3d4cbba1d9ccb,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 116c772ee01e327489ef27a982b21c8e, type: 2}
+    - target: {fileID: 7430260148274268878, guid: 01eba39e2d6bd904e9f3d4cbba1d9ccb,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: af4850cdb31427842b023528003ace78, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 01eba39e2d6bd904e9f3d4cbba1d9ccb, type: 3}
 --- !u!4 &4302661583976988588 stripped

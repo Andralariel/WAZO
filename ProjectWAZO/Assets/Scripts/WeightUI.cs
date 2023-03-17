@@ -7,7 +7,7 @@ public class WeightUI : MonoBehaviour
 {
    private RectTransform rectTransform;
    private CanvasGroup canvasGroup;
-   public CameraController camera;
+   private CameraController camera;
    public TextMeshProUGUI text;
    public int currentWeight;
    public int maxWeight;
