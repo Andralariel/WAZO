@@ -32,8 +32,10 @@ public class WeightUI : MonoBehaviour
    
     void Update()
     {
-       rectTransform.LookAt(camera.transform);
-
+        //text.rectTransform.LookAt(transform.position + camera.transform.rotation * Vector3.back, camera.transform.rotation * Vector3.up);
+        //text.rectTransform.rotation = new Quaternion(50,text.rectTransform.rotation.y,0,0);
+        //text.rectTransform.LookAt(camera.transform);
+       
        if (isVisible && canvasGroup.alpha < 1)
        {
            canvasGroup.alpha += Time.deltaTime;

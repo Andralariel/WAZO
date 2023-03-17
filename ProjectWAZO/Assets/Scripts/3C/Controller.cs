@@ -39,7 +39,9 @@ public class Controller : MonoBehaviour
     public bool isGrounded;
     public bool canPlaner;
     public bool canJump;
+    public bool canMove;
     public bool isPressing;
+    public bool isWind;
     public bool isCoyote;
 
     [Header("Utilitaire")] 
@@ -87,7 +89,7 @@ public class Controller : MonoBehaviour
     
     void Update()
     {
-        if (moveInput != Vector3.zero && !isEchelle)
+        if (moveInput != Vector3.zero && !isEchelle && canMove)
         {
             Quaternion newRotation = Quaternion.LookRotation(moveInput, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation,newRotation,rotationSpeed*Time.deltaTime);
@@ -111,7 +113,7 @@ public class Controller : MonoBehaviour
                 DoOnce = false;
             }
             moveInput = moveInput.normalized;
-            if (!isEchelle)
+            if (!isEchelle && canMove)
             {
                 FixSpeedOnSlope();
             }
@@ -123,10 +125,14 @@ public class Controller : MonoBehaviour
             DoOnce = true;
             isGrounded = false;
             moveInput = moveInput.normalized;
-            if (!isEchelle)
+            if (!isEchelle && !isWind)
             {
-                rb.velocity +=(new Vector3(moveInput.x,moveInput.y,moveInput.z) * (airControlSpeed * Time.deltaTime));
                 gravityScale -= 5f * Time.deltaTime;
+            }
+            
+            if (!isEchelle) 
+            { 
+                rb.velocity +=(new Vector3(moveInput.x,moveInput.y,moveInput.z) * (airControlSpeed * Time.deltaTime));
             }
         }
 

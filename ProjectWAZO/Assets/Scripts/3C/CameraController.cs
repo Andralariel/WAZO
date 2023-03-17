@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,10 +29,19 @@ public class CameraController : MonoBehaviour
     public bool isIso;
     public bool isTopDown;
     public bool isFocused;
-    
-    
-  
-   
+
+    public static CameraController instance;
+
+
+    private void Awake()
+    {
+        if (instance != default && instance!=this)
+        {
+            DestroyImmediate(this);
+        }
+        instance = this;
+    }
+
 
     private void Start()
     {
