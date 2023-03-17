@@ -21,7 +21,7 @@ public class ChangeSceneTrigger : MonoBehaviour
    IEnumerator ChangeScene()
    {
       yield return new WaitForSeconds(2f);
-      CameraController.instance.transform.DOMove()
+      //CameraController.instance.transform.DOMove()
       SceneManager.LoadScene("SceneGDPoC");
    }
 }
