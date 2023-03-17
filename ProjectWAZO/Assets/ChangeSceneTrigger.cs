@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -20,6 +21,7 @@ public class ChangeSceneTrigger : MonoBehaviour
    IEnumerator ChangeScene()
    {
       yield return new WaitForSeconds(2f);
+      CameraController.instance.transform.DOMove()
       SceneManager.LoadScene("SceneGDPoC");
    }
 }
