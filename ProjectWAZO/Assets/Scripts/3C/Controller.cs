@@ -29,6 +29,7 @@ public class Controller : MonoBehaviour
     [Header("Métrics Controller")]
     public float moveSpeed;
     public float airControlSpeed;
+    public float slopeSpeed = 10;
     public float jumpForce;
     public float gravityScale;
     public float planingGravity;
@@ -38,7 +39,9 @@ public class Controller : MonoBehaviour
     public bool isGrounded;
     public bool canPlaner;
     public bool canJump;
+    public bool canMove;
     public bool isPressing;
+    public bool isWind;
     public bool isCoyote;
 
     [Header("Utilitaire")] 
@@ -46,7 +49,7 @@ public class Controller : MonoBehaviour
     public float globalGravity;
     public Vector3 moveInput;
     public LayerMask groundMask;
-    private Rigidbody rb;
+    [HideInInspector] public Rigidbody rb;
     public bool DoOnce = true;
     public bool isEchelle;
 
@@ -86,22 +89,22 @@ public class Controller : MonoBehaviour
     
     void Update()
     {
-        IEnumerator coyote = CoyoteTime();
-        if (moveInput != Vector3.zero && !isEchelle)
+        if (moveInput != Vector3.zero && !isEchelle && canMove)
         {
             Quaternion newRotation = Quaternion.LookRotation(moveInput, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation,newRotation,rotationSpeed*Time.deltaTime);
         }
         
-        if (Physics.Raycast(transform.position, Vector3.down, 1.2f, groundMask))  //si le personnage est au sol
+        if (Physics.Raycast(transform.position, Vector3.down, 0.2f, groundMask))  //si le personnage est au sol
         {
             trail.emitting = false;
             trail2.emitting = false;
             StopAllCoroutines();
-            canJump = true;
+            
             isCoyote = false;
             if (DoOnce)
             {
+                canJump = true;
                 gravityScale = -4;
                 globalGravity = 9.81f;
                 isGrounded = true;
@@ -110,29 +113,30 @@ public class Controller : MonoBehaviour
                 DoOnce = false;
             }
             moveInput = moveInput.normalized;
-            if (!isEchelle)
+            if (!isEchelle && canMove)
             {
-                rb.velocity += (new Vector3(moveInput.x, moveInput.y, moveInput.z) * (moveSpeed * Time.deltaTime));
+                FixSpeedOnSlope();
             }
         }
         else  //si le personnage n'est pas au sol
         {
-            StartCoroutine(coyote);
+            //StartCoroutine(coyote);
             Planer();
             DoOnce = true;
             isGrounded = false;
             moveInput = moveInput.normalized;
-            if (!isEchelle)
+            if (!isEchelle && !isWind)
             {
-                rb.velocity +=(new Vector3(moveInput.x,moveInput.y,moveInput.z) * (airControlSpeed * Time.deltaTime));
                 gravityScale -= 5f * Time.deltaTime;
+            }
+            
+            if (!isEchelle) 
+            { 
+                rb.velocity +=(new Vector3(moveInput.x,moveInput.y,moveInput.z) * (airControlSpeed * Time.deltaTime));
             }
         }
 
-        if(isEchelle)
-        {
-            rb.velocity +=(new Vector3(0,-moveInput.x,0) * (airControlSpeed * Time.deltaTime));
-        }
+        
         
         RaycastHit hit;   // L'indication de la trajectoire de chute pendant le planage
         if (!isGrounded && isPressing)
@@ -165,15 +169,17 @@ public class Controller : MonoBehaviour
     {
         if (canJump)
         {
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
+            
             canJump = false;
             isCoyote = false;
             StopAllCoroutines();
-            Debug.DrawRay(transform.position, Vector3.down*1.2f, Color.green,2);
+            Debug.DrawRay(transform.position, Vector3.down*0.2f, Color.green,2);
             rb.AddForce(new Vector3(0,jumpForce,0),ForceMode.VelocityChange);
         }
         else
         {
-            Debug.DrawRay(transform.position, Vector3.down*1.2f, Color.red,2);
+            Debug.DrawRay(transform.position, Vector3.down*0.2f, Color.red,2);
         }
     }
     
@@ -198,14 +204,14 @@ public class Controller : MonoBehaviour
 
     }
 
-    
-    public IEnumerator CoyoteTime()
+ 
+    /*public IEnumerator CoyoteTime()
     {
         isCoyote = true;
         yield return new WaitForSeconds(coyoteTime);
         isCoyote = false;
         canJump = false;
-    }
+    }*/
     
     
     //WeightSystem
@@ -220,6 +226,27 @@ public class Controller : MonoBehaviour
     {
         if (_currentDetector == default) return;
         _currentDetector.ResetWeight();
+    }
+
+    private void FixSpeedOnSlope()
+    {
+        Physics.Raycast(transform.position+transform.forward*0.1f, Vector3.down, out RaycastHit hit, groundMask);
+            
+        if (Vector3.Dot(hit.normal, Vector3.up) < 1)
+        {
+            if(canJump)rb.constraints = moveInput.magnitude == 0
+                ? RigidbodyConstraints.FreezeRotation|RigidbodyConstraints.FreezePositionY
+                : RigidbodyConstraints.FreezeRotation;
+            
+            var direction = Vector3.Cross(hit.normal, moveInput);
+            direction = Vector3.Cross(direction,hit.normal);
+
+            rb.velocity = direction.normalized * slopeSpeed;
+        }
+        else
+        {
+            rb.velocity += moveInput * (moveSpeed * Time.deltaTime);
+        }
     }
 }
 

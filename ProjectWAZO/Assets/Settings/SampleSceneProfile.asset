@@ -15,13 +15,13 @@ MonoBehaviour:
   active: 1
   shadows:
     m_OverrideState: 1
-    m_Value: {x: 0, y: 0.15925336, z: 1, w: 0.35971224}
+    m_Value: {x: 0, y: 0.15925336, z: 1, w: 0.21466793}
   midtones:
     m_OverrideState: 0
-    m_Value: {x: 0.9058969, y: 0.9602614, z: 1, w: 0}
+    m_Value: {x: 0.9984556, y: 1, z: 0.72928584, w: 0.16116036}
   highlights:
-    m_OverrideState: 0
-    m_Value: {x: 0.011557341, y: 0.09792551, z: 1, w: 0.1881838}
+    m_OverrideState: 1
+    m_Value: {x: 1, y: 0.79758054, z: 0.37245172, w: 0.13698635}
   shadowsStart:
     m_OverrideState: 1
     m_Value: 0
@@ -29,11 +29,11 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 0.23
   highlightsStart:
-    m_OverrideState: 0
-    m_Value: 8.04
+    m_OverrideState: 1
+    m_Value: 0
   highlightsEnd:
-    m_OverrideState: 0
-    m_Value: 9.41
+    m_OverrideState: 1
+    m_Value: 0.74
 --- !u!114 &-2341131699310909656
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c01700fd266d6914ababb731e09af2eb, type: 3}
   m_Name: DepthOfField
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   mode:
     m_OverrideState: 1
     m_Value: 1
@@ -119,7 +119,7 @@ MonoBehaviour:
     m_Value: {x: 0.09415436, y: 1, z: 0.7348512, w: 0.96141255}
   gain:
     m_OverrideState: 1
-    m_Value: {x: 0.7485194, y: 0.7398347, z: 1, w: -0.04578156}
+    m_Value: {x: 0.6964078, y: 0.7760995, z: 1, w: -0.04578156}
 --- !u!114 &5080587400405298997
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -135,32 +135,32 @@ MonoBehaviour:
   active: 1
   threshold:
     m_OverrideState: 1
-    m_Value: 0.96
+    m_Value: 0.9
   intensity:
     m_OverrideState: 1
-    m_Value: 2.04
+    m_Value: 0.05
   scatter:
     m_OverrideState: 1
-    m_Value: 0.188
+    m_Value: 0.223
   clamp:
     m_OverrideState: 0
     m_Value: 65472
   tint:
     m_OverrideState: 1
-    m_Value: {r: 1, g: 0.9935299, b: 0, a: 1}
+    m_Value: {r: 1, g: 0.42192516, b: 0, a: 1}
   highQualityFiltering:
     m_OverrideState: 0
     m_Value: 0
   skipIterations:
     m_OverrideState: 0
-    m_Value: 1
+    m_Value: 0
   dirtTexture:
     m_OverrideState: 0
-    m_Value: {fileID: 0}
+    m_Value: {fileID: 2800000, guid: 1404148891b216249b611b2eddf3272e, type: 3}
     dimension: 1
   dirtIntensity:
     m_OverrideState: 0
-    m_Value: 0
+    m_Value: 58.1
 --- !u!114 &8991947286872615291
 MonoBehaviour:
   m_ObjectHideFlags: 3
