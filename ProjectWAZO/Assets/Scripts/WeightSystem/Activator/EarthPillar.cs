@@ -74,7 +74,7 @@ namespace WeightSystem.Activator
             var distance = (wayPoints[_nextPoint] - transform.position).magnitude;
             Debug.Log((wayPoints[_nextPoint] - transform.position));
             Debug.Log(distance);
-            return distance;
+            return distance/speed;
         }
         //Add SetParent on independent script
     }
