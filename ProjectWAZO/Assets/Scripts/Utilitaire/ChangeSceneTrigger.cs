@@ -1,0 +1,28 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using DG.Tweening;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class ChangeSceneTrigger : MonoBehaviour
+{
+   private void OnTriggerEnter(Collider other)
+   {
+      if (other.gameObject.layer == 6) //Si c'est le player
+      {
+         CameraController.instance.canMove = false;
+         //CameraController.instance.canRotate = true;
+         Controller.instance.canMove = false;
+         Controller.instance.transform.DOMove(new Vector3(Controller.instance.transform.position.x,
+            Controller.instance.transform.position.y, Controller.instance.transform.position.z+50),10);
+         StartCoroutine(ChangeScene());
+      }
+   }
+
+   IEnumerator ChangeScene()
+   {
+      yield return new WaitForSeconds(2f);
+      SceneManager.LoadScene("SceneGDPoC");
+   }
+}
