@@ -38,7 +38,8 @@ public class PickUpObjects : MonoBehaviour
 
     public static PickUpObjects instance;
 
- 
+    //CleanerRbReference
+    private Rigidbody _rbObject;
 
     private void Awake()
     {
@@ -62,9 +63,11 @@ public class PickUpObjects : MonoBehaviour
             {
                 Debug.Log("je prend ce qui est devant moi");
                 isThingTaken = true;
-                pickedObjectMass = Mathf.RoundToInt(pickedObject.GetComponent<Rigidbody>().mass);
+                _rbObject = pickedObject.GetComponent<Rigidbody>();
+                _rbObject.angularDrag = -1;
+                pickedObjectMass = Mathf.RoundToInt(_rbObject.mass);
                 transform.parent.gameObject.GetComponent<Rigidbody>().mass += pickedObjectMass;
-                pickedObject.GetComponent<Rigidbody>().mass -= pickedObjectMass;
+                _rbObject.mass -= pickedObjectMass;
                 var tween = pickedObject.transform.DOMove(pickUpPosition.transform.position, pickUpSpeed);
                 tween.OnComplete(ChangeParent);
                 pickedObject.GetComponent<Spirit>().isTaken = true;
@@ -96,7 +99,8 @@ public class PickUpObjects : MonoBehaviour
             Debug.Log("je relache l'objet devant moi");
             isThingTaken = false;
             transform.parent.gameObject.GetComponent<Rigidbody>().mass -= pickedObjectMass;
-            pickedObject.GetComponent<Rigidbody>().mass += pickedObjectMass;
+            _rbObject.mass += pickedObjectMass;
+            _rbObject.angularDrag = 0;
             pickedObject.GetComponent<Spirit>().isTaken = false;
             pickedObject.transform.parent = null;
             pickedObject = null;
