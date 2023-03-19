@@ -94,6 +94,10 @@ public class Controller : MonoBehaviour
             Quaternion newRotation = Quaternion.LookRotation(moveInput, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation,newRotation,rotationSpeed*Time.deltaTime);
         }
+        else if(!isEchelle)
+        {
+            rb.useGravity = true;
+        }
         
         if (Physics.Raycast(transform.position, Vector3.down, 0.2f, groundMask))  //si le personnage est au sol
         {

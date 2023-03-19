@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class echelleData : MonoBehaviour
 {
-    private enum Orientation
+    public enum Orientation
     {
         nord,
         sud,
@@ -12,7 +12,7 @@ public class echelleData : MonoBehaviour
         ouest
     }
         
-    [SerializeField] private Orientation orientation;
+    [SerializeField] public Orientation orientation;
     private void Update()
     {
         if (Controller.instance.isEchelle && PickUpObjects.instance.currentEchelle == gameObject)
@@ -20,16 +20,16 @@ public class echelleData : MonoBehaviour
             switch (orientation)
             {
                 case Orientation.nord:
-                    Controller.instance.rb.velocity += new Vector3(0,Controller.instance.moveInput.z,0) * (Controller.instance.airControlSpeed * Time.deltaTime);
+                    Controller.instance.rb.velocity = new Vector3(0,Controller.instance.moveInput.z,0) * (25 * (Controller.instance.airControlSpeed * Time.deltaTime));
                     break;
                 case Orientation.sud:
-                    Controller.instance.rb.velocity += new Vector3(0,-Controller.instance.moveInput.z,0) * (Controller.instance.airControlSpeed * Time.deltaTime);
+                    Controller.instance.rb.velocity = new Vector3(0,-Controller.instance.moveInput.z,0) * (25 * (Controller.instance.airControlSpeed * Time.deltaTime));
                     break;
                 case Orientation.est:
-                    Controller.instance.rb.velocity += new Vector3(0,Controller.instance.moveInput.x,0) * (Controller.instance.airControlSpeed * Time.deltaTime);
+                    Controller.instance.rb.velocity = new Vector3(0,Controller.instance.moveInput.x,0) * (25 * (Controller.instance.airControlSpeed * Time.deltaTime));
                     break;
                 case Orientation.ouest:
-                    Controller.instance.rb.velocity += new Vector3(0,-Controller.instance.moveInput.x,0) * (Controller.instance.airControlSpeed * Time.deltaTime);
+                    Controller.instance.rb.velocity = new Vector3(0,-Controller.instance.moveInput.x,0) * (25 * (Controller.instance.airControlSpeed * Time.deltaTime));
                     break;
             }
         }
