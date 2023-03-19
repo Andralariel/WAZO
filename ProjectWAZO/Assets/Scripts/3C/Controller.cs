@@ -97,9 +97,22 @@ public class Controller : MonoBehaviour
         else if(!isEchelle)
         {
             rb.useGravity = true;
+            canPlaner = true;
+        }
+
+        if (isEchelle)
+        {
+            canPlaner = false;
+            rb.useGravity = false;
+            Debug.DrawRay(transform.position, Vector3.down*0.5f, Color.yellow,2);
+            if (Physics.Raycast(transform.position, Vector3.down, 0.5f, groundMask))
+            {
+                isEchelle = false;
+                PickUpObjects.instance.QuitEchelle();
+            }
         }
         
-        if (Physics.Raycast(transform.position, Vector3.down, 0.2f, groundMask))  //si le personnage est au sol
+        if (Physics.Raycast(transform.position, Vector3.down, 0.2f, groundMask) && !isEchelle)  //si le personnage est au sol
         {
             trail.emitting = false;
             trail2.emitting = false;
@@ -122,7 +135,7 @@ public class Controller : MonoBehaviour
                 FixSpeedOnSlope();
             }
         }
-        else  //si le personnage n'est pas au sol
+        else if (!Physics.Raycast(transform.position, Vector3.down, 0.2f, groundMask)) //si le personnage n'est pas au sol
         {
             //StartCoroutine(coyote);
             Planer();
@@ -143,7 +156,7 @@ public class Controller : MonoBehaviour
         
         
         RaycastHit hit;   // L'indication de la trajectoire de chute pendant le planage
-        if (!isGrounded && isPressing)
+        if (!isGrounded && isPressing && !isEchelle)
         {
             if(Physics.Raycast(transform.position, Vector3.down, out hit,Mathf.Infinity, groundMask))
             {
@@ -173,15 +186,18 @@ public class Controller : MonoBehaviour
     {
         if (canJump)
         {
+            if (isEchelle)
+            {
+                PickUpObjects.instance.QuitEchelle();
+            }
             rb.constraints = RigidbodyConstraints.FreezeRotation;
-            
             canJump = false;
             isCoyote = false;
             StopAllCoroutines();
             Debug.DrawRay(transform.position, Vector3.down*0.2f, Color.green,2);
             rb.AddForce(new Vector3(0,jumpForce,0),ForceMode.VelocityChange);
         }
-        else
+        else if (!canJump)
         {
             Debug.DrawRay(transform.position, Vector3.down*0.2f, Color.red,2);
         }
