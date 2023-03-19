@@ -220,9 +220,10 @@ public class Controller : MonoBehaviour
         _currentDetector.ResetWeight();
     }
 
-    private void FixSpeedOnSlope() // Gérer les
+    private void FixSpeedOnSlope() // Gérer les déplacements sur les pentes
     {
-        Physics.Raycast(transform.position+transform.forward*0.1f, Vector3.down, out RaycastHit hit, groundMask);
+        Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit,2,groundMask);
+        Debug.DrawRay(hit.point,hit.normal,Color.green);
             
         if (Vector3.Dot(hit.normal, Vector3.up) < 1)
         {
@@ -231,7 +232,9 @@ public class Controller : MonoBehaviour
                 : RigidbodyConstraints.FreezeRotation;
             
             var direction = Vector3.Cross(hit.normal, moveInput);
+            Debug.DrawRay(hit.point,direction.normalized,Color.blue);
             direction = Vector3.Cross(direction,hit.normal);
+            Debug.DrawRay(hit.point,direction.normalized,Color.red);
 
             rb.velocity = direction.normalized * slopeSpeed;
         }
