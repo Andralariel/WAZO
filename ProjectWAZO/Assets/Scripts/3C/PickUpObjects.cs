@@ -82,8 +82,6 @@ public class PickUpObjects : MonoBehaviour
             Controller.instance.GetComponent<Rigidbody>().useGravity = false;
             Controller.instance.transform.DOMove(new Vector3(currentEchelle.transform.position.x, Controller.instance.transform.position.y , currentEchelle.transform.position.z),0.5f);
         }
-       
-
     }
 
     private void MoveToBeak()
