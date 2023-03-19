@@ -78,7 +78,7 @@ public class Controller : MonoBehaviour
         inputAction.Player.Jump.canceled += ctx => isPressing = false;
     }
 
-     void FixedUpdate ()
+     void FixedUpdate () // Gravité
      {
          if (!isEchelle)
          {
@@ -89,7 +89,7 @@ public class Controller : MonoBehaviour
     
     void Update()
     {
-        if (moveInput != Vector3.zero && !isEchelle && canMove)
+        if (moveInput != Vector3.zero && !isEchelle && canMove) // mouvements et rotations
         {
             Quaternion newRotation = Quaternion.LookRotation(moveInput, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation,newRotation,rotationSpeed*Time.deltaTime);
@@ -204,14 +204,6 @@ public class Controller : MonoBehaviour
 
     }
 
- 
-    /*public IEnumerator CoyoteTime()
-    {
-        isCoyote = true;
-        yield return new WaitForSeconds(coyoteTime);
-        isCoyote = false;
-        canJump = false;
-    }*/
     
     
     //WeightSystem
@@ -228,7 +220,7 @@ public class Controller : MonoBehaviour
         _currentDetector.ResetWeight();
     }
 
-    private void FixSpeedOnSlope()
+    private void FixSpeedOnSlope() // Gérer les
     {
         Physics.Raycast(transform.position+transform.forward*0.1f, Vector3.down, out RaycastHit hit, groundMask);
             

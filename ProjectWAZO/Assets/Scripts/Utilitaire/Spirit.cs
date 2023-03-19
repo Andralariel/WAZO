@@ -9,14 +9,10 @@ public class Spirit : MonoBehaviour
     public bool isTaken;
     public bool isClosest;
     private Rigidbody rb;
-    public Material selectedMaterial;
-    public Material unselectedMaterial;
-    private MeshRenderer meshRenderer;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        meshRenderer = GetComponent<MeshRenderer>();
     }
 
    
@@ -30,19 +26,19 @@ public class Spirit : MonoBehaviour
 
     private void Update()
     {
-        if (isClosest)
+      /*  if (isClosest)
         {
             meshRenderer.material = selectedMaterial;
         }
         else
         {
             meshRenderer.material = unselectedMaterial;
-        }
+        }*/
         
         if (isTaken)
         {
             rb.isKinematic = true;
-            meshRenderer.material = unselectedMaterial;
+           // meshRenderer.material = unselectedMaterial;
         }
         else
         {
