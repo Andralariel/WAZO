@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4235287340932714933}
   - component: {fileID: 966331017878035984}
   - component: {fileID: 3066370499326978778}
+  - component: {fileID: 5943585452791943091}
   m_Layer: 0
   m_Name: premiere strats
   m_TagString: Untagged
@@ -83,3 +84,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &5943585452791943091
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3570531834602228495}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -268984268523101385, guid: 913ca25790d8d134f8f582d7ccbf3bf4, type: 3}
