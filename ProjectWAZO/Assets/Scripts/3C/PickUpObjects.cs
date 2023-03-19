@@ -80,7 +80,6 @@ public class PickUpObjects : MonoBehaviour
             isThingTaken = false;
             Controller.instance.isEchelle = true;
             Controller.instance.GetComponent<Rigidbody>().useGravity = false;
-            Controller.instance.transform.LookAt(currentEchelle.transform);
             Controller.instance.transform.DOMove(new Vector3(currentEchelle.transform.position.x, Controller.instance.transform.position.y , currentEchelle.transform.position.z),0.5f);
         }
        
@@ -119,13 +118,13 @@ public class PickUpObjects : MonoBehaviour
                     Controller.instance.transform.rotation = new Quaternion(0, 0, 0, 0);
                     break;
                 case echelleData.Orientation.sud:
-                    Controller.instance.transform.rotation = new Quaternion(0, 0, 0, 0);
+                    Controller.instance.transform.rotation = new Quaternion(0, 180, 0, 0);
                     break;
                 case echelleData.Orientation.est:
-                    Controller.instance.transform.rotation = new Quaternion(0, 0, 0, 0);
+                    Controller.instance.transform.rotation = new Quaternion(0, 90, 0, 0);
                     break;
                 case echelleData.Orientation.ouest:
-                    Controller.instance.transform.rotation = new Quaternion(0, 0, 0, 0);
+                    Controller.instance.transform.rotation = new Quaternion(0, -90, 0, 0);
                     break;
             }
             Controller.instance.isEchelle = false;
