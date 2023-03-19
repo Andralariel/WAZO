@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5676480704261774570}
   - component: {fileID: 4769025219173771643}
   - component: {fileID: 4015906365965164841}
+  - component: {fileID: 5202034175749936392}
   m_Layer: 0
   m_Name: Small_House
   m_TagString: Untagged
@@ -83,6 +84,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &5202034175749936392
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4423594822813229838}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4575450364039057080, guid: 1a7b894ef2faee1418ef3102d5740a8d, type: 3}
 --- !u!1 &4686628547552852767
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,6 +142,7 @@ GameObject:
   - component: {fileID: 4764228915981349221}
   - component: {fileID: 7295785128345636413}
   - component: {fileID: 2292015779254976988}
+  - component: {fileID: 7647426500481181399}
   m_Layer: 0
   m_Name: Tour
   m_TagString: Untagged
@@ -199,3 +215,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &7647426500481181399
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7048777372490333326}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -5798510906853853667, guid: 1a7b894ef2faee1418ef3102d5740a8d, type: 3}
