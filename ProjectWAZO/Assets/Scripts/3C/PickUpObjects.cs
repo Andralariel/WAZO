@@ -68,8 +68,8 @@ public class PickUpObjects : MonoBehaviour
                 pickedObjectMass = Mathf.RoundToInt(_rbObject.mass);
                 transform.parent.gameObject.GetComponent<Rigidbody>().mass += pickedObjectMass;
                 _rbObject.mass -= pickedObjectMass;
-                var tween = pickedObject.transform.DOMove(pickUpPosition.transform.position, pickUpSpeed);
-                tween.OnComplete(ChangeParent);
+                pickedObject.transform.parent = pickUpPosition.transform;
+                MoveToBeak();
                 pickedObject.GetComponent<Spirit>().isTaken = true;
                 Controller.instance.ResetWeightOnDetector();
             }
@@ -79,13 +79,11 @@ public class PickUpObjects : MonoBehaviour
         {
            EnterEchelle();
         }
-       
-
     }
 
-    private void ChangeParent()
+    private void MoveToBeak()
     {
-        pickedObject.transform.parent = pickUpPosition.transform;
+        pickedObject.transform.DOLocalMove(Vector3.zero, pickUpSpeed);
     }
 
     private void Lacher()
