@@ -20,20 +20,20 @@ public class echelleData : MonoBehaviour
             switch (orientation)
             {
                 case Orientation.nord:
-                    Controller.instance.transform.rotation = new Quaternion(-90,0,0,0);
-                    Controller.instance.rb.velocity = new Vector3(0,Controller.instance.moveInput.z,0) * (25 * (Controller.instance.airControlSpeed * Time.deltaTime));
+                   // Controller.instance.transform.rotation = new Quaternion(-90,0,0,0);
+                    Controller.instance.rb.velocity = new Vector3(0,Controller.instance.moveInput.z,0) * (20 * (Controller.instance.airControlSpeed * Time.deltaTime));
                     break;
                 case Orientation.sud:
-                    Controller.instance.transform.rotation = new Quaternion(-90,180,0,0);
-                    Controller.instance.rb.velocity = new Vector3(0,-Controller.instance.moveInput.z,0) * (25 * (Controller.instance.airControlSpeed * Time.deltaTime));
+                   // Controller.instance.transform.rotation = new Quaternion(-90,180,0,0);
+                    Controller.instance.rb.velocity = new Vector3(0,-Controller.instance.moveInput.z,0) * (20 * (Controller.instance.airControlSpeed * Time.deltaTime));
                     break;
                 case Orientation.est:
-                    Controller.instance.transform.rotation = new Quaternion(-90,90,0,0);
-                    Controller.instance.rb.velocity = new Vector3(0,Controller.instance.moveInput.x,0) * (25 * (Controller.instance.airControlSpeed * Time.deltaTime));
+                   // Controller.instance.transform.rotation = new Quaternion(-90,90,0,0);
+                    Controller.instance.rb.velocity = new Vector3(0,Controller.instance.moveInput.x,0) * (20 * (Controller.instance.airControlSpeed * Time.deltaTime));
                     break;
                 case Orientation.ouest:
-                    Controller.instance.transform.rotation = new Quaternion(-90,-90,0,0);
-                    Controller.instance.rb.velocity = new Vector3(0,-Controller.instance.moveInput.x,0) * (25 * (Controller.instance.airControlSpeed * Time.deltaTime));
+                 //   Controller.instance.transform.rotation = new Quaternion(-90,-90,0,0);
+                    Controller.instance.rb.velocity = new Vector3(0,-Controller.instance.moveInput.x,0) * (20 * (Controller.instance.airControlSpeed * Time.deltaTime));
                     break;
             }
         }
