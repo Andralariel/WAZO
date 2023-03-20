@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class PorteChangeScene : MonoBehaviour
 {
   public bool isGD;
+  public bool isGA;
+  public bool isOpenWorld;
 
   private void OnTriggerEnter(Collider other)
   {
@@ -14,11 +16,15 @@ public class PorteChangeScene : MonoBehaviour
     {
       if (isGD)
       {
-        SceneManager.LoadScene("OpenWorld");
+        SceneManager.LoadScene("SceneGDPoc");
       }
-      else
+      else if(isGA)
       {
         SceneManager.LoadScene("SceneGAPoc");
+      }
+      else if(isOpenWorld)
+      {
+        SceneManager.LoadScene("OpenWorld");
       }
     }
   }
