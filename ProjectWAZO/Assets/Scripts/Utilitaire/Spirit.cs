@@ -55,9 +55,10 @@ public class Spirit : MonoBehaviour
         _currentDetector = detector;
     }
 
-    public void ResetWeightOnDetector()
+    public WeightDetector ResetWeightOnDetector()
     {
-        if (_currentDetector == default) return;
+        if (_currentDetector == default) return default;
         _currentDetector.ResetWeight();
+        return _currentDetector;
     }
 }
