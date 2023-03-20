@@ -5,8 +5,29 @@ using UnityEngine;
 
 public class DeathZone : MonoBehaviour
 {
+   public Vector3 respawnPoint;
+
+   public void Update()
+   {
+      if (Controller.instance.isGrounded)
+      {
+         respawnPoint = Controller.instance.transform.position;
+      }
+   }
+
    private void OnTriggerEnter(Collider other)
    {
-      other.transform.position = new Vector3(-0.9f, 1, -4.3f);
+      if (other.gameObject.layer == 6)
+      {
+         other.transform.position = respawnPoint + new Vector3(0, 2, 0);
+         //StartCoroutine(WaitCanMove());
+      }
+   }
+
+   IEnumerator WaitCanMove()
+   {
+      Controller.instance.canMove = false;
+      yield return new WaitForSeconds(1.5f);
+      Controller.instance.canMove = true;
    }
 }
