@@ -71,7 +71,7 @@ public class PickUpObjects : MonoBehaviour
                 pickedObject.transform.parent = pickUpPosition.transform;
                 MoveToBeak();
                 pickedObject.GetComponent<Spirit>().isTaken = true;
-                Controller.instance.ResetWeightOnDetector();
+                Controller.instance.ResetWeightOnDetector(pickedObject.transform);
             }
         }
 

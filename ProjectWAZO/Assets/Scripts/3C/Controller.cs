@@ -239,6 +239,11 @@ public class Controller : MonoBehaviour
         if (_currentDetector == default) return;
         _currentDetector.ResetWeight();
     }
+    
+    public void ResetWeightOnDetector(Transform pickedObject)
+    {
+        pickedObject.GetComponent<Spirit>()?.ResetWeightOnDetector();
+    }
 
     private void FixSpeedOnSlope() // Gérer les déplacements sur les pentes
     {

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using WeightSystem.Detector;
 
 public class Spirit : MonoBehaviour
 {
@@ -44,5 +45,19 @@ public class Spirit : MonoBehaviour
         {
             rb.isKinematic = false;
         }
+    }
+    
+    //WeightSystem
+    private WeightDetector _currentDetector;
+
+    public void SetDetector(WeightDetector detector)
+    {
+        _currentDetector = detector;
+    }
+
+    public void ResetWeightOnDetector()
+    {
+        if (_currentDetector == default) return;
+        _currentDetector.ResetWeight();
     }
 }
