@@ -62,7 +62,6 @@ public class PickUpObjects : MonoBehaviour
             if (pickedObject != null)
             {
                 Debug.Log("je prend ce qui est devant moi");
-                isThingTaken = true;
                 _rbObject = pickedObject.GetComponent<Rigidbody>();
                 _rbObject.angularDrag = -1;
                 pickedObjectMass = Mathf.RoundToInt(_rbObject.mass);
@@ -83,7 +82,7 @@ public class PickUpObjects : MonoBehaviour
 
     private void MoveToBeak()
     {
-        pickedObject.transform.DOLocalMove(Vector3.zero, pickUpSpeed);
+        pickedObject.transform.DOLocalMove(Vector3.zero, pickUpSpeed).OnComplete(()=>isThingTaken = true);
     }
 
     private void Lacher()
