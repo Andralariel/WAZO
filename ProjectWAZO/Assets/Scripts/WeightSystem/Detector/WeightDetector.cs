@@ -18,8 +18,9 @@ namespace WeightSystem.Detector
             _rbList.Add(other.attachedRigidbody);
             LocalWeight += (int)_rbList[^1].mass;
             
-            //PlayerCollision = 6
+            //PlayerCollision = 6 --- Object = 7
             if(other.gameObject.layer == 6) Controller.instance.SetDetector(this);
+            if(other.gameObject.layer == 7) other.GetComponent<Spirit>().SetDetector(this);
             
             LimitCheck();
         }
