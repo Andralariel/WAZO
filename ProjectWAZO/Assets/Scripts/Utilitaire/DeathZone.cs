@@ -20,14 +20,6 @@ public class DeathZone : MonoBehaviour
       if (other.gameObject.layer == 6)
       {
          other.transform.position = respawnPoint + new Vector3(0, 2, 0);
-         //StartCoroutine(WaitCanMove());
       }
-   }
-
-   IEnumerator WaitCanMove()
-   {
-      Controller.instance.canMove = false;
-      yield return new WaitForSeconds(1.5f);
-      Controller.instance.canMove = true;
    }
 }
