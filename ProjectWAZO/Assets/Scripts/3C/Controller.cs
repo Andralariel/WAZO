@@ -239,7 +239,7 @@ public class Controller : MonoBehaviour
         if (_currentDetector == default) return;
         _currentDetector.ResetWeight();
     }
-    
+
     public void ResetWeightOnDetector(Transform pickedObject)
     {
         pickedObject.GetComponent<Spirit>()?.ResetWeightOnDetector();
