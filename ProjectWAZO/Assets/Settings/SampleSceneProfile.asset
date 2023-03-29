@@ -50,7 +50,7 @@ MonoBehaviour:
   mode:
     m_OverrideState: 1
     m_Value: 2
---- !u!114 &-5577765545046101760
+--- !u!114 &-4688032091315093145
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -59,23 +59,41 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 899c54efeace73346a0a16faa3afe726, type: 3}
-  m_Name: Vignette
+  m_Script: {fileID: 11500000, guid: c01700fd266d6914ababb731e09af2eb, type: 3}
+  m_Name: DepthOfField
   m_EditorClassIdentifier: 
-  active: 0
-  color:
+  active: 1
+  mode:
     m_OverrideState: 1
-    m_Value: {r: 0, g: 0.91223574, b: 1, a: 1}
-  center:
+    m_Value: 2
+  gaussianStart:
+    m_OverrideState: 1
+    m_Value: 10
+  gaussianEnd:
+    m_OverrideState: 1
+    m_Value: 600
+  gaussianMaxRadius:
     m_OverrideState: 0
-    m_Value: {x: 0.5, y: 0.5}
-  intensity:
+    m_Value: 1
+  highQualitySampling:
+    m_OverrideState: 0
+    m_Value: 0
+  focusDistance:
     m_OverrideState: 1
-    m_Value: 0.268
-  smoothness:
+    m_Value: 10.73
+  aperture:
     m_OverrideState: 1
-    m_Value: 0.421
-  rounded:
+    m_Value: 5.6
+  focalLength:
+    m_OverrideState: 1
+    m_Value: 127
+  bladeCount:
+    m_OverrideState: 0
+    m_Value: 5
+  bladeCurvature:
+    m_OverrideState: 0
+    m_Value: 1
+  bladeRotation:
     m_OverrideState: 0
     m_Value: 0
 --- !u!114 &11400000
@@ -95,7 +113,7 @@ MonoBehaviour:
   - {fileID: 5080587400405298997}
   - {fileID: -7241614210049625512}
   - {fileID: 3020069402032854447}
-  - {fileID: -5577765545046101760}
+  - {fileID: -4688032091315093145}
 --- !u!114 &3020069402032854447
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -108,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5485954d14dfb9a4c8ead8edb0ded5b1, type: 3}
   m_Name: LiftGammaGain
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   lift:
     m_OverrideState: 0
     m_Value: {x: 0.9802141, y: 0.9987013, z: 1, w: 0.03270115}
@@ -133,19 +151,19 @@ MonoBehaviour:
   active: 1
   threshold:
     m_OverrideState: 1
-    m_Value: 0.94
+    m_Value: 0.9
   intensity:
     m_OverrideState: 1
     m_Value: 1.44
   scatter:
     m_OverrideState: 1
-    m_Value: 0.292
+    m_Value: 0.1
   clamp:
     m_OverrideState: 0
     m_Value: 65472
   tint:
     m_OverrideState: 1
-    m_Value: {r: 1, g: 0.7325124, b: 0, a: 1}
+    m_Value: {r: 0.9150943, g: 0.8218583, b: 0.56545925, a: 1}
   highQualityFiltering:
     m_OverrideState: 0
     m_Value: 0
