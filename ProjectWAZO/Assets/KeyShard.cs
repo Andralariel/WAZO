@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class KeyShard : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class KeyShard : MonoBehaviour
 
    void CinématiqueClé()
    {
+      KeyUI.instance.currentShard += 1;
+      KeyUI.instance.Show();
       Destroy(gameObject);
       TempleOpener.instance.currentAmount += 1;
    }
