@@ -1,13 +1,21 @@
-using System;
 using UnityEngine;
 
 namespace EventSystem
 {
     public class EventLauncher : MonoBehaviour
     {
+        [SerializeField] private ScriptedEvent[] events;
+
+        [SerializeField] private bool repeatable;
+        
         private void OnTriggerEnter(Collider other)
         {
-            throw new NotImplementedException();
+            foreach (var scriptedEvent in events)
+            {
+                scriptedEvent.OnEventActivate();
+            }
+
+            if (!repeatable) enabled = false;
         }
     }
 }
