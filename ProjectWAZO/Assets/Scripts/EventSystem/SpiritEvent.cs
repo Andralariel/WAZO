@@ -1,8 +1,7 @@
-using System;
-using DG.Tweening;
 using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace EventSystem
 {
@@ -10,15 +9,39 @@ namespace EventSystem
     {
         public Vector3[] waypoints;
         
-        [SerializeField] private float speed = 10;
+        [SerializeField] private float speed = 1;
+
+        private float _totalDistance;
         
         public override void OnEventActivate()
         {
+            CalculateDistance();
             foreach (var spirit in linkedObjects)
             {
-                spirit.transform.DOPath(waypoints, speed, PathType.CubicBezier);
+                var agent = spirit.GetComponent<NavMeshAgent>();
+                agent.SetDestination(waypoints[1]);
+                //spirit.transform.DOPath(waypoints, _totalDistance*(1/speed), PathType.CatmullRom);
             }
         }
+
+        private void CalculateDistance()
+        {
+            var lastPoint = transform.position;
+            foreach (var waypoint in waypoints)
+            {
+                _totalDistance += (waypoint - lastPoint).magnitude;
+                lastPoint = waypoint;
+            }
+        }
+
+#if UNITY_EDITOR
+        //Fonction Debug
+        [ContextMenu("DoPath")]
+        private void DoPath()
+        {
+            OnEventActivate();
+        }
+#endif
     }
     
     //Custom Editor for editing waypoints
@@ -33,6 +56,8 @@ namespace EventSystem
                 t.waypoints[i] = Handles.PositionHandle(t.waypoints[i], quaternion.identity);
             }
             Handles.DrawPolyLine(t.waypoints);
+            
+            
         }
     }
 }
