@@ -4,7 +4,7 @@ namespace EventSystem
 {
     public abstract class ScriptedEvent : MonoBehaviour
     {
-        protected GameObject[] LinkedObjects;
+        [SerializeField] protected GameObject[] linkedObjects;
         
         public abstract void OnEventActivate();
     }
