@@ -1,33 +1,31 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using DG.Tweening;
 using UnityEngine;
 using WeightSystem.Detector;
 
-public class Spirit : MonoBehaviour
+namespace Utilitaire
 {
-    public bool isTaken;
-    public bool isClosest;
-    private Rigidbody rb;
-
-    void Start()
+    public class Spirit : MonoBehaviour
     {
-        rb = GetComponent<Rigidbody>();
-    }
+        public bool isTaken;
+        public bool isClosest;
+        private Rigidbody rb;
+
+        void Start()
+        {
+            rb = GetComponent<Rigidbody>();
+        }
 
    
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.layer == 10)
+        private void OnTriggerExit(Collider other)
         {
-            isClosest = false;
-        }    
-    }
+            if (other.gameObject.layer == 10)
+            {
+                isClosest = false;
+            }    
+        }
 
-    private void Update()
-    {
-      /*  if (isClosest)
+        private void Update()
+        {
+            /*  if (isClosest)
         {
             meshRenderer.material = selectedMaterial;
         }
@@ -36,29 +34,30 @@ public class Spirit : MonoBehaviour
             meshRenderer.material = unselectedMaterial;
         }*/
         
-        if (isTaken)
-        {
-            rb.isKinematic = true;
-           // meshRenderer.material = unselectedMaterial;
+            if (isTaken)
+            {
+                rb.isKinematic = true;
+                // meshRenderer.material = unselectedMaterial;
+            }
+            else
+            {
+                rb.isKinematic = false;
+            }
         }
-        else
-        {
-            rb.isKinematic = false;
-        }
-    }
     
-    //WeightSystem
-    private WeightDetector _currentDetector;
+        //WeightSystem
+        private WeightDetector _currentDetector;
 
-    public void SetDetector(WeightDetector detector)
-    {
-        _currentDetector = detector;
-    }
+        public void SetDetector(WeightDetector detector)
+        {
+            _currentDetector = detector;
+        }
 
-    public WeightDetector ResetWeightOnDetector()
-    {
-        if (_currentDetector == default) return default;
-        _currentDetector.ResetWeight();
-        return _currentDetector;
+        public WeightDetector ResetWeightOnDetector()
+        {
+            if (_currentDetector == default) return default;
+            _currentDetector.ResetWeight();
+            return _currentDetector;
+        }
     }
 }
