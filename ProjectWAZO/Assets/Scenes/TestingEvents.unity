@@ -185,16 +185,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5778685310182809309, guid: d48dafe56dd33b24a805f966b07971b0,
-        type: 3}
-      propertyPath: m_UseGravity
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5778685310182809309, guid: d48dafe56dd33b24a805f966b07971b0,
-        type: 3}
-      propertyPath: m_IsKinematic
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5778685310182809311, guid: d48dafe56dd33b24a805f966b07971b0,
         type: 3}
       propertyPath: m_Name
@@ -264,16 +254,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5778685310182809309, guid: d48dafe56dd33b24a805f966b07971b0,
-        type: 3}
-      propertyPath: m_UseGravity
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5778685310182809309, guid: d48dafe56dd33b24a805f966b07971b0,
-        type: 3}
-      propertyPath: m_IsKinematic
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5778685310182809311, guid: d48dafe56dd33b24a805f966b07971b0,
         type: 3}
       propertyPath: m_Name
@@ -287,56 +267,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1758877886}
   m_PrefabAsset: {fileID: 0}
---- !u!195 &467631942
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 467631940}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.50000006
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 1
-  m_BaseOffset: 0.6
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!1 &527088249 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5778685310182809311, guid: d48dafe56dd33b24a805f966b07971b0,
     type: 3}
   m_PrefabInstance: {fileID: 2091370247}
   m_PrefabAsset: {fileID: 0}
---- !u!195 &527088251
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 527088249}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.50000006
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 1
-  m_BaseOffset: 0.6
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!1 &556018541
 GameObject:
   m_ObjectHideFlags: 0
@@ -616,28 +552,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1577374398}
   m_PrefabAsset: {fileID: 0}
---- !u!195 &886733238
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 886733236}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.50000006
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 1
-  m_BaseOffset: 0.6
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!1 &1014432128
 GameObject:
   m_ObjectHideFlags: 0
@@ -759,28 +673,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 459797719}
   m_PrefabAsset: {fileID: 0}
---- !u!195 &1123872970
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1123872968}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.50000006
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 1
-  m_BaseOffset: 0.6
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!1 &1451134107
 GameObject:
   m_ObjectHideFlags: 0
@@ -940,16 +832,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5778685310182809309, guid: d48dafe56dd33b24a805f966b07971b0,
-        type: 3}
-      propertyPath: m_UseGravity
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5778685310182809309, guid: d48dafe56dd33b24a805f966b07971b0,
-        type: 3}
-      propertyPath: m_IsKinematic
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5778685310182809311, guid: d48dafe56dd33b24a805f966b07971b0,
         type: 3}
       propertyPath: m_Name
@@ -1017,16 +899,6 @@ PrefabInstance:
     - target: {fileID: 5778685310182809308, guid: d48dafe56dd33b24a805f966b07971b0,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5778685310182809309, guid: d48dafe56dd33b24a805f966b07971b0,
-        type: 3}
-      propertyPath: m_UseGravity
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5778685310182809309, guid: d48dafe56dd33b24a805f966b07971b0,
-        type: 3}
-      propertyPath: m_IsKinematic
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5778685310182809311, guid: d48dafe56dd33b24a805f966b07971b0,
@@ -1098,16 +970,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5778685310182809309, guid: d48dafe56dd33b24a805f966b07971b0,
-        type: 3}
-      propertyPath: m_UseGravity
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5778685310182809309, guid: d48dafe56dd33b24a805f966b07971b0,
-        type: 3}
-      propertyPath: m_IsKinematic
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5778685310182809311, guid: d48dafe56dd33b24a805f966b07971b0,
         type: 3}
       propertyPath: m_Name
@@ -1121,56 +983,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1941491049}
   m_PrefabAsset: {fileID: 0}
---- !u!195 &1941491057
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1941491050}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.50000006
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 1
-  m_BaseOffset: 0.6
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!1 &2018568707 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5778685310182809311, guid: d48dafe56dd33b24a805f966b07971b0,
     type: 3}
   m_PrefabInstance: {fileID: 281011768}
   m_PrefabAsset: {fileID: 0}
---- !u!195 &2018568709
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2018568707}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.50000006
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 1
-  m_BaseOffset: 0.6
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!1001 &2091370247
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1231,16 +1049,6 @@ PrefabInstance:
     - target: {fileID: 5778685310182809308, guid: d48dafe56dd33b24a805f966b07971b0,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5778685310182809309, guid: d48dafe56dd33b24a805f966b07971b0,
-        type: 3}
-      propertyPath: m_UseGravity
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5778685310182809309, guid: d48dafe56dd33b24a805f966b07971b0,
-        type: 3}
-      propertyPath: m_IsKinematic
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5778685310182809311, guid: d48dafe56dd33b24a805f966b07971b0,
