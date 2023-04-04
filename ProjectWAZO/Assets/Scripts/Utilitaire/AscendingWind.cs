@@ -10,10 +10,10 @@ public class AscendingWind : MonoBehaviour
    {
       if (other.gameObject.CompareTag("Player") && Controller.instance.isPressing)
       {
-         Controller.instance.gravityScale = -4;
-         Controller.instance.canJump = false;
-         other.gameObject.GetComponent<Controller>().isWind = true;
-         other.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(0,windForce,0),ForceMode.Acceleration);
+            Controller.instance.gravityScale = -4;
+            Controller.instance.canJump = false;
+            other.gameObject.GetComponent<Controller>().isWind = true;
+            other.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(0,windForce - other.attachedRigidbody.mass*16,0),ForceMode.Acceleration);
       }
    }
    
