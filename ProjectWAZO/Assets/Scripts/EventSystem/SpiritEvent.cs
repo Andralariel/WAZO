@@ -1,3 +1,4 @@
+using System;
 using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
@@ -42,6 +43,21 @@ namespace EventSystem
         }
 #endif
     }
+    
+    // //WaypointElement
+    // public class Waypoint
+    // {
+    //     public enum Behaviour
+    //     {
+    //         Move,
+    //         Gather,
+    //         Disperse
+    //     }
+    //     
+    //     public Vector3 position;
+    //     public Behaviour behaviour;
+    //     public float spiritSpeed;
+    // }
     
     //Custom Editor for editing waypoints
     [CustomEditor(typeof(SpiritEvent))]

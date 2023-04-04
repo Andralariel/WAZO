@@ -1,7 +1,10 @@
+using System;
+using System.Collections;
 using EventSystem;
 using UnityEngine;
 using UnityEngine.AI;
 using WeightSystem.Detector;
+using Random = UnityEngine.Random;
 
 namespace Utilitaire
 {
@@ -41,21 +44,64 @@ namespace Utilitaire
             if (TooFar()) return;
             
             _nextPoint++;
-            if (_nextPoint + 1 > _linkedEvent.waypoints.Length) _isMoving = false;
-            else spiritAgent.destination = _linkedEvent.waypoints[_nextPoint];
+            if (_nextPoint < _linkedEvent.waypoints.Length) spiritAgent.destination = _linkedEvent.waypoints[_nextPoint];
+            else
+            {
+                _isMoving = false;
+                Dispersion(false);
+            }
         }
         
         //SpiritEvent
         public void SetDestination(SpiritEvent callingEvent)
         {
             _linkedEvent = callingEvent;
-            spiritAgent.destination = _linkedEvent.waypoints[_nextPoint];
-            _isMoving = true;
+            var waypointAmount = _linkedEvent.waypoints.Length;
+            if(waypointAmount==0) Dispersion();
+            else
+            {
+                if(waypointAmount > 1) ChooseFirstPoint();
+                spiritAgent.destination = _linkedEvent.waypoints[_nextPoint];
+                _isMoving = true;
+            }
+        }
+
+        private void ChooseFirstPoint()
+        {
+            var wpWpDistance = (_linkedEvent.waypoints[0] - _linkedEvent.waypoints[1]).magnitude;
+            var spWpDistance = (transform.position - _linkedEvent.waypoints[1]).magnitude;
+            if (spWpDistance < wpWpDistance + spiritAgent.stoppingDistance) _nextPoint++;
         }
 
         private bool TooFar()
         {
             return spiritAgent.remainingDistance > spiritAgent.stoppingDistance;
+        }
+
+        private void Dispersion(bool still = true)
+        {
+            float spreadAngle;
+            Vector3 spreadDirection;
+            if (still)
+            {
+                spreadAngle = Random.Range(0f, 1f)*2*Mathf.PI;
+                spreadDirection = transform.position + new Vector3(MathF.Cos(spreadAngle), 0, Mathf.Sin(spreadAngle))*10;
+            }
+            else
+            {
+                var rangeAngle = Mathf.Deg2Rad * Vector3.Angle(Vector3.forward, transform.forward);
+                spreadAngle = Random.Range(0f, 1f)*Mathf.PI + rangeAngle;
+                spreadDirection = _linkedEvent.waypoints[^1] + new Vector3(MathF.Cos(spreadAngle), 0, Mathf.Sin(spreadAngle))*10;
+            }
+            
+            spiritAgent.destination = spreadDirection;
+            StartCoroutine(Disappearance());
+        }
+
+        private IEnumerator Disappearance()
+        {
+            yield return new WaitForSeconds(Random.Range(0.2f, 1f));
+            gameObject.SetActive(false);
         }
     
         //WeightSystem
