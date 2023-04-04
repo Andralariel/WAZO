@@ -12,14 +12,16 @@ namespace EventSystem
         [SerializeField] private float speed = 1;
 
         private float _totalDistance;
+        private int _currentWaypoint;
         
         public override void OnEventActivate()
         {
-            CalculateDistance();
+            //CalculateDistance();
+            _currentWaypoint++;
             foreach (var spirit in linkedObjects)
             {
                 var agent = spirit.GetComponent<NavMeshAgent>();
-                agent.SetDestination(waypoints[1]);
+                agent.SetDestination(waypoints[_currentWaypoint]);
                 //spirit.transform.DOPath(waypoints, _totalDistance*(1/speed), PathType.CatmullRom);
             }
         }
