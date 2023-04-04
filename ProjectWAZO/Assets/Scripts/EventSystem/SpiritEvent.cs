@@ -8,29 +8,30 @@ namespace EventSystem
 {
     public class SpiritEvent : ScriptedEvent
     {
-        public Vector3[] waypoints;
+        [SerializeField] private Spirit[] linkedObjects;
         
-        [SerializeField] private float speed = 1;
+        public Waypoint[] waypoints;
+        public bool disappearOnEnd = true;
+        public bool disappearOnLastStep;
 
-        private float _totalDistance;
+        private int _spiritsWaitingAmount;
         
         public override void OnEventActivate()
         {
-            //CalculateDistance();
             foreach (var spirit in linkedObjects)
             {
-                var spiritScript = spirit.GetComponent<Spirit>();
-                spiritScript.SetDestination(this);
+                spirit.StartEvent(this);
             }
         }
 
-        private void CalculateDistance()
+        public void SpiritWait()
         {
-            var lastPoint = transform.position;
-            foreach (var waypoint in waypoints)
+            _spiritsWaitingAmount++;
+            
+            if (_spiritsWaitingAmount < linkedObjects.Length) return;
+            foreach (var spirit in linkedObjects)
             {
-                _totalDistance += (waypoint - lastPoint).magnitude;
-                lastPoint = waypoint;
+                spirit.AllSpiritStartToWait();
             }
         }
 
@@ -44,20 +45,24 @@ namespace EventSystem
 #endif
     }
     
-    // //WaypointElement
-    // public class Waypoint
-    // {
-    //     public enum Behaviour
-    //     {
-    //         Move,
-    //         Gather,
-    //         Disperse
-    //     }
-    //     
-    //     public Vector3 position;
-    //     public Behaviour behaviour;
-    //     public float spiritSpeed;
-    // }
+    //WaypointElement
+    [Serializable]
+    public class Waypoint
+    {
+        public enum Behaviour
+        {
+            Move,
+            Gather,
+            Disperse,
+            Disappear
+        }
+        
+        public Vector3 position;
+        public Behaviour behaviour;
+        public float spiritSpeed = 3.5f;
+        public float waitBetweenStep;
+        public bool allSpiritsWait;
+    }
     
     //Custom Editor for editing waypoints
     [CustomEditor(typeof(SpiritEvent))]
@@ -66,13 +71,22 @@ namespace EventSystem
         public void OnSceneGUI()
         {
             var t = target as SpiritEvent;
+            if (t.waypoints == default) return;
             for (int i = 0; i < t.waypoints.Length; i++)
             {
-                t.waypoints[i] = Handles.PositionHandle(t.waypoints[i], quaternion.identity);
+                t.waypoints[i].position = Handles.PositionHandle(t.waypoints[i].position, quaternion.identity);
+
+                if (i <= 0) continue;
+                var color = t.waypoints[i].behaviour switch
+                {
+                    Waypoint.Behaviour.Move => Color.white,
+                    Waypoint.Behaviour.Gather => Color.blue,
+                    Waypoint.Behaviour.Disperse => Color.red,
+                    _ => Color.red
+                };
+                Handles.color = color;
+                Handles.DrawLine(t.waypoints[i-1].position,t.waypoints[i].position);
             }
-            Handles.DrawPolyLine(t.waypoints);
-            
-            
         }
     }
 }
