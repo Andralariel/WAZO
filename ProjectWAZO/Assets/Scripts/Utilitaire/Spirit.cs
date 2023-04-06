@@ -19,7 +19,12 @@ namespace Utilitaire
         private SpiritEvent _linkedEvent;
         private bool _isMoving, _waitForNextStep;
         private int _nextPoint;
-        
+
+        private void Start()
+        {
+            rb = GetComponent<Rigidbody>();
+        }
+
         private void OnTriggerExit(Collider other)
         {
             if (other.gameObject.layer == 10)
