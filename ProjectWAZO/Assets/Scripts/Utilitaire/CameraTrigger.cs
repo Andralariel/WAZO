@@ -9,14 +9,26 @@ public class CameraTrigger : MonoBehaviour
   {
      GoTopDown,
      GoIso,
+     GoVerticalLerp,
      Zoom,
      ChangeOffest,
      FocusOn,
+     StartCinématique,
   }
+
+  public bool doOnce;
   private CameraController camera;
+  public List<GameObject> objectsToKill;
   public Effect cameraEffect;
   public Vector3 newOffset;
+  
+  [Header("Focus")] 
   public GameObject objectToFocus;
+
+  [Header("Lerp Options")] 
+  public GameObject newTarget1;
+  public GameObject newTarget2;
+  public Vector3 newLerpGoal;
 
   //----------------------------------------------------------------------------------------------
 
@@ -35,16 +47,29 @@ public class CameraTrigger : MonoBehaviour
                camera.isTopDown = true;
                camera.isIso = false;
                camera.isFocused = false;
+               camera.isVerticalLerp = false;
                break;
             case Effect.GoIso:
                camera.isIso = true;
                camera.isTopDown = false;
                camera.isFocused = false;
+               camera.isVerticalLerp = false;
+               break;
+            case Effect.GoVerticalLerp:
+               camera.isIso = false;
+               camera.isTopDown = false;
+               camera.isFocused = false;
+               camera.isVerticalLerp = true;
+               camera.target1 = newTarget1;
+               camera.target2 = newTarget2;
+               camera.lerpGoal = newLerpGoal;
+               camera.SavePosition();
                break;
             case Effect.FocusOn:
                camera.isFocused = true;
                camera.isTopDown = false;
                camera.isIso = false;
+               camera.isVerticalLerp = false;
                camera.focusedObject = objectToFocus.transform;
                break;
             case Effect.Zoom:
@@ -53,6 +78,17 @@ public class CameraTrigger : MonoBehaviour
             case Effect.ChangeOffest:
                camera.offset = newOffset;
                break;
+            case Effect.StartCinématique:
+              StartCoroutine( CinématiqueManager.instance.CinématiqueBOTW());
+               break;
+         }
+      }
+
+      if (doOnce)
+      {
+         foreach (GameObject obj in objectsToKill)
+         {
+            obj.GetComponent<BoxCollider>().enabled = false;
          }
       }
    }

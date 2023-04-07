@@ -12,6 +12,7 @@ public class KeyUI : MonoBehaviour
     public List<Image> shardList;
     public int currentShard;
     public static KeyUI instance;
+    public Image blackScreen;
     private void Awake()
     {
         if (instance == null)
@@ -20,18 +21,28 @@ public class KeyUI : MonoBehaviour
         }
     }
 
-    public void Show()
+    public void ShowKey()
     {
         transform.DOMove(showPosition, 0.5f);
-        StartCoroutine(Hide(2f));
+        StartCoroutine(HideKey(2f));
     }
     
-    public IEnumerator Hide(float timeToHide)
+    public IEnumerator HideKey(float timeToHide)
     {
         yield return new WaitForSeconds(timeToHide/2);
         shardList[currentShard - 1].DOFade(1, 0.5f);
         yield return new WaitForSeconds(timeToHide);
         transform.DOMove(hidePosition, 0.5f);
+    }
+
+    public void FadeInBlackScreen(float duration)
+    {
+        blackScreen.DOFade(1, duration);
+    }
+    
+    public void FadeOutBlackScreen(float duration)
+    {
+        blackScreen.DOFade(0, duration);
     }
     
 }

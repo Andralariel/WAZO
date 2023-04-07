@@ -20,7 +20,7 @@ public class KeyShard : MonoBehaviour
    void CinématiqueClé()
    {
       KeyUI.instance.currentShard += 1;
-      KeyUI.instance.Show();
+      KeyUI.instance.ShowKey();
       Destroy(gameObject);
       TempleOpener.instance.currentAmount += 1;
    }
