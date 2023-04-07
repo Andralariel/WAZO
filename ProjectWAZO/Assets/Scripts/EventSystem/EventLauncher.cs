@@ -10,12 +10,16 @@ namespace EventSystem
         
         private void OnTriggerEnter(Collider other)
         {
-            foreach (var scriptedEvent in events)
+            if (other.gameObject.layer == 6)
             {
-                scriptedEvent.OnEventActivate();
-            }
+                foreach (var scriptedEvent in events)
+                {
+                    scriptedEvent.OnEventActivate();
+                }
 
-            if (!repeatable) enabled = false;
+                if (!repeatable) enabled = false;
+            }
+           
         }
     }
 }

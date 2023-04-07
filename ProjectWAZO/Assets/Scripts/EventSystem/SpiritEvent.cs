@@ -11,10 +11,21 @@ namespace EventSystem
         [SerializeField] private Spirit[] linkedObjects;
         
         public Waypoint[] waypoints;
-        public bool disappearOnEnd = true;
-        public bool disappearOnLastStep;
-
+        
+        [SerializeField] private float stepStopDistanceIncrease = 0.25f;
+        private float _currentStopDistance;
         private int _spiritsWaitingAmount;
+
+        [Header("Disappearance")]
+        public bool disappearOnEnd = true;
+        public bool disappearDuringLastStep;
+        public float disappearLowerBound = 0.2f;
+        public float disappearUpperBound = 1f;
+
+        [Header("Dispersion")]
+        public float dispersionDistance = 10f;
+        public float spreadMaxAngle = 180;
+        public float endDispersionSpeed = 3.5f;
         
         public override void OnEventActivate()
         {
@@ -33,6 +44,18 @@ namespace EventSystem
             {
                 spirit.AllSpiritStartToWait();
             }
+            _spiritsWaitingAmount = 0;
+        }
+
+        public float StopDistance()
+        {
+            var stopDistance = _currentStopDistance + _spiritsWaitingAmount * stepStopDistanceIncrease;
+            return stopDistance;
+        }
+
+        public void ResetStopDistance(float stopDistance)
+        {
+            _currentStopDistance = stopDistance;
         }
 
 #if UNITY_EDITOR
@@ -60,6 +83,7 @@ namespace EventSystem
         public Vector3 position;
         public Behaviour behaviour;
         public float spiritSpeed = 3.5f;
+        public float spiritStopDistance = 0.5f;
         public float waitBetweenStep;
         public bool allSpiritsWait;
     }

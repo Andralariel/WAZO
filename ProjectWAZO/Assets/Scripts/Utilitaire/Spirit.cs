@@ -19,12 +19,7 @@ namespace Utilitaire
         private SpiritEvent _linkedEvent;
         private bool _isMoving, _waitForNextStep;
         private int _nextPoint;
-
-        private void Start()
-        {
-            rb = GetComponent<Rigidbody>();
-        }
-
+        
         private void OnTriggerExit(Collider other)
         {
             if (other.gameObject.layer == 10)
@@ -35,6 +30,7 @@ namespace Utilitaire
 
         private void Update()
         {
+            Debug.Log(_nextPoint);
             if (isTaken)
             {
                 rb.isKinematic = true;
@@ -49,10 +45,11 @@ namespace Utilitaire
             if (TooFar()) return;
 
             if(_waitForNextStep) return;
-            if (_linkedEvent.waypoints[_nextPoint].waitBetweenStep != 0)
+            if (_linkedEvent.waypoints[_nextPoint].waitBetweenStep != 0||_linkedEvent.waypoints[_nextPoint].behaviour == Waypoint.Behaviour.Gather)
             {
                 _waitForNextStep = true;
-                if(_linkedEvent.waypoints[_nextPoint].allSpiritsWait) _linkedEvent.SpiritWait();
+                if(_linkedEvent.waypoints[_nextPoint].behaviour == Waypoint.Behaviour.Gather) Gather();
+                else Wait();
             }
             else NextStep();
         }
@@ -60,11 +57,13 @@ namespace Utilitaire
         //SpiritEvent
         public void StartEvent(SpiritEvent callingEvent)
         {
+            _nextPoint = 0;
             _linkedEvent = callingEvent;
             var waypointAmount = _linkedEvent.waypoints.Length;
             if(waypointAmount==0) Dispersion();
             else
             {
+                _linkedEvent.ResetStopDistance(_linkedEvent.waypoints[0].spiritStopDistance);
                 switch (_linkedEvent.waypoints[0].behaviour)
                 {
                     case Waypoint.Behaviour.Move:
@@ -94,7 +93,11 @@ namespace Utilitaire
             _nextPoint++;
             if (_nextPoint < _linkedEvent.waypoints.Length)
             {
+                if(spiritAgent.isStopped) spiritAgent.isStopped = false;
+                
                 spiritAgent.speed = _linkedEvent.waypoints[_nextPoint].spiritSpeed;
+                spiritAgent.stoppingDistance = _linkedEvent.waypoints[_nextPoint].spiritStopDistance;
+                _linkedEvent.ResetStopDistance(spiritAgent.stoppingDistance);
                 switch (_linkedEvent.waypoints[_nextPoint].behaviour)
                 {
                     case Waypoint.Behaviour.Move:
@@ -113,6 +116,9 @@ namespace Utilitaire
                         Movement();
                         throw new ArgumentOutOfRangeException();
                 }
+
+                if (_nextPoint + 1 != _linkedEvent.waypoints.Length) return;
+                if (_linkedEvent.disappearDuringLastStep) StartCoroutine(Disappearance());
             }
             
             //After final step
@@ -120,7 +126,11 @@ namespace Utilitaire
             {
                 _isMoving = false;
                 if(_linkedEvent.disappearOnEnd) StartCoroutine(Disappearance());
-                if(_linkedEvent.waypoints[^1].behaviour == Waypoint.Behaviour.Move)Dispersion(false);
+                if (_linkedEvent.waypoints[^1].behaviour == Waypoint.Behaviour.Move)
+                {
+                    spiritAgent.speed = _linkedEvent.endDispersionSpeed;
+                    Dispersion(false);
+                }
             }
         }
         
@@ -128,12 +138,18 @@ namespace Utilitaire
         {
             var wpWpDistance = (_linkedEvent.waypoints[0].position - _linkedEvent.waypoints[1].position).magnitude;
             var spWpDistance = (transform.position - _linkedEvent.waypoints[1].position).magnitude;
-            if (spWpDistance < wpWpDistance + spiritAgent.stoppingDistance) _nextPoint++;
+            if (spWpDistance < wpWpDistance + spiritAgent.stoppingDistance) _nextPoint = 1;
         }
 
         private bool TooFar()
         {
-            return spiritAgent.remainingDistance > spiritAgent.stoppingDistance;
+            return spiritAgent.remainingDistance > _linkedEvent.StopDistance();
+        }
+
+        private void Wait()
+        {
+            if (_linkedEvent.waypoints[_nextPoint].allSpiritsWait) _linkedEvent.SpiritWait();
+            else StartCoroutine(WaitBetweenStep());
         }
 
         private void Movement()
@@ -143,7 +159,7 @@ namespace Utilitaire
 
         private void Gathering()
         {
-            throw new NotImplementedException();
+            Movement();
         }
         
         private void Dispersion(bool still = true)
@@ -153,20 +169,27 @@ namespace Utilitaire
             if (still)
             {
                 spreadAngle = Random.Range(0f, 1f)*2*Mathf.PI;
-                spreadDirection = transform.position + new Vector3(MathF.Cos(spreadAngle), 0, Mathf.Sin(spreadAngle))*10;
+                spreadDirection = transform.position + new Vector3(MathF.Cos(spreadAngle), 0, Mathf.Sin(spreadAngle)).normalized*_linkedEvent.dispersionDistance;
             }
             else
             {
-                var rangeAngle = Mathf.Deg2Rad * Vector3.Angle(Vector3.forward, transform.forward);
-                spreadAngle = Random.Range(0f, 1f)*Mathf.PI + rangeAngle;
-                spreadDirection = _linkedEvent.waypoints[^1].position + new Vector3(MathF.Cos(spreadAngle), 0, Mathf.Sin(spreadAngle))*10;
+                var rangeAngle = Mathf.Deg2Rad * Vector3.SignedAngle(_linkedEvent.waypoints[^1].position-_linkedEvent.waypoints[^2].position,Vector3.forward,Vector3.up);
+                var spreadMaxAngle = _linkedEvent.spreadMaxAngle * Mathf.Deg2Rad;
+                spreadAngle = Random.Range(0f, 1f)*spreadMaxAngle + rangeAngle + (Mathf.PI-spreadMaxAngle)/2;
+                spreadDirection = transform.position + new Vector3(MathF.Cos(spreadAngle), 0, Mathf.Sin(spreadAngle)).normalized*_linkedEvent.dispersionDistance;
             }
-            spiritAgent.destination = spreadDirection;
+            spiritAgent.SetDestination(spreadDirection);
         }
 
         public void AllSpiritStartToWait()
         {
             StartCoroutine(WaitBetweenStep());
+        }
+
+        private void Gather()
+        {
+            spiritAgent.isStopped = true;
+            Wait();
         }
         
         private IEnumerator WaitBetweenStep()
@@ -179,7 +202,7 @@ namespace Utilitaire
 
         private IEnumerator Disappearance()
         {
-            yield return new WaitForSeconds(Random.Range(0.2f, 1f));
+            yield return new WaitForSeconds(Random.Range(_linkedEvent.disappearLowerBound, _linkedEvent.disappearUpperBound));
             gameObject.SetActive(false);
         }
     
