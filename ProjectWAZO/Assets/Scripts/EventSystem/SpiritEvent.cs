@@ -25,6 +25,7 @@ namespace EventSystem
         [Header("Dispersion")]
         public float dispersionDistance = 10f;
         public float spreadMaxAngle = 180;
+        public float endDispersionSpeed = 3.5f;
         
         public override void OnEventActivate()
         {

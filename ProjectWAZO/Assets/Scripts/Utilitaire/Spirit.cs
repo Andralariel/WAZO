@@ -126,7 +126,11 @@ namespace Utilitaire
             {
                 _isMoving = false;
                 if(_linkedEvent.disappearOnEnd) StartCoroutine(Disappearance());
-                if(_linkedEvent.waypoints[^1].behaviour == Waypoint.Behaviour.Move)Dispersion(false);
+                if (_linkedEvent.waypoints[^1].behaviour == Waypoint.Behaviour.Move)
+                {
+                    spiritAgent.speed = _linkedEvent.endDispersionSpeed;
+                    Dispersion(false);
+                }
             }
         }
         
@@ -134,7 +138,7 @@ namespace Utilitaire
         {
             var wpWpDistance = (_linkedEvent.waypoints[0].position - _linkedEvent.waypoints[1].position).magnitude;
             var spWpDistance = (transform.position - _linkedEvent.waypoints[1].position).magnitude;
-            if (spWpDistance < wpWpDistance + spiritAgent.stoppingDistance) _nextPoint++;
+            if (spWpDistance < wpWpDistance + spiritAgent.stoppingDistance) _nextPoint = 1;
         }
 
         private bool TooFar()
