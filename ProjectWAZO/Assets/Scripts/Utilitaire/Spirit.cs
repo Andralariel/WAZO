@@ -19,12 +19,7 @@ namespace Utilitaire
         private SpiritEvent _linkedEvent;
         private bool _isMoving, _waitForNextStep;
         private int _nextPoint;
-
-        private void Start()
-        {
-            rb = GetComponent<Rigidbody>();
-        }
-
+        
         private void OnTriggerExit(Collider other)
         {
             if (other.gameObject.layer == 10)
@@ -35,6 +30,7 @@ namespace Utilitaire
 
         private void Update()
         {
+            Debug.Log(_nextPoint);
             if (isTaken)
             {
                 rb.isKinematic = true;
@@ -52,7 +48,8 @@ namespace Utilitaire
             if (_linkedEvent.waypoints[_nextPoint].waitBetweenStep != 0)
             {
                 _waitForNextStep = true;
-                if(_linkedEvent.waypoints[_nextPoint].allSpiritsWait) _linkedEvent.SpiritWait();
+                if (_linkedEvent.waypoints[_nextPoint].allSpiritsWait) _linkedEvent.SpiritWait();
+                else StartCoroutine(WaitBetweenStep());
             }
             else NextStep();
         }
@@ -60,11 +57,13 @@ namespace Utilitaire
         //SpiritEvent
         public void StartEvent(SpiritEvent callingEvent)
         {
+            _nextPoint = 0;
             _linkedEvent = callingEvent;
             var waypointAmount = _linkedEvent.waypoints.Length;
             if(waypointAmount==0) Dispersion();
             else
             {
+                _linkedEvent.ResetStopDistance(_linkedEvent.waypoints[0].spiritStopDistance);
                 switch (_linkedEvent.waypoints[0].behaviour)
                 {
                     case Waypoint.Behaviour.Move:
@@ -95,6 +94,8 @@ namespace Utilitaire
             if (_nextPoint < _linkedEvent.waypoints.Length)
             {
                 spiritAgent.speed = _linkedEvent.waypoints[_nextPoint].spiritSpeed;
+                spiritAgent.stoppingDistance = _linkedEvent.waypoints[_nextPoint].spiritStopDistance;
+                _linkedEvent.ResetStopDistance(spiritAgent.stoppingDistance);
                 switch (_linkedEvent.waypoints[_nextPoint].behaviour)
                 {
                     case Waypoint.Behaviour.Move:
@@ -113,6 +114,9 @@ namespace Utilitaire
                         Movement();
                         throw new ArgumentOutOfRangeException();
                 }
+
+                if (_nextPoint + 1 != _linkedEvent.waypoints.Length) return;
+                if (_linkedEvent.disappearDuringLastStep) StartCoroutine(Disappearance());
             }
             
             //After final step
@@ -133,7 +137,7 @@ namespace Utilitaire
 
         private bool TooFar()
         {
-            return spiritAgent.remainingDistance > spiritAgent.stoppingDistance;
+            return spiritAgent.remainingDistance > _linkedEvent.StopDistance();
         }
 
         private void Movement()
@@ -153,15 +157,17 @@ namespace Utilitaire
             if (still)
             {
                 spreadAngle = Random.Range(0f, 1f)*2*Mathf.PI;
-                spreadDirection = transform.position + new Vector3(MathF.Cos(spreadAngle), 0, Mathf.Sin(spreadAngle))*10;
+                spreadDirection = transform.position + new Vector3(MathF.Cos(spreadAngle), 0, Mathf.Sin(spreadAngle)).normalized*10;
             }
             else
             {
-                var rangeAngle = Mathf.Deg2Rad * Vector3.Angle(Vector3.forward, transform.forward);
+                var rangeAngle = Mathf.Deg2Rad * Vector3.SignedAngle(_linkedEvent.waypoints[^1].position-_linkedEvent.waypoints[^2].position,Vector3.forward,Vector3.up);
+                Debug.Log(rangeAngle);
                 spreadAngle = Random.Range(0f, 1f)*Mathf.PI + rangeAngle;
-                spreadDirection = _linkedEvent.waypoints[^1].position + new Vector3(MathF.Cos(spreadAngle), 0, Mathf.Sin(spreadAngle))*10;
+                spreadDirection = transform.position + new Vector3(MathF.Cos(spreadAngle), 0, Mathf.Sin(spreadAngle)).normalized*10;
+                //Debug.Log(spreadDirection - transform.position);
             }
-            spiritAgent.destination = spreadDirection;
+            spiritAgent.SetDestination(spreadDirection);
         }
 
         public void AllSpiritStartToWait()
