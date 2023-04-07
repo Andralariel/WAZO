@@ -10,6 +10,7 @@ public class CameraController : MonoBehaviour
    
     public float SmoothMoveFactor;
     public Quaternion normalRotation;
+    private Vector3 savePosition;
 
     [Header("Utilitaire")] 
     public bool canMove;
@@ -18,20 +19,30 @@ public class CameraController : MonoBehaviour
     private Vector3 velocity;
     private Camera camera;
     
-    [Header("Experimental")]
+    [Header("Zoom")]
     public float minZoom;
     public float maxZoom;
     private float zoomFactor = 15;
     private float rotationFactor = 15;
+    
+    [Header("Focused")]
     public Transform focusedObject;
     public float SmoothRotateFactor;
+    
+    [Header("TopDown")]
     public Vector3 topDownOffset;
     public Quaternion topDownRotation;
+    
+    [Header("Lerp")]
+    public GameObject target1;
+    public GameObject target2;
+    public Vector3 lerpGoal;
     
     [Header("Camera State")]
     public bool isIso;
     public bool isTopDown;
     public bool isFocused;
+    public bool isVerticalLerp;
 
     public static CameraController instance;
 
@@ -97,9 +108,22 @@ public class CameraController : MonoBehaviour
             transform.localPosition = Vector3.SmoothDamp(transform.position,newPosition,ref velocity,SmoothMoveFactor);
             transform.rotation = Quaternion.Slerp(transform.rotation, normalRotation, Time.deltaTime/SmoothRotateFactor);
         }
+        else if(isVerticalLerp)
+        {
+            float yValue = target2.transform.position.y - target1.transform.position.y;
+            float relativePosition = (player.transform.position.y - target1.transform.position.y) / yValue;
+            Vector3 objectif = player.transform.position + offset + lerpGoal;
+            Debug.Log(relativePosition);
+            var toGo = Vector3.Lerp(savePosition,objectif,relativePosition);
+            transform.position = toGo;
+        }
 
     }
 
+    public void SavePosition()
+    {
+        savePosition = transform.position+new Vector3(0,0,1);
+    }
     Vector3 GetCenterPoint()
     {
         var bounds = new Bounds(player.transform.position, Vector3.zero);
