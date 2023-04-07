@@ -12,8 +12,10 @@ namespace EventSystem
         
         public Waypoint[] waypoints;
         public bool disappearOnEnd = true;
-        public bool disappearOnLastStep;
+        public bool disappearDuringLastStep;
 
+        [SerializeField] private float stepStopDistanceIncrease = 0.25f;
+        private float _currentStopDistance;
         private int _spiritsWaitingAmount;
         
         public override void OnEventActivate()
@@ -33,6 +35,18 @@ namespace EventSystem
             {
                 spirit.AllSpiritStartToWait();
             }
+            _spiritsWaitingAmount = 0;
+        }
+
+        public float StopDistance()
+        {
+            var stopDistance = _currentStopDistance + _spiritsWaitingAmount * stepStopDistanceIncrease;
+            return stopDistance;
+        }
+
+        public void ResetStopDistance(float stopDistance)
+        {
+            _currentStopDistance = stopDistance;
         }
 
 #if UNITY_EDITOR
@@ -60,6 +74,7 @@ namespace EventSystem
         public Vector3 position;
         public Behaviour behaviour;
         public float spiritSpeed = 3.5f;
+        public float spiritStopDistance = 0.5f;
         public float waitBetweenStep;
         public bool allSpiritsWait;
     }
