@@ -11,12 +11,20 @@ namespace EventSystem
         [SerializeField] private Spirit[] linkedObjects;
         
         public Waypoint[] waypoints;
-        public bool disappearOnEnd = true;
-        public bool disappearDuringLastStep;
-
+        
         [SerializeField] private float stepStopDistanceIncrease = 0.25f;
         private float _currentStopDistance;
         private int _spiritsWaitingAmount;
+
+        [Header("Disappearance")]
+        public bool disappearOnEnd = true;
+        public bool disappearDuringLastStep;
+        public float disappearLowerBound = 0.2f;
+        public float disappearUpperBound = 1f;
+
+        [Header("Dispersion")]
+        public float dispersionDistance = 10f;
+        public float spreadMaxAngle = 180;
         
         public override void OnEventActivate()
         {
