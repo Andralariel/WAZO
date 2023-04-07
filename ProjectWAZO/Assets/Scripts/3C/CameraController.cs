@@ -9,6 +9,7 @@ public class CameraController : MonoBehaviour
     public Vector3 offset;
    
     public float SmoothMoveFactor;
+    public float walkingLookFactor;
     public Quaternion normalRotation;
     private Vector3 savePosition;
 
@@ -92,7 +93,7 @@ public class CameraController : MonoBehaviour
     {
         if (isIso)
         {
-            Vector3 newPosition = player.transform.position + offset;
+            Vector3 newPosition = player.transform.position + offset + (Controller.instance.moveInput * walkingLookFactor);
             transform.localPosition = Vector3.SmoothDamp(transform.position,newPosition,ref velocity,SmoothMoveFactor);
             transform.rotation = Quaternion.Slerp(transform.rotation, normalRotation, Time.deltaTime/SmoothRotateFactor);
         }
