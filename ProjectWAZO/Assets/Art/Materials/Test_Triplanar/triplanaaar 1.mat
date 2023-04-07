@@ -22,11 +22,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Texture2D:
-        m_Texture: {fileID: 2800000, guid: cf80c13b48cfcd649978f0abac51579d, type: 3}
+        m_Texture: {fileID: 2800000, guid: acc4b7a9e02fb394095ec0d3486afcde, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture2D_1:
-        m_Texture: {fileID: 2800000, guid: acc4b7a9e02fb394095ec0d3486afcde, type: 3}
+        m_Texture: {fileID: 2800000, guid: cf80c13b48cfcd649978f0abac51579d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture2D_2:
@@ -47,20 +47,21 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Float: 0.794
-    - _Hauteur: 1.34
+    - _Float: 1
+    - _Hauteur: -1.06
     - _Noise_Scale: 100
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Sharp: 0.45
-    - _Side_Blend: 1.57
+    - _Sharp: 1.36
+    - _Side_Blend: 1.73
     - _Tilling: 0.1
-    - _color: 1
+    - _color: 0
     - _multiply: 1
     - _power: 47.31
     m_Colors:
-    - _Color: {r: 0.5370283, g: 0.8113208, b: 0.32529372, a: 0}
+    - _Color: {r: 0.78431374, g: 0.92941177, b: 0.9607843, a: 0}
     - _Vector2: {r: 0, g: 0, b: 0, a: 0}
+    - _Vector2_1: {r: 0.38, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &7093068212146209098
 MonoBehaviour:
