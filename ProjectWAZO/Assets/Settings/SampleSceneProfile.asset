@@ -12,22 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 558a8e2b6826cf840aae193990ba9f2e, type: 3}
   m_Name: ShadowsMidtonesHighlights
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   shadows:
     m_OverrideState: 1
-    m_Value: {x: 0, y: 0.15802598, z: 1, w: 0.1369863}
+    m_Value: {x: 0.5267087, y: 0.6175199, z: 1, w: 0.052240532}
   midtones:
     m_OverrideState: 0
     m_Value: {x: 1, y: 0.95757, z: 0.9312363, w: 0.07252229}
   highlights:
     m_OverrideState: 1
-    m_Value: {x: 1, y: 0.79758054, z: 0.37245172, w: 0.13698635}
+    m_Value: {x: 0.96524614, y: 1, z: 0.92231864, w: 0.07342704}
   shadowsStart:
     m_OverrideState: 1
     m_Value: 0
   shadowsEnd:
     m_OverrideState: 1
-    m_Value: 0.23
+    m_Value: 0.19
   highlightsStart:
     m_OverrideState: 1
     m_Value: 0
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97c23e3b12dc18c42a140437e53d3951, type: 3}
   m_Name: Tonemapping
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   mode:
     m_OverrideState: 1
     m_Value: 2
@@ -128,16 +128,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5485954d14dfb9a4c8ead8edb0ded5b1, type: 3}
   m_Name: LiftGammaGain
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   lift:
     m_OverrideState: 0
     m_Value: {x: 0.9802141, y: 0.9987013, z: 1, w: 0.03270115}
   gamma:
-    m_OverrideState: 0
-    m_Value: {x: 0.09415436, y: 1, z: 0.7348512, w: 0.96141255}
+    m_OverrideState: 1
+    m_Value: {x: 0.8279246, y: 0.93900317, z: 1, w: 0.96141255}
   gain:
     m_OverrideState: 1
-    m_Value: {x: 0.7612066, y: 0.82947, z: 1, w: -0.072522156}
+    m_Value: {x: 1, y: 0.9050381, z: 0.8644789, w: -0.072522156}
 --- !u!114 &5080587400405298997
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b2db86121404754db890f4c8dfe81b2, type: 3}
   m_Name: Bloom
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   threshold:
     m_OverrideState: 1
     m_Value: 1.37
@@ -194,12 +194,12 @@ MonoBehaviour:
   active: 1
   postExposure:
     m_OverrideState: 1
-    m_Value: 0.13
+    m_Value: 0.3
   contrast:
     m_OverrideState: 0
     m_Value: 3.7
   colorFilter:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: {r: 1.1353015, g: 0.9510379, b: 1.1234134, a: 1}
   hueShift:
     m_OverrideState: 0
@@ -219,13 +219,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70afe9e12c7a7ed47911bb608a23a8ff, type: 3}
   m_Name: SplitToning
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   shadows:
     m_OverrideState: 1
-    m_Value: {r: 0.33962262, g: 0.11694552, b: 0.27704692, a: 1}
+    m_Value: {r: 0.4433962, g: 0.32836416, b: 0.41110653, a: 1}
   highlights:
-    m_OverrideState: 0
-    m_Value: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    m_OverrideState: 1
+    m_Value: {r: 0.8773585, g: 0.77311546, b: 0.69112676, a: 1}
   balance:
     m_OverrideState: 0
     m_Value: 0
