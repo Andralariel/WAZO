@@ -12,6 +12,7 @@ public class CameraTrigger : MonoBehaviour
      GoVerticalLerp,
      Zoom,
      ChangeOffest,
+     OnePointOffset,
      FocusOn,
      StartCinématique,
   }
@@ -21,6 +22,9 @@ public class CameraTrigger : MonoBehaviour
   public List<GameObject> objectsToKill;
   public Effect cameraEffect;
   public Vector3 newOffset;
+  
+  [Header("OnePointOffest")] 
+  public Vector3 originalOffset;
   
   [Header("Focus")] 
   public GameObject objectToFocus;
@@ -78,18 +82,36 @@ public class CameraTrigger : MonoBehaviour
             case Effect.ChangeOffest:
                camera.offset = newOffset;
                break;
+            case Effect.OnePointOffset:
+               originalOffset = camera.offset;
+               camera.offset = newOffset;
+               break;
             case Effect.StartCinématique:
               StartCoroutine( CinématiqueManager.instance.CinématiqueBOTW());
                break;
          }
       }
-
+      foreach (GameObject obj in objectsToKill)
+      {
+         obj.GetComponent<BoxCollider>().enabled = false;
+      }
       if (doOnce)
       {
-         foreach (GameObject obj in objectsToKill)
-         {
-            obj.GetComponent<BoxCollider>().enabled = false;
-         }
+         Destroy(gameObject);
       }
    }
+
+  private void OnTriggerExit(Collider other)
+  {
+     if (other.gameObject.layer == 6)
+     {
+        switch (cameraEffect)
+        {
+           case Effect.OnePointOffset:
+              camera.offset = originalOffset;
+              originalOffset = Vector3.zero;
+              break;
+        }
+     }
+  }
 }

@@ -7,8 +7,7 @@ using UnityEngine.UI;
 
 public class KeyUI : MonoBehaviour
 {
-    public Vector3 showPosition;
-    public Vector3 hidePosition;
+    public float showHideDistance;
     public List<Image> shardList;
     public int currentShard;
     public static KeyUI instance;
@@ -23,7 +22,7 @@ public class KeyUI : MonoBehaviour
 
     public void ShowKey()
     {
-        transform.DOMove(showPosition, 0.5f);
+        transform.DOMove(transform.position-new Vector3(showHideDistance,0,0), 0.5f);
         StartCoroutine(HideKey(2f));
     }
     
@@ -32,7 +31,7 @@ public class KeyUI : MonoBehaviour
         yield return new WaitForSeconds(timeToHide/2);
         shardList[currentShard - 1].DOFade(1, 0.5f);
         yield return new WaitForSeconds(timeToHide);
-        transform.DOMove(hidePosition, 0.5f);
+        transform.DOMove(transform.position+new Vector3(showHideDistance,0,0), 0.5f);
     }
 
     public void FadeInBlackScreen(float duration)
