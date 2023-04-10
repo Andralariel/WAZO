@@ -10,7 +10,6 @@ public class CinématiqueManager : MonoBehaviour
     public bool enableCinematics;
     public PlayableDirector cinematiqueManager;
     public List<PlayableAsset> cinématiqueList;
-    public float cinématiqueTime;
     public List<GameObject> objetsCinématqiue;
     public static CinématiqueManager instance;
 

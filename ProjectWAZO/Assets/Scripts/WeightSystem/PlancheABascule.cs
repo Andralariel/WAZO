@@ -30,25 +30,25 @@ public class PlancheABascule : WeightDetector
         {
             if (poidDroite > poidGauche && poidDroite != poidGauche)
             {
-                transform.rotation = Quaternion.RotateTowards(transform.rotation,positionDroite,rotationSpeed*Time.deltaTime);
+                transform.localRotation = Quaternion.RotateTowards(transform.localRotation,positionDroite,rotationSpeed*Time.deltaTime);
             }
             else if (poidDroite < poidGauche && poidDroite != poidGauche)
             {
-                transform.rotation = Quaternion.RotateTowards(transform.rotation,positionGauche,rotationSpeed*Time.deltaTime);
+                transform.localRotation = Quaternion.RotateTowards(transform.localRotation,positionGauche,rotationSpeed*Time.deltaTime);
             }
             
             if (poidDroite == poidGauche)
             {
-                transform.rotation = Quaternion.RotateTowards(transform.rotation,positionNeutre,rotationSpeed*Time.deltaTime);
+                transform.localRotation = Quaternion.RotateTowards(transform.localRotation,positionNeutre,rotationSpeed*Time.deltaTime);
             }
 
             associatedLeftUI.currentWeight = poidGauche;
             associatedRightUI.currentWeight = poidDroite;
           
         }
-        var transformRotation = transform.rotation;
+        var transformRotation = transform.localRotation;
         transformRotation.y = 0;
-        transform.rotation = transformRotation;
+        transform.localRotation = transformRotation;
     }
 
     private void OnTriggerEnter(Collider other)
