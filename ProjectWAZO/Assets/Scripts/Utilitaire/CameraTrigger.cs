@@ -75,6 +75,8 @@ public class CameraTrigger : MonoBehaviour
                camera.isIso = false;
                camera.isVerticalLerp = false;
                camera.focusedObject = objectToFocus.transform;
+               originalOffset = camera.offset;
+               camera.offset = newOffset;
                break;
             case Effect.Zoom:
                camera.Zoom(0.5f);
@@ -88,6 +90,7 @@ public class CameraTrigger : MonoBehaviour
                break;
             case Effect.StartCinématique:
               StartCoroutine( CinématiqueManager.instance.CinématiqueBOTW());
+              Debug.Log("cinématique");
                break;
          }
       }
@@ -110,6 +113,12 @@ public class CameraTrigger : MonoBehaviour
            case Effect.OnePointOffset:
               camera.offset = originalOffset;
               originalOffset = Vector3.zero;
+              break;
+           case Effect.FocusOn:
+              camera.isFocused = false;
+              camera.isIso = true;
+              camera.offset = originalOffset;
+              camera.focusedObject = null;
               break;
         }
      }

@@ -16,7 +16,7 @@ public class Moulin : Activator
 
     private void Update()
     {
-        if (activatedAltar == 3)
+        if (activatedAltar == 1)
         {
             isActive = true;
         }
