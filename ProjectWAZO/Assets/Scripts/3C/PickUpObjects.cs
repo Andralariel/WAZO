@@ -41,6 +41,9 @@ public class PickUpObjects : MonoBehaviour
 
     //CleanerRbReference
     private Rigidbody _rbObject;
+    
+    //BUG fix : pickUp button state
+    private bool _beakPinch;
 
     private void Awake()
     {
@@ -57,6 +60,7 @@ public class PickUpObjects : MonoBehaviour
 
     public void Prendre()
     {
+        _beakPinch = true;
         if (isThingTaken == false && !isEchelle)
         {
             pickedObject = GetClosestObject();
@@ -83,11 +87,18 @@ public class PickUpObjects : MonoBehaviour
 
     private void MoveToBeak()
     {
-        pickedObject.transform.DOLocalMove(Vector3.zero, pickUpSpeed).OnComplete(()=>isThingTaken = true);
+        pickedObject.transform.DOLocalMove(Vector3.zero, pickUpSpeed).OnComplete(CheckBeak);
+    }
+
+    private void CheckBeak()
+    {
+        isThingTaken = true;
+        if (!_beakPinch) Lacher();
     }
 
     private void Lacher()
     {
+        _beakPinch = false;
         if (pickedObject != null && isThingTaken && !isEchelle)
         {
             Debug.Log("je relache l'objet devant moi");
