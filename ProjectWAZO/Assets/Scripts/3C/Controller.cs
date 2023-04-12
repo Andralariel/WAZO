@@ -220,9 +220,7 @@ public class Controller : MonoBehaviour
                 trail2.emitting = false;
                 globalGravity = 9.81f;
             }
-          
         }
-
     }
 
     
@@ -247,6 +245,8 @@ public class Controller : MonoBehaviour
         if(detector!=_currentDetector) ResetWeightOnDetector();
     }
 
+    //BUG fix
+    [HideInInspector] public bool onMovingPlank;
     private void FixSpeedOnSlope() // Gérer les déplacements sur les pentes
     {
         Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit,2,groundMask);
@@ -254,7 +254,7 @@ public class Controller : MonoBehaviour
             
         if (Vector3.Dot(hit.normal, Vector3.up) < 1)
         {
-            if(canJump)rb.constraints = moveInput.magnitude == 0
+            if(canJump && !onMovingPlank) rb.constraints = moveInput.magnitude == 0
                 ? RigidbodyConstraints.FreezeRotation|RigidbodyConstraints.FreezePositionY
                 : RigidbodyConstraints.FreezeRotation;
             
