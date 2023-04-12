@@ -61,7 +61,7 @@ public class PickUpObjects : MonoBehaviour
     public void Prendre()
     {
         _beakPinch = true;
-        if (isThingTaken == false && !isEchelle)
+        if (!isThingTaken&& !isEchelle)
         {
             pickedObject = GetClosestObject();
             if (pickedObject != null)
@@ -81,7 +81,7 @@ public class PickUpObjects : MonoBehaviour
 
         if (isEchelle && !isThingTaken)
         {
-           EnterEchelle();
+            EnterEchelle();
         }
     }
 
@@ -99,7 +99,7 @@ public class PickUpObjects : MonoBehaviour
     private void Lacher()
     {
         _beakPinch = false;
-        if (pickedObject != null && isThingTaken && !isEchelle)
+        if (pickedObject != null && isThingTaken && !_moveOnLadder)
         {
             Debug.Log("je relache l'objet devant moi");
             isThingTaken = false;
@@ -114,61 +114,52 @@ public class PickUpObjects : MonoBehaviour
             Controller.instance.ResetWeightOnDetector();
         }
 
-        if (isEchelle && isThingTaken)
+        if (_moveOnLadder)
         {
             QuitEchelle();
         }
     }
 
+    // BUG fix
+    private bool _moveOnLadder;
+    
     public void EnterEchelle()
     {
+        _moveOnLadder = true;
+        
         Controller.instance.gravityScale = -4;
         Controller.instance.canJump = true;
         Controller.instance.canPlaner = false;
         Controller.instance.canMove = false;
+        Controller.instance.GetComponent<Rigidbody>().useGravity = false;
         switch (currentEchelle.GetComponent<echelleData>().orientation)
         {
             case echelleData.Orientation.nord:
-                Controller.instance.transform.DOMove(new Vector3(currentEchelle.transform.position.x, Controller.instance.transform.position.y +0.7f, currentEchelle.transform.position.z-0.5f),0.5f).OnComplete((() => Controller.instance.isEchelle = true));
+                Controller.instance.transform.DOMove(new Vector3(currentEchelle.transform.position.x, Controller.instance.transform.position.y +0.7f, currentEchelle.transform.position.z-0.5f),0.5f).OnComplete(SetIsEchelle);
                 break;
             case echelleData.Orientation.sud:
-                Controller.instance.transform.DOMove(new Vector3(currentEchelle.transform.position.x, Controller.instance.transform.position.y +0.7f, currentEchelle.transform.position.z+0.5f),0.5f).OnComplete((() => Controller.instance.isEchelle = true));
+                Controller.instance.transform.DOMove(new Vector3(currentEchelle.transform.position.x, Controller.instance.transform.position.y +0.7f, currentEchelle.transform.position.z+0.5f),0.5f).OnComplete(SetIsEchelle);
                 break;
             case echelleData.Orientation.est:
-                Controller.instance.transform.DOMove(new Vector3(currentEchelle.transform.position.x-0.5f, Controller.instance.transform.position.y +0.7f, currentEchelle.transform.position.z),0.5f).OnComplete((() => Controller.instance.isEchelle = true));
+                Controller.instance.transform.DOMove(new Vector3(currentEchelle.transform.position.x-0.5f, Controller.instance.transform.position.y +0.7f, currentEchelle.transform.position.z),0.5f).OnComplete(SetIsEchelle);
                 break;
             case echelleData.Orientation.ouest:
-                Controller.instance.transform.DOMove(new Vector3(currentEchelle.transform.position.x+0.5f, Controller.instance.transform.position.y +0.7f, currentEchelle.transform.position.z),0.5f).OnComplete((() => Controller.instance.isEchelle = true));
+                Controller.instance.transform.DOMove(new Vector3(currentEchelle.transform.position.x+0.5f, Controller.instance.transform.position.y +0.7f, currentEchelle.transform.position.z),0.5f).OnComplete(SetIsEchelle);
                 break;
         }
-        isThingTaken = false;
-        Controller.instance.GetComponent<Rigidbody>().useGravity = false;
-        isEchelle = true;
+    }
+    private void SetIsEchelle()
+    {
         Controller.instance.isEchelle = true;
     }
+    
     public void QuitEchelle()
     {
+        _moveOnLadder = false;
         Controller.instance.canPlaner = true;
         Controller.instance.canMove = true;
-        isThingTaken = false;
         Controller.instance.rb.useGravity = true;
-      /*  switch (currentEchelle.GetComponent<echelleData>().orientation)
-        {
-            case echelleData.Orientation.nord:
-                Controller.instance.transform.rotation = new Quaternion(0, 0, 0, 0);
-                break;
-            case echelleData.Orientation.sud:
-                Controller.instance.transform.rotation = new Quaternion(0, -180, 0, 0);
-                break;
-            case echelleData.Orientation.est:
-                Controller.instance.transform.rotation = new Quaternion(0, 90, 0, 0);
-                break;
-            case echelleData.Orientation.ouest:
-                Controller.instance.transform.rotation = new Quaternion(0, -52, 0, 0);
-                break;
-        }*/
         Controller.instance.isEchelle = false;
-        isEchelle = false;
     }
     
     private void OnTriggerEnter(Collider other)
@@ -197,6 +188,7 @@ public class PickUpObjects : MonoBehaviour
         if (other.gameObject.layer == 9) // Si l'objet est une echelle
         {
             QuitEchelle();
+            isEchelle = false;
             currentEchelle = null;
         }
     }

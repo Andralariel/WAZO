@@ -106,7 +106,7 @@ public class Controller : MonoBehaviour
             canPlaner = false;
             rb.useGravity = false;
             Debug.DrawRay(transform.position, Vector3.down*0.5f, Color.yellow,2);
-            if (Physics.Raycast(transform.position, Vector3.down, 0.5f, groundMask))
+            if (Physics.Raycast(transform.position, Vector3.down, 0.2f, groundMask))
             {
                 isEchelle = false;
                 PickUpObjects.instance.QuitEchelle();
