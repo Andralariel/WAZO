@@ -31,15 +31,18 @@ public class PlancheABascule : WeightDetector
             if (poidDroite > poidGauche && poidDroite != poidGauche)
             {
                 transform.localRotation = Quaternion.RotateTowards(transform.localRotation,positionDroite,rotationSpeed*Time.deltaTime);
+                CheckRotation(positionDroite);
             }
             else if (poidDroite < poidGauche && poidDroite != poidGauche)
             {
                 transform.localRotation = Quaternion.RotateTowards(transform.localRotation,positionGauche,rotationSpeed*Time.deltaTime);
+                CheckRotation(positionGauche);
             }
             
             if (poidDroite == poidGauche)
             {
                 transform.localRotation = Quaternion.RotateTowards(transform.localRotation,positionNeutre,rotationSpeed*Time.deltaTime);
+                CheckRotation(positionNeutre);
             }
 
             associatedLeftUI.currentWeight = poidGauche;
@@ -120,5 +123,11 @@ public class PlancheABascule : WeightDetector
         {
             poidGauche += (int)rb.mass;
         }
+    }
+    
+    //BUG fix : ne plus bloquer le joueur dans les airs
+    private void CheckRotation(Quaternion targetRotation)
+    {
+        Controller.instance.onMovingPlank = transform.localRotation != targetRotation;
     }
 }

@@ -41,7 +41,7 @@ namespace WeightSystem.Activator
 
         private void Movement()
         {
-            _currentTween = transform.DOMove(wayPoints[_nextPoint], CalculateSpeed()).OnComplete(FindNextPoint);
+            _currentTween = transform.DOLocalMove(wayPoints[_nextPoint], CalculateSpeed()).OnComplete(FindNextPoint);
         }
 
         private void FindNextPoint()
