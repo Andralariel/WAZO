@@ -77,6 +77,7 @@ public class Controller : MonoBehaviour
         inputAction.Player.Jump.performed += ctx => Sauter();
         inputAction.Player.Jump.performed += ctx => isPressing = true;
         inputAction.Player.Jump.canceled += ctx => isPressing = false;
+        inputAction.Player.MenuCarte.performed += ctx => MapManager.instance.OpenCloseMap();
     }
 
      void FixedUpdate () // Gravité
