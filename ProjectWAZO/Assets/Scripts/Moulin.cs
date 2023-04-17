@@ -28,7 +28,7 @@ public class Moulin : Activator
         if (isActive)
         {
             hélice.transform.Rotate ( Vector3.forward * ( rotationSpeed * Time.deltaTime));
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 3; i++)
             {
                 plateformes[i].transform.position = plateformesPoints[i].transform.position;
             }

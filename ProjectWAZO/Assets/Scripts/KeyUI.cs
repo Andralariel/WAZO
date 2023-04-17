@@ -26,6 +26,8 @@ public class KeyUI : MonoBehaviour
         StartCoroutine(HideKey(2f));
     }
     
+   
+    
     public IEnumerator HideKey(float timeToHide)
     {
         yield return new WaitForSeconds(timeToHide/2);
@@ -44,4 +46,14 @@ public class KeyUI : MonoBehaviour
         blackScreen.DOFade(0, duration);
     }
     
+    
+    public void ShowMapKey()
+    {
+        transform.DOMove(transform.position-new Vector3(showHideDistance,0,0), 0.5f);
+    }
+    
+    public void HideMapKey()
+    {
+        transform.DOMove(transform.position+new Vector3(showHideDistance,0,0), 0.5f);
+    }
 }
