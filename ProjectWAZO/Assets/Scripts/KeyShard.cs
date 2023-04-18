@@ -9,12 +9,11 @@ using Random = UnityEngine.Random;
 
 public class KeyShard : MonoBehaviour
 {
-   public AnimationCurve curve;
-   public bool isAnimation;
-   public float force;
-   public Vector3 ralentissement = Vector3.zero;
-   public float timeToGoBack;
-   public float t;
+   public int keyID;
+   public bool isFleeing;
+   public bool isGoingBack;
+   public float ForceToFlee;
+   public float ForceToGoBack;
    private Rigidbody rb;
 
    private void Start()
@@ -24,26 +23,27 @@ public class KeyShard : MonoBehaviour
 
    private void Update()
    {
-      if (isAnimation)
+
+      if (isGoingBack)
       {
-       t += timeToGoBack * Time.deltaTime;
+         ForceToGoBack += 0.2f;
+         Vector3 angle = Controller.instance.transform.position - transform.position;
+         rb.AddForce(angle*ForceToGoBack);
+         //transform.DOMove(Controller.instance.transform.position, timeToGoBack).SetEase(Ease.InQuart);
       }
-      /*else 
-      {
-         rb.velocity -= ralentissement*Time.deltaTime;
-      }*/
    }
 
    private void OnTriggerEnter(Collider other)
    {
       if (other.gameObject.layer == 6)
       {
-         if (!isAnimation)
+         if (!isGoingBack)
          {
             FleePlayer();   
          }
          else
          {
+            KeyUI.instance.RegisterKey(keyID);
             PickUp();
          }
          
@@ -52,10 +52,19 @@ public class KeyShard : MonoBehaviour
 
    void FleePlayer()
    {
-      Vector3 randomForce = new Vector3(Random.Range(-2f, 2f), 1, Random.Range(-2f, 2f));
-      rb.AddForce(randomForce * force,ForceMode.Impulse);
+      isFleeing = true;
+      Vector3 randomForce = new Vector3(Random.Range(-1f, 1f) + Random.Range(-1f, 1f), 1, Random.Range(-1f, 1f) + Random.Range(-1f, 1f));
+      rb.AddForce(randomForce * ForceToFlee,ForceMode.Impulse);
       StartCoroutine(GoBackToPlayer());
      
+   }
+   
+   IEnumerator GoBackToPlayer()
+   {
+      yield return new WaitForSeconds(1f);
+      isFleeing = false;
+      isGoingBack = true;
+      rb.velocity = Vector3.zero;
    }
 
    void PickUp()
@@ -66,12 +75,5 @@ public class KeyShard : MonoBehaviour
       TempleOpener.instance.currentAmount += 1;
    }
 
-   IEnumerator GoBackToPlayer()
-   {
-      yield return new WaitForSeconds(0.2f);
-      isAnimation = true;
-      Vector3 angle = Controller.instance.transform.position - transform.position;
-      transform.DOMove(Controller.instance.transform.position, timeToGoBack).SetEase(Ease.InQuart);
-      rb.velocity = Vector3.zero;
-   }
+  
 }

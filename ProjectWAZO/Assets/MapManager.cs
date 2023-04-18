@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MapManager : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class MapManager : MonoBehaviour
     public static MapManager instance;
     public bool isMapOpened;
     public CanvasGroup MapMenu;
+    public List<Image> listCroix;
 
     private void Awake()
     {
@@ -18,11 +20,7 @@ public class MapManager : MonoBehaviour
             instance = this;
         }
     }
-   
-    void Update()
-    {
-       
-    }
+    
 
     public void OpenCloseMap()
     {

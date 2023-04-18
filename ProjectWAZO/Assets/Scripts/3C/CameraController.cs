@@ -93,9 +93,19 @@ public class CameraController : MonoBehaviour
     {
         if (isIso)
         {
-            Vector3 newPosition = player.transform.position + offset + (Controller.instance.moveInput * walkingLookFactor);
-            transform.localPosition = Vector3.SmoothDamp(transform.position,newPosition,ref velocity,SmoothMoveFactor);
-            transform.rotation = Quaternion.Slerp(transform.rotation, normalRotation, Time.deltaTime/SmoothRotateFactor);
+            if (Controller.instance.canMove)
+            {
+                Vector3 newPosition = player.transform.position + offset + (Controller.instance.moveInput * walkingLookFactor);
+                transform.localPosition = Vector3.SmoothDamp(transform.position,newPosition,ref velocity,SmoothMoveFactor);
+                transform.rotation = Quaternion.Slerp(transform.rotation, normalRotation, Time.deltaTime/SmoothRotateFactor);
+            }
+            else
+            {
+                Vector3 newPosition = player.transform.position + offset;
+                transform.localPosition = Vector3.SmoothDamp(transform.position,newPosition,ref velocity,SmoothMoveFactor);
+                transform.rotation = Quaternion.Slerp(transform.rotation, normalRotation, Time.deltaTime/SmoothRotateFactor);
+            }
+           
         }
         else if(isTopDown)
         {
