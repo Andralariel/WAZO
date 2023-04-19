@@ -9,11 +9,13 @@ public class MapManager : MonoBehaviour
 {
     
     public static MapManager instance;
+    public bool MapGot;
     public bool isMenuOpened;
     public bool isRecto;
     public CanvasGroup MapMenu;
     public GameObject mapElements;
     public GameObject loreElements;
+    public RectTransform iconMapUpdate;
     public Image Map;
     public Sprite mapVierge;
     public Sprite mapPleine;
@@ -28,12 +30,12 @@ public class MapManager : MonoBehaviour
             instance = this;
         }
 
-        Map.sprite = mapPleine;
+        Map.sprite = mapVierge;
     }
 
     public void OpenCloseMap()
     {
-        if (Controller.instance.isGrounded)
+        if (Controller.instance.isGrounded && !CinématiqueManager.instance.isCinématique)
         {
             if (isMenuOpened)
             {
@@ -81,7 +83,15 @@ public class MapManager : MonoBehaviour
                 {
                     isRecto = true;
                     Map.transform.DOScaleX(0, 0.1f);
-                    Map.sprite = mapPleine;
+                    if (MapGot)
+                    {
+                        Map.sprite = mapPleine;
+                    }
+                    else
+                    {
+                        Map.sprite = mapVierge;
+                    }
+                   
                     mapElements.SetActive(true);
                     loreElements.SetActive(false);
                     Map.transform.DOScaleX(1, 0.1f);
@@ -107,11 +117,32 @@ public class MapManager : MonoBehaviour
             {
                 isRecto = true;
                 Map.transform.DOScaleX(0, 0.5f);
-                Map.sprite = mapPleine;
+                if (MapGot)
+                {
+                    Map.sprite = mapPleine;  
+                }
+                else
+                {
+                    Map.sprite = mapVierge;
+                }
                 mapElements.SetActive(true);
                 loreElements.SetActive(false);
                 Map.transform.DOScaleX(1, 0.5f);
             }
         }
+    }
+
+    public void IconMapUpdate(float duration)
+    {
+        StartCoroutine(ShowAndHide(duration));
+    }
+
+    IEnumerator ShowAndHide(float duration)
+    {
+        iconMapUpdate.gameObject.SetActive(true);
+        iconMapUpdate.DOAnchorPosX(0, 0.5f);
+        yield return new WaitForSeconds(duration);
+        iconMapUpdate.DOAnchorPosX(200, 0.5f).OnComplete((() =>   iconMapUpdate.gameObject.SetActive(false)));
+      
     }
 }

@@ -42,6 +42,7 @@ public class CinématiqueTrigger : MonoBehaviour
    {
       if (other.gameObject.layer == 6)
       {
+         CinématiqueManager.instance.isCinématique = true;
          isMoving = true;
          player.canMove = false;
          player.canJump = false;

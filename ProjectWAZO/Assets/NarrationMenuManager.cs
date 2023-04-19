@@ -38,7 +38,8 @@ public class NarrationMenuManager : MonoBehaviour
             Controller.instance.canMove = true;
             Controller.instance.canJump = true;
             isOpen = false;
-            myCG.DOFade(0, 0.5f); 
+            myCG.DOFade(0, 0.5f);
+            CinématiqueManager.instance.isCinématique = false;
         }
     }
     

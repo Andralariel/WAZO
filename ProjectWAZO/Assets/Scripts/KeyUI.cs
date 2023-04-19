@@ -44,6 +44,7 @@ public class KeyUI : MonoBehaviour
     public void RegisterKey(int ID) // Enregistre la clé comme récupérée et update l'UI en conséquence
     {
         MapManager.instance.listCroix[ID].gameObject.SetActive(true);
+      
 
         if (keyObjectList[ID].choseRegion == KeyShard.Region.Bosquet)
         {
@@ -69,7 +70,7 @@ public class KeyUI : MonoBehaviour
         yield return new WaitForSeconds(timeToHide/2);
         shardImageList[currentShard - 1].DOFade(1, 0.5f);
         yield return new WaitForSeconds(timeToHide);
-        myRect.DOAnchorPos(hidePosition, 0.5f);
+        myRect.DOAnchorPos(hidePosition, 0.5f).OnComplete((() =>   MapManager.instance.IconMapUpdate(1.5f)));
     }
 
     public void FadeInBlackScreen(float duration) // Fade out et Fade in un écran noir
