@@ -40,7 +40,7 @@ public class CinématiqueTrigger : MonoBehaviour
 
    private void OnTriggerEnter(Collider other)
    {
-      if (other.gameObject.layer == 6 && Controller.instance.isGrounded)
+      if (other.gameObject.layer == 6)
       {
          isMoving = true;
          player.canMove = false;
@@ -48,15 +48,17 @@ public class CinématiqueTrigger : MonoBehaviour
          Vector3 pointToGo = new Vector3(PointToGo.position.x, player.transform.position.y, PointToGo.position.z);
          player.transform.DOMove(pointToGo, timeToGo).SetEase(Ease.Linear).OnComplete((() => EndedMoving = true));
          StartCoroutine(OpenMenu());
+         MapManager.instance.fresquesList[FresqueID].DOFade(1, 0.5f);
       }
    }
 
    IEnumerator OpenMenu()
    {
       yield return new WaitForSeconds(CinématiqueDuration);
-      isMoving = false;
       NarrationMenuManager.instance.ChangeFresque(FresqueID);
       NarrationMenuManager.instance.OpenMenu();
+      isMoving = false;
+      EndedMoving = false;
       if (!repetable)
       {
          Destroy(gameObject);

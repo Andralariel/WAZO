@@ -76,6 +76,7 @@ public class Controller : MonoBehaviour
         inputAction.Player.Move.performed += ctx => moveInput = ctx.ReadValue<Vector3>();
         inputAction.Player.Jump.performed += ctx => Sauter();
         inputAction.Player.Jump.performed += ctx => NarrationMenuManager.instance.CloseMenu();
+        inputAction.Player.Jump.performed += ctx => MapManager.instance.ReturnMap();
         inputAction.Player.Jump.performed += ctx => isPressing = true;
         inputAction.Player.Jump.canceled += ctx => isPressing = false;
         inputAction.Player.MenuCarte.performed += ctx => MapManager.instance.OpenCloseMap();

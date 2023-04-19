@@ -7,10 +7,11 @@ using UnityEngine.Playables;
 
 public class CinématiqueManager : MonoBehaviour
 {
-    public bool enableCinematics;
+    public bool enableStartCinematic;
+    public bool isCinématique;
     public PlayableDirector cinematiqueManager;
     public List<PlayableAsset> cinématiqueList;
-    public List<GameObject> objetsCinématqiue;
+    public List<GameObject> objetsCinématique;
     public static CinématiqueManager instance;
 
     private void Awake()
@@ -23,7 +24,7 @@ public class CinématiqueManager : MonoBehaviour
 
     void Start()
     {
-        if (enableCinematics)
+        if (enableStartCinematic)
         {
             StartCoroutine(CinématiqueIntro());
         }
@@ -31,6 +32,7 @@ public class CinématiqueManager : MonoBehaviour
 
     public IEnumerator CinématiqueIntro()
     {
+        isCinématique = true;
         cinematiqueManager.playableAsset = cinématiqueList[0];
         Controller.instance.canMove = false;
         Controller.instance.canJump = false;
@@ -46,23 +48,26 @@ public class CinématiqueManager : MonoBehaviour
         yield return new WaitForSeconds(2);
         KeyUI.instance.FadeOutBlackScreen(1);
      
-        foreach (GameObject oui in objetsCinématqiue)
+        foreach (GameObject oui in objetsCinématique)
         {
             Destroy(oui);
         }
-        objetsCinématqiue.Clear();
-       
+        objetsCinématique.Clear();
+        isCinématique = false;
     }
     
     public IEnumerator CinématiqueBOTW()
     {
+        isCinématique = true;
         cinematiqueManager.playableAsset = cinématiqueList[1];
         Controller.instance.canMove = false;
         Controller.instance.canJump = false;
         CameraController.instance.canMove = false;
         cinematiqueManager.Play();
-        yield return new WaitForSeconds((float)cinematiqueManager.duration);
-        cinematiqueManager.Stop();
+        Debug.Log((float)cinematiqueManager.duration);
+        yield return new WaitForSeconds(25);
+        MapManager.instance.Map.sprite = MapManager.instance.mapPleine;
+        isCinématique = false;
         CameraController.instance.canMove = true;
         Controller.instance.canMove = true;
         Controller.instance.canJump = true;

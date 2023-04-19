@@ -15,6 +15,7 @@ public class KeyUI : MonoBehaviour
     public List<KeyShard> keyObjectList;
     public int currentShard;
     public Image blackScreen;
+    public Dictionary<string, int> keyInRegion = new Dictionary<string, int>();
     private void Awake()
     {
         if (instance == null)
@@ -23,30 +24,55 @@ public class KeyUI : MonoBehaviour
         }
 
         myRect = GetComponent<RectTransform>();
+        
+        keyInRegion.Add("Village",3);
+        keyInRegion.Add("Bosquet",2);
+        keyInRegion.Add("Hameau",1);
+        keyInRegion.Add("Plaine",1);
+        /*foreach (KeyValuePair<string,int> oui in keyInRegion)
+        {
+            Debug.Log(oui.Key + oui.Value);
+        }*/
     }
 
-    public void ShowKey()
+    public void ShowKey() // Affiche l'UI
     {
-        //transform.DOMove(transform.position-new Vector3(showHideDistance,0,0), 0.5f);
         myRect.DOAnchorPos(showPosition, 0.5f);
         StartCoroutine(HideKey(2f));
     }
 
-    public void RegisterKey(int ID)
+    public void RegisterKey(int ID) // Enregistre la clé comme récupérée et update l'UI en conséquence
     {
         MapManager.instance.listCroix[ID].gameObject.SetActive(true);
+
+        if (keyObjectList[ID].choseRegion == KeyShard.Region.Bosquet)
+        {
+            keyInRegion["Bosquet"] -= 1;
+        }
+        else if (keyObjectList[ID].choseRegion == KeyShard.Region.Village)
+        {
+            keyInRegion["Village"] -= 1;
+        }
+        else if (keyObjectList[ID].choseRegion == KeyShard.Region.Plaine)
+        {
+            keyInRegion["Plaine"] -= 1;
+        }
+        else if (keyObjectList[ID].choseRegion == KeyShard.Region.Hameau)
+        {
+            keyInRegion["Hameau"] -= 1;
+        }
+
     }
     
-    public IEnumerator HideKey(float timeToHide)
+    public IEnumerator HideKey(float timeToHide) // Faire apparaitre un morceau de clé puis faire disparaitre l'UI
     {
         yield return new WaitForSeconds(timeToHide/2);
         shardImageList[currentShard - 1].DOFade(1, 0.5f);
         yield return new WaitForSeconds(timeToHide);
-        //transform.DOMove(transform.position+new Vector3(showHideDistance,0,0), 0.5f);
         myRect.DOAnchorPos(hidePosition, 0.5f);
     }
 
-    public void FadeInBlackScreen(float duration)
+    public void FadeInBlackScreen(float duration) // Fade out et Fade in un écran noir
     {
         blackScreen.DOFade(1, duration);
     }
@@ -57,15 +83,13 @@ public class KeyUI : MonoBehaviour
     }
     
     
-    public void ShowMapKey()
+    public void ShowMapKey() // Faire apparaite et disparaitre l'UI dans le menu de la carte
     {
-       // transform.DOMove(transform.position-new Vector3(showHideDistance,0,0), 0.5f);
-       myRect.DOAnchorPos(showPosition, 0.5f);
+        myRect.DOAnchorPos(showPosition, 0.5f);
     }
     
     public void HideMapKey()
     {
-       // transform.DOMove(transform.position+new Vector3(showHideDistance,0,0), 0.5f);
-       myRect.DOAnchorPos(hidePosition, 0.5f);
+        myRect.DOAnchorPos(hidePosition, 0.5f);
     }
 }

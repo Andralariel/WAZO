@@ -16,6 +16,17 @@ public class KeyShard : MonoBehaviour
    public float ForceToGoBack;
    private Rigidbody rb;
 
+   public enum Region
+   {
+      Village,
+      Bosquet,
+      Hameau,
+      Plaine,
+   }
+
+   public Region choseRegion;
+ 
+
    private void Start()
    {
       rb = GetComponent<Rigidbody>();
@@ -53,7 +64,7 @@ public class KeyShard : MonoBehaviour
    void FleePlayer()
    {
       isFleeing = true;
-      Vector3 randomForce = new Vector3(Random.Range(-1f, 1f) + Random.Range(-1f, 1f), 1, Random.Range(-1f, 1f) + Random.Range(-1f, 1f));
+      Vector3 randomForce = new Vector3(Random.Range(-2f, 2f), 1, Random.Range(-2f,2f));
       rb.AddForce(randomForce * ForceToFlee,ForceMode.Impulse);
       StartCoroutine(GoBackToPlayer());
      
