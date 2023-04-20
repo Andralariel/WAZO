@@ -30,7 +30,6 @@ namespace Utilitaire
 
         private void Update()
         {
-            Debug.Log(_nextPoint);
             if (isTaken)
             {
                 rb.isKinematic = true;

@@ -113,8 +113,13 @@ public class PlancheABascule : WeightDetector
             }
         }
         master.ResetWeight();
-        
-        if (other.gameObject.layer == 6) master.characterOnDetector = false;
+
+        if (other.gameObject.layer == 6)
+        {
+            master.characterOnDetector = false;
+            Controller.instance.onMovingPlank = false;
+            Controller.instance.onHeightChangingPlatform = false;
+        }
     }
 
     protected override void LimitCheck()
