@@ -121,6 +121,7 @@ MonoBehaviour:
   airControlSpeed: 50
   slopeSpeed: 8
   jumpForce: 14.5
+  onMoveJumpForce: 7
   gravityScale: -4
   planingGravity: 1
   coyoteTime: 0.1
@@ -143,6 +144,7 @@ MonoBehaviour:
   flyIndicator: {fileID: 726642129209541156}
   trail: {fileID: 3573166728878081077}
   trail2: {fileID: 4006545370817752948}
+  onMovingPlank: 0
 --- !u!54 &726642129016094493
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -389,6 +391,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offset: {x: 2, y: 10, z: -8.5}
   SmoothMoveFactor: 0.2
+  walkingLookFactor: 0
   normalRotation: {x: -0.4190027, y: 0.118297234, z: -0.055162907, w: -0.89855415}
   canMove: 1
   canRotate: 0
@@ -399,9 +402,13 @@ MonoBehaviour:
   SmoothRotateFactor: 0.5
   topDownOffset: {x: 0, y: 20, z: 0}
   topDownRotation: {x: 0.70710677, y: 0, z: 0, w: 0.70710677}
+  target1: {fileID: 0}
+  target2: {fileID: 0}
+  lerpGoal: {x: 0, y: 0, z: 0}
   isIso: 1
   isTopDown: 0
   isFocused: 0
+  isVerticalLerp: 0
 --- !u!1 &2796430523573347242
 GameObject:
   m_ObjectHideFlags: 0

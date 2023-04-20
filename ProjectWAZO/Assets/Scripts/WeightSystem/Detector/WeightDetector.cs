@@ -7,6 +7,7 @@ namespace WeightSystem.Detector
     public class WeightDetector : MonoBehaviour
     {
         protected int LocalWeight;
+        public bool characterOnDetector;
         private List<Rigidbody> _rbList;
 
         private void Awake()
@@ -20,7 +21,11 @@ namespace WeightSystem.Detector
             LocalWeight += (int)_rbList[^1].mass;
             
             //PlayerCollision = 6 --- Object = 7
-            if(other.gameObject.layer == 6) Controller.instance.SetDetector(this);
+            if (other.gameObject.layer == 6)
+            {
+                Controller.instance.SetDetector(this);
+                characterOnDetector = true;
+            }
             if(other.gameObject.layer == 7) other.GetComponent<Spirit>().SetDetector(this);
             
             LimitCheck();
@@ -28,6 +33,9 @@ namespace WeightSystem.Detector
 
         public void OnTriggerExit(Collider other)
         {
+            if (other.gameObject.layer == 6) characterOnDetector = false;
+            
+            Controller.instance.onHeightChangingPlatform = false;
             _rbList.Remove(other.attachedRigidbody);
             LocalWeight -= (int)other.attachedRigidbody.mass;
             
