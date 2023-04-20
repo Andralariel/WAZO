@@ -50,7 +50,7 @@ public class PlancheABascule : WeightDetector
           
         }
         var transformRotation = transform.localRotation;
-        transformRotation.y = 0;
+        transformRotation = Quaternion.Euler(transformRotation.eulerAngles.x, 0, transformRotation.eulerAngles.z);
         transform.localRotation = transformRotation;
     }
 

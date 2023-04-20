@@ -30,8 +30,9 @@ public class Controller : MonoBehaviour
     [Header("Métrics Controller")]
     public float moveSpeed;
     public float airControlSpeed;
-    public float slopeSpeed = 10;
+    public float slopeSpeed;
     public float jumpForce;
+    public float onMoveJumpForce;
     public float gravityScale;
     public float planingGravity;
     public float coyoteTime;
@@ -44,6 +45,7 @@ public class Controller : MonoBehaviour
     public bool isPressing;
     public bool isWind;
     public bool isCoyote;
+    public bool onHeightChangingPlatform;
 
     [Header("Utilitaire")] 
     public float rotationSpeed;
@@ -199,7 +201,7 @@ public class Controller : MonoBehaviour
             isCoyote = false;
             StopAllCoroutines();
             Debug.DrawRay(transform.position, Vector3.down*0.2f, Color.green,2);
-            rb.AddForce(new Vector3(0,jumpForce,0),ForceMode.VelocityChange);
+            rb.AddForce(new Vector3(0,onHeightChangingPlatform?onMoveJumpForce:jumpForce,0),ForceMode.VelocityChange);
         }
         else if (!canJump)
         {

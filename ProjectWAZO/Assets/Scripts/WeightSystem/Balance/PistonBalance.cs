@@ -13,6 +13,8 @@ namespace WeightSystem.Balance
         [SerializeField] private float movingSpeed = 2f;
         
         private Vector3 _startPos;
+        private Tweener _lastTween;
+        private float _duration;
 
         private void Awake()
         {
@@ -22,17 +24,35 @@ namespace WeightSystem.Balance
 
         public override void HighState()
         {
-            transform.DOLocalMove(_startPos + Vector3.up * halfHeight, movingSpeed);
+            NewMovement();
+            _duration = (transform.position-(_startPos + Vector3.up * halfHeight)).magnitude/halfHeight * movingSpeed;
+            _lastTween = transform.DOLocalMove(_startPos + Vector3.up * halfHeight, _duration).OnComplete(MovementCompleted);
         }
 
         public override void MiddleState()
         {
-            transform.DOLocalMove(_startPos, movingSpeed);
+            NewMovement();
+            _duration = (transform.position-_startPos).magnitude/halfHeight * movingSpeed;
+            _lastTween = transform.DOLocalMove(_startPos, _duration).OnComplete(MovementCompleted);
         }
 
         public override void LowState()
         {
-            transform.DOLocalMove(_startPos - Vector3.up * halfHeight, movingSpeed);
+            NewMovement();
+            _duration = (transform.position-(_startPos - Vector3.up * halfHeight)).magnitude/halfHeight * movingSpeed;
+            _lastTween = transform.DOLocalMove(_startPos - Vector3.up * halfHeight, _duration).OnComplete(MovementCompleted);
+        }
+
+        private void NewMovement()
+        {
+            _lastTween?.Kill();
+            if(linkedTrigger.characterOnDetector) Controller.instance.onHeightChangingPlatform = true;
+        }
+        
+        private void MovementCompleted()
+        {
+            _lastTween = null;
+            if(linkedTrigger.characterOnDetector) Controller.instance.onHeightChangingPlatform = false;
         }
     }
 }

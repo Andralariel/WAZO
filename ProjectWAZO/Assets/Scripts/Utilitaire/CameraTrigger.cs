@@ -34,6 +34,9 @@ public class CameraTrigger : MonoBehaviour
   public GameObject newTarget2;
   public Vector3 newLerpGoal;
 
+  [Header("StartCinématique")]
+  public int cinématiqueToStart;
+
   //----------------------------------------------------------------------------------------------
 
   private void Start()
@@ -89,9 +92,8 @@ public class CameraTrigger : MonoBehaviour
                camera.offset = newOffset;
                break;
             case Effect.StartCinématique:
-              StartCoroutine( CinématiqueManager.instance.CinématiqueBOTW());
-              Debug.Log("cinématique");
-               break;
+             CinématiqueManager.instance.StartCinématique(cinématiqueToStart);
+             break;
          }
       }
       foreach (GameObject obj in objectsToKill)
