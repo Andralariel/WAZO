@@ -132,6 +132,7 @@ MonoBehaviour:
   isPressing: 0
   isWind: 0
   isCoyote: 0
+  onHeightChangingPlatform: 0
   rotationSpeed: 720
   globalGravity: 9.81
   moveInput: {x: 0, y: 0, z: 0}
@@ -39823,6 +39824,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 0544f12cb89f4404a99a58dbed0317c4, type: 2}
+    - target: {fileID: -5922112462297279493, guid: 68d78d4c083f5f9419337bb8aa883ab5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: -4804433903161965560, guid: 68d78d4c083f5f9419337bb8aa883ab5,
         type: 3}
       propertyPath: m_Materials.Array.data[0]

@@ -29,14 +29,17 @@ namespace WeightSystem.Activator
             FindNextPoint();
         }
 
+        
         public override void Deactivate()
         {
             _currentTween.Kill();
-            
             _played = false;
-            _rewind = true;
             
-            FindNextPoint();
+            //Commented for pillars to stay in place when deactivated
+            
+            // _rewind = true;
+            //
+            // FindNextPoint();
         }
 
         private void Movement()
@@ -72,8 +75,6 @@ namespace WeightSystem.Activator
         private float CalculateSpeed()
         {
             var distance = (wayPoints[_nextPoint] - transform.position).magnitude;
-            Debug.Log((wayPoints[_nextPoint] - transform.position));
-            Debug.Log(distance);
             return distance/speed;
         }
         //Add SetParent on independent script
