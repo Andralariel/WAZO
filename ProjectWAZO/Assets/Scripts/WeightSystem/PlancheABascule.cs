@@ -23,9 +23,12 @@ public class PlancheABascule : WeightDetector
     public List<Rigidbody> massListD;
     public WeightUI associatedLeftUI;
     public WeightUI associatedRightUI;
+
+    private bool _isInPlace;
     
     void Update()
     {
+        if (_isInPlace) return;
         if (type == HitboxType.centre)
         {
             if (poidDroite > poidGauche && poidDroite != poidGauche)
@@ -81,6 +84,8 @@ public class PlancheABascule : WeightDetector
         
         master.ResetWeight();
         Controller.instance.SetDetector(master);
+
+        if (other.gameObject.layer == 6) master.characterOnDetector = true;
     }
     
     private void OnTriggerExit(Collider other)
@@ -108,6 +113,8 @@ public class PlancheABascule : WeightDetector
             }
         }
         master.ResetWeight();
+        
+        if (other.gameObject.layer == 6) master.characterOnDetector = false;
     }
 
     protected override void LimitCheck()
@@ -123,11 +130,27 @@ public class PlancheABascule : WeightDetector
         {
             poidGauche += (int)rb.mass;
         }
+
+        _isInPlace = false;
     }
     
     //BUG fix : ne plus bloquer le joueur dans les airs
     private void CheckRotation(Quaternion targetRotation)
     {
-        Controller.instance.onMovingPlank = transform.localRotation != targetRotation;
+        var controller = Controller.instance;
+        if (transform.localRotation != targetRotation)
+        {
+            if (!characterOnDetector) return;
+            controller.onMovingPlank = true;
+            controller.onHeightChangingPlatform = true;
+        }
+        else
+        {
+            _isInPlace = true;
+            
+            if (!characterOnDetector) return;
+            controller.onMovingPlank = false;
+            controller.onHeightChangingPlatform = false;
+        }
     }
 }
