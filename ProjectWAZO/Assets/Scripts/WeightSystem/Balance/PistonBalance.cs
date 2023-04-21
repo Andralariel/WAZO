@@ -25,21 +25,21 @@ namespace WeightSystem.Balance
         public override void HighState()
         {
             NewMovement();
-            _duration = (transform.position-(_startPos + Vector3.up * halfHeight)).magnitude/halfHeight * movingSpeed;
+            _duration = (transform.localPosition-(_startPos + Vector3.up * halfHeight)).magnitude/halfHeight * movingSpeed;
             _lastTween = transform.DOLocalMove(_startPos + Vector3.up * halfHeight, _duration).OnComplete(MovementCompleted);
         }
 
         public override void MiddleState()
         {
             NewMovement();
-            _duration = (transform.position-_startPos).magnitude/halfHeight * movingSpeed;
+            _duration = (transform.localPosition-_startPos).magnitude/halfHeight * movingSpeed;
             _lastTween = transform.DOLocalMove(_startPos, _duration).OnComplete(MovementCompleted);
         }
 
         public override void LowState()
         {
             NewMovement();
-            _duration = (transform.position-(_startPos - Vector3.up * halfHeight)).magnitude/halfHeight * movingSpeed;
+            _duration = (transform.localPosition-(_startPos - Vector3.up * halfHeight)).magnitude/halfHeight * movingSpeed;
             _lastTween = transform.DOLocalMove(_startPos - Vector3.up * halfHeight, _duration).OnComplete(MovementCompleted);
         }
 

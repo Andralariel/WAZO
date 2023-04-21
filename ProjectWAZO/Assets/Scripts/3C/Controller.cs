@@ -32,7 +32,7 @@ public class Controller : MonoBehaviour
     public float airControlSpeed;
     public float slopeSpeed;
     public float jumpForce;
-    public float onMoveJumpForce;
+    public float onMoveJumpForce = 7f;
     public float gravityScale;
     public float planingGravity;
     public float coyoteTime;
