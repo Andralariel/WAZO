@@ -44,7 +44,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.9, y: 0.1, z: 0.9}
+  m_Size: {x: 0.8, y: 0.1, z: 0.8}
   m_Center: {x: 0, y: 0.45, z: 0}
 --- !u!114 &5011327747592446312
 MonoBehaviour:
@@ -70,7 +70,7 @@ GameObject:
   - component: {fileID: 4648717601821658581}
   - component: {fileID: 1284675621259443683}
   - component: {fileID: 6008413873841482954}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Damper001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -448,7 +448,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5854079278673421118}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.019, y: 0, z: -0.004}
+  m_LocalPosition: {x: 0.019, y: -0.035, z: -0.004}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -480,6 +480,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 113d50bc4f829bb42bf51080c10e8b1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterOnDetector: 0
   linkedPiston: {fileID: 3553898683721013500}
   associatedUI: {fileID: 8103601052426528012}
 --- !u!1 &6031045569084339687
