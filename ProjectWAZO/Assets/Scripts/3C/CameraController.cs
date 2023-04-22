@@ -46,6 +46,7 @@ public class CameraController : MonoBehaviour
     public bool isVerticalLerp;
 
     public static CameraController instance;
+    [HideInInspector] public bool StartToPlayer;
 
 
     private void Awake()
@@ -60,7 +61,10 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
-        transform.position = player.transform.position + offset;
+        if (StartToPlayer)
+        {
+            transform.position = player.transform.position + offset;
+        }
         camera = GetComponent<Camera>();
     }
 
