@@ -15,6 +15,7 @@ public class KeyUI : MonoBehaviour
     public List<KeyShard> keyObjectList;
     public int currentShard;
     public Image blackScreen;
+    public Image Contour;
     public Dictionary<string, int> keyInRegion = new Dictionary<string, int>();
     private void Awake()
     {
@@ -61,6 +62,12 @@ public class KeyUI : MonoBehaviour
         else if (keyObjectList[ID].choseRegion == KeyShard.Region.Hameau)
         {
             keyInRegion["Hameau"] -= 1;
+        }
+
+        if (currentShard == TempleOpener.instance.AmountToOpen)
+        {
+            MapManager.instance.keyDoneIcon.gameObject.SetActive(true);
+            Contour.DOColor(Color.yellow, 0.5f);
         }
 
     }

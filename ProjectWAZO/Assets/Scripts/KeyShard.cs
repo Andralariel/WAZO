@@ -54,8 +54,8 @@ public class KeyShard : MonoBehaviour
          }
          else
          {
-            KeyUI.instance.RegisterKey(keyID);
             PickUp();
+            KeyUI.instance.RegisterKey(keyID);
          }
          
       }
@@ -81,6 +81,7 @@ public class KeyShard : MonoBehaviour
    void PickUp()
    {
       KeyUI.instance.currentShard += 1;
+      TempleOpener.instance.CheckKeyState();
       KeyUI.instance.ShowKey();
       Destroy(gameObject);
       TempleOpener.instance.currentAmount += 1;
