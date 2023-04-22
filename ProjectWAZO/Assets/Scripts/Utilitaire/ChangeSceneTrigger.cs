@@ -22,6 +22,7 @@ public class ChangeSceneTrigger : MonoBehaviour
 
    IEnumerator ChangeScene()
    {
+      CameraController.instance.transform.DOMove(CameraController.instance.transform.position + CameraController.instance.transform.forward*20, 5f); 
       yield return new WaitForSeconds(1.2f);
       SceneManager.LoadScene("Temple Test");
    }
