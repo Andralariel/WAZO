@@ -12,8 +12,8 @@ public class ChangeSceneTrigger : MonoBehaviour
       if (other.gameObject.layer == 6) //Si c'est le player
       {
          CameraController.instance.canMove = false;
-         //CameraController.instance.canRotate = true;
          Controller.instance.canMove = false;
+         Controller.instance.canJump = false;
          Controller.instance.transform.DOMove(new Vector3(Controller.instance.transform.position.x,
             Controller.instance.transform.position.y, Controller.instance.transform.position.z+50),10);
          StartCoroutine(ChangeScene());
@@ -22,7 +22,7 @@ public class ChangeSceneTrigger : MonoBehaviour
 
    IEnumerator ChangeScene()
    {
-      yield return new WaitForSeconds(2f);
-      SceneManager.LoadScene("SceneGDPoC");
+      yield return new WaitForSeconds(1.2f);
+      SceneManager.LoadScene("Temple Test");
    }
 }

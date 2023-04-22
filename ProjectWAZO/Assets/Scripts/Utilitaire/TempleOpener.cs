@@ -45,9 +45,10 @@ public class TempleOpener : MonoBehaviour
       Controller.instance.canMove = false;
       Controller.instance.canJump = false;
       CameraController.instance.canMove = false;
+      CameraController.instance.transform.DOMove(CameraController.instance.transform.position + CameraController.instance.transform.forward*20, 8f); 
       foreach (GameObject obj in keyShardCinématique)
       {
-         transform.position = Controller.instance.transform.position;
+         obj.transform.position = Controller.instance.transform.position;
       }
       for (int i = 0; i < 10; i++)
       {
@@ -56,17 +57,18 @@ public class TempleOpener : MonoBehaviour
       yield return new WaitForSeconds(3.5f);
       for (int i = 0; i < 10; i++)
       {
-         keyShardCinématique[i].transform.DOMove(transform.position, 1f);
+         keyShardCinématique[i].transform.DOMove(transform.position+new Vector3(0,5.3f,0), 5f);
       }
-      yield return new WaitForSeconds(1f);
+      yield return new WaitForSeconds(5f);
+     
+      yield return new WaitForSeconds(0.5f);
+      transform.DOMove(new Vector3(transform.position.x, transform.position.y - 20, transform.position.z),5f);
+      CameraController.instance.transform.DOShakePosition(5, 1, 11);
+      yield return new WaitForSeconds(5f);
       for (int i = 0; i < 10; i++)
       {
          Destroy(keyShardCinématique[i]);
       }
-      yield return new WaitForSeconds(0.5f);
-      transform.DOMove(new Vector3(transform.position.x, transform.position.y - 5, transform.position.z),2f);
-      CameraController.instance.transform.DOShakePosition(2, 2, 2);
-      yield return new WaitForSeconds(2);
       Controller.instance.canMove = true;
       Controller.instance.canJump = true;
       CameraController.instance.canMove = true;
