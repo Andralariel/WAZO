@@ -28,7 +28,7 @@ public class KeyUI : MonoBehaviour
         keyInRegion.Add("Village",3);
         keyInRegion.Add("Bosquet",2);
         keyInRegion.Add("Hameau",1);
-        keyInRegion.Add("Plaine",1);
+        keyInRegion.Add("Plaine",2);
         /*foreach (KeyValuePair<string,int> oui in keyInRegion)
         {
             Debug.Log(oui.Key + oui.Value);
