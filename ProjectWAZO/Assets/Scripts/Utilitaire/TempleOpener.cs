@@ -10,12 +10,11 @@ public class TempleOpener : MonoBehaviour
 {
    public float currentAmount;
    public float AmountToOpen;
-   public float openingDistance;
-   public bool isCinematic;
-   public Controller player;
-   public TextMeshProUGUI text;
-   private CameraController camera;
+   public bool canOpen;
    public static TempleOpener instance;
+   public List<GameObject> keyShardCinématique;
+   public List<GameObject> emptyPosition;
+   
 
    private void Awake()
    {
@@ -25,46 +24,51 @@ public class TempleOpener : MonoBehaviour
       }
    }
 
-   private void Start()
-   {
-      camera = GameObject.Find("Main Camera").GetComponent<CameraController>();
-      text.text = currentAmount + " / " + AmountToOpen;
-   }
-
-   private void Update()
+   public void CheckKeyState()
    {
       if (currentAmount >= AmountToOpen)
       {
-         Open();
+         canOpen = true;
       }
    }
 
-   public void UpdateText()
+   public void OnTriggerEnter(Collider other)
    {
-      text.text = currentAmount + " / " + AmountToOpen;
-   }
-
-   void Open()
-   {
-      if (isCinematic)
+      if (other.gameObject.layer == 6 && canOpen)
       {
-         StartCoroutine(Cinematique());
-         isCinematic = false;
+         StartCoroutine(CinémtiqueOuverture());
       }
    }
 
-   IEnumerator Cinematique()
+   IEnumerator CinémtiqueOuverture()
    {
-      player.canMove = false;
-      camera.player = gameObject;
-      yield return new WaitForSeconds(1.5f);
-      UpdateText();
+      Controller.instance.canMove = false;
+      Controller.instance.canJump = false;
+      CameraController.instance.canMove = false;
+      foreach (GameObject obj in keyShardCinématique)
+      {
+         transform.position = Controller.instance.transform.position;
+      }
+      for (int i = 0; i < 10; i++)
+      {
+         keyShardCinématique[i].transform.DOMove(emptyPosition[i].transform.position, 3f);
+      }
+      yield return new WaitForSeconds(3.5f);
+      for (int i = 0; i < 10; i++)
+      {
+         keyShardCinématique[i].transform.DOMove(transform.position, 1f);
+      }
       yield return new WaitForSeconds(1f);
-      camera.transform.DOShakePosition(0.2f, 0.1f);
-      transform.DOMove(transform.position - new Vector3(0,openingDistance,0), 0.5f);
-      yield return new WaitForSeconds(2f);
-      camera.player = player.gameObject;
-      yield return new WaitForSeconds(0.3f);
-      player.canMove = true;
+      for (int i = 0; i < 10; i++)
+      {
+         Destroy(keyShardCinématique[i]);
+      }
+      yield return new WaitForSeconds(0.5f);
+      transform.DOMove(new Vector3(transform.position.x, transform.position.y - 5, transform.position.z),2f);
+      CameraController.instance.transform.DOShakePosition(2, 2, 2);
+      yield return new WaitForSeconds(2);
+      Controller.instance.canMove = true;
+      Controller.instance.canJump = true;
+      CameraController.instance.canMove = true;
    }
 }
