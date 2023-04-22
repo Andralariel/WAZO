@@ -22,6 +22,7 @@ public class MapManager : MonoBehaviour
     public List<Image> listCroix;
     public List<Image> doneFilterList;
     public List<Image> fresquesList;
+    public Image keyDoneIcon;
     
     private void Awake()
     {
