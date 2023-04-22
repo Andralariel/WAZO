@@ -72,10 +72,9 @@ public class KeyShard : MonoBehaviour
    
    IEnumerator GoBackToPlayer()
    {
-      yield return new WaitForSeconds(1f);
+      yield return new WaitForSeconds(0.5f);
       isFleeing = false;
       isGoingBack = true;
-      rb.velocity = Vector3.zero;
    }
 
    void PickUp()
