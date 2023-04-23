@@ -43,6 +43,7 @@ public class TempleOpener : MonoBehaviour
 
    IEnumerator CinémtiqueOuverture()
    {
+      CinématiqueManager.instance.isCinématique = true;
       Controller.instance.canMove = false;
       Controller.instance.canJump = false;
       CameraController.instance.canMove = false;
@@ -70,6 +71,7 @@ public class TempleOpener : MonoBehaviour
       {
          Destroy(keyShardCinématique[i]);
       }
+      CinématiqueManager.instance.isCinématique = false;
       Controller.instance.canMove = true;
       Controller.instance.canJump = true;
       CameraController.instance.canMove = true;
