@@ -89,8 +89,8 @@ namespace EventSystem
     }
     
     //Custom Editor for editing waypoints
-    [CustomEditor(typeof(SpiritEvent))]
-    public class WaypointsEditor : Editor
+    /*[CustomEditor(typeof(SpiritEvent))] 
+    public class WaypointsEditor : Editor //j'ai mis ce truc en comm parce que erreur de build sur cette ligne
     {
         public void OnSceneGUI()
         {
@@ -112,5 +112,5 @@ namespace EventSystem
                 Handles.DrawLine(t.waypoints[i-1].position,t.waypoints[i].position);
             }
         }
-    }
+    }*/
 }
