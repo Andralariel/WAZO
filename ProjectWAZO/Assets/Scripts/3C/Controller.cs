@@ -95,6 +95,12 @@ public class Controller : MonoBehaviour
     
     void Update()
     {
+        if (CinématiqueManager.instance.isCinématique)
+        {
+            anim.SetBool("isIdle",true);
+            anim.SetBool("isFlying",false);
+            anim.SetBool("isWalking",false);
+        }
         if (moveInput != Vector3.zero && !isEchelle && canMove) //rotations
         {
             Quaternion newRotation = Quaternion.LookRotation(moveInput, Vector3.up);
