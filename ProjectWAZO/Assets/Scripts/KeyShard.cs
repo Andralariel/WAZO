@@ -54,8 +54,8 @@ public class KeyShard : MonoBehaviour
          }
          else
          {
-            KeyUI.instance.RegisterKey(keyID);
             PickUp();
+            KeyUI.instance.RegisterKey(keyID);
          }
          
       }
@@ -72,15 +72,15 @@ public class KeyShard : MonoBehaviour
    
    IEnumerator GoBackToPlayer()
    {
-      yield return new WaitForSeconds(1f);
+      yield return new WaitForSeconds(0.5f);
       isFleeing = false;
       isGoingBack = true;
-      rb.velocity = Vector3.zero;
    }
 
    void PickUp()
    {
       KeyUI.instance.currentShard += 1;
+      TempleOpener.instance.CheckKeyState();
       KeyUI.instance.ShowKey();
       Destroy(gameObject);
       TempleOpener.instance.currentAmount += 1;
