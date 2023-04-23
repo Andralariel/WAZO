@@ -58,10 +58,11 @@ public class Controller : MonoBehaviour
 
     [Header("Autre")] 
     public GameObject flyIndicator;
+    public Animator anim;
     public static Controller instance;
     public TrailRenderer trail;
     public TrailRenderer trail2;
-    private MeshRenderer meshRenderer;
+    
 
     private void Awake()
     {
@@ -72,7 +73,6 @@ public class Controller : MonoBehaviour
         instance = this;
         
         rb = GetComponent<Rigidbody>();
-        meshRenderer = GetComponent<MeshRenderer>();
 
         inputAction = new PlayerControls();
         inputAction.Player.Move.performed += ctx => moveInput = ctx.ReadValue<Vector3>();
