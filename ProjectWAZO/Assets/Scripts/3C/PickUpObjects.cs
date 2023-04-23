@@ -32,6 +32,7 @@ public class PickUpObjects : MonoBehaviour
     [Header("Data")]
     private float velocity;
     public GameObject pickedObject;
+    public Animator anim;
     public List<GameObject> objectsInRange;
     public int pickedObjectMass;
     public bool isEchelle;
@@ -66,6 +67,7 @@ public class PickUpObjects : MonoBehaviour
             pickedObject = GetClosestObject();
             if (pickedObject != null)
             {
+                StartCoroutine(Animation());
                 Debug.Log("je prend ce qui est devant moi");
                 _rbObject = pickedObject.GetComponent<Rigidbody>();
                 _rbObject.angularDrag = -1;
@@ -85,6 +87,13 @@ public class PickUpObjects : MonoBehaviour
         }
     }
 
+    IEnumerator Animation()
+    {
+        anim.SetBool("isTaking",true);
+        yield return new WaitForSeconds(0.5f);
+        anim.SetBool("isTaking",false);
+    }
+    
     private void MoveToBeak()
     {
         pickedObject.transform.DOLocalMove(Vector3.zero, pickUpSpeed).OnComplete(CheckBeak);
@@ -94,10 +103,12 @@ public class PickUpObjects : MonoBehaviour
     {
         isThingTaken = true;
         if (!_beakPinch) Lacher();
+        anim.SetBool("isTaking",false);
     }
 
     private void Lacher()
     {
+        anim.SetBool("isTaking",false);
         _beakPinch = false;
         if (pickedObject != null && isThingTaken && !_moveOnLadder)
         {

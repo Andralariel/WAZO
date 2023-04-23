@@ -95,7 +95,7 @@ public class Controller : MonoBehaviour
     
     void Update()
     {
-        if (moveInput != Vector3.zero && !isEchelle && canMove) // mouvements et rotations
+        if (moveInput != Vector3.zero && !isEchelle && canMove) //rotations
         {
             Quaternion newRotation = Quaternion.LookRotation(moveInput, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation,newRotation,rotationSpeed*Time.deltaTime);
@@ -122,6 +122,7 @@ public class Controller : MonoBehaviour
         {
             trail.emitting = false;
             trail2.emitting = false;
+            anim.SetBool("isFlying",false);
             StopAllCoroutines();
             
             isCoyote = false;
@@ -139,11 +140,22 @@ public class Controller : MonoBehaviour
             if (!isEchelle && canMove)
             {
                 FixSpeedOnSlope();
+                if (moveInput != Vector3.zero)
+                {
+                    anim.SetBool("isWalking",true);
+                    anim.SetBool("isIdle",false);
+                }
+                else
+                {
+                    anim.SetBool("isIdle",true);
+                    anim.SetBool("isWalking",false);
+                }
             }
         }
         else if (!Physics.Raycast(transform.position, Vector3.down, 0.2f, groundMask)) //si le personnage n'est pas au sol
         {
-            //StartCoroutine(coyote);
+            anim.SetBool("isWalking",false);
+            anim.SetBool("isIdle",false);
             Planer();
             DoOnce = true;
             isGrounded = false;
@@ -218,9 +230,13 @@ public class Controller : MonoBehaviour
                 trail.emitting = true;
                 trail2.emitting = true;
                 globalGravity = planingGravity;
+                anim.SetBool("isFlying",true);
+                anim.SetBool("isIdle",false);
+                anim.SetBool("isWalking",false);
             }
             else
             {
+                anim.SetBool("isFlying",false);
                 trail.emitting = false;
                 trail2.emitting = false;
                 globalGravity = 9.81f;
