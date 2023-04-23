@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 using Utilitaire;
 using WeightSystem;
 using WeightSystem.Detector;
@@ -95,6 +96,10 @@ public class Controller : MonoBehaviour
     
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Keypad0))
+        {
+            SceneManager.LoadScene("Dev_Paulin");
+        }
         if (CinématiqueManager.instance.isCinématique)
         {
             anim.SetBool("isIdle",true);
