@@ -12,6 +12,7 @@ public class TempleOpener : MonoBehaviour
    public float AmountToOpen;
    public bool canOpen;
    public static TempleOpener instance;
+   public GameObject Serrure;
    public List<GameObject> keyShardCinématique;
    public List<GameObject> emptyPosition;
    
@@ -57,7 +58,7 @@ public class TempleOpener : MonoBehaviour
       yield return new WaitForSeconds(3.5f);
       for (int i = 0; i < 10; i++)
       {
-         keyShardCinématique[i].transform.DOMove(transform.position+new Vector3(0,5.3f,0), 5f);
+         keyShardCinématique[i].transform.DOMove(Serrure.transform.position, 5f);
       }
       yield return new WaitForSeconds(5f);
      
