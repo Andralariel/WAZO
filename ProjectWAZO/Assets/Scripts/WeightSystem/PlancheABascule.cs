@@ -52,9 +52,9 @@ public class PlancheABascule : WeightDetector
             associatedRightUI.currentWeight = poidDroite;
           
         }
-        var transformRotation = transform.localRotation;
-        transformRotation = Quaternion.Euler(transformRotation.eulerAngles.x, 0, transformRotation.eulerAngles.z);
-        transform.localRotation = transformRotation;
+        // var transformRotation = transform.localRotation;
+        // transformRotation = Quaternion.Euler(transformRotation.eulerAngles.x, 0, transformRotation.eulerAngles.z);
+        // transform.localRotation = transformRotation;
     }
 
     private void OnTriggerEnter(Collider other)
