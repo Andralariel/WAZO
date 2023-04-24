@@ -115,6 +115,7 @@ public class Controller : MonoBehaviour
             anim.SetBool("isIdle",true);
             anim.SetBool("isFlying",false);
             anim.SetBool("isWalking",false);
+            anim.speed = 1;
         }
         if (moveInput != Vector3.zero && !isEchelle && canMove) //rotations
         {
@@ -144,6 +145,7 @@ public class Controller : MonoBehaviour
             trail.emitting = false;
             trail2.emitting = false;
             anim.SetBool("isFlying",false);
+            anim.speed = 1;
             StopAllCoroutines();
             
             isCoyote = false;
@@ -157,7 +159,7 @@ public class Controller : MonoBehaviour
                 //StopPlaner();
                 DoOnce = false;
             }
-            moveInput = moveInput.normalized;
+            //moveInput = moveInput.normalized;
             if (!isEchelle && canMove)
             {
                 FixSpeedOnSlope();
@@ -165,9 +167,13 @@ public class Controller : MonoBehaviour
                 {
                     anim.SetBool("isWalking",true);
                     anim.SetBool("isIdle",false);
+                    float animationSpeed = moveInput.magnitude;
+                    Mathf.Clamp(animationSpeed,0f, 1f);
+                    anim.speed = animationSpeed;
                 }
                 else
                 {
+                    anim.speed = 1;
                     anim.SetBool("isIdle",true);
                     anim.SetBool("isWalking",false);
                 }
@@ -175,6 +181,7 @@ public class Controller : MonoBehaviour
         }
         else if (!Physics.Raycast(transform.position, Vector3.down, 0.2f, groundMask)) //si le personnage n'est pas au sol
         {
+            anim.speed = 1;
             anim.SetBool("isWalking",false);
             anim.SetBool("isIdle",false);
             Planer();
@@ -188,7 +195,7 @@ public class Controller : MonoBehaviour
             
             if (!isEchelle) 
             { 
-                rb.velocity +=(new Vector3(moveInput.x,moveInput.y,moveInput.z) * (airControlSpeed * Time.deltaTime));
+                rb.velocity +=(new Vector3((float)moveInput.x,moveInput.y,moveInput.z) * (airControlSpeed * Time.deltaTime));
             }
         }
 
@@ -254,9 +261,11 @@ public class Controller : MonoBehaviour
                 anim.SetBool("isFlying",true);
                 anim.SetBool("isIdle",false);
                 anim.SetBool("isWalking",false);
+                anim.speed = 1;
             }
             else
             {
+                anim.speed = 1;
                 anim.SetBool("isFlying",false);
                 trail.emitting = false;
                 trail2.emitting = false;

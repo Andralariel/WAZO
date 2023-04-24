@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utilitaire;
 
 public class DeathZone : MonoBehaviour
 {
@@ -20,6 +21,11 @@ public class DeathZone : MonoBehaviour
       if (other.gameObject.layer == 6)
       {
          other.transform.position = respawnPoint + new Vector3(0, 2, 0);
+      }
+
+      if (other.gameObject.layer == 7)
+      {
+         other.GetComponent<Spirit>()?.Respawn();
       }
    }
 }

@@ -14,6 +14,7 @@ public class KeyShard : MonoBehaviour
    public bool isGoingBack;
    public float ForceToFlee;
    public float ForceToGoBack;
+   public List<GameObject> spiritsToKill;
    private Rigidbody rb;
 
    public enum Region
@@ -79,6 +80,10 @@ public class KeyShard : MonoBehaviour
 
    void PickUp()
    {
+      for (int i = 0; i < spiritsToKill.Count; i++)
+      {
+         Destroy(spiritsToKill[i]);
+      }
       KeyUI.instance.currentShard += 1;
       TempleOpener.instance.CheckKeyState();
       KeyUI.instance.ShowKey();
