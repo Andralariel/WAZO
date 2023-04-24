@@ -96,10 +96,20 @@ public class Controller : MonoBehaviour
     
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Keypad0))
+       
+        if (Input.GetKeyDown(KeyCode.Keypad1))
         {
-            SceneManager.LoadScene("Dev_Paulin");
+            SceneManager.LoadScene("Ethan");
         }
+        if (Input.GetKeyDown(KeyCode.Keypad2))
+        {
+            SceneManager.LoadScene("Temple Test");
+        }
+        if (Input.GetKeyDown(KeyCode.Keypad3)) 
+        {
+            SceneManager.LoadScene("Dev_Paulin"); 
+        }
+                
         if (CinématiqueManager.instance.isCinématique)
         {
             anim.SetBool("isIdle",true);

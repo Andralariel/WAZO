@@ -68,7 +68,6 @@ namespace EventSystem
 #endif
     }
     
-#if UNITY_EDITOR    
     //WaypointElement
     [Serializable]
     public class Waypoint
@@ -89,6 +88,7 @@ namespace EventSystem
         public bool allSpiritsWait;
     }
     
+#if UNITY_EDITOR
     //Custom Editor for editing waypoints
     [CustomEditor(typeof(SpiritEvent))] 
     public class WaypointsEditor : Editor
@@ -99,6 +99,7 @@ namespace EventSystem
             if (t.waypoints == default) return;
             for (int i = 0; i < t.waypoints.Length; i++)
             {
+                if (t.waypoints[i].position == Vector3.zero) t.waypoints[i].position = t.transform.position;
                 t.waypoints[i].position = Handles.PositionHandle(t.waypoints[i].position, quaternion.identity);
 
                 if (i <= 0) continue;
@@ -114,5 +115,5 @@ namespace EventSystem
             }
         }
     }
-}
 #endif
+}
