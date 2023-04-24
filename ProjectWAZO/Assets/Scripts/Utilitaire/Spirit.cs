@@ -19,6 +19,7 @@ namespace Utilitaire
         private SpiritEvent _linkedEvent;
         private bool _isMoving, _waitForNextStep;
         private int _nextPoint;
+        private Vector3 _startPos;
         
         private void OnTriggerExit(Collider other)
         {
@@ -26,6 +27,17 @@ namespace Utilitaire
             {
                 isClosest = false;
             }    
+        }
+
+        private void Awake()
+        {
+            _startPos = transform.position;
+        }
+
+        public void Respawn()
+        {
+            transform.position = _startPos;
+            rb.velocity = Vector3.zero;
         }
 
         private void Update()
