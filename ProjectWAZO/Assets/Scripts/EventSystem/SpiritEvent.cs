@@ -99,6 +99,7 @@ namespace EventSystem
             if (t.waypoints == default) return;
             for (int i = 0; i < t.waypoints.Length; i++)
             {
+                if (t.waypoints[i].position == Vector3.zero) t.waypoints[i].position = t.transform.position;
                 t.waypoints[i].position = Handles.PositionHandle(t.waypoints[i].position, quaternion.identity);
 
                 if (i <= 0) continue;
