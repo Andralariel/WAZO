@@ -39,6 +39,19 @@ public class TempleOpener : MonoBehaviour
       {
          StartCoroutine(CinémtiqueOuverture());
       }
+
+      if (other.gameObject.layer == 6)
+      {
+         KeyUI.instance.ShowMapKey();
+      }
+   }
+   
+   public void OnTriggerExit(Collider other)
+   {
+      if (other.gameObject.layer == 6)
+      {
+         KeyUI.instance.HideMapKey();
+      }
    }
 
    IEnumerator CinémtiqueOuverture()
