@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 4400062705429080627}
   - component: {fileID: 774603891265529238}
   - component: {fileID: 3268211913830732124}
-  m_Layer: 0
+  - component: {fileID: 2402397363047584327}
+  m_Layer: 3
   m_Name: Big_Rocks5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,3 +85,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &2402397363047584327
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3916998196500050057}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1550514412580984892, guid: 38c1874937d68fb46be66830441c9599, type: 3}
