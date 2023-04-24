@@ -68,7 +68,6 @@ namespace EventSystem
 #endif
     }
     
-#if UNITY_EDITOR    
     //WaypointElement
     [Serializable]
     public class Waypoint
@@ -89,6 +88,7 @@ namespace EventSystem
         public bool allSpiritsWait;
     }
     
+#if UNITY_EDITOR
     //Custom Editor for editing waypoints
     [CustomEditor(typeof(SpiritEvent))] 
     public class WaypointsEditor : Editor
@@ -114,5 +114,5 @@ namespace EventSystem
             }
         }
     }
-}
 #endif
+}
