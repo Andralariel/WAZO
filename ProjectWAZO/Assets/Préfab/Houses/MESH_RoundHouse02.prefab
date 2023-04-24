@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 154228673170391381}
   - component: {fileID: 3858518064342454000}
   - component: {fileID: 1326524450243328570}
+  - component: {fileID: 2866851660190403223}
   m_Layer: 0
   m_Name: MESH_RoundHouse02
   m_TagString: Untagged
@@ -83,3 +84,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &2866851660190403223
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 677860487625448431}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2169709463117186862, guid: 023d14eb8f32e8d46a2e8bac8ee8fd94, type: 3}
