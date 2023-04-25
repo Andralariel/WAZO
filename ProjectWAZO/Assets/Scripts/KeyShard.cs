@@ -41,7 +41,7 @@ public class KeyShard : MonoBehaviour
          ForceToGoBack += 0.2f;
          Vector3 angle = Controller.instance.transform.position - transform.position;
          rb.AddForce(angle*ForceToGoBack);
-         //transform.DOMove(Controller.instance.transform.position, timeToGoBack).SetEase(Ease.InQuart);
+         //transform.DOLocalMove(Vector2.zero, ForceToGoBack);
       }
    }
 
@@ -51,6 +51,7 @@ public class KeyShard : MonoBehaviour
       {
          if (!isGoingBack)
          {
+            //transform.parent = other.transform;
             FleePlayer();   
          }
          else

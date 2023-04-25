@@ -96,7 +96,13 @@ public class Controller : MonoBehaviour
     
     void Update()
     {
-       
+        
+        if (moveInput.x != 0 && moveInput.z != 0) // Limite la vitesse lors des déplacements en diagonale
+        {
+            Vector2 groundMovement = Vector2.ClampMagnitude(new Vector2(rb.velocity.x, rb.velocity.z), 7.8f);
+            rb.velocity = new Vector3(groundMovement.x, rb.velocity.y, groundMovement.y);
+        }
+        
         if (Input.GetKeyDown(KeyCode.Keypad1))
         {
             SceneManager.LoadScene("Ethan");
@@ -163,12 +169,12 @@ public class Controller : MonoBehaviour
             if (!isEchelle && canMove)
             {
                 FixSpeedOnSlope();
-                if (moveInput != Vector3.zero)
+                if (moveInput != Vector3.zero) // Modifie la vitesse de l'animation selon la vitesse du perso
                 {
                     anim.SetBool("isWalking",true);
                     anim.SetBool("isIdle",false);
                     float animationSpeed = moveInput.magnitude;
-                    Mathf.Clamp(animationSpeed,0f, 1f);
+                    animationSpeed = Mathf.Clamp(animationSpeed,0f, 1f);
                     anim.speed = animationSpeed;
                 }
                 else
@@ -198,8 +204,6 @@ public class Controller : MonoBehaviour
                 rb.velocity +=(new Vector3((float)moveInput.x,moveInput.y,moveInput.z) * (airControlSpeed * Time.deltaTime));
             }
         }
-
-        
         
         RaycastHit hit;   // L'indication de la trajectoire de chute pendant le planage
         if (!isGrounded && isPressing && !isEchelle)
@@ -226,7 +230,6 @@ public class Controller : MonoBehaviour
             flyIndicator.SetActive(false);
         }
     }
-    
     
     private void Sauter()
     {
