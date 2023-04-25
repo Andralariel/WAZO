@@ -13,7 +13,8 @@ public class KeyShard : MonoBehaviour
    public bool isFleeing;
    public bool isGoingBack;
    public float ForceToFlee;
-   public float ForceToGoBack;
+   public float TimeToGoBack;
+   private int goBackAtempts;
    public List<GameObject> spiritsToKill;
    private Rigidbody rb;
 
@@ -33,7 +34,7 @@ public class KeyShard : MonoBehaviour
       rb = GetComponent<Rigidbody>();
    }
 
-   private void Update()
+   /*private void Update()
    {
 
       if (isGoingBack)
@@ -43,7 +44,7 @@ public class KeyShard : MonoBehaviour
          rb.AddForce(angle*ForceToGoBack);
          //transform.DOLocalMove(Vector2.zero, ForceToGoBack);
       }
-   }
+   }*/
 
    private void OnTriggerEnter(Collider other)
    {
@@ -68,19 +69,31 @@ public class KeyShard : MonoBehaviour
       isFleeing = true;
       Vector3 randomForce = new Vector3(Random.Range(-2f, 2f), 1, Random.Range(-2f,2f));
       rb.AddForce(randomForce * ForceToFlee,ForceMode.Impulse);
-      StartCoroutine(GoBackToPlayer());
+      StartCoroutine(WaitToGoBack());
      
    }
    
-   IEnumerator GoBackToPlayer()
+   IEnumerator WaitToGoBack()
    {
       yield return new WaitForSeconds(0.5f);
-      isFleeing = false;
       isGoingBack = true;
+      GoToPlayer();
    }
 
+   void GoToPlayer()
+   {
+      transform.DOMove(Controller.instance.transform.position, TimeToGoBack-(goBackAtempts*0.1f)).SetEase(Ease.Linear).OnComplete((() => CheckDone()));
+   }
+
+   void CheckDone()
+   {
+      goBackAtempts++;
+      GoToPlayer();
+   }
+   
    void PickUp()
    {
+      Debug.Log("1");
       for (int i = 0; i < spiritsToKill.Count; i++)
       {
          Destroy(spiritsToKill[i]);
