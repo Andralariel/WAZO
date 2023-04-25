@@ -36,10 +36,11 @@ public class MenuPrincipal : MonoBehaviour
     public void OpenOptions()
     {
         EventSystem.SetSelectedGameObject(boutonRetour.gameObject);
-        MenuMain.DOFade(0, 0.5f);
+        CameraController.instance.transform.DORotate(new Vector3(270f,-90f,0),1.5f);
+        MenuMain.DOFade(0, 0.3f);
         MenuMain.interactable = false;
         MenuMain.blocksRaycasts = false;
-        MenuOptions.DOFade(1, 0.5f);
+        MenuOptions.DOFade(1, 1.7f);
         MenuOptions.interactable = true;
         MenuOptions.blocksRaycasts = true;
     }
@@ -47,10 +48,11 @@ public class MenuPrincipal : MonoBehaviour
     public void QuitOptions()
     {
         EventSystem.SetSelectedGameObject(boutonStart.gameObject);
-        MenuMain.DOFade(1, 0.5f);
+        CameraController.instance.transform.DORotate(new Vector3(0,-90f,0),1.5f);
+        MenuMain.DOFade(1, 0.3f);
         MenuMain.interactable = true;
         MenuMain.blocksRaycasts = true;
-        MenuOptions.DOFade(0, 0.5f);
+        MenuOptions.DOFade(0, 1.7f);
         MenuOptions.interactable = false;
         MenuOptions.blocksRaycasts = false;
     }
