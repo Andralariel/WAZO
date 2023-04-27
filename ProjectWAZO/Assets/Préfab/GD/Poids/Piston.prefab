@@ -629,6 +629,7 @@ GameObject:
   - component: {fileID: 6803553906286727098}
   - component: {fileID: 3241631071258359185}
   - component: {fileID: 3553898683721013500}
+  - component: {fileID: 6127983870881212609}
   m_Layer: 3
   m_Name: Piston
   m_TagString: Untagged
@@ -721,6 +722,20 @@ MonoBehaviour:
   opposingPiston: {fileID: 0}
   halfHeight: 3
   movingSpeed: 2
+--- !u!64 &6127983870881212609
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8802385949793433258}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1001 &542780926810356644
 PrefabInstance:
   m_ObjectHideFlags: 0
