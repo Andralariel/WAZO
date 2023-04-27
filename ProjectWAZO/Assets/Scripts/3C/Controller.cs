@@ -325,7 +325,7 @@ public class Controller : MonoBehaviour
         Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit,2,groundMask);
         Debug.DrawRay(hit.point,hit.normal,Color.green);
             
-        if (Vector3.Dot(hit.normal, Vector3.up) < 1)
+        if (Vector3.Dot(hit.normal, Vector3.up) < 0.97)
         {
             if(canJump && !onMovingPlank) rb.constraints = moveInput.magnitude == 0
                 ? RigidbodyConstraints.FreezeRotation|RigidbodyConstraints.FreezePositionY
