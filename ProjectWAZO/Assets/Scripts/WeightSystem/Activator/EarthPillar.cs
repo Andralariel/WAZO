@@ -33,13 +33,11 @@ namespace WeightSystem.Activator
         public override void Deactivate()
         {
             _currentTween.Kill();
+            
             _played = false;
+            _rewind = true;
             
-            //Commented for pillars to stay in place when deactivated
-            
-            // _rewind = true;
-            //
-            // FindNextPoint();
+             FindNextPoint();
         }
 
         private void Movement()
