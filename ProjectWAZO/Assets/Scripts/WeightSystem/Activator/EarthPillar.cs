@@ -23,23 +23,24 @@ namespace WeightSystem.Activator
 
         public override void Activate()
         {
-            _currentTween.Kill();
+            //_currentTween.Kill();
             
             _played = true;
-            _rewind = false;
-            
-            FindNextPoint();
+
+            if (!_rewind) FindNextPoint();
         }
 
         
         public override void Deactivate()
         {
-            _currentTween.Kill();
-            
             _played = false;
+
+            if (_rewind) return;
+            
+            _currentTween.Kill();
             _rewind = true;
             
-             FindNextPoint();
+            FindNextPoint();
         }
 
         private IEnumerator Movement()
@@ -54,8 +55,9 @@ namespace WeightSystem.Activator
             {
                 if (_nextPoint - 1 < 0)
                 {
-                    if(!_played) return;
                     _rewind = false;
+                    
+                    if(!_played) return;
                     _nextPoint = 1;
                 }
                 else _nextPoint -= 1;
