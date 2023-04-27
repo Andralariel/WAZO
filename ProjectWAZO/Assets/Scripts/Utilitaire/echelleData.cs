@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class echelleData : MonoBehaviour
@@ -16,8 +17,13 @@ public class echelleData : MonoBehaviour
     {
         if (Controller.instance.isEchelle && PickUpObjects.instance.currentEchelle == gameObject)
         {
+            Vector3 lookAtVector = new Vector3(transform.position.x, Controller.instance.transform.position.y,
+                transform.position.z);
+            Controller.instance.transform.DOLookAt(lookAtVector, 0.5f);
+            
             switch (orientation)
             {
+                    
                 case Orientation.nord:
                    // Controller.instance.transform.rotation = new Quaternion(-90,0,0,0);
                     Controller.instance.rb.velocity = new Vector3(0,Controller.instance.moveInput.z,0) * (echelleSpeed * (Controller.instance.airControlSpeed * Time.deltaTime));

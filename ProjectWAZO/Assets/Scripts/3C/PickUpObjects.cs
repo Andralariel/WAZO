@@ -137,7 +137,7 @@ public class PickUpObjects : MonoBehaviour
     public void EnterEchelle()
     {
         _moveOnLadder = true;
-        
+        anim.SetTrigger("startClimb");
         Controller.instance.gravityScale = -4;
         Controller.instance.canJump = true;
         Controller.instance.canPlaner = false;
@@ -146,16 +146,16 @@ public class PickUpObjects : MonoBehaviour
         switch (currentEchelle.GetComponent<echelleData>().orientation)
         {
             case echelleData.Orientation.nord:
-                Controller.instance.transform.DOMove(new Vector3(currentEchelle.transform.position.x, Controller.instance.transform.position.y +0.7f, currentEchelle.transform.position.z-0.5f),0.5f).OnComplete(SetIsEchelle);
+                Controller.instance.transform.DOMove(new Vector3(currentEchelle.transform.position.x, Controller.instance.transform.position.y +0.7f, currentEchelle.transform.position.z-0.4f),0.5f).OnComplete(SetIsEchelle);
                 break;
             case echelleData.Orientation.sud:
-                Controller.instance.transform.DOMove(new Vector3(currentEchelle.transform.position.x, Controller.instance.transform.position.y +0.7f, currentEchelle.transform.position.z+0.5f),0.5f).OnComplete(SetIsEchelle);
+                Controller.instance.transform.DOMove(new Vector3(currentEchelle.transform.position.x, Controller.instance.transform.position.y +0.7f, currentEchelle.transform.position.z+0.4f),0.5f).OnComplete(SetIsEchelle);
                 break;
             case echelleData.Orientation.est:
-                Controller.instance.transform.DOMove(new Vector3(currentEchelle.transform.position.x-0.5f, Controller.instance.transform.position.y +0.7f, currentEchelle.transform.position.z),0.5f).OnComplete(SetIsEchelle);
+                Controller.instance.transform.DOMove(new Vector3(currentEchelle.transform.position.x-0.4f, Controller.instance.transform.position.y +0.7f, currentEchelle.transform.position.z),0.5f).OnComplete(SetIsEchelle);
                 break;
             case echelleData.Orientation.ouest:
-                Controller.instance.transform.DOMove(new Vector3(currentEchelle.transform.position.x+0.5f, Controller.instance.transform.position.y +0.7f, currentEchelle.transform.position.z),0.5f).OnComplete(SetIsEchelle);
+                Controller.instance.transform.DOMove(new Vector3(currentEchelle.transform.position.x+0.4f, Controller.instance.transform.position.y +0.7f, currentEchelle.transform.position.z),0.5f).OnComplete(SetIsEchelle);
                 break;
         }
     }
@@ -166,6 +166,9 @@ public class PickUpObjects : MonoBehaviour
     
     public void QuitEchelle()
     {
+        Debug.Log("quit");
+        anim.SetBool("isClimbing",false);
+        anim.ResetTrigger("startClimb");
         _moveOnLadder = false;
         Controller.instance.canPlaner = true;
         Controller.instance.canMove = true;
