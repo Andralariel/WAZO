@@ -1,3 +1,4 @@
+using System.Collections;
 using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
@@ -8,6 +9,7 @@ namespace WeightSystem.Activator
     public class EarthPillar : Activator
     {
         [SerializeField] private float speed;
+        [SerializeField] private float waitingTime = 2;
         [SerializeField] private Vector3[] wayPoints;
 
         private TweenerCore<Vector3, Vector3, VectorOptions> _currentTween;
@@ -40,8 +42,9 @@ namespace WeightSystem.Activator
              FindNextPoint();
         }
 
-        private void Movement()
+        private IEnumerator Movement()
         {
+            yield return new WaitForSeconds(waitingTime);
             _currentTween = transform.DOLocalMove(wayPoints[_nextPoint], CalculateSpeed()).OnComplete(FindNextPoint);
         }
 
@@ -67,7 +70,7 @@ namespace WeightSystem.Activator
                 else _nextPoint += 1;
             }
             
-            Movement();
+            StartCoroutine(Movement());
         }
 
         private float CalculateSpeed()
