@@ -94,9 +94,11 @@ public class PickUpObjects : MonoBehaviour
         anim.SetBool("isTaking",false);
     }
     
+    //Bug fix : variable to manage the Tween
+    private Tweener _currentTween;
     private void MoveToBeak()
     {
-        pickedObject.transform.DOLocalMove(Vector3.zero, pickUpSpeed).OnComplete(CheckBeak);
+        _currentTween = pickedObject.transform.DOLocalMove(Vector3.zero, pickUpSpeed).OnComplete(CheckBeak);
     }
 
     private void CheckBeak()
@@ -112,6 +114,7 @@ public class PickUpObjects : MonoBehaviour
         _beakPinch = false;
         if (pickedObject != null && isThingTaken && !_moveOnLadder)
         {
+            if(_currentTween.IsActive()) _currentTween.Kill();
             Debug.Log("je relache l'objet devant moi");
             isThingTaken = false;
             transform.parent.gameObject.GetComponent<Rigidbody>().mass -= pickedObjectMass;
