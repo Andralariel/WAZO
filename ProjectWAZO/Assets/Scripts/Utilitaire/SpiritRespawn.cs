@@ -7,7 +7,6 @@ using Utilitaire;
 public class SpiritRespawn : MonoBehaviour
 {
     //VARIABLES ************************************************************************************************************
-    public bool canReset;
     public List<Spirit> spiritsToRespawn;
     public float durationUntilReset = 3;
 

@@ -151,7 +151,7 @@ public class PickUpObjects : MonoBehaviour
     {
         if (spiritRespawn.isInTrigger)
         {
-            if (spiritRespawn.canReset)
+            if (spiritRespawn.spiritsToRespawn.Count > 0)
             {
                 if (isPressing)
                 {
