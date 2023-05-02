@@ -17,7 +17,10 @@ public class KeyShard : MonoBehaviour
    private int goBackAtempts;
    public List<GameObject> spiritsToKill;
    private Rigidbody rb;
+   [SerializeField] private ParticleSystem vfxpickup;
+   [SerializeField] private ParticleSystem vfxidle;
 
+   private bool ispickedup;
    public enum Region
    {
       Village,
@@ -31,6 +34,8 @@ public class KeyShard : MonoBehaviour
 
    private void Start()
    {
+      ispickedup = false;
+      vfxidle.Play();
       rb = GetComponent<Rigidbody>();
    }
 
@@ -93,6 +98,9 @@ public class KeyShard : MonoBehaviour
    
    void PickUp()
    {
+      vfxidle.Stop();
+      if (!ispickedup) vfxpickup.Play();
+      ispickedup = true;
       Debug.Log("1");
       for (int i = 0; i < spiritsToKill.Count; i++)
       {
