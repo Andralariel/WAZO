@@ -15,6 +15,8 @@ namespace Utilitaire
         
         [SerializeField] private Rigidbody rb;
         [SerializeField] private NavMeshAgent spiritAgent;
+        [SerializeField] private ParticleSystem vfxrespawn;
+        [SerializeField] private GameObject modesprit;
         
         private SpiritEvent _linkedEvent;
         private bool _isMoving, _waitForNextStep;
@@ -36,10 +38,18 @@ namespace Utilitaire
 
         public void Respawn()
         {
+            modesprit.SetActive(false);
             transform.position = _startPos;
             rb.velocity = Vector3.zero;
+            vfxrespawn.Play();
+            StartCoroutine(Waitbeforespawn());
         }
 
+        private IEnumerator Waitbeforespawn()
+        {
+            yield return new WaitForSeconds(1);
+            modesprit.SetActive(true);
+        }
         private void Update()
         {
             if (isTaken)
