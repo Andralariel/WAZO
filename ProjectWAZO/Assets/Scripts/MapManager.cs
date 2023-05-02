@@ -23,7 +23,14 @@ public class MapManager : MonoBehaviour
     public List<Image> doneFilterList;
     public List<Image> fresquesList;
     public Image keyDoneIcon;
-    
+
+    [Header("PlayerIcon")]
+    [SerializeField] private RectTransform playerIcon;
+    [SerializeField] private float worldHeight;
+    [SerializeField] private float worldWidth;
+    [SerializeField] private float heightOffset;
+    [SerializeField] private float widthOffset;
+
     private void Awake()
     {
         if (instance == null)
@@ -54,6 +61,7 @@ public class MapManager : MonoBehaviour
             else
             {
                 isMenuOpened = true;
+                MovePlayerIcon();
                 MapMenu.DOFade(1, 0.5f);
                 Controller.instance.canJump = false;
                 Controller.instance.canMove = false;  
@@ -94,6 +102,7 @@ public class MapManager : MonoBehaviour
                     }
                    
                     mapElements.SetActive(true);
+                    playerIcon.gameObject.SetActive(true);
                     loreElements.SetActive(false);
                     Map.transform.DOScaleX(1, 0.1f);
                 }
@@ -110,6 +119,7 @@ public class MapManager : MonoBehaviour
                 isRecto = false;
                 Map.transform.DOScaleX(0, 0.5f);
                 mapElements.SetActive(false);
+                playerIcon.gameObject.SetActive(false);
                 loreElements.SetActive(true);
                 Map.sprite = mapVierge;
                 Map.transform.DOScaleX(-1, 0.5f);
@@ -127,6 +137,7 @@ public class MapManager : MonoBehaviour
                     Map.sprite = mapVierge;
                 }
                 mapElements.SetActive(true);
+                playerIcon.gameObject.SetActive(true);
                 loreElements.SetActive(false);
                 Map.transform.DOScaleX(1, 0.5f);
             }
@@ -145,5 +156,12 @@ public class MapManager : MonoBehaviour
         yield return new WaitForSeconds(duration);
         iconMapUpdate.DOAnchorPosX(200, 0.5f).OnComplete((() =>   iconMapUpdate.gameObject.SetActive(false)));
       
+    }
+
+    private void MovePlayerIcon()
+    {
+        var worldPos = Controller.instance.transform.position;
+        var mapPos = new Vector2(worldPos.x + widthOffset, worldPos.z + heightOffset);
+        playerIcon.anchoredPosition = Vector2.Scale(mapPos, Vector2.Scale(Map.rectTransform.rect.size, new Vector2(1/worldWidth, 1/worldHeight)));
     }
 }

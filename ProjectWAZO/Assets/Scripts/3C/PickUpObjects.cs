@@ -37,6 +37,10 @@ public class PickUpObjects : MonoBehaviour
     public int pickedObjectMass;
     public bool isEchelle;
     public GameObject currentEchelle;
+    
+    [Header("Respawn Spirits")]
+    public SpiritRespawn spiritRespawn;
+    public bool isPressing;
 
     public static PickUpObjects instance;
 
@@ -57,6 +61,15 @@ public class PickUpObjects : MonoBehaviour
         inputAction = new PlayerControls();
         inputAction.Player.PickUp.performed += ctx => Prendre();
         inputAction.Player.PickUp.canceled += ctx => Lacher();
+        inputAction.Player.PickUp.performed += ctx => isPressing = true;
+        inputAction.Player.PickUp.canceled += ctx => isPressing = false;
+        inputAction.Player.PickUp.canceled += ctx => StopDoRespawn();
+
+    }
+
+    private void Update()
+    {
+        DoRespawn();
     }
 
     public void Prendre()
@@ -132,6 +145,36 @@ public class PickUpObjects : MonoBehaviour
         {
             QuitEchelle();
         }
+    }
+
+    public void DoRespawn() //sert à faire respawn les esprits dans un puzzle
+    {
+        if (spiritRespawn.isInTrigger)
+        {
+            if (spiritRespawn.spiritsToRespawn.Count > 0)
+            {
+                if (isPressing)
+                {
+                    if (spiritRespawn.holdingDuration > spiritRespawn.durationUntilReset)
+                    {
+                        foreach (var spirit in spiritRespawn.spiritsToRespawn)
+                        {
+                            spirit.Respawn();
+                            StopDoRespawn();
+                        }
+                    }
+                    else
+                    {
+                        spiritRespawn.holdingDuration += Time.deltaTime;
+                    }
+                }
+            }
+        }
+    }
+
+    public void StopDoRespawn()
+    {
+        spiritRespawn.holdingDuration = 0;
     }
 
     // BUG fix
