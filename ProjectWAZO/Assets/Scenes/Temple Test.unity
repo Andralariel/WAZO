@@ -198,6 +198,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 555283}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &555285 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5778685310182809298, guid: 8e3ae0b1a40ba2049a191260c1bc87f0,
+    type: 3}
+  m_PrefabInstance: {fileID: 555283}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bb10361a2c644d4ca69e250ec52769d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4351270
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4411,6 +4423,11 @@ MonoBehaviour:
   - {fileID: 1413504622}
   - {fileID: 2015398517}
   keyDoneIcon: {fileID: 1929515941}
+  playerIcon: {fileID: 0}
+  worldHeight: 0
+  worldWidth: 0
+  heightOffset: 0
+  widthOffset: 0
 --- !u!1 &236959035
 GameObject:
   m_ObjectHideFlags: 0
@@ -27934,6 +27951,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 646747646}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &646747648 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5778685310182809298, guid: 3f7d0855d50d1f040921fa0ac0267595,
+    type: 3}
+  m_PrefabInstance: {fileID: 646747646}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bb10361a2c644d4ca69e250ec52769d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &648899552
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29335,6 +29364,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: CameraTrigger (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2574703430317814661, guid: be248efcdc98a164c836378dfb5afa38,
+        type: 3}
+      propertyPath: spiritsToRespawn.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2574703430317814661, guid: be248efcdc98a164c836378dfb5afa38,
+        type: 3}
+      propertyPath: spiritsToRespawn.Array.data[0]
+      value: 
+      objectReference: {fileID: 555285}
+    - target: {fileID: 2574703430317814661, guid: be248efcdc98a164c836378dfb5afa38,
+        type: 3}
+      propertyPath: spiritsToRespawn.Array.data[1]
+      value: 
+      objectReference: {fileID: 785417299}
+    - target: {fileID: 2574703430317814661, guid: be248efcdc98a164c836378dfb5afa38,
+        type: 3}
+      propertyPath: spiritsToRespawn.Array.data[2]
+      value: 
+      objectReference: {fileID: 1951396619}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be248efcdc98a164c836378dfb5afa38, type: 3}
 --- !u!1 &705643119
@@ -29869,6 +29918,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 714258454}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &714258456 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5778685310182809298, guid: 3f7d0855d50d1f040921fa0ac0267595,
+    type: 3}
+  m_PrefabInstance: {fileID: 714258454}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bb10361a2c644d4ca69e250ec52769d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &717003877 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4950395605894245836, guid: 0a8c60a1fd5fb7042be5cdf54e930c5a,
@@ -31525,6 +31586,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 785417297}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &785417299 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5778685310182809298, guid: 3f7d0855d50d1f040921fa0ac0267595,
+    type: 3}
+  m_PrefabInstance: {fileID: 785417297}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bb10361a2c644d4ca69e250ec52769d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &786034922
 GameObject:
   m_ObjectHideFlags: 0
@@ -41579,6 +41652,8 @@ MonoBehaviour:
   pickedObjectMass: 0
   isEchelle: 0
   currentEchelle: {fileID: 0}
+  spiritRespawn: {fileID: 0}
+  isPressing: 0
 --- !u!65 &1021972586
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -49851,6 +49926,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1167338959}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1167338961 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5778685310182809298, guid: 8e3ae0b1a40ba2049a191260c1bc87f0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1167338959}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bb10361a2c644d4ca69e250ec52769d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1169898006
 GameObject:
   m_ObjectHideFlags: 0
@@ -50050,6 +50137,36 @@ PrefabInstance:
       propertyPath: m_Name
       value: CameraTrigger
       objectReference: {fileID: 0}
+    - target: {fileID: 2574703430317814661, guid: be248efcdc98a164c836378dfb5afa38,
+        type: 3}
+      propertyPath: spiritsToRespawn.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2574703430317814661, guid: be248efcdc98a164c836378dfb5afa38,
+        type: 3}
+      propertyPath: spiritsToRespawn.Array.data[0]
+      value: 
+      objectReference: {fileID: 714258456}
+    - target: {fileID: 2574703430317814661, guid: be248efcdc98a164c836378dfb5afa38,
+        type: 3}
+      propertyPath: spiritsToRespawn.Array.data[1]
+      value: 
+      objectReference: {fileID: 1167338961}
+    - target: {fileID: 2574703430317814661, guid: be248efcdc98a164c836378dfb5afa38,
+        type: 3}
+      propertyPath: spiritsToRespawn.Array.data[2]
+      value: 
+      objectReference: {fileID: 1260448613}
+    - target: {fileID: 2574703430317814661, guid: be248efcdc98a164c836378dfb5afa38,
+        type: 3}
+      propertyPath: spiritsToRespawn.Array.data[3]
+      value: 
+      objectReference: {fileID: 1634262775}
+    - target: {fileID: 2574703430317814661, guid: be248efcdc98a164c836378dfb5afa38,
+        type: 3}
+      propertyPath: spiritsToRespawn.Array.data[4]
+      value: 
+      objectReference: {fileID: 646747648}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be248efcdc98a164c836378dfb5afa38, type: 3}
 --- !u!1 &1173518615
@@ -54701,6 +54818,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1260448611}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1260448613 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5778685310182809298, guid: 8e3ae0b1a40ba2049a191260c1bc87f0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1260448611}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bb10361a2c644d4ca69e250ec52769d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1263870854
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -74816,6 +74945,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1634262773}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1634262775 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5778685310182809298, guid: 8e3ae0b1a40ba2049a191260c1bc87f0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1634262773}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bb10361a2c644d4ca69e250ec52769d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1636997644
 GameObject:
   m_ObjectHideFlags: 0
@@ -80036,6 +80177,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1951396617}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1951396619 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5778685310182809298, guid: 3f7d0855d50d1f040921fa0ac0267595,
+    type: 3}
+  m_PrefabInstance: {fileID: 1951396617}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bb10361a2c644d4ca69e250ec52769d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1971744370
 PrefabInstance:
   m_ObjectHideFlags: 0
