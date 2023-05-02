@@ -26,10 +26,10 @@ public class MapManager : MonoBehaviour
 
     [Header("PlayerIcon")]
     [SerializeField] private RectTransform playerIcon;
-    [SerializeField] private int screenHeight;
-    [SerializeField] private int screenWidth;
-    [SerializeField] private int worldHeight;
-    [SerializeField] private int worldWidth;
+    [SerializeField] private float worldHeight;
+    [SerializeField] private float worldWidth;
+    [SerializeField] private float heightOffset;
+    [SerializeField] private float widthOffset;
 
     private void Awake()
     {
@@ -161,7 +161,7 @@ public class MapManager : MonoBehaviour
     private void MovePlayerIcon()
     {
         var worldPos = Controller.instance.transform.position;
-        var mapPos = new Vector2(worldPos.x, worldPos.z);
-        playerIcon.anchoredPosition = mapPos;
+        var mapPos = new Vector2(worldPos.x + widthOffset, worldPos.z + heightOffset);
+        playerIcon.anchoredPosition = Vector2.Scale(mapPos, Vector2.Scale(Map.rectTransform.rect.size, new Vector2(1/worldWidth, 1/worldHeight)));
     }
 }
