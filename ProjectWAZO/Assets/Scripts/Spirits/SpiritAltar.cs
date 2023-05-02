@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using UnityEngine;
 using Activator = WeightSystem.Activator.Activator;
 
@@ -34,8 +32,10 @@ namespace Spirits
         public void OnTriggerEnter(Collider other)
         {
             if ((int)other.attachedRigidbody.drag != (int)spiritType) return;
+            Debug.Log("VfxPlayed");
+            
             _spiritAmount++;
-            if (_activated) return;
+            //if (_activated) return;
             vfxdrop.Play();
             if (_spiritAmount == spiritSlots)
             {

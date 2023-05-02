@@ -235,6 +235,8 @@ MonoBehaviour:
   spiritSlots: 1
   linkedObject: {fileID: 0}
   weightUI: {fileID: 7520842206923401161}
+  vfxdrop: {fileID: 0}
+  vfxcomplete: {fileID: 0}
 --- !u!65 &1808049799
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -246,8 +248,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 3, z: 0.9930649}
-  m_Center: {x: 0, y: 1, z: 0.0034675598}
+  m_Size: {x: 1, y: 1.4, z: 1}
+  m_Center: {x: 0, y: 0.2, z: 0}
 --- !u!1 &3681403547739865537
 GameObject:
   m_ObjectHideFlags: 0

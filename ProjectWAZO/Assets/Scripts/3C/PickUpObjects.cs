@@ -262,7 +262,7 @@ public class PickUpObjects : MonoBehaviour
         {
             for (int i = 0; i < objectsInRange.Count; i++)
             {
-                float newDistance = Vector3.Distance(transform.position, objectsInRange[i].transform.position);
+                float newDistance = Vector3.Distance(pickUpPosition.position, objectsInRange[i].transform.position);
                 if (newDistance < closestDistance)
                 {
                     closestDistance = newDistance;

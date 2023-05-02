@@ -14,7 +14,7 @@ namespace WeightSystem.Activator
 
         private TweenerCore<Vector3, Vector3, VectorOptions> _currentTween;
         private int _nextPoint, _numberOfPoints;
-        private bool _played, _rewind;
+        private bool _played, _rewind, _isWaiting;
 
         private void Awake()
         {
@@ -23,6 +23,7 @@ namespace WeightSystem.Activator
 
         public override void Activate()
         {
+            if (_isWaiting) return;
             //_currentTween.Kill();
             
             _played = true;
@@ -35,17 +36,21 @@ namespace WeightSystem.Activator
         {
             _played = false;
 
-            if (_rewind) return;
-            
-            _currentTween.Kill();
-            _rewind = true;
-            
-            FindNextPoint();
+            if (!_rewind)
+            {
+                _currentTween.Kill();
+                StopAllCoroutines();
+                _isWaiting = false;
+                _rewind = true;
+                FindNextPoint();
+            }
         }
 
         private IEnumerator Movement()
         {
+            _isWaiting = true;
             yield return new WaitForSeconds(waitingTime);
+            _isWaiting = false;
             _currentTween = transform.DOLocalMove(wayPoints[_nextPoint], CalculateSpeed()).OnComplete(FindNextPoint);
         }
 
