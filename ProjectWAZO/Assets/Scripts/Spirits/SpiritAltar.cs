@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using Activator = WeightSystem.Activator.Activator;
 
@@ -17,6 +18,8 @@ namespace Spirits
         [SerializeField] private int spiritSlots;
         [SerializeField] private Activator linkedObject;
         public WeightUI weightUI;
+        [SerializeField] private ParticleSystem vfxdrop;
+        [SerializeField] private ParticleSystem vfxcomplete;
         
         
         private int _spiritAmount;
@@ -32,20 +35,21 @@ namespace Spirits
         {
             if ((int)other.attachedRigidbody.drag != (int)spiritType) return;
             _spiritAmount++;
-
             if (_activated) return;
+            vfxdrop.Play();
             if (_spiritAmount == spiritSlots)
             {
+                vfxcomplete.Play();
                 linkedObject.Activate();
                 _activated = true;
             }
+            
         }
 
         public void OnTriggerExit(Collider other)
         {
             if ((int)other.attachedRigidbody.drag != (int)spiritType) return;
             _spiritAmount--;
-            
             if (!_activated) return;
             if (_spiritAmount < spiritSlots)
             {
@@ -53,5 +57,6 @@ namespace Spirits
                 _activated = false;
             }
         }
+        
     }
 }
