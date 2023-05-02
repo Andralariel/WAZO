@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1489068459914279522}
   - component: {fileID: 1489068459914279523}
   - component: {fileID: 1489068459914279532}
+  - component: {fileID: 2574703430317814661}
   m_Layer: 0
   m_Name: CameraTrigger
   m_TagString: Untagged
@@ -110,7 +111,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58ae6543e10ca514fb5716d364f9f54f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 0}
+  doOnce: 0
+  objectsToKill: []
   cameraEffect: 0
   newOffset: {x: 2.5, y: 10, z: -10.5}
+  originalOffset: {x: 0, y: 0, z: 0}
   objectToFocus: {fileID: 0}
+  newTarget1: {fileID: 0}
+  newTarget2: {fileID: 0}
+  newLerpGoal: {x: 0, y: 0, z: 0}
+  "cin\xE9matiqueToStart": 0
+--- !u!114 &2574703430317814661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1489068459914279533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff0e4a44725679e49b935c40e1ed541f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canReset: 0
+  spiritsToRespawn: []
+  durationUntilReset: 1.5
+  isInTrigger: 0
+  holdingDuration: 0
