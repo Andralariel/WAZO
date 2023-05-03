@@ -149,7 +149,7 @@ public class PickUpObjects : MonoBehaviour
 
     public void DoRespawn() //sert à faire respawn les esprits dans un puzzle
     {
-        if (spiritRespawn.isInTrigger)
+        if (spiritRespawn.isInTrigger && !isThingTaken)
         {
             if (spiritRespawn.spiritsToRespawn.Count > 0)
             {
