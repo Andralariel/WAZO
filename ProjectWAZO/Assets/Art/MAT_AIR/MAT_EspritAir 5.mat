@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MAT_EspritEarth
+  m_Name: MAT_EspritAir 5
   m_Shader: {fileID: -6465566751694194690, guid: 33e96da9dbdd64b4a8b9433979cf59bd,
     type: 3}
   m_ValidKeywords: []
@@ -35,14 +35,24 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _FresnelPower: 0.18
+    - _Add: 0.08
+    - _FresnelPower: 0.24
+    - _Lower: 0
+    - _Multiply: 1
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _Rotation: 2.29
+    - _Speed: 0
+    - _Sub: -0.2
+    - _Wiggles: 0
     m_Colors:
-    - _Color: {r: 0, g: 0, b: 0, a: 0}
-    - _Color_1: {r: 0.6635042, g: 2.134662, b: 0.111762375, a: 0}
+    - _Axis: {r: 1, g: 0, b: 0, a: 0}
+    - _Bend: {r: 0.1, g: 0, b: 0, a: 1.6}
+    - _Color: {r: 2.7186162, g: 0.6265808, b: 0, a: 0}
+    - _Color_1: {r: 0, g: 0.28382537, b: 0.28233936, a: 0}
+    - _SinParams: {r: 2.17, g: 0, b: 3, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &3766229175512976323
+--- !u!114 &7328836727668578216
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

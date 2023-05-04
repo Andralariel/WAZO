@@ -69,7 +69,10 @@ public class PickUpObjects : MonoBehaviour
 
     private void Update()
     {
-        DoRespawn();
+        if (isPressing && spiritRespawn is not null)
+        {
+            DoRespawn();
+        }
     }
 
     public void Prendre()
@@ -149,15 +152,15 @@ public class PickUpObjects : MonoBehaviour
 
     public void DoRespawn() //sert à faire respawn les esprits dans un puzzle
     {
-        if (spiritRespawn.isInTrigger)
+        if (spiritRespawn.isInTrigger && !isThingTaken)
         {
             if (spiritRespawn.spiritsToRespawn.Count > 0)
             {
-                if (isPressing)
+                if (isPressing) 
                 {
                     if (spiritRespawn.holdingDuration > spiritRespawn.durationUntilReset)
                     {
-                        foreach (var spirit in spiritRespawn.spiritsToRespawn)
+                        foreach (var spirit in spiritRespawn.spiritsToRespawn) 
                         {
                             spirit.Respawn();
                             StopDoRespawn();
