@@ -25,6 +25,7 @@ public class SpiritRespawn : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         isInTrigger = true;
+        PickUpObjects.instance.hasTriggerIn = true;
         PickUpObjects.instance.spiritRespawn = GetComponent<SpiritRespawn>();
     }
 
@@ -32,6 +33,5 @@ public class SpiritRespawn : MonoBehaviour
     {
         isInTrigger = false;
         PickUpObjects.instance.StopDoRespawn();
-        PickUpObjects.instance.spiritRespawn = null;
     }
 }

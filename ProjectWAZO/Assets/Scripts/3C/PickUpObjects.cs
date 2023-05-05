@@ -41,6 +41,7 @@ public class PickUpObjects : MonoBehaviour
     [Header("Respawn Spirits")]
     public SpiritRespawn spiritRespawn;
     public bool isPressing;
+    public bool hasTriggerIn;
 
     public static PickUpObjects instance;
 
@@ -152,9 +153,9 @@ public class PickUpObjects : MonoBehaviour
 
     public void DoRespawn() //sert à faire respawn les esprits dans un puzzle
     {
-        if (spiritRespawn.isInTrigger && !isThingTaken)
+        if (hasTriggerIn) //bool false par défaut qui devient true une fois qu'on a passé un puzzle
         {
-            if (spiritRespawn.spiritsToRespawn.Count > 0)
+            if (spiritRespawn.isInTrigger && !isThingTaken) //si on est dans la zone et qu'on a pas d'esprit dans le bec
             {
                 if (isPressing) 
                 {
