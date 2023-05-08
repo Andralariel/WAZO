@@ -35,22 +35,24 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Add: -0.2
-    - _FresnelPower: 0.18
+    - _Add: 0.08
+    - _Back_and_forth: 0
+    - _FresnelPower: 0.24
     - _Lower: 0
-    - _Multiply: 0.25
+    - _Multiply: 1
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Rotation: 0
+    - _Rotation: -0.11
     - _Speed: 0
-    - _Sub: 0
-    - _Wiggles: 2
+    - _Sub: -0.2
+    - _Wiggles: -0.6
+    - _hm: 18.29
     m_Colors:
     - _Axis: {r: 1, g: 0, b: 0, a: 0}
-    - _Bend: {r: 0.05, g: 0, b: 0, a: 1.9}
+    - _Bend: {r: 0.1, g: 0, b: 0, a: 1.6}
     - _Color: {r: 0, g: 0, b: 0, a: 0}
-    - _Color_1: {r: 0.6635042, g: 2.134662, b: 0.111762375, a: 0}
-    - _SinParams: {r: 0.5, g: 0, b: 3, a: 0}
+    - _Color_1: {r: 0.58989763, g: 1.7075984, b: 0, a: 0}
+    - _SinParams: {r: 2.17, g: 0, b: 3, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &3766229175512976323
 MonoBehaviour:
