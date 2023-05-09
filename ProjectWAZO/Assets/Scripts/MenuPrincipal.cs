@@ -28,19 +28,19 @@ public class MenuPrincipal : MonoBehaviour
 
     public void StartGame()
     {
-        CameraController.instance.transform.DOMove(CameraController.instance.transform.position - new Vector3(60,0,0), 2f)
-            .OnComplete((() =>   CinématiqueManager.instance.StartCinématique(0)));
-        boutonStart.interactable = false;
+        Debug.Log("start");
+        CameraController.instance.transform.DOMove(
+            CameraController.instance.transform.position - new Vector3(-1027.7f, 0, 0), 2f);
+          //  .OnComplete((() =>   CinématiqueManager.instance.StartCinématique(0)));
+        MenuMain.interactable = false;
     }
     
     public void OpenOptions()
     {
         EventSystem.SetSelectedGameObject(boutonRetour.gameObject);
-        CameraController.instance.transform.DORotate(new Vector3(270f,-90f,0),1.5f);
-        MenuMain.DOFade(0, 0.3f);
+        CameraController.instance.transform.DORotate(new Vector3(-90,-90f,0),1.5f);
         MenuMain.interactable = false;
         MenuMain.blocksRaycasts = false;
-        MenuOptions.DOFade(1, 1.7f);
         MenuOptions.interactable = true;
         MenuOptions.blocksRaycasts = true;
     }
@@ -49,10 +49,8 @@ public class MenuPrincipal : MonoBehaviour
     {
         EventSystem.SetSelectedGameObject(boutonStart.gameObject);
         CameraController.instance.transform.DORotate(new Vector3(0,-90f,0),1.5f);
-        MenuMain.DOFade(1, 0.3f);
         MenuMain.interactable = true;
         MenuMain.blocksRaycasts = true;
-        MenuOptions.DOFade(0, 1.7f);
         MenuOptions.interactable = false;
         MenuOptions.blocksRaycasts = false;
     }
