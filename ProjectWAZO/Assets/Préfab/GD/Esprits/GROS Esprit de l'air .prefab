@@ -70,6 +70,7 @@ MonoBehaviour:
   spiritAgent: {fileID: 0}
   vfxrespawn: {fileID: 2380932902879812958}
   modesprit: {fileID: 2447624149751640248}
+  anim: {fileID: 7767639733530998187}
 --- !u!54 &5778685310182809309
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -897,6 +898,26 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 7380026307607488427}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &7767639733530998187
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2447624149751640248}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 430c0da970e654c4aa03e6d57ca212d8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!4 &3079447977432803842 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5537029840988147113, guid: 4d3539ce143e3b3409767b7e089e5a2c,

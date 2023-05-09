@@ -107,10 +107,11 @@ public class KeyShard : MonoBehaviour
          Destroy(spiritsToKill[i]);
       }
       KeyUI.instance.currentShard += 1;
+      TempleOpener.instance.currentAmount += 1;
       TempleOpener.instance.CheckKeyState();
       KeyUI.instance.ShowKey();
       Destroy(gameObject);
-      TempleOpener.instance.currentAmount += 1;
+      
    }
 
   
