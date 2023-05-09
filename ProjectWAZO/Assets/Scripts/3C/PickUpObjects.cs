@@ -79,7 +79,7 @@ public class PickUpObjects : MonoBehaviour
     public void Prendre()
     {
         _beakPinch = true;
-        if (!isThingTaken&& !isEchelle)
+        if (!isThingTaken && !isEchelle)
         {
             pickedObject = GetClosestObject();
             if (pickedObject != null)

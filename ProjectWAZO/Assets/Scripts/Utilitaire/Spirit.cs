@@ -10,6 +10,7 @@ namespace Utilitaire
 {
     public class Spirit : MonoBehaviour
     {
+        public bool isVisible;
         public bool isTaken;
         public bool isClosest;
         
@@ -17,7 +18,8 @@ namespace Utilitaire
         [SerializeField] private NavMeshAgent spiritAgent;
         [SerializeField] private ParticleSystem vfxrespawn;
         [SerializeField] private GameObject modesprit;
-        
+
+        public Animator anim;
         private SpiritEvent _linkedEvent;
         private bool _isMoving, _waitForNextStep;
         private int _nextPoint;
@@ -52,14 +54,20 @@ namespace Utilitaire
         }
         private void Update()
         {
-            if (isTaken)
+            if (isTaken && isVisible)
             {
                 rb.isKinematic = true;
-                // meshRenderer.material = unselectedMaterial;
+                /*anim.SetBool("isNone",true);
+                anim.SetBool("isDance",false);
+                anim.SetBool("isIdle",false);*/
             }
-            else
+            
+            if (!isTaken && isVisible)
             {
                 rb.isKinematic = false;
+               /* anim.SetBool("isNone",false);
+                anim.SetBool("isDance",false);
+                anim.SetBool("isIdle",true);*/
             }
 
             if (!_isMoving) return;
