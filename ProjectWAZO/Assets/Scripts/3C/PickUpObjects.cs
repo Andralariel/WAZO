@@ -192,7 +192,8 @@ public class PickUpObjects : MonoBehaviour
         Controller.instance.canJump = true;
         Controller.instance.canPlaner = false;
         Controller.instance.canMove = false;
-        Controller.instance.GetComponent<Rigidbody>().useGravity = false;
+        Controller.instance.rb.constraints = RigidbodyConstraints.FreezeRotation;
+        Controller.instance.rb.useGravity = false;
         switch (currentEchelle.GetComponent<echelleData>().orientation)
         {
             case echelleData.Orientation.nord:
