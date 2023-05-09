@@ -68,6 +68,7 @@ public class TempleOpener : MonoBehaviour
       }
       for (int i = 0; i < 10; i++)
       {
+         keyShardCinématique[i].SetActive(true);
          keyShardCinématique[i].transform.DOMove(emptyPosition[i].transform.position, 3f);
       }
       yield return new WaitForSeconds(3.5f);

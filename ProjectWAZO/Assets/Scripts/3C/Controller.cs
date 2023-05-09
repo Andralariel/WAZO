@@ -94,11 +94,23 @@ public class Controller : MonoBehaviour
              rb.AddForce(rb.mass*gravity, ForceMode.Force);
          }
      }
-    
+
+     //DirectionAlignment
+     private Vector3 _moveDir;
+     private void AlignInputWithCameraAngle()
+     {
+         moveInput.Normalize();
+         var cameraAngle = -CameraController.instance.normalRotation.y*Mathf.Deg2Rad;
+         var newX = moveInput.x * Mathf.Cos(cameraAngle) - moveInput.z * Mathf.Sin(cameraAngle);
+         var newZ = moveInput.x * Mathf.Sin(cameraAngle) + moveInput.z * Mathf.Cos(cameraAngle);
+         _moveDir = new Vector3(newX,0,newZ);
+     }
+     
     void Update()
     {
-        
-        if (moveInput.x != 0 && moveInput.z != 0) // Limite la vitesse lors des déplacements en diagonale
+        AlignInputWithCameraAngle();
+
+        if (_moveDir.x != 0 && _moveDir.z != 0) // Limite la vitesse lors des déplacements en diagonale
         {
             Vector2 groundMovement = Vector2.ClampMagnitude(new Vector2(rb.velocity.x, rb.velocity.z), 7.8f);
             rb.velocity = new Vector3(groundMovement.x, rb.velocity.y, groundMovement.y);
@@ -124,9 +136,9 @@ public class Controller : MonoBehaviour
             anim.SetBool("isWalking",false);
             anim.speed = 1;
         }
-        if (moveInput != Vector3.zero && !isEchelle && canMove) //rotations
+        if (_moveDir != Vector3.zero && !isEchelle && canMove) //rotations
         {
-            Quaternion newRotation = Quaternion.LookRotation(moveInput, Vector3.up);
+            Quaternion newRotation = Quaternion.LookRotation(_moveDir, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation,newRotation,rotationSpeed*Time.deltaTime);
         }
         else if(!isEchelle)
@@ -184,15 +196,14 @@ public class Controller : MonoBehaviour
                 //StopPlaner();
                 DoOnce = false;
             }
-            //moveInput = moveInput.normalized;
             if (!isEchelle && canMove)
             {
                 FixSpeedOnSlope();
-                if (moveInput != Vector3.zero) // Modifie la vitesse de l'animation selon la vitesse du perso
+                if (_moveDir != Vector3.zero) // Modifie la vitesse de l'animation selon la vitesse du perso
                 {
                     anim.SetBool("isWalking",true);
                     anim.SetBool("isIdle",false);
-                    float animationSpeed = moveInput.magnitude;
+                    float animationSpeed = _moveDir.magnitude;
                     animationSpeed = Mathf.Clamp(animationSpeed,0f, 1f);
                     anim.speed = animationSpeed;
                 }
@@ -212,7 +223,6 @@ public class Controller : MonoBehaviour
             Planer();
             DoOnce = true;
             isGrounded = false;
-            moveInput = moveInput.normalized;
             if (!isEchelle && !isWind)
             {
                 gravityScale -= 5f * Time.deltaTime;
@@ -220,8 +230,10 @@ public class Controller : MonoBehaviour
             
             if (!isEchelle) 
             { 
-                rb.velocity +=(new Vector3((float)moveInput.x,moveInput.y,moveInput.z) * (airControlSpeed * Time.deltaTime));
+                rb.velocity +=(new Vector3((float)_moveDir.x,0,_moveDir.z) * (airControlSpeed * Time.deltaTime));
             }
+
+            CheckIfStuck();
         }
         
         RaycastHit hit;   // L'indication de la trajectoire de chute pendant le planage
@@ -264,6 +276,7 @@ public class Controller : MonoBehaviour
             StopAllCoroutines();
             Debug.DrawRay(transform.position, Vector3.down*0.2f, Color.green,2);
             rb.AddForce(new Vector3(0,onHeightChangingPlatform?onMoveJumpForce:jumpForce,0),ForceMode.VelocityChange);
+            _stuckFrameAmount = 0;
         }
         else if (!canJump)
         {
@@ -296,7 +309,22 @@ public class Controller : MonoBehaviour
         }
     }
 
-    
+    //Fix to prevent player from getting stuck between
+    private Vector3 _lastPos;
+    private const float PosRange = 0.1f;
+    private const int StuckBuffer = 10;
+    private int _stuckFrameAmount;
+    private void CheckIfStuck()
+    {
+        if(isPressing) return;
+        
+        if ((transform.position - _lastPos).magnitude < PosRange) _stuckFrameAmount++;
+        else _stuckFrameAmount = 0;
+        
+        if (_stuckFrameAmount >= StuckBuffer) canJump = true;
+        
+        _lastPos = transform.position;
+    }
     
     //WeightSystem
     private WeightDetector _currentDetector;
@@ -327,11 +355,11 @@ public class Controller : MonoBehaviour
             
         if (Vector3.Dot(hit.normal, Vector3.up) < 0.97)
         {
-            if(canJump && !onMovingPlank) rb.constraints = moveInput.magnitude == 0
+            if(canJump && !onMovingPlank) rb.constraints = _moveDir.magnitude == 0
                 ? RigidbodyConstraints.FreezeRotation|RigidbodyConstraints.FreezePositionY
                 : RigidbodyConstraints.FreezeRotation;
             
-            var direction = Vector3.Cross(hit.normal, moveInput);
+            var direction = Vector3.Cross(hit.normal, _moveDir);
             Debug.DrawRay(hit.point,direction.normalized,Color.blue);
             direction = Vector3.Cross(direction,hit.normal);
             Debug.DrawRay(hit.point,direction.normalized,Color.red);
@@ -340,7 +368,7 @@ public class Controller : MonoBehaviour
         }
         else
         {
-            rb.velocity += moveInput * (moveSpeed * Time.deltaTime);
+            rb.velocity += _moveDir * (moveSpeed * Time.deltaTime);
         }
     }
 }

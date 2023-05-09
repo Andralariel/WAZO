@@ -33,6 +33,18 @@ namespace Utilitaire
             }    
         }
 
+       /* private void OnBecameInvisible()
+        {
+            isVisible = false;
+            anim.enabled = false;
+        }
+        
+        private void OnBecameVisible()
+        {
+            isVisible = true;
+            anim.enabled = true;
+        }*/
+
         private void Awake()
         {
             _startPos = transform.position;
@@ -54,7 +66,7 @@ namespace Utilitaire
         }
         private void Update()
         {
-            if (isTaken && isVisible)
+            if (isTaken)
             {
                 rb.isKinematic = true;
                 /*anim.SetBool("isNone",true);
@@ -62,10 +74,10 @@ namespace Utilitaire
                 anim.SetBool("isIdle",false);*/
             }
             
-            if (!isTaken && isVisible)
+            if (!isTaken)
             {
                 rb.isKinematic = false;
-               /* anim.SetBool("isNone",false);
+                /*anim.SetBool("isNone",false);
                 anim.SetBool("isDance",false);
                 anim.SetBool("isIdle",true);*/
             }
