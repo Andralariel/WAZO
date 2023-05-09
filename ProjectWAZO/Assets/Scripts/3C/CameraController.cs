@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -10,7 +7,7 @@ public class CameraController : MonoBehaviour
    
     public float SmoothMoveFactor;
     public float walkingLookFactor;
-    public Quaternion normalRotation;
+    public Vector3 normalRotation;
     private Vector3 savePosition;
 
     [Header("Utilitaire")] 
@@ -101,13 +98,13 @@ public class CameraController : MonoBehaviour
             {
                 Vector3 newPosition = player.transform.position + offset + (Controller.instance.moveInput * walkingLookFactor);
                 transform.localPosition = Vector3.SmoothDamp(transform.position,newPosition,ref velocity,SmoothMoveFactor);
-                transform.rotation = Quaternion.Slerp(transform.rotation, normalRotation, Time.deltaTime/SmoothRotateFactor);
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(normalRotation), Time.deltaTime/SmoothRotateFactor);
             }
             else
             {
                 Vector3 newPosition = player.transform.position + offset;
                 transform.localPosition = Vector3.SmoothDamp(transform.position,newPosition,ref velocity,SmoothMoveFactor);
-                transform.rotation = Quaternion.Slerp(transform.rotation, normalRotation, Time.deltaTime/SmoothRotateFactor);
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(normalRotation), Time.deltaTime/SmoothRotateFactor);
             }
            
         }
@@ -121,7 +118,7 @@ public class CameraController : MonoBehaviour
         {
             Vector3 newPosition = GetCenterPoint() + offset;
             transform.localPosition = Vector3.SmoothDamp(transform.position,newPosition,ref velocity,SmoothMoveFactor);
-            transform.rotation = Quaternion.Slerp(transform.rotation, normalRotation, Time.deltaTime/SmoothRotateFactor);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(normalRotation), Time.deltaTime/SmoothRotateFactor);
         }
         else if(isVerticalLerp)
         {

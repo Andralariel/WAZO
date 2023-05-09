@@ -14,7 +14,6 @@ public class Stopit : MonoBehaviour
         {
             vfxreplacing.Play();
             basic.Stop();
-   
         }
     }
 }

@@ -69,6 +69,7 @@ MonoBehaviour:
   spiritAgent: {fileID: 0}
   vfxrespawn: {fileID: 1010075290014211161}
   modesprit: {fileID: 2545718221396829616}
+  anim: {fileID: 8230705138755831205}
 --- !u!54 &4084800076653924844
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -267,6 +268,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8444225325242601242, guid: 43954e56c6665b94fb6f6736ebae38e2,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 43954e56c6665b94fb6f6736ebae38e2, type: 3}
 --- !u!1 &2545718221396829616 stripped
@@ -278,6 +284,12 @@ GameObject:
 --- !u!4 &2891281894952451850 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3389338146048046517, guid: 43954e56c6665b94fb6f6736ebae38e2,
+    type: 3}
+  m_PrefabInstance: {fileID: 510802893829786303}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &8230705138755831205 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8444225325242601242, guid: 43954e56c6665b94fb6f6736ebae38e2,
     type: 3}
   m_PrefabInstance: {fileID: 510802893829786303}
   m_PrefabAsset: {fileID: 0}

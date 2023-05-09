@@ -63,12 +63,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bb10361a2c644d4ca69e250ec52769d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isVisible: 0
   isTaken: 0
   isClosest: 0
   rb: {fileID: 5778685310182809309}
   spiritAgent: {fileID: 0}
   vfxrespawn: {fileID: 4987192304582885963}
   modesprit: {fileID: 5471473543510705238}
+  anim: {fileID: 1390970147555712051}
 --- !u!54 &5778685310182809309
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -282,6 +284,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 2.056
       objectReference: {fileID: 0}
+    - target: {fileID: 2789833811243718414, guid: 8298e4ce5765f9a40b17f2401f558ade,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8457628663261844945, guid: 8298e4ce5765f9a40b17f2401f558ade,
         type: 3}
       propertyPath: m_RootOrder
@@ -344,6 +351,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8298e4ce5765f9a40b17f2401f558ade, type: 3}
+--- !u!95 &1390970147555712051 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2789833811243718414, guid: 8298e4ce5765f9a40b17f2401f558ade,
+    type: 3}
+  m_PrefabInstance: {fileID: 3889646538811853629}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4658204836126727916 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8457628663261844945, guid: 8298e4ce5765f9a40b17f2401f558ade,

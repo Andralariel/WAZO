@@ -12,6 +12,7 @@ public class TempleOpener : MonoBehaviour
    public float AmountToOpen;
    public bool canOpen;
    public static TempleOpener instance;
+   public Animator animDoor;
    public GameObject Serrure;
    public List<GameObject> keyShardCinématique;
    public List<GameObject> emptyPosition;
@@ -67,6 +68,7 @@ public class TempleOpener : MonoBehaviour
       }
       for (int i = 0; i < 10; i++)
       {
+         keyShardCinématique[i].SetActive(true);
          keyShardCinématique[i].transform.DOMove(emptyPosition[i].transform.position, 3f);
       }
       yield return new WaitForSeconds(3.5f);
@@ -75,18 +77,18 @@ public class TempleOpener : MonoBehaviour
          keyShardCinématique[i].transform.DOMove(Serrure.transform.position, 5f);
       }
       yield return new WaitForSeconds(5f);
-     
-      yield return new WaitForSeconds(0.5f);
-      transform.DOMove(new Vector3(transform.position.x, transform.position.y - 20, transform.position.z),5f);
-      CameraController.instance.transform.DOShakePosition(5, 1, 11);
-      yield return new WaitForSeconds(5f);
       for (int i = 0; i < 10; i++)
       {
          Destroy(keyShardCinématique[i]);
       }
+      yield return new WaitForSeconds(0.5f);
+      animDoor.SetBool("Open",true);
+      CameraController.instance.transform.DOShakePosition(5, 1, 11);
+      yield return new WaitForSeconds(5f);
       CinématiqueManager.instance.isCinématique = false;
       Controller.instance.canMove = true;
       Controller.instance.canJump = true;
       CameraController.instance.canMove = true;
+      Destroy(gameObject);
    }
 }
