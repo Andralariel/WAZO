@@ -79,7 +79,7 @@ public class PickUpObjects : MonoBehaviour
     public void Prendre()
     {
         _beakPinch = true;
-        if (!isThingTaken&& !isEchelle)
+        if (!isThingTaken && !isEchelle)
         {
             pickedObject = GetClosestObject();
             if (pickedObject != null)
@@ -216,7 +216,6 @@ public class PickUpObjects : MonoBehaviour
     
     public void QuitEchelle()
     {
-        Debug.Log("quit");
         anim.SetBool("isClimbing",false);
         anim.ResetTrigger("startClimb");
         _moveOnLadder = false;
