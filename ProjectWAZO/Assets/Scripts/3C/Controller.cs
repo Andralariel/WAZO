@@ -232,6 +232,8 @@ public class Controller : MonoBehaviour
             { 
                 rb.velocity +=(new Vector3((float)_moveDir.x,0,_moveDir.z) * (airControlSpeed * Time.deltaTime));
             }
+
+            CheckIfStuck();
         }
         
         RaycastHit hit;   // L'indication de la trajectoire de chute pendant le planage
@@ -274,6 +276,7 @@ public class Controller : MonoBehaviour
             StopAllCoroutines();
             Debug.DrawRay(transform.position, Vector3.down*0.2f, Color.green,2);
             rb.AddForce(new Vector3(0,onHeightChangingPlatform?onMoveJumpForce:jumpForce,0),ForceMode.VelocityChange);
+            _stuckFrameAmount = 0;
         }
         else if (!canJump)
         {
@@ -306,7 +309,22 @@ public class Controller : MonoBehaviour
         }
     }
 
-    
+    //Fix to prevent player from getting stuck between
+    private Vector3 _lastPos;
+    private const float PosRange = 0.1f;
+    private const int StuckBuffer = 10;
+    private int _stuckFrameAmount;
+    private void CheckIfStuck()
+    {
+        if(isPressing) return;
+        
+        if ((transform.position - _lastPos).magnitude < PosRange) _stuckFrameAmount++;
+        else _stuckFrameAmount = 0;
+        
+        if (_stuckFrameAmount >= StuckBuffer) canJump = true;
+        
+        _lastPos = transform.position;
+    }
     
     //WeightSystem
     private WeightDetector _currentDetector;
