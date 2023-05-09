@@ -216,7 +216,6 @@ public class PickUpObjects : MonoBehaviour
     
     public void QuitEchelle()
     {
-        Debug.Log("quit");
         anim.SetBool("isClimbing",false);
         anim.ResetTrigger("startClimb");
         _moveOnLadder = false;
