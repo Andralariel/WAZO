@@ -56,8 +56,5 @@ public class Ending : MonoBehaviour
         Controller.instance.rb.AddForce(new Vector3(0,20,20),ForceMode.Impulse);
         yield return new WaitForSeconds(1f);
         player.rb.useGravity = false;
-        player.
-      
-        
     }
 }
