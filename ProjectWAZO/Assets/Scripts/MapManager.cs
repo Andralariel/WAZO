@@ -152,9 +152,9 @@ public class MapManager : MonoBehaviour
     IEnumerator ShowAndHide(float duration)
     {
         iconMapUpdate.gameObject.SetActive(true);
-        iconMapUpdate.DOAnchorPosX(0, 0.5f);
+        iconMapUpdate.DOAnchorPosX(115, 0.5f);
         yield return new WaitForSeconds(duration);
-        iconMapUpdate.DOAnchorPosX(200, 0.5f).OnComplete((() =>   iconMapUpdate.gameObject.SetActive(false)));
+        iconMapUpdate.DOAnchorPosX(350, 0.5f).OnComplete((() =>   iconMapUpdate.gameObject.SetActive(false)));
       
     }
 
