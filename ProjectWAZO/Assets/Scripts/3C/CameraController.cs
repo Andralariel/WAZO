@@ -11,11 +11,17 @@ public class CameraController : MonoBehaviour
     private Vector3 savePosition;
 
     [Header("Utilitaire")] 
+   
     public bool canMove;
     public bool canRotate;
     public GameObject player;
     private Vector3 velocity;
     private Camera camera;
+    
+    [Header("Shake")] 
+    public bool camShake;
+    public float shakeAmount;
+    public GameObject ShakeManager;
     
     [Header("Zoom")]
     public float minZoom;
@@ -74,6 +80,11 @@ public class CameraController : MonoBehaviour
         else if(canRotate)
         {
             RotateStill();
+        }
+
+        if (camShake)
+        {
+            ShakeManager.transform.localPosition = Random.insideUnitSphere * shakeAmount;
         }
     }
 

@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class RecupOrbe : MonoBehaviour
 {
+    public GameObject orbe;
     [SerializeField] private ParticleSystem vfxreplacing;
     [SerializeField] private ParticleSystem basic;
     public Controller player;
@@ -28,6 +29,9 @@ public class RecupOrbe : MonoBehaviour
       
         if (EndedMoving)
         {
+            player.ChangeAnimSpeed(1);
+            player.anim.SetBool("isWalking",false);
+            player.anim.SetBool("isIdle",true);
             isMoving = false;
             var lookPos = thingToLook.transform.position - PointToGo.position;
             lookPos.y = 0;
@@ -42,6 +46,7 @@ public class RecupOrbe : MonoBehaviour
             CinématiqueManager.instance.isCinématique = true;
             isMoving = true;
             player.canMove = false;
+            player.ChangeAnimSpeed(0.5f);
             player.anim.SetBool("isWalking",true);
             player.anim.SetBool("isIdle",false);
             player.canJump = false;
@@ -53,18 +58,22 @@ public class RecupOrbe : MonoBehaviour
     IEnumerator EndCinématic()
     {
         CameraController.instance.transform.DOMove(CameraController.instance.transform.position + CameraController.instance.transform.forward*5, 8f);
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(2);
+        orbe.transform.DOMove(Controller.instance.transform.position, 3f);
+        yield return new WaitForSeconds(1.5f);
         vfxreplacing.Play();
         basic.Stop();
         yield return new WaitForSeconds(4.5f);
-        CameraController.instance.transform.DOShakePosition(5, 2, 15);
+        CameraController.instance.camShake = true;
         yield return new WaitForSeconds(1f);
         Eboulement.SetActive(true);
-        Eboulement.transform.DOMove(new Vector3(Eboulement.transform.position.x, Eboulement.transform.position.y - 20,
+        Eboulement.transform.DOMove(new Vector3(Eboulement.transform.position.x, Eboulement.transform.position.y - 20, 
             Eboulement.transform.position.z), 0.5f);
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(2f);
         player.canMove = true;
         player.canJump = true;
+        player.enabled = true;
         Destroy(gameObject);
     }
+    
 }

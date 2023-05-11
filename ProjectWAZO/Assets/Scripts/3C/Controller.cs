@@ -309,6 +309,16 @@ public class Controller : MonoBehaviour
         }
     }
 
+    public void ChangeAnimSpeed(float newSpeed)
+    {
+        anim.speed = newSpeed;
+    }
+
+    public void GoWalkCinématic()
+    {
+        
+    }
+    
     //Fix to prevent player from getting stuck between
     private Vector3 _lastPos;
     private const float PosRange = 0.1f;
