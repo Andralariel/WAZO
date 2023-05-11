@@ -45,7 +45,8 @@ public class Controller : MonoBehaviour
     public bool canMove;
     public bool isPressing;
     public bool isWind;
-    public bool isCoyote;
+    private bool isCoyote;
+    public bool StopGravity;
     public bool onHeightChangingPlatform;
 
     [Header("Utilitaire")] 
@@ -88,7 +89,7 @@ public class Controller : MonoBehaviour
 
      void FixedUpdate () // Gravité
      {
-         if (!isEchelle)
+         if (!isEchelle && !StopGravity)
          {
              Vector3 gravity = globalGravity * gravityScale * Vector3.up;
              rb.AddForce(rb.mass*gravity, ForceMode.Force);
@@ -103,7 +104,8 @@ public class Controller : MonoBehaviour
          var cameraAngle = -CameraController.instance.normalRotation.y*Mathf.Deg2Rad;
          var newX = moveInput.x * Mathf.Cos(cameraAngle) - moveInput.z * Mathf.Sin(cameraAngle);
          var newZ = moveInput.x * Mathf.Sin(cameraAngle) + moveInput.z * Mathf.Cos(cameraAngle);
-         _moveDir = new Vector3(newX,0,newZ);
+        // _moveDir = new Vector3(newX,0,newZ);
+        _moveDir = new Vector3(moveInput.x,0,moveInput.z);
      }
      
     void Update()
@@ -131,11 +133,12 @@ public class Controller : MonoBehaviour
                 
         if (CinématiqueManager.instance.isCinématique)
         {
-            anim.SetBool("isIdle",true);
+            anim.SetBool("isIdle",false);
             anim.SetBool("isFlying",false);
             anim.SetBool("isWalking",false);
             anim.speed = 1;
         }
+        
         if (_moveDir != Vector3.zero && !isEchelle && canMove) //rotations
         {
             Quaternion newRotation = Quaternion.LookRotation(_moveDir, Vector3.up);
@@ -314,11 +317,6 @@ public class Controller : MonoBehaviour
         anim.speed = newSpeed;
     }
 
-    public void GoWalkCinématic()
-    {
-        
-    }
-    
     //Fix to prevent player from getting stuck between
     private Vector3 _lastPos;
     private const float PosRange = 0.1f;
