@@ -64,7 +64,6 @@ public class PickUpObjects : MonoBehaviour
         inputAction.Player.PickUp.canceled += ctx => Lacher();
         inputAction.Player.PickUp.performed += ctx => isPressing = true;
         inputAction.Player.PickUp.canceled += ctx => isPressing = false;
-        inputAction.Player.PickUp.canceled += ctx => StopDoRespawn();
 
     }
 
@@ -73,6 +72,10 @@ public class PickUpObjects : MonoBehaviour
         if (isPressing && spiritRespawn is not null)
         {
             DoRespawn();
+        }
+        else if (spiritRespawn is not null && spiritRespawn.holdingDuration > 0)
+        {
+            spiritRespawn.holdingDuration -= Time.deltaTime;
         }
     }
 
@@ -165,7 +168,7 @@ public class PickUpObjects : MonoBehaviour
                         foreach (var spirit in spiritRespawn.spiritsToRespawn) 
                         {
                             spirit.Respawn();
-                            StopDoRespawn();
+                            spiritRespawn.holdingDuration = 0;
                         }
                     }
                     else
@@ -176,11 +179,7 @@ public class PickUpObjects : MonoBehaviour
             }
         }
     }
-
-    public void StopDoRespawn()
-    {
-        spiritRespawn.holdingDuration = 0;
-    }
+    
 
     // BUG fix
     private bool _moveOnLadder;
