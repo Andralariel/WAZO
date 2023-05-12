@@ -4,18 +4,24 @@ namespace TechArt
 {
     public class InteractiveGrass : MonoBehaviour
     {
-        public Material mat;
+        public Material[] mats;
         public GameObject character;
 
         // Update is called once per frame
         void Update()
         {
-            mat.SetVector("_Characterpos", character.transform.position);
+            for (int i = 0; i < mats.Length; i++)
+            {
+                mats[i].SetVector("_Characterpos", character.transform.position);
+            }
         }
 
         void OnDestroy()
         {
-            mat.SetVector("_Characterpos", new Vector3(0,0,0));
+            for (int i = 0; i < mats.Length; i++)
+            {
+                mats[i].SetVector("_Characterpos", new Vector3(0,0,0));
+            }
         }
     }
 }
