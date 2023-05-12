@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine.SceneManagement;
 using Utilitaire;
 using WeightSystem;
@@ -47,6 +48,7 @@ public class Controller : MonoBehaviour
     public bool isWind;
     private bool isCoyote;
     public bool StopGravity;
+    public bool MoveEnding;
     public bool onHeightChangingPlatform;
 
     [Header("Utilitaire")] 
@@ -77,7 +79,10 @@ public class Controller : MonoBehaviour
         rb = GetComponent<Rigidbody>();
 
         inputAction = new PlayerControls();
-        inputAction.Player.Move.performed += ctx => moveInput = ctx.ReadValue<Vector3>();
+        if (canMove)
+        {
+            inputAction.Player.Move.performed += ctx => moveInput = ctx.ReadValue<Vector3>();
+        }
         inputAction.Player.Jump.performed += ctx => Sauter();
         inputAction.Player.Jump.performed += ctx => NarrationMenuManager.instance.CloseMenu();
         inputAction.Player.Jump.performed += ctx => MapManager.instance.ReturnMap();
@@ -105,7 +110,7 @@ public class Controller : MonoBehaviour
          var newX = moveInput.x * Mathf.Cos(cameraAngle) - moveInput.z * Mathf.Sin(cameraAngle);
          var newZ = moveInput.x * Mathf.Sin(cameraAngle) + moveInput.z * Mathf.Cos(cameraAngle);
         // _moveDir = new Vector3(newX,0,newZ);
-        _moveDir = new Vector3(moveInput.x,0,moveInput.z);
+        _moveDir = new Vector3(moveInput.x,0,moveInput.z);  // J'AI ENLEVÉ LES DEPALCEMENTS DANS L'AXE DE LA CAMERA
      }
      
     void Update()
@@ -117,26 +122,13 @@ public class Controller : MonoBehaviour
             Vector2 groundMovement = Vector2.ClampMagnitude(new Vector2(rb.velocity.x, rb.velocity.z), 7.8f);
             rb.velocity = new Vector3(groundMovement.x, rb.velocity.y, groundMovement.y);
         }
-        
-        if (Input.GetKeyDown(KeyCode.Keypad1))
-        {
-            SceneManager.LoadScene("Ethan");
-        }
-        if (Input.GetKeyDown(KeyCode.Keypad2))
-        {
-            SceneManager.LoadScene("Temple Test");
-        }
-        if (Input.GetKeyDown(KeyCode.Keypad3)) 
-        {
-            SceneManager.LoadScene("Dev_Paulin"); 
-        }
-                
+        Debug.Log(anim.speed);
+
         if (CinématiqueManager.instance.isCinématique)
         {
             anim.SetBool("isIdle",false);
             anim.SetBool("isFlying",false);
             anim.SetBool("isWalking",false);
-            anim.speed = 1;
         }
         
         if (_moveDir != Vector3.zero && !isEchelle && canMove) //rotations
@@ -144,10 +136,18 @@ public class Controller : MonoBehaviour
             Quaternion newRotation = Quaternion.LookRotation(_moveDir, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation,newRotation,rotationSpeed*Time.deltaTime);
         }
-        else if(!isEchelle)
+        else if(!isEchelle && !StopGravity)
         {
             rb.useGravity = true;
             canPlaner = true;
+        }
+
+        if (MoveEnding)
+        {
+           rb.velocity += (new Vector3(0f,0f,1f) * (airControlSpeed));
+           Vector3 velocityClamp = new Vector3(Mathf.Clamp(rb.velocity.x, -3f,3f),0,Mathf.Clamp(rb.velocity.z, -5f,5f));
+           rb.velocity = velocityClamp; 
+           canMove = false;
         }
 
         if (isEchelle) // Si le perso est sur une echelle
@@ -158,17 +158,13 @@ public class Controller : MonoBehaviour
             anim.SetBool("isIdle",false);
             canPlaner = false;
             rb.useGravity = false;
-            Debug.Log(anim.speed);
-            Debug.Log(rb.velocity.magnitude);
             if (rb.velocity.magnitude == 0)
             {
                 anim.enabled = false;
-                //anim.speed = 0;
             }
             else
             {
                 anim.enabled = true;
-                //anim.speed = 1;
             }
             
             Debug.DrawRay(transform.position, Vector3.down*0.5f, Color.yellow,2);
@@ -185,7 +181,10 @@ public class Controller : MonoBehaviour
             trail.emitting = false;
             trail2.emitting = false;
             anim.SetBool("isFlying",false);
-            anim.speed = 1;
+            if (CinématiqueManager.instance.isCinématique == false)
+            {
+                anim.speed = 1;
+            }
             StopAllCoroutines();
             
             isCoyote = false;
@@ -202,7 +201,7 @@ public class Controller : MonoBehaviour
             if (!isEchelle && canMove)
             {
                 FixSpeedOnSlope();
-                if (_moveDir != Vector3.zero) // Modifie la vitesse de l'animation selon la vitesse du perso
+                if (_moveDir != Vector3.zero && CinématiqueManager.instance.isCinématique == false) // Modifie la vitesse de l'animation selon la vitesse du perso
                 {
                     anim.SetBool("isWalking",true);
                     anim.SetBool("isIdle",false);
@@ -212,7 +211,10 @@ public class Controller : MonoBehaviour
                 }
                 else
                 {
-                    anim.speed = 1;
+                    if (CinématiqueManager.instance.isCinématique == false)
+                    {
+                        anim.speed = 1;  
+                    }
                     anim.SetBool("isIdle",true);
                     anim.SetBool("isWalking",false);
                 }
@@ -220,7 +222,10 @@ public class Controller : MonoBehaviour
         }
         else // Si le personnage n'est pas au sol
         {
-            anim.speed = 1;
+            if (CinématiqueManager.instance.isCinématique == false)
+            {
+                anim.speed = 1;  
+            }
             anim.SetBool("isWalking",false);
             anim.SetBool("isIdle",false);
             Planer();
@@ -299,11 +304,17 @@ public class Controller : MonoBehaviour
                 anim.SetBool("isFlying",true);
                 anim.SetBool("isIdle",false);
                 anim.SetBool("isWalking",false);
-                anim.speed = 1;
+                if (CinématiqueManager.instance.isCinématique == false)
+                {
+                    anim.speed = 1;  
+                }
             }
             else
             {
-                anim.speed = 1;
+                if (CinématiqueManager.instance.isCinématique == false)
+                {
+                    anim.speed = 1;  
+                }
                 anim.SetBool("isFlying",false);
                 trail.emitting = false;
                 trail2.emitting = false;

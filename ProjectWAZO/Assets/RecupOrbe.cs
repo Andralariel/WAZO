@@ -46,7 +46,7 @@ public class RecupOrbe : MonoBehaviour
             CinématiqueManager.instance.isCinématique = true;
             isMoving = true;
             player.canMove = false;
-            player.ChangeAnimSpeed(0.5f);
+            player.ChangeAnimSpeed(0.3f);
             player.anim.SetBool("isWalking",true);
             player.anim.SetBool("isIdle",false);
             player.canJump = false;
@@ -57,6 +57,11 @@ public class RecupOrbe : MonoBehaviour
 
     IEnumerator EndCinématic()
     {
+        isMoving = false;
+        EndedMoving = true;
+        player.ChangeAnimSpeed(1f);
+        player.anim.SetBool("isWalking",false);
+        player.anim.SetBool("isIdle",true);
         CameraController.instance.transform.DOMove(CameraController.instance.transform.position + CameraController.instance.transform.forward*5, 8f);
         yield return new WaitForSeconds(2);
         orbe.transform.DOMove(Controller.instance.transform.position, 3f);
@@ -65,11 +70,12 @@ public class RecupOrbe : MonoBehaviour
         basic.Stop();
         yield return new WaitForSeconds(4.5f);
         CameraController.instance.camShake = true;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         Eboulement.SetActive(true);
         Eboulement.transform.DOMove(new Vector3(Eboulement.transform.position.x, Eboulement.transform.position.y - 20, 
             Eboulement.transform.position.z), 0.5f);
         yield return new WaitForSeconds(2f);
+        CinématiqueManager.instance.isCinématique = false;
         player.canMove = true;
         player.canJump = true;
         player.enabled = true;
