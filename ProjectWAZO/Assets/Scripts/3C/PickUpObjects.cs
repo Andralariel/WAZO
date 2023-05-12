@@ -115,6 +115,7 @@ public class PickUpObjects : MonoBehaviour
     private Tweener _currentTween;
     private void MoveToBeak()
     {
+        pickedObject.transform.localRotation = Quaternion.Euler(0,0,0);
         _currentTween = pickedObject.transform.DOLocalMove(Vector3.zero, pickUpSpeed).OnComplete(CheckBeak);
     }
 

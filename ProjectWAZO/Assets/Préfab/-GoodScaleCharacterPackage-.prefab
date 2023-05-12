@@ -221,6 +221,9 @@ MonoBehaviour:
   canMove: 1
   canRotate: 0
   player: {fileID: 0}
+  camShake: 0
+  shakeAmount: 0
+  ShakeManager: {fileID: 0}
   minZoom: 0
   maxZoom: 0
   focusedObject: {fileID: 0}
@@ -39675,7 +39678,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7419505051736290557}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.8, z: 0.5}
+  m_LocalPosition: {x: 0, y: 0.45, z: 0.62}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -39823,7 +39826,7 @@ MonoBehaviour:
   airControlSpeed: 50
   slopeSpeed: 8
   jumpForce: 14.5
-  onMoveJumpForce: 0
+  onMoveJumpForce: 5
   gravityScale: -4
   planingGravity: 1
   coyoteTime: 0.1
@@ -39833,7 +39836,7 @@ MonoBehaviour:
   canMove: 1
   isPressing: 0
   isWind: 0
-  isCoyote: 0
+  StopGravity: 0
   onHeightChangingPlatform: 0
   rotationSpeed: 720
   globalGravity: 9.81
