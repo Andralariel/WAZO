@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UI;
 using Utilitaire;
 
 public class SpiritRespawn : MonoBehaviour
@@ -9,6 +11,8 @@ public class SpiritRespawn : MonoBehaviour
     //VARIABLES ************************************************************************************************************
     public List<Spirit> spiritsToRespawn;
     public float durationUntilReset = 3;
+    public Slider chargement;
+    public CanvasGroup UI;
 
     [Header("DEBUG")] 
     public bool isInTrigger;
@@ -18,12 +22,17 @@ public class SpiritRespawn : MonoBehaviour
     void Start()
     {
         holdingDuration = 0f;
+        chargement.maxValue = durationUntilReset;
     }
 
-    
+    private void Update()
+    {
+        chargement.value = holdingDuration;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
+        UI.DOFade(1, 0.5f);
         isInTrigger = true;
         PickUpObjects.instance.hasTriggerIn = true;
         PickUpObjects.instance.spiritRespawn = GetComponent<SpiritRespawn>();
@@ -31,6 +40,7 @@ public class SpiritRespawn : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        UI.DOFade(0, 0.5f);
         isInTrigger = false;
         PickUpObjects.instance.StopDoRespawn();
     }
