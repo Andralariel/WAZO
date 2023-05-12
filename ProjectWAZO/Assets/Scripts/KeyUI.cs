@@ -66,7 +66,6 @@ public class KeyUI : MonoBehaviour
 
         if (currentShard == TempleOpener.instance.AmountToOpen)
         {
-            MapManager.instance.keyDoneIcon.gameObject.SetActive(true);
             Contour.DOColor(Color.yellow, 0.5f);
         }
 

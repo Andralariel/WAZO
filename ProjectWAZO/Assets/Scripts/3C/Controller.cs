@@ -85,10 +85,9 @@ public class Controller : MonoBehaviour
         }
         inputAction.Player.Jump.performed += ctx => Sauter();
         inputAction.Player.Jump.performed += ctx => NarrationMenuManager.instance.CloseMenu();
-        inputAction.Player.Jump.performed += ctx => MapManager.instance.ReturnMap();
         inputAction.Player.Jump.performed += ctx => isPressing = true;
         inputAction.Player.Jump.canceled += ctx => isPressing = false;
-        inputAction.Player.MenuCarte.performed += ctx => MapManager.instance.OpenCloseMap();
+        inputAction.Player.MenuCarte.performed += ctx => CarnetManager.instance.OpenCloseCarnet();
         inputAction.Player.MenuPause.performed += ctx => PauseMenu.instance.PauseUnPause();
     }
 

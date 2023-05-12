@@ -42,6 +42,6 @@ public class SpiritRespawn : MonoBehaviour
     {
         UI.DOFade(0, 0.5f);
         isInTrigger = false;
-        PickUpObjects.instance.StopDoRespawn();
+        holdingDuration = 0;
     }
 }
