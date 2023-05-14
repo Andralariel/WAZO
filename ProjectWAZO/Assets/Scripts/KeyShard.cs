@@ -38,12 +38,7 @@ public class KeyShard : MonoBehaviour
       vfxidle.Play();
       rb = GetComponent<Rigidbody>();
    }
-
-   private void Update()
-   {
-      throw new NotImplementedException();
-   }
-
+   
    private void OnTriggerEnter(Collider other)
    {
       if (other.gameObject.layer == 6)
