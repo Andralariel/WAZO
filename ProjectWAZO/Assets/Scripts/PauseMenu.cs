@@ -136,13 +136,13 @@ public class PauseMenu : MonoBehaviour
     public void SetMusicLevel(float sliderValue)
     {
         //mixer.SetFloat("MusicVol", Mathf.Log10(sliderValue) *40);
-        mixer.SetFloat("MasterVol", (-80 + sliderValue*100));
+        mixer.SetFloat("MusicVol", (-80 + sliderValue*100));
     }
     
     public void SetSFXLevel(float sliderValue)
     {
         //mixer.SetFloat("SFXVol", Mathf.Log10(sliderValue) *40);
-        mixer.SetFloat("MasterVol", (-80 + sliderValue*100));
+        mixer.SetFloat("SFXVol", (-80 + sliderValue*100));
     }
     
     public void ChangeFullScreen()
