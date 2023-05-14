@@ -39,17 +39,10 @@ public class KeyShard : MonoBehaviour
       rb = GetComponent<Rigidbody>();
    }
 
-   /*private void Update()
+   private void Update()
    {
-
-      if (isGoingBack)
-      {
-         ForceToGoBack += 0.2f;
-         Vector3 angle = Controller.instance.transform.position - transform.position;
-         rb.AddForce(angle*ForceToGoBack);
-         //transform.DOLocalMove(Vector2.zero, ForceToGoBack);
-      }
-   }*/
+      throw new NotImplementedException();
+   }
 
    private void OnTriggerEnter(Collider other)
    {

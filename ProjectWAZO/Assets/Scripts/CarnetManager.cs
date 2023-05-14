@@ -18,6 +18,7 @@ public class CarnetManager : MonoBehaviour
     private float changePageBufferTimer;
 
     [Header("Bool")] 
+    public bool canOpen = true;
     public bool canChangePage;
     public bool isOpened;
 
@@ -54,7 +55,7 @@ public class CarnetManager : MonoBehaviour
 
     public void OpenCloseCarnet()
     {
-        if (Controller.instance.isGrounded && !CinématiqueManager.instance.isCinématique)
+        if (Controller.instance.isGrounded && !CinématiqueManager.instance.isCinématique && canOpen)
         {
             if (isOpened)
             {
