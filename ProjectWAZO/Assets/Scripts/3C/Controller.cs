@@ -121,7 +121,6 @@ public class Controller : MonoBehaviour
             Vector2 groundMovement = Vector2.ClampMagnitude(new Vector2(rb.velocity.x, rb.velocity.z), 7.8f);
             rb.velocity = new Vector3(groundMovement.x, rb.velocity.y, groundMovement.y);
         }
-        Debug.Log(anim.speed);
 
         if (CinématiqueManager.instance.isCinématique)
         {

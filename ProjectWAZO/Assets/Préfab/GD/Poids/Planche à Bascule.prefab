@@ -25,14 +25,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4330559051857888064}
-  m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
+  m_LocalRotation: {x: 0.28894827, y: 0, z: 0, w: 0.9573448}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 3.27, z: 0.5}
+  m_LocalScale: {x: 0.5, y: 3, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7118290211926866115}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 50, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 33.59, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0.019, y: 0}
@@ -68,15 +68,16 @@ MonoBehaviour:
       m_Calls: []
   m_text: 1/1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7b9dedee09785194a8a13dd603f53d94, type: 2}
+  m_sharedMaterial: {fileID: -5491050057200543332, guid: 7b9dedee09785194a8a13dd603f53d94,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190335
+  m_fontColor: {r: 1, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -93,8 +94,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.2
-  m_fontSizeBase: 0.2
+  m_fontSize: 0.5
+  m_fontSizeBase: 0.5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -263,7 +264,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4439590246477301140}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
@@ -311,8 +312,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.4028886, y: 2.0000002, z: 0.7147988}
-  m_Center: {x: 0.3114443, y: 1.5, z: 0.017550558}
+  m_Size: {x: 0.544343, y: 2, z: 0.9189454}
+  m_Center: {x: 0.38217133, y: 1.5, z: 0.043185446}
 --- !u!114 &6241580557093334846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -479,8 +480,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.4215924, y: 1.4487237, z: 0.65045685}
-  m_Center: {x: -0.32079652, y: 1.2243613, z: 0.016366238}
+  m_Size: {x: 0.5210992, y: 1.4487238, z: 0.8472886}
+  m_Center: {x: -0.40503103, y: 1.2243613, z: 0.040418435}
 --- !u!114 &6241580558111619193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -536,8 +537,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6241580558394835566}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 12.563103, y: 0.53667265, z: 3.2641864}
+  m_LocalPosition: {x: 1.1167, y: 0, z: -0.2901}
+  m_LocalScale: {x: 10.329383, y: 0.44125226, z: 2.683814}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6241580558111619174}
@@ -610,8 +611,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.40111116, z: 0.7665654}
-  m_Center: {x: 0, y: 0.2994442, z: -0.008269965}
+  m_Size: {x: 1.3292369, y: 0.40111116, z: 0.9291753}
+  m_Center: {x: -0.008206178, y: 0.2994442, z: 0.035161976}
 --- !u!54 &6241580558394835553
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -842,7 +843,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: -5, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.312, y: 2.52}
+  m_AnchoredPosition: {x: 0.481, y: 2.52}
   m_SizeDelta: {x: 0.46042, y: 5.3611}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &5122229594519693787
@@ -931,7 +932,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8146592285333207646}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
@@ -1003,15 +1004,16 @@ MonoBehaviour:
       m_Calls: []
   m_text: 1/1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7b9dedee09785194a8a13dd603f53d94, type: 2}
+  m_sharedMaterial: {fileID: -5491050057200543332, guid: 7b9dedee09785194a8a13dd603f53d94,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190335
+  m_fontColor: {r: 1, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1028,8 +1030,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.2
-  m_fontSizeBase: 0.2
+  m_fontSize: 0.5
+  m_fontSizeBase: 0.5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1082,6 +1084,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: c681135d91808304e801d87928f4ad25, type: 2}
+    - target: {fileID: 3010361055233997085, guid: 749e1113cd41b3b4792389e9186829f8,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 94991517fdb4eec41ac07b27281e7f47, type: 2}
     - target: {fileID: 3736778989054480404, guid: 749e1113cd41b3b4792389e9186829f8,
         type: 3}
       propertyPath: m_Name
@@ -1172,6 +1179,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 6417098141122410639, guid: 749e1113cd41b3b4792389e9186829f8,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 94991517fdb4eec41ac07b27281e7f47, type: 2}
     - target: {fileID: 8398380320825957855, guid: 749e1113cd41b3b4792389e9186829f8,
         type: 3}
       propertyPath: m_Materials.Array.data[0]

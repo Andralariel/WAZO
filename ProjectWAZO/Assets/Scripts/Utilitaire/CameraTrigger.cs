@@ -22,6 +22,8 @@ public class CameraTrigger : MonoBehaviour
   public List<GameObject> objectsToKill;
   public Effect cameraEffect;
   public Vector3 newOffset;
+  public float newSmoothFactor = 0.5f;
+  private float oldSmoothFactor;
   
   [Header("OnePointOffest")] 
   public Vector3 originalOffset;
@@ -80,6 +82,8 @@ public class CameraTrigger : MonoBehaviour
                camera.focusedObject = objectToFocus.transform;
                originalOffset = camera.offset;
                camera.offset = newOffset;
+               oldSmoothFactor = camera.SmoothMoveFactor;
+               camera.SmoothMoveFactor = newSmoothFactor;
                break;
             case Effect.Zoom:
                camera.Zoom(0.5f);
@@ -90,6 +94,8 @@ public class CameraTrigger : MonoBehaviour
             case Effect.OnePointOffset:
                originalOffset = camera.offset;
                camera.offset = newOffset;
+               oldSmoothFactor = camera.SmoothMoveFactor;
+               camera.SmoothMoveFactor = newSmoothFactor;
                break;
             case Effect.StartCinématique:
              CinématiqueManager.instance.StartCinématique(cinématiqueToStart);
@@ -115,12 +121,14 @@ public class CameraTrigger : MonoBehaviour
            case Effect.OnePointOffset:
               camera.offset = originalOffset;
               originalOffset = Vector3.zero;
+              camera.SmoothMoveFactor = oldSmoothFactor;
               break;
            case Effect.FocusOn:
               camera.isFocused = false;
               camera.isIso = true;
               camera.offset = originalOffset;
               camera.focusedObject = null;
+              camera.SmoothMoveFactor = oldSmoothFactor;
               break;
         }
      }
