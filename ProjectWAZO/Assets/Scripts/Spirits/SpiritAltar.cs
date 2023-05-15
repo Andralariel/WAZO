@@ -32,13 +32,12 @@ namespace Spirits
         public void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.layer != 7) return;
-        
             if ((int)other.attachedRigidbody.drag != (int)spiritType) return;
-            Debug.Log("VfxPlayed");
+            if (other.attachedRigidbody.angularDrag > 0.9f) return;
             
             _spiritAmount++;
-            //if (_activated) return;
             vfxdrop.Play();
+            
             if (_spiritAmount == spiritSlots)
             {
                 vfxcomplete.Play();
@@ -52,7 +51,10 @@ namespace Spirits
         {
             if (other.gameObject.layer != 7) return;
             if ((int)other.attachedRigidbody.drag != (int)spiritType) return;
+            if (other.attachedRigidbody.angularDrag > 0.9f) return;
+            
             _spiritAmount--;
+            
             if (!_activated) return;
             if (_spiritAmount < spiritSlots)
             {
