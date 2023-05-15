@@ -52,9 +52,10 @@ namespace Utilitaire
 
         public void Respawn()
         {
-            modesprit.SetActive(false);
+          
             transform.position = _startPos;
             rb.velocity = Vector3.zero;
+            modesprit.SetActive(false);
             vfxrespawn.Play();
             StartCoroutine(Waitbeforespawn());
         }
@@ -81,18 +82,17 @@ namespace Utilitaire
                 anim.SetBool("isDance",false);
                 anim.SetBool("isIdle",true);*/
             }
-
             if (!_isMoving) return;
             if (TooFar()) return;
 
-            if(_waitForNextStep) return;
-            if (_linkedEvent.waypoints[_nextPoint].waitBetweenStep != 0||_linkedEvent.waypoints[_nextPoint].behaviour == Waypoint.Behaviour.Gather)
-            {
-                _waitForNextStep = true;
-                if(_linkedEvent.waypoints[_nextPoint].behaviour == Waypoint.Behaviour.Gather) Gather();
-                else Wait();
-            }
-            else NextStep();
+                if(_waitForNextStep) return;
+                if (_linkedEvent.waypoints[_nextPoint].waitBetweenStep != 0||_linkedEvent.waypoints[_nextPoint].behaviour == Waypoint.Behaviour.Gather)
+                {
+                    _waitForNextStep = true;
+                    if(_linkedEvent.waypoints[_nextPoint].behaviour == Waypoint.Behaviour.Gather) Gather();
+                    else Wait();
+                }
+                else NextStep();
         }
         
         //SpiritEvent

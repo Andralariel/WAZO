@@ -96,7 +96,15 @@ public class PickUpObjects : MonoBehaviour
                 _rbObject.mass -= pickedObjectMass;
                 pickedObject.transform.parent = pickUpPosition.transform;
                 MoveToBeak();
-                pickedObject.GetComponent<Spirit>().isTaken = true;
+                if (pickedObject.gameObject.layer == 7)
+                {
+                    pickedObject.GetComponent<Spirit>().isTaken = true;
+                }
+                else
+                {
+                    pickedObject.GetComponent<carotteManager>().isTaken = true;
+                }
+
                 Controller.instance.ResetWeightOnDetector(pickedObject.transform);
             }
         }
@@ -141,7 +149,14 @@ public class PickUpObjects : MonoBehaviour
             transform.parent.gameObject.GetComponent<Rigidbody>().mass -= pickedObjectMass;
             _rbObject.mass += pickedObjectMass;
             _rbObject.angularDrag = 0;
-            pickedObject.GetComponent<Spirit>().isTaken = false;
+            if (pickedObject.gameObject.layer == 7)
+            {
+                pickedObject.GetComponent<Spirit>().isTaken = false;
+            }
+            else
+            {
+                pickedObject.GetComponent<carotteManager>().isTaken = false;
+            }
             pickedObject.transform.parent = null;
             pickedObject = null;
             pickedObjectMass = 0;
@@ -233,6 +248,12 @@ public class PickUpObjects : MonoBehaviour
             objectsInRange.Add(other.gameObject);
             GetClosestObject();
         }
+
+        if (other.gameObject.layer == 14)
+        {
+            objectsInRange.Add(other.gameObject);
+            GetClosestObject();
+        }
         
         if (other.gameObject.layer == 9) // Si l'objet est une echelle
         {
@@ -243,7 +264,7 @@ public class PickUpObjects : MonoBehaviour
     
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.layer == 7)
+        if (other.gameObject.layer == 7 || other.gameObject.layer == 14)
         {
             objectsInRange.Remove(other.gameObject);
             GetClosestObject();
@@ -274,21 +295,21 @@ public class PickUpObjects : MonoBehaviour
                 }
                 else
                 {
-                    objectsInRange[i].GetComponent<Spirit>().isClosest = false;
+                    //objectsInRange[i].GetComponent<Spirit>().isClosest = false;
                 }
             }
             
             if (objectsInRange.Count == 1)
             {
                 closestObject = objectsInRange[0];
-                closestObject.GetComponent<Spirit>().isClosest = true;
+               // closestObject.GetComponent<Spirit>().isClosest = true;
             }
         }
       
 
         if (closestObject != null)
         {
-            closestObject.GetComponent<Spirit>().isClosest = true;
+            //closestObject.GetComponent<Spirit>().isClosest = true;
         }
         return closestObject;
     }
