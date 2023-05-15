@@ -18,6 +18,7 @@ public class PauseMenu : MonoBehaviour
     public static PauseMenu instance;
 
     [Header("Options")] 
+    public bool isOption;
     public TMPro.TMP_Dropdown resolutionDropdown;
     private Resolution[] resolutions;
     public AudioMixer mixer;
@@ -53,33 +54,40 @@ public class PauseMenu : MonoBehaviour
 
     public void PauseUnPause()
     {
-        if (!isPause)
+        if (!isOption)
         {
-            isPause = true;
-            CG.interactable = true;
-            CG.blocksRaycasts = true;
-            CG.DOFade(1, 0.5f);
-            eventSystem.SetSelectedGameObject(boutonReprendre);
-            CinématiqueManager.instance.isCinématique = true;
-            Controller.instance.canMove = false;
-            Controller.instance.canJump = false;
+            if (!isPause)
+            {
+                isPause = true;
+                CG.interactable = true;
+                CG.blocksRaycasts = true;
+                CG.DOFade(1, 0.5f);
+                eventSystem.SetSelectedGameObject(boutonReprendre);
+                CinématiqueManager.instance.isCinématique = true;
+                Controller.instance.canMove = false;
+                Controller.instance.canJump = false;
+            }
+            else
+            {
+                isPause = false;
+                CG.interactable = false;
+                CG.blocksRaycasts = false;
+                CG.DOFade(0, 0.5f);
+                eventSystem.SetSelectedGameObject(null);
+                CinématiqueManager.instance.isCinématique = false;
+                Controller.instance.canMove = true;
+                Controller.instance.canJump = true;
+            }
         }
         else
         {
-            isPause = false;
-            CG.interactable = false;
-            CG.blocksRaycasts = false;
-            CG.DOFade(0, 0.5f);
-            eventSystem.SetSelectedGameObject(null);
-            CinématiqueManager.instance.isCinématique = false;
-            Controller.instance.canMove = true;
-            Controller.instance.canJump = true;
+            CloseOptions();
         }
-           
     }
 
     public void OpenOptions()
     {
+        isOption = true;
         eventSystem.SetSelectedGameObject(boutonRetour);
         CG.interactable = false;
         CG.blocksRaycasts = false;
@@ -92,6 +100,7 @@ public class PauseMenu : MonoBehaviour
 
     public void CloseOptions()
     {
+        isOption = false;
         eventSystem.SetSelectedGameObject(boutonReprendre);
         CG.interactable = true;
         CG.blocksRaycasts = true;

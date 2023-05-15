@@ -26,10 +26,11 @@ public class KeyUI : MonoBehaviour
 
         myRect = GetComponent<RectTransform>();
         
-        keyInRegion.Add("Village",3);
-        keyInRegion.Add("Bosquet",2);
+        keyInRegion.Add("Village",2);
+        keyInRegion.Add("Bosquet",3);
         keyInRegion.Add("Hameau",2);
-        keyInRegion.Add("Plaine",3);
+        keyInRegion.Add("Plaine",2);
+        keyInRegion.Add("Cimetière",1);
         /*foreach (KeyValuePair<string,int> oui in keyInRegion)
         {
             Debug.Log(oui.Key + oui.Value);
@@ -62,6 +63,10 @@ public class KeyUI : MonoBehaviour
         else if (keyObjectList[ID].choseRegion == KeyShard.Region.Hameau)
         {
             keyInRegion["Hameau"] -= 1;
+        }
+        else if (keyObjectList[ID].choseRegion == KeyShard.Region.Hameau)
+        {
+            keyInRegion["Cimetière"] -= 1;
         }
 
         if (currentShard == TempleOpener.instance.AmountToOpen)

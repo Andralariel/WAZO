@@ -21,6 +21,7 @@ public class CarnetManager : MonoBehaviour
     public bool canOpen = true;
     public bool canChangePage;
     public bool isOpened;
+    public bool isOptions;
 
     private void Awake()
     {
@@ -55,7 +56,7 @@ public class CarnetManager : MonoBehaviour
 
     public void OpenCloseCarnet()
     {
-        if (Controller.instance.isGrounded && !CinématiqueManager.instance.isCinématique && canOpen)
+        if (Controller.instance.isGrounded && !CinématiqueManager.instance.isCinématique && canOpen && !PauseMenu.instance.isOption)
         {
             if (isOpened)
             {
@@ -99,6 +100,10 @@ public class CarnetManager : MonoBehaviour
                 if (KeyUI.instance.keyInRegion["Plaine"] == 0)
                 {
                     MapManager.instance.doneFilterList[3].DOFade(1, 1.2f);
+                }
+                if (KeyUI.instance.keyInRegion["Cimetière"] == 0)
+                {
+                    MapManager.instance.doneFilterList[4].DOFade(1, 1.2f);
                 }
             }
         }
