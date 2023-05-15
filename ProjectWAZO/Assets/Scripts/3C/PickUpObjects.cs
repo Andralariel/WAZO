@@ -264,7 +264,13 @@ public class PickUpObjects : MonoBehaviour
     
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.layer == 7 || other.gameObject.layer == 14)
+        if (other.gameObject.layer == 7)
+        {
+            objectsInRange.Remove(other.gameObject);
+            GetClosestObject();
+        }
+        
+        if (other.gameObject.layer == 14)
         {
             objectsInRange.Remove(other.gameObject);
             GetClosestObject();
