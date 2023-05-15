@@ -201,28 +201,33 @@ public class PickUpObjects : MonoBehaviour
     
     public void EnterEchelle()
     {
-        _moveOnLadder = true;
-        anim.SetTrigger("startClimb");
-        Controller.instance.gravityScale = -4;
-        Controller.instance.canJump = true;
-        Controller.instance.canPlaner = false;
-        Controller.instance.canMove = false;
-        Controller.instance.rb.constraints = RigidbodyConstraints.FreezeRotation;
-        Controller.instance.rb.useGravity = false;
-        switch (currentEchelle.GetComponent<echelleData>().orientation)
+        if (!Controller.instance.isEchelle)
         {
-            case echelleData.Orientation.nord:
-                Controller.instance.transform.DOMove(new Vector3(currentEchelle.transform.position.x, Controller.instance.transform.position.y +0.7f, currentEchelle.transform.position.z-0.4f),0.5f).OnComplete(SetIsEchelle);
-                break;
-            case echelleData.Orientation.sud:
-                Controller.instance.transform.DOMove(new Vector3(currentEchelle.transform.position.x, Controller.instance.transform.position.y +0.7f, currentEchelle.transform.position.z+0.4f),0.5f).OnComplete(SetIsEchelle);
-                break;
-            case echelleData.Orientation.est:
-                Controller.instance.transform.DOMove(new Vector3(currentEchelle.transform.position.x-0.4f, Controller.instance.transform.position.y +0.7f, currentEchelle.transform.position.z),0.5f).OnComplete(SetIsEchelle);
-                break;
-            case echelleData.Orientation.ouest:
-                Controller.instance.transform.DOMove(new Vector3(currentEchelle.transform.position.x+0.4f, Controller.instance.transform.position.y +0.7f, currentEchelle.transform.position.z),0.5f).OnComplete(SetIsEchelle);
-                break;
+            _moveOnLadder = true;
+            anim.SetBool("isFlying",false);
+            anim.SetBool("isClimbing",true);
+            anim.SetTrigger("startClimb");
+            Controller.instance.gravityScale = -4;
+            Controller.instance.canJump = true;
+            Controller.instance.canPlaner = false;
+            Controller.instance.canMove = false;
+            Controller.instance.rb.constraints = RigidbodyConstraints.FreezeRotation;
+            Controller.instance.rb.useGravity = false;
+            switch (currentEchelle.GetComponent<echelleData>().orientation)
+            {
+                case echelleData.Orientation.nord:
+                    Controller.instance.transform.DOMove(new Vector3(currentEchelle.transform.position.x, Controller.instance.transform.position.y +0.7f, currentEchelle.transform.position.z-0.4f),0.5f).OnComplete(SetIsEchelle);
+                    break;
+                case echelleData.Orientation.sud:
+                    Controller.instance.transform.DOMove(new Vector3(currentEchelle.transform.position.x, Controller.instance.transform.position.y +0.7f, currentEchelle.transform.position.z+0.4f),0.5f).OnComplete(SetIsEchelle);
+                    break;
+                case echelleData.Orientation.est:
+                    Controller.instance.transform.DOMove(new Vector3(currentEchelle.transform.position.x-0.4f, Controller.instance.transform.position.y +0.7f, currentEchelle.transform.position.z),0.5f).OnComplete(SetIsEchelle);
+                    break;
+                case echelleData.Orientation.ouest:
+                    Controller.instance.transform.DOMove(new Vector3(currentEchelle.transform.position.x+0.4f, Controller.instance.transform.position.y +0.7f, currentEchelle.transform.position.z),0.5f).OnComplete(SetIsEchelle);
+                    break;
+            } 
         }
     }
     private void SetIsEchelle()
@@ -232,13 +237,15 @@ public class PickUpObjects : MonoBehaviour
     
     public void QuitEchelle()
     {
-        anim.SetBool("isClimbing",false);
-        anim.ResetTrigger("startClimb");
-        _moveOnLadder = false;
+        Controller.instance.isEchelle = false;
         Controller.instance.canPlaner = true;
         Controller.instance.canMove = true;
         Controller.instance.rb.useGravity = true;
-        Controller.instance.isEchelle = false;
+        _moveOnLadder = false;
+        anim.SetBool("isClimbing",false);
+        anim.SetBool("isFlying",true);
+        anim.ResetTrigger("startClimb");
+       
     }
     
     private void OnTriggerEnter(Collider other)
