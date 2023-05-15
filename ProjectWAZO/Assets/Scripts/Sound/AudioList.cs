@@ -41,6 +41,9 @@ namespace Sound
         [Header("Player")]
         public AudioClip basicAttack;
         public AudioClip playerDash;
+        
+        [Header("Interacteur")]
+        public AudioClip plancheBasculeMove;
 
         [Header("Non-spatialize")]
         public AudioClip playerHit;
