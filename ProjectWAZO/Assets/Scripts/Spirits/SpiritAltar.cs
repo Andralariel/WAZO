@@ -18,7 +18,8 @@ namespace Spirits
         public WeightUI weightUI;
         [SerializeField] private ParticleSystem vfxdrop;
         [SerializeField] private ParticleSystem vfxcomplete;
-        
+        public bool isTemple;
+        public int index;
         
         private int _spiritAmount;
         private bool _activated;
@@ -43,6 +44,20 @@ namespace Spirits
                 vfxcomplete.Play();
                 linkedObject.Activate();
                 _activated = true;
+                if (isTemple)
+                {
+                    TempleManager.instance.indexCalling = index;
+                    TempleManager.instance.Activate();
+                    if (index == 1)
+                    {
+                        TempleManager.instance.Escalier1Done = true;
+                    }
+                    if (index == 2)
+                    {
+                        TempleManager.instance.Escalier2Done = true;
+                    }
+                   
+                }
             }
             
         }
