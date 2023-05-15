@@ -27,6 +27,7 @@ public class KeyShard : MonoBehaviour
       Bosquet,
       Hameau,
       Plaine,
+      Cimetière,
    }
 
    public Region choseRegion;

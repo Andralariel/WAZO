@@ -27,6 +27,7 @@ public class CameraTrigger : MonoBehaviour
   
   [Header("OnePointOffest")] 
   public Vector3 originalOffset;
+  public bool fixColline;
   
   [Header("Focus")] 
   public GameObject objectToFocus;
@@ -119,9 +120,18 @@ public class CameraTrigger : MonoBehaviour
         switch (cameraEffect)
         {
            case Effect.OnePointOffset:
-              camera.offset = originalOffset;
+              if (!fixColline)
+              {
+                 camera.offset = originalOffset;
+                 camera.SmoothMoveFactor = oldSmoothFactor;
+              }
+              else
+              {
+                 camera.offset = new Vector3(2, 10, -8.5f);
+                 camera.SmoothMoveFactor = 0.2f;
+              }
+             
               originalOffset = Vector3.zero;
-              camera.SmoothMoveFactor = oldSmoothFactor;
               break;
            case Effect.FocusOn:
               camera.isFocused = false;
