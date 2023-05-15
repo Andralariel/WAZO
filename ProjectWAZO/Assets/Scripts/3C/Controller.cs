@@ -202,6 +202,7 @@ public class Controller : MonoBehaviour
                 if (_moveDir != Vector3.zero && CinématiqueManager.instance.isCinématique == false) // Modifie la vitesse de l'animation selon la vitesse du perso
                 {
                     anim.SetBool("isWalking",true);
+                    anim.SetBool("isFlying",false);
                     anim.SetBool("isIdle",false);
                     float animationSpeed = _moveDir.magnitude;
                     animationSpeed = Mathf.Clamp(animationSpeed,0f, 1f);

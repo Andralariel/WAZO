@@ -31,6 +31,8 @@ namespace Spirits
 
         public void OnTriggerEnter(Collider other)
         {
+            if (other.gameObject.layer != 7) return;
+        
             if ((int)other.attachedRigidbody.drag != (int)spiritType) return;
             Debug.Log("VfxPlayed");
             
@@ -48,6 +50,7 @@ namespace Spirits
 
         public void OnTriggerExit(Collider other)
         {
+            if (other.gameObject.layer != 7) return;
             if ((int)other.attachedRigidbody.drag != (int)spiritType) return;
             _spiritAmount--;
             if (!_activated) return;
