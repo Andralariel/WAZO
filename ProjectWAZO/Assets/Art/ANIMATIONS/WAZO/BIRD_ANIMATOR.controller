@@ -720,6 +720,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 2
     m_ConditionEvent: isFlying
     m_EventTreshold: 0
+  - m_ConditionMode: 1
+    m_ConditionEvent: isClimbing
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -9014679779326688367}
   m_Solo: 0
