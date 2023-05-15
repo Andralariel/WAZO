@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5585098336512708166}
+  - component: {fileID: 2222947160863684344}
   - component: {fileID: 9095437550162968260}
   m_Layer: 0
   m_Name: '- Steps'
@@ -32,6 +33,24 @@ Transform:
   m_Father: {fileID: 3223363085169712875}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2222947160863684344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188698424265044514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc4a4d06369cd494f9388ca0b124ef3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stepSource: {fileID: 9095437550162968260}
+  stepSound: {fileID: 0}
+  pitchLowerBound: 0
+  pitchUpperBound: 0
+  incrementAmount: 0
+  useFiniteIncrement: 0
 --- !u!82 &9095437550162968260
 AudioSource:
   m_ObjectHideFlags: 0
@@ -176,6 +195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7903f912b7592d44981a6afd66d943f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  steps: {fileID: 2222947160863684344}
   audioSource0: {fileID: 44216180502407369}
   audioSource1: {fileID: 3450858235814577063}
   audioSourceOneShot: {fileID: 7623702846948786926}
