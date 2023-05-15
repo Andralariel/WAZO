@@ -10,7 +10,8 @@ namespace Sound
         {
             main,
             menu,
-            ending
+            ending,
+            puzzle
         }
     
         public static AudioList Instance;
@@ -31,6 +32,8 @@ namespace Sound
         [SerializeField] [Range(0, 1)] private float menuVolume;
         [SerializeField] private AudioClip endingTheme;
         [SerializeField] [Range(0, 1)] private float endingVolume;
+        [SerializeField] private AudioClip puzzleTheme;
+        [SerializeField] [Range(0, 1)] private float puzzleVolume;
 
         [Header("UI")]
         public AudioClip uiClick;
@@ -76,6 +79,10 @@ namespace Sound
                 case Music.ending:
                     _currentSource.clip = endingTheme;
                     _targetVolume = endingVolume;
+                    break;
+                case Music.puzzle:
+                    _currentSource.clip = puzzleTheme;
+                    _targetVolume = puzzleVolume;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(music), music, null);
