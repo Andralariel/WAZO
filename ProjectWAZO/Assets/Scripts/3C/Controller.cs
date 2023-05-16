@@ -148,22 +148,20 @@ public class Controller : MonoBehaviour
            canMove = false;
         }
 
-        if (isEchelle) // Si le perso est sur une echelle
+        if (isEchelle) // Si le perso est sur une echelle, son anim dépend de sa vitesse et il peut en sortir en touchant le sol
         {
+            trail.emitting = false;
+            trail2.emitting = false;
             anim.SetBool("isClimbing",true);
             anim.SetBool("isFlying",false);
             anim.SetBool("isWalking",false);
             anim.SetBool("isIdle",false);
             canPlaner = false;
             rb.useGravity = false;
-            if (rb.velocity.magnitude == 0)
-            {
-                anim.enabled = false;
-            }
-            else
-            {
-                anim.enabled = true;
-            }
+            float animationSpeed = _moveDir.magnitude;
+            animationSpeed = Mathf.Clamp(animationSpeed,0f, 1f);
+            anim.SetFloat("ClimbingSpeed",animationSpeed);
+
             
             Debug.DrawRay(transform.position, Vector3.down*0.5f, Color.yellow,2);
             if (Physics.Raycast(transform.position, Vector3.down, 0.2f, groundMask))
@@ -276,6 +274,7 @@ public class Controller : MonoBehaviour
             if (isEchelle)
             {
                 PickUpObjects.instance.QuitEchelle();
+                anim.SetBool("isFlying",true);
             }
             rb.constraints = RigidbodyConstraints.FreezeRotation;
             canJump = false;
