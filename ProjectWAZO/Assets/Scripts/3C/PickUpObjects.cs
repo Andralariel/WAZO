@@ -90,7 +90,7 @@ public class PickUpObjects : MonoBehaviour
                 StartCoroutine(Animation());
                 Debug.Log("je prend ce qui est devant moi");
                 _rbObject = pickedObject.GetComponent<Rigidbody>();
-                _rbObject.angularDrag = -1;
+                _rbObject.angularDrag = 1;
                 pickedObjectMass = Mathf.RoundToInt(_rbObject.mass);
                 transform.parent.gameObject.GetComponent<Rigidbody>().mass += pickedObjectMass;
                 _rbObject.mass -= pickedObjectMass;

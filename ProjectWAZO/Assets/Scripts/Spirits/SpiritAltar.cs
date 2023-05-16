@@ -18,7 +18,8 @@ namespace Spirits
         public WeightUI weightUI;
         [SerializeField] private ParticleSystem vfxdrop;
         [SerializeField] private ParticleSystem vfxcomplete;
-        
+        public bool isTemple;
+        public int index;
         
         private int _spiritAmount;
         private bool _activated;
@@ -32,18 +33,31 @@ namespace Spirits
         public void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.layer != 7) return;
-        
             if ((int)other.attachedRigidbody.drag != (int)spiritType) return;
-            Debug.Log("VfxPlayed");
+            if (other.attachedRigidbody.angularDrag > 0.9f) return;
             
             _spiritAmount++;
-            //if (_activated) return;
             vfxdrop.Play();
+            
             if (_spiritAmount == spiritSlots)
             {
                 vfxcomplete.Play();
                 linkedObject.Activate();
                 _activated = true;
+                if (isTemple)
+                {
+                    TempleManager.instance.indexCalling = index;
+                    TempleManager.instance.Activate();
+                    if (index == 1)
+                    {
+                        TempleManager.instance.Escalier1Done = true;
+                    }
+                    if (index == 2)
+                    {
+                        TempleManager.instance.Escalier2Done = true;
+                    }
+                   
+                }
             }
             
         }
@@ -52,7 +66,10 @@ namespace Spirits
         {
             if (other.gameObject.layer != 7) return;
             if ((int)other.attachedRigidbody.drag != (int)spiritType) return;
+            if (other.attachedRigidbody.angularDrag > 0.9f) return;
+            
             _spiritAmount--;
+            
             if (!_activated) return;
             if (_spiritAmount < spiritSlots)
             {
