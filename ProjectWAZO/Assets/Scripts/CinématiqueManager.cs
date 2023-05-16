@@ -61,20 +61,34 @@ public class CinématiqueManager : MonoBehaviour
     public IEnumerator CinématiqueBOTW() // index 1
     {
         Debug.Log("BOTW");
-        isCinématique = true;
+        isCinématique = false;
+        Controller.instance.canMove = false;
+        Controller.instance.canJump = false;
+        CameraController.instance.canMove = false;
+        Controller.instance.moveInput = Vector3.zero;
+        Controller.instance.anim.SetBool("isWalking",false);
+        Controller.instance.anim.SetBool("isFlying",false);
+        Controller.instance.anim.SetBool("isIdle",true);
+        if (!Controller.instance.isGrounded)
+        {
+            Controller.instance.ultraBlock = true;
+        }
         cinematiqueManager.playableAsset = cinématiqueList[1];
         Controller.instance.canMove = false;
         Controller.instance.canJump = false;
         CameraController.instance.canMove = false;
+        Controller.instance.anim.SetBool("isWalking",false);
+        Controller.instance.anim.SetBool("isFlying",false);
+        Controller.instance.anim.SetBool("isIdle",true);
         cinematiqueManager.Play();
         yield return new WaitForSeconds((float)cinematiqueManager.duration);
         cinematiqueManager.Stop();
         MapManager.instance.Map.sprite = MapManager.instance.mapPleine;
         MapManager.instance.MapGot = true;
+        Controller.instance.ultraBlock = false;
         CameraController.instance.canMove = true;
         Controller.instance.canMove = true;
         Controller.instance.canJump = true;
         isCinématique = false;
     }
-    
 }

@@ -40,6 +40,7 @@ public class Controller : MonoBehaviour
     public float coyoteTime;
 
     [Header("Tracker Controller")] 
+    public bool ultraBlock;
     public bool isGrounded;
     public bool canPlaner;
     public bool canJump;
@@ -177,6 +178,7 @@ public class Controller : MonoBehaviour
             trail.emitting = false;
             trail2.emitting = false;
             anim.SetBool("isFlying",false);
+            anim.SetBool("isIdle",true);
             if (CinématiqueManager.instance.isCinématique == false)
             {
                 anim.speed = 1;
@@ -186,13 +188,16 @@ public class Controller : MonoBehaviour
             isCoyote = false;
             if (DoOnce)
             {
-                canJump = true;
+                if (!ultraBlock)
+                {
+                    canJump = true;
+                    canPlaner = true;
+                }
                 gravityScale = -4;
                 globalGravity = 9.81f;
                 isGrounded = true;
-                canPlaner = true;
-                //StopPlaner();
                 DoOnce = false;
+                //StopPlaner();
             }
             if (!isEchelle && canMove)
             {
