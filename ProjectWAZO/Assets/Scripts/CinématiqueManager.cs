@@ -1,9 +1,10 @@
-using System;
+
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.PostProcessing;
 
 public class CinématiqueManager : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class CinématiqueManager : MonoBehaviour
     public List<PlayableAsset> cinématiqueList;
     private List<IEnumerator> coroutineList = new List<IEnumerator>();
     public static CinématiqueManager instance;
+    public Volume globalVolume;
+    private DepthOfField dof = null;
 
     private void Awake()
     {
@@ -26,6 +29,7 @@ public class CinématiqueManager : MonoBehaviour
 
     void Start()
     {
+        //globalVolume.profile.TryGetSubclassOf(VolumeComponent,out dof);
         if (enableStartCinematic)
         {
             StartCoroutine(CinématiqueIntro());
@@ -60,8 +64,9 @@ public class CinématiqueManager : MonoBehaviour
     
     public IEnumerator CinématiqueBOTW() // index 1
     {
-        Debug.Log("BOTW");
-        isCinématique = false;
+        globalVolume.weight = 0;
+        //dof.enabled.value = false;
+            isCinématique = false;
         Controller.instance.canMove = false;
         Controller.instance.canJump = false;
         CameraController.instance.canMove = false;
@@ -89,6 +94,7 @@ public class CinématiqueManager : MonoBehaviour
         CameraController.instance.canMove = true;
         Controller.instance.canMove = true;
         Controller.instance.canJump = true;
+        globalVolume.weight = 1;
         isCinématique = false;
     }
 }
