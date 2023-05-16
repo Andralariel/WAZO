@@ -3,42 +3,55 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
+using Button = UnityEngine.UI.Button;
 
 public class MenuPrincipal : MonoBehaviour
 {
+    public bool enableMainMenu;
+    public PlayableDirector director;
     public UnityEngine.EventSystems.EventSystem EventSystem;
     public Button boutonStart;
-    public Button boutonRetour;
-    public bool EnableMainMenu;
+    public GameObject dropdonOptions;
     public CanvasGroup MenuMain;
     public CanvasGroup MenuOptions;
+    public GameObject cameraMenu;
+    public GameObject cameraCine;
+    public Vector3 mainPos;
+    public Vector3 optionsPos;
 
-    private void Start()
+    private void Awake()
     {
-        if (EnableMainMenu)
+        if (enableMainMenu)
         {
-            CinématiqueManager.instance.isCinématique = true;
+            director.playOnAwake = false;
             EventSystem.SetSelectedGameObject(boutonStart.gameObject);
-            CameraController.instance.canMove = false;
-            CameraController.instance.StartToPlayer = false;
-            CameraController.instance.transform.localPosition = new Vector3(-820, 0, 0);
+        }
+        else
+        {
+            cameraMenu.SetActive(false);
+            cameraCine.SetActive(true);
+            director.Play();
+            EventSystem.SetSelectedGameObject(null);
         }
     }
 
     public void StartGame()
     {
-        Debug.Log("start");
-        CameraController.instance.transform.DOMove(
-            CameraController.instance.transform.position - new Vector3(-1027.7f, 0, 0), 2f);
-          //  .OnComplete((() =>   CinématiqueManager.instance.StartCinématique(0)));
+        cameraMenu.SetActive(false);
+        cameraCine.SetActive(true);
+        EventSystem.SetSelectedGameObject(null);
+        director.Play();
         MenuMain.interactable = false;
+        MenuMain.blocksRaycasts = false;
     }
     
     public void OpenOptions()
     {
-        EventSystem.SetSelectedGameObject(boutonRetour.gameObject);
-        CameraController.instance.transform.DORotate(new Vector3(-90,-90f,0),1.5f);
+        EventSystem.SetSelectedGameObject(dropdonOptions.gameObject);
+        cameraMenu.transform.DOLocalMove(optionsPos,1.5f);
         MenuMain.interactable = false;
         MenuMain.blocksRaycasts = false;
         MenuOptions.interactable = true;
@@ -48,7 +61,7 @@ public class MenuPrincipal : MonoBehaviour
     public void QuitOptions()
     {
         EventSystem.SetSelectedGameObject(boutonStart.gameObject);
-        CameraController.instance.transform.DORotate(new Vector3(0,-90f,0),1.5f);
+        cameraMenu.transform.DOLocalMove(mainPos,1.5f);
         MenuMain.interactable = true;
         MenuMain.blocksRaycasts = true;
         MenuOptions.interactable = false;
