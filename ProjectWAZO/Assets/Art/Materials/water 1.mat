@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: water 1
+  m_Shader: {fileID: -6465566751694194690, guid: 1673052a546464ad799de334fe41f5d0,
+    type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _FoamNoiseScale: 0.18
+    - _Foam_Amount: 0
+    - _Foam_Random_Amount: 0.246
+    - _Foam_Scale: 10
+    - _Foam_Speed: 5.34
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _Refraction_Scale: 0
+    - _Refraction_Speed: 0.01
+    - _Refraction_Strenght: 0.2
+    - _Use_Waves: 1
+    - _Water_Depth_Fade_Distance: 1.3
+    - _Wave_Height: 0.008
+    - _Wave_Scale: 0.02
+    - _Wave_Speed: 0.048
+    - _X_Direction: -1
+    - _Y_Direction: -0.156
+    m_Colors:
+    - _Deep_Water_Color: {r: 0.029503396, g: 0.32922077, b: 0.4811321, a: 0.7529412}
+    - _Foam_Color: {r: 0.44544324, g: 0.5657134, b: 0.6603774, a: 0.6509804}
+    - _Shallow_Water_Color: {r: 0.23629406, g: 0.8490566, b: 0.8490566, a: 0.49411765}
+  m_BuildTextureStacks: []
+--- !u!114 &2108846147085968490
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
