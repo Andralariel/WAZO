@@ -32,16 +32,23 @@ public class SpiritRespawn : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        UI.DOFade(1, 0.5f);
-        isInTrigger = true;
-        PickUpObjects.instance.hasTriggerIn = true;
-        PickUpObjects.instance.spiritRespawn = GetComponent<SpiritRespawn>();
+        if (other.gameObject.layer == 6)
+        {
+            UI.DOFade(1, 0.5f);
+            isInTrigger = true;
+            PickUpObjects.instance.hasTriggerIn = true;
+            PickUpObjects.instance.spiritRespawn = GetComponent<SpiritRespawn>();
+        }
+     
     }
 
     private void OnTriggerExit(Collider other)
     {
-        UI.DOFade(0, 0.5f);
-        isInTrigger = false;
-        holdingDuration = 0;
+        if (other.gameObject.layer == 6)
+        {
+            UI.DOFade(0, 0.5f);
+            isInTrigger = false;
+            holdingDuration = 0;
+        }
     }
 }

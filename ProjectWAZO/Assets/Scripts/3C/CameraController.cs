@@ -138,7 +138,7 @@ public class CameraController : MonoBehaviour
             Vector3 objectif = player.transform.position + offset + lerpGoal;
             Debug.Log(relativePosition);
             var toGo = Vector3.Lerp(savePosition,objectif,relativePosition);
-            transform.position = toGo;
+            transform.position =  Vector3.SmoothDamp(transform.position,toGo,ref velocity,SmoothMoveFactor);
         }
 
     }

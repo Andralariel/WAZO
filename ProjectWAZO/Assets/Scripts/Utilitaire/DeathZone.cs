@@ -42,13 +42,18 @@ public class DeathZone : MonoBehaviour
    IEnumerator RespawnPlayer()
    {
       KeyUI.instance.FadeInBlackScreen(0.5f);
+      CinématiqueManager.instance.isCinématique = true;
       Controller.instance.canMove = false;
       Controller.instance.canJump = false;
+      Controller.instance.rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
       yield return new WaitForSeconds(0.6f);
       Controller.instance.transform.position = respawnPoint + new Vector3(0, 2, 0);
       yield return new WaitForSeconds(0.6f);
       KeyUI.instance.FadeOutBlackScreen(0.5f);
       yield return new WaitForSeconds(0.5f);
+      CinématiqueManager.instance.isCinématique = true;
+      Controller.instance.rb.constraints = RigidbodyConstraints.FreezeRotation;
+      CinématiqueManager.instance.isCinématique = false;
       Controller.instance.canMove = true;
       Controller.instance.canJump = true;
    }

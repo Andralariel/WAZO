@@ -21,8 +21,8 @@ namespace Spirits
         public bool isTemple;
         public int index;
         
-        private int _spiritAmount;
-        private bool _activated;
+        public int _spiritAmount;
+        public bool _activated;
 
         private void Update()
         {
@@ -34,7 +34,7 @@ namespace Spirits
         {
             if (other.gameObject.layer != 7) return;
             if ((int)other.attachedRigidbody.drag != (int)spiritType) return;
-            if (other.attachedRigidbody.angularDrag > 0.9f) return;
+            //if (other.attachedRigidbody.angularDrag > 0.9f) return;
             
             _spiritAmount++;
             vfxdrop.Play();
@@ -58,7 +58,7 @@ namespace Spirits
                     }
                    
                 }
-            }
+            } 
             
         }
 
@@ -66,7 +66,7 @@ namespace Spirits
         {
             if (other.gameObject.layer != 7) return;
             if ((int)other.attachedRigidbody.drag != (int)spiritType) return;
-            if (other.attachedRigidbody.angularDrag > 0.9f) return;
+            //if (other.attachedRigidbody.angularDrag > 0.9f) return;
             
             _spiritAmount--;
             
