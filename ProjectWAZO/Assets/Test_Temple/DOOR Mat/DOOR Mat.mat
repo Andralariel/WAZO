@@ -26,7 +26,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Mask:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: e4f7bc77b6bbdbc46a80a1d5cf8c0c26, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskMap:
@@ -46,7 +46,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Tex_onObject:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 595defe323728c549ad971aa68e1535b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture2D:
@@ -77,6 +77,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: 135fb2d31d8a8ba4f8bc64456c11f039, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _mettalic_Roughness:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -94,9 +98,11 @@ Material:
     - _Float: 1
     - _Float_1: 0
     - _Hauteur: -1
+    - _Invertmask: 1
+    - _MRmap: 0
     - _Noise_Scale: 100
     - _NormalStrenght: 0
-    - _OtherColor: 0
+    - _OtherColor: 1
     - _Position_Object_World: 1
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -113,6 +119,7 @@ Material:
     - _Color_2: {r: 0.6666667, g: 0.6431373, b: 0.57254905, a: 0}
     - _Color_Edge: {r: 1, g: 1, b: 1, a: 0}
     - _Met_Smooth: {r: 0, g: 0, b: 0, a: 0}
+    - _Met_Smoothsubmat: {r: 0.87, g: 0.33, b: 0, a: 0}
     - _SideBlend: {r: -10, g: 10, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &3571933838806499788
