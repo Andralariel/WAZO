@@ -47,9 +47,10 @@ public class DeathZone : MonoBehaviour
       yield return new WaitForSeconds(0.6f);
       Controller.instance.transform.position = respawnPoint + new Vector3(0, 2, 0);
       yield return new WaitForSeconds(0.6f);
+      KeyUI.instance.FadeOutBlackScreen(0.5f);
+      yield return new WaitForSeconds(0.5f);
       Controller.instance.canMove = true;
       Controller.instance.canJump = true;
-      KeyUI.instance.FadeOutBlackScreen(0.5f);
    }
 
 }

@@ -40,6 +40,7 @@ public class Controller : MonoBehaviour
     public float coyoteTime;
 
     [Header("Tracker Controller")] 
+    public bool ultraBlock;
     public bool isGrounded;
     public bool canPlaner;
     public bool canJump;
@@ -116,6 +117,16 @@ public class Controller : MonoBehaviour
     {
         AlignInputWithCameraAngle();
 
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            SceneManager.LoadScene("Dev_map");
+        }
+        
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            SceneManager.LoadScene("Temple Test");
+        }
+        
         if (_moveDir.x != 0 && _moveDir.z != 0) // Limite la vitesse lors des déplacements en diagonale
         {
             Vector2 groundMovement = Vector2.ClampMagnitude(new Vector2(rb.velocity.x, rb.velocity.z), 7.8f);
@@ -177,6 +188,7 @@ public class Controller : MonoBehaviour
             trail.emitting = false;
             trail2.emitting = false;
             anim.SetBool("isFlying",false);
+            anim.SetBool("isIdle",true);
             if (CinématiqueManager.instance.isCinématique == false)
             {
                 anim.speed = 1;
@@ -186,13 +198,16 @@ public class Controller : MonoBehaviour
             isCoyote = false;
             if (DoOnce)
             {
-                canJump = true;
+                if (!ultraBlock)
+                {
+                    canJump = true;
+                    canPlaner = true;
+                }
                 gravityScale = -4;
                 globalGravity = 9.81f;
                 isGrounded = true;
-                canPlaner = true;
-                //StopPlaner();
                 DoOnce = false;
+                //StopPlaner();
             }
             if (!isEchelle && canMove)
             {
