@@ -4,8 +4,8 @@ namespace TechArt
 {
     public class InteractiveGrass : MonoBehaviour
     {
-        private Material[] mats;
-        private GameObject character;
+        [SerializeField] Material[] mats;
+        [SerializeField] private GameObject character;
 
         // Update is called once per frame
         void Update()
