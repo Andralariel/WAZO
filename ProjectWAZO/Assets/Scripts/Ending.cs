@@ -34,7 +34,7 @@ public class Ending : MonoBehaviour
 
         if (rollCredits)
         {
-            crédits.transform.position += new Vector3(0, creditSpeed, 0);
+            crédits.transform.position += new Vector3(0, creditSpeed, 0)*Time.deltaTime;
         }
     }
     private void OnTriggerEnter(Collider other)
