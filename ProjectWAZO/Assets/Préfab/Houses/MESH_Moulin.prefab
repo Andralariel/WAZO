@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5575182264650624958}
   - component: {fileID: 8858823658496450587}
   - component: {fileID: 6707032369189164241}
+  - component: {fileID: 7974714746079160636}
   m_Layer: 3
   m_Name: MESH_Moulin
   m_TagString: Untagged
@@ -83,3 +84,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &7974714746079160636
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5049896479418660100}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2710430209548586089, guid: 5e209b7b57f5b11458753ab03e09ba06, type: 3}
