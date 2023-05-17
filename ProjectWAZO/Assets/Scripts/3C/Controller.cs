@@ -38,6 +38,7 @@ public class Controller : MonoBehaviour
     public float gravityScale;
     public float planingGravity;
     public float coyoteTime;
+    [SerializeField] private int stuckBuffer = 10;
 
     [Header("Tracker Controller")] 
     public bool ultraBlock;
@@ -343,8 +344,7 @@ public class Controller : MonoBehaviour
 
     //Fix to prevent player from getting stuck between
     private Vector3 _lastPos;
-    private const float PosRange = 0.1f;
-    private const int StuckBuffer = 10;
+    private const float PosRange = 0.05f;
     private int _stuckFrameAmount;
     private void CheckIfStuck()
     {
@@ -352,8 +352,12 @@ public class Controller : MonoBehaviour
         
         if ((transform.position - _lastPos).magnitude < PosRange) _stuckFrameAmount++;
         else _stuckFrameAmount = 0;
-        
-        if (_stuckFrameAmount >= StuckBuffer) canJump = true;
+
+        if (_stuckFrameAmount >= stuckBuffer)
+        {
+            gravityScale = -4;
+            canJump = true;
+        }
         
         _lastPos = transform.position;
     }

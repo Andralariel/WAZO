@@ -39830,6 +39830,8 @@ MonoBehaviour:
   gravityScale: -4
   planingGravity: 1
   coyoteTime: 0.1
+  stuckBuffer: 14
+  ultraBlock: 0
   isGrounded: 1
   canPlaner: 1
   canJump: 1
@@ -39837,6 +39839,7 @@ MonoBehaviour:
   isPressing: 0
   isWind: 0
   StopGravity: 0
+  MoveEnding: 0
   onHeightChangingPlatform: 0
   rotationSpeed: 720
   globalGravity: 9.81
