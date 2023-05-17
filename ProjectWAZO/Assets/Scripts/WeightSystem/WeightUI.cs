@@ -26,6 +26,7 @@ public class WeightUI : MonoBehaviour
        camera = GameObject.Find("Main Camera").GetComponent<CameraController>();
        rectTransform = GetComponent<RectTransform>();
        canvasGroup = GetComponent<CanvasGroup>();
+       canvasGroup.alpha = 0;
    }
    
     void Update()
@@ -33,15 +34,23 @@ public class WeightUI : MonoBehaviour
         //text.rectTransform.LookAt(transform.position + camera.transform.rotation * Vector3.back, camera.transform.rotation * Vector3.up);
         //text.rectTransform.rotation = new Quaternion(50,text.rectTransform.rotation.y,0,0);
         //text.rectTransform.LookAt(camera.transform);
-       
-       if (isVisible && canvasGroup.alpha < 1)
-       {
-           canvasGroup.alpha += Time.deltaTime;
-       }
-       else if(!isVisible && canvasGroup.alpha > 0)
-       {
-           canvasGroup.alpha -= Time.deltaTime;
-       }
+
+        if (PauseMenu.instance.enableText)
+        {
+            if (isVisible && canvasGroup.alpha < 1)
+            {
+                canvasGroup.alpha += Time.deltaTime;
+            }
+            else if(!isVisible && canvasGroup.alpha > 0)
+            {
+                canvasGroup.alpha -= Time.deltaTime;
+            }
+        }
+        else
+        {
+            canvasGroup.alpha = 0;
+        }
+      
        
        if (currentWeight == 0)
        {

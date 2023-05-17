@@ -17,6 +17,7 @@ public class PauseMenu : MonoBehaviour
     private CanvasGroup CG;
     public CanvasGroup canvasOptions;
     public static PauseMenu instance;
+    public bool enableText;
 
     [Header("Options")] 
     public bool isOption;
@@ -84,6 +85,11 @@ public class PauseMenu : MonoBehaviour
         {
             CloseOptions();
         }
+    }
+
+    public void AbleDesableTextWeight()
+    {
+        enableText = !enableText;
     }
 
     public void OpenOptions()
