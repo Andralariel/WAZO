@@ -21,5 +21,6 @@ public class TriggerWater : MonoBehaviour
       if (other.gameObject.layer == 6)
       {
          Controller.instance.moveSpeed = originalSpeed;
-      }   }
+      }   
+   }
 }

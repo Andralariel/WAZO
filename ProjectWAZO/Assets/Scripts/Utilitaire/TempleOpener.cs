@@ -20,6 +20,7 @@ public class TempleOpener : MonoBehaviour
    public Image whiteScreen;
    public List<GameObject> keyShardCinématique;
    public List<GameObject> emptyPosition;
+   public BoxCollider colliderPorte;
    
 
    private void Awake()
@@ -107,6 +108,7 @@ public class TempleOpener : MonoBehaviour
       Controller.instance.canMove = true;
       Controller.instance.canJump = true;
       CameraController.instance.canMove = true;
+      colliderPorte.enabled = false;
       Destroy(gameObject);
    }
 }

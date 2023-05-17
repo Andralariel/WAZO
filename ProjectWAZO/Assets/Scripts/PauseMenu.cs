@@ -10,6 +10,7 @@ using DG.Tweening;
 public class PauseMenu : MonoBehaviour
 {
     public bool isPause;
+    public bool canPause;
     public UnityEngine.EventSystems.EventSystem eventSystem;
     public GameObject boutonReprendre;
     public GameObject boutonRetour;
@@ -54,7 +55,7 @@ public class PauseMenu : MonoBehaviour
 
     public void PauseUnPause()
     {
-        if (!isOption)
+        if (!isOption && canPause)
         {
             if (!isPause)
             {

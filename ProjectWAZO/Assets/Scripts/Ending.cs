@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Ending : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class Ending : MonoBehaviour
     public Transform PointToGo;
     public Transform CameraPoint;
     public GameObject crédits;
-    public CanvasGroup BlackScreen;
+    public Image BlackScreen;
     public bool EndedMoving;
     public float creditSpeed;
     public float timeToEnd;
@@ -77,13 +78,14 @@ public class Ending : MonoBehaviour
         player.StopGravity = true;
         player.rb.useGravity = false;
         player.planingGravity = 0;
-        yield return new WaitForSeconds(4.5f);
+        yield return new WaitForSeconds(5f);
         crédits.gameObject.SetActive(true);
         rollCredits = true;
         yield return new WaitForSeconds(timeToEnd);
         CameraController.instance.SmoothMoveFactor = 10;
         CameraController.instance.offset = new Vector3(8.5f,10f,-100.5f);
         BlackScreen.DOFade(1, 3f);
-        //SceneManager.LoadScene("MENU");
+        yield return new WaitForSeconds(3.2f);
+        SceneManager.LoadScene("Dev_CinematicIntro");
     }
 }

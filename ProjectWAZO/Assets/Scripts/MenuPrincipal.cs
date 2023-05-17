@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UI.Button;
@@ -46,6 +47,13 @@ public class MenuPrincipal : MonoBehaviour
         director.Play();
         MenuMain.interactable = false;
         MenuMain.blocksRaycasts = false;
+        StartCoroutine(ChangeScene());
+    }
+
+    IEnumerator ChangeScene()
+    {
+        yield return new WaitForSeconds((float)director.duration);
+        SceneManager.LoadScene("Dev_map");
     }
     
     public void OpenOptions()

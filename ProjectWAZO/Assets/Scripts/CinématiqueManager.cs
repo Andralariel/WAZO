@@ -70,6 +70,8 @@ public class CinématiqueManager : MonoBehaviour
         Controller.instance.canMove = false;
         Controller.instance.canJump = false;
         CameraController.instance.canMove = false;
+        PauseMenu.instance.canPause = false;
+        CarnetManager.instance.canOpen = false;
         Controller.instance.moveInput = Vector3.zero;
         Controller.instance.anim.SetBool("isWalking",false);
         Controller.instance.anim.SetBool("isFlying",false);
@@ -90,7 +92,9 @@ public class CinématiqueManager : MonoBehaviour
         cinematiqueManager.Stop();
         MapManager.instance.Map.sprite = MapManager.instance.mapPleine;
         MapManager.instance.MapGot = true;
+        CarnetManager.instance.canOpen = true;
         Controller.instance.ultraBlock = false;
+        PauseMenu.instance.canPause = true;
         CameraController.instance.canMove = true;
         Controller.instance.canMove = true;
         Controller.instance.canJump = true;
