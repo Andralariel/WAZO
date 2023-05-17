@@ -39,11 +39,14 @@ namespace Sound
         public AudioClip uiClick;
 
         [Header("Player")]
-        public AudioClip basicAttack;
-        public AudioClip playerDash;
+        public AudioClip saut;
+        public AudioClip planer;
         
         [Header("Interacteur")]
         public AudioClip plancheBasculeMove;
+        public AudioClip poserEspritSurAltar;
+        [Range(0, 1)] public float poserEspritSurAltarVolume;
+        public AudioClip altarActivé;
 
         [Header("Non-spatialize")]
         public AudioClip playerHit;
