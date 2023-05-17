@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using Activator = WeightSystem.Activator.Activator;
 
@@ -24,6 +25,9 @@ namespace Spirits
         public int _spiritAmount;
         public bool _activated;
 
+        private bool _enterBuffer;
+        private bool _exitBuffer;
+
         private void Update()
         {
             weightUI.currentWeight = _spiritAmount;
@@ -32,10 +36,12 @@ namespace Spirits
 
         public void OnTriggerEnter(Collider other)
         {
+            if (_enterBuffer) return;
             if (other.gameObject.layer != 7) return;
             if ((int)other.attachedRigidbody.drag != (int)spiritType) return;
             //if (other.attachedRigidbody.angularDrag > 0.9f) return;
-            
+
+            StartCoroutine(EnterBuffer());
             _spiritAmount++;
             vfxdrop.Play();
             
@@ -64,10 +70,12 @@ namespace Spirits
 
         public void OnTriggerExit(Collider other)
         {
+            if (_exitBuffer) return;
             if (other.gameObject.layer != 7) return;
             if ((int)other.attachedRigidbody.drag != (int)spiritType) return;
             //if (other.attachedRigidbody.angularDrag > 0.9f) return;
-            
+
+            StartCoroutine(ExitBuffer());
             _spiritAmount--;
             
             if (!_activated) return;
@@ -77,6 +85,19 @@ namespace Spirits
                 _activated = false;
             }
         }
+
+        private IEnumerator EnterBuffer()
+        {
+            _enterBuffer = true;
+            yield return new WaitForEndOfFrame();
+            _enterBuffer = false;
+        }
         
+        private IEnumerator ExitBuffer()
+        {
+            _exitBuffer = true;
+            yield return new WaitForEndOfFrame();
+            _exitBuffer = false;
+        }
     }
 }
