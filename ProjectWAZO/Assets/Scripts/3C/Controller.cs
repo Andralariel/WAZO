@@ -39,6 +39,7 @@ public class Controller : MonoBehaviour
     public float planingGravity;
     public float coyoteTime;
     [SerializeField] private int stuckBuffer = 10;
+    [Range(0, 1)] public float deadZone;
 
     [Header("Tracker Controller")] 
     public bool ultraBlock;
@@ -69,6 +70,9 @@ public class Controller : MonoBehaviour
     public TrailRenderer trail;
     public TrailRenderer trail2;
     
+    
+    //DirectionAlignment
+    private Vector3 _moveDir;
 
     private void Awake()
     {
@@ -101,9 +105,12 @@ public class Controller : MonoBehaviour
              rb.AddForce(rb.mass*gravity, ForceMode.Force);
          }
      }
-
-     //DirectionAlignment
-     private Vector3 _moveDir;
+     
+     private void DeadZone()
+     {
+         if(moveInput.magnitude<deadZone) moveInput = Vector3.zero;
+     }
+     
      private void AlignInputWithCameraAngle()
      {
          moveInput.Normalize();
@@ -113,9 +120,9 @@ public class Controller : MonoBehaviour
         // _moveDir = new Vector3(newX,0,newZ);
         _moveDir = new Vector3(moveInput.x,0,moveInput.z);  // J'AI ENLEVÉ LES DEPALCEMENTS DANS L'AXE DE LA CAMERA
      }
-     
-    void Update()
+     void Update()
     {
+        DeadZone();
         AlignInputWithCameraAngle();
 
         if (Input.GetKeyDown(KeyCode.M))

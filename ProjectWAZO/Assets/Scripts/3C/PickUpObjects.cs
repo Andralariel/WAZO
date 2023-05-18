@@ -250,13 +250,13 @@ public class PickUpObjects : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == 7)
+        if (other.gameObject.layer == 7) //Spirit
         {
             objectsInRange.Add(other.gameObject);
             GetClosestObject();
         }
 
-        if (other.gameObject.layer == 14)
+        if (other.gameObject.layer == 14) //Object
         {
             objectsInRange.Add(other.gameObject);
             GetClosestObject();
@@ -271,13 +271,13 @@ public class PickUpObjects : MonoBehaviour
     
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.layer == 7)
+        if (other.gameObject.layer == 7)  //Spirit
         {
             objectsInRange.Remove(other.gameObject);
             GetClosestObject();
         }
         
-        if (other.gameObject.layer == 14)
+        if (other.gameObject.layer == 14) //Object
         {
             objectsInRange.Remove(other.gameObject);
             GetClosestObject();
