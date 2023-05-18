@@ -265,7 +265,7 @@ public class Controller : MonoBehaviour
         }
         
         RaycastHit hit;   // L'indication de la trajectoire de chute pendant le planage
-        if (!isGrounded && isPressing && !isEchelle)
+        if (!isGrounded && !isEchelle)
         {
             if(Physics.Raycast(transform.position, Vector3.down, out hit,Mathf.Infinity, groundMask))
             {
