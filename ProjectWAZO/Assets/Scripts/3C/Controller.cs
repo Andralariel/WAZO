@@ -355,6 +355,7 @@ public class Controller : MonoBehaviour
 
         if (_stuckFrameAmount >= stuckBuffer)
         {
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
             gravityScale = -4;
             canJump = true;
         }
