@@ -30,9 +30,14 @@ public class Controller : MonoBehaviour
     #endregion
    
     [Header("Métrics Controller")]
-    public float moveSpeed;
-    public float airControlSpeed;
+    public float runMoveSpeed;
+    public float runAirControlSpeed;
+    public float walkMoveSpeed;
+    public float walkAirControlSpeed;
+    public float timeToRun;
+    private float _timeToRunTimer;
     public float slopeSpeed;
+    public float runSlopeSpeed;
     public float jumpForce;
     public float onMoveJumpForce = 7f;
     public float gravityScale;
@@ -43,6 +48,7 @@ public class Controller : MonoBehaviour
 
     [Header("Tracker Controller")] 
     public bool ultraBlock;
+    public bool isRuning;
     public bool isGrounded;
     public bool canPlaner;
     public bool canJump;
@@ -104,6 +110,16 @@ public class Controller : MonoBehaviour
              Vector3 gravity = globalGravity * gravityScale * Vector3.up;
              rb.AddForce(rb.mass*gravity, ForceMode.Force);
          }
+         
+         if (moveInput != Vector3.zero && !isRuning)
+         {
+             _timeToRunTimer += Time.deltaTime;
+         }
+         else if(moveInput == Vector3.zero)
+         {
+             _timeToRunTimer = 0;
+             isRuning = false;
+         }
      }
      
      private void DeadZone()
@@ -161,10 +177,16 @@ public class Controller : MonoBehaviour
 
         if (MoveEnding)
         {
-           rb.velocity += (new Vector3(0f,0f,1f) * (airControlSpeed));
+           rb.velocity += (new Vector3(0f,0f,1f) * (runAirControlSpeed));
            Vector3 velocityClamp = new Vector3(Mathf.Clamp(rb.velocity.x, -3f,3f),0,Mathf.Clamp(rb.velocity.z, -5f,5f));
            rb.velocity = velocityClamp; 
            canMove = false;
+        }
+
+        if (_timeToRunTimer >= timeToRun)
+        {
+            isRuning = true;
+            _timeToRunTimer = 0;
         }
 
         if (isEchelle) // Si le perso est sur une echelle, son anim dépend de sa vitesse et il peut en sortir en touchant le sol
@@ -257,8 +279,15 @@ public class Controller : MonoBehaviour
             }
             
             if (!isEchelle) 
-            { 
-                rb.velocity +=(new Vector3((float)_moveDir.x,0,_moveDir.z) * (airControlSpeed * Time.deltaTime));
+            {
+                if (isRuning)
+                {
+                    rb.velocity +=(new Vector3((float)_moveDir.x,0,_moveDir.z) * (runAirControlSpeed * Time.deltaTime));
+                }
+                else
+                {
+                    rb.velocity +=(new Vector3((float)_moveDir.x,0,_moveDir.z) * (walkAirControlSpeed * Time.deltaTime));
+                }
             }
 
             CheckIfStuck();
@@ -408,11 +437,25 @@ public class Controller : MonoBehaviour
             direction = Vector3.Cross(direction,hit.normal);
             Debug.DrawRay(hit.point,direction.normalized,Color.red);
 
-            rb.velocity = direction.normalized * slopeSpeed;
+            if (isRuning)
+            {
+                rb.velocity = direction.normalized * runSlopeSpeed;
+            }
+            else
+            {
+                rb.velocity = direction.normalized * slopeSpeed;
+            }
         }
         else
         {
-            rb.velocity += _moveDir * (moveSpeed * Time.deltaTime);
+            if (isRuning)
+            {
+                rb.velocity += _moveDir * (runMoveSpeed * Time.deltaTime);
+            }
+            else
+            {
+                rb.velocity += _moveDir * (walkMoveSpeed * Time.deltaTime);
+            }
         }
     }
 }
