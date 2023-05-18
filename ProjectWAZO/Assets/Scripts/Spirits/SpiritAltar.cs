@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Activator = WeightSystem.Activator.Activator;
 
@@ -27,6 +29,9 @@ namespace Spirits
 
         private bool _enterBuffer;
         private bool _exitBuffer;
+        
+        //Fix double activation
+        [SerializeField] private List<GameObject> spiritsOnAltar;
 
         private void Update()
         {
@@ -36,12 +41,13 @@ namespace Spirits
 
         public void OnTriggerEnter(Collider other)
         {
-            if (_enterBuffer) return;
             if (other.gameObject.layer != 7) return;
             if ((int)other.attachedRigidbody.drag != (int)spiritType) return;
-            //if (other.attachedRigidbody.angularDrag > 0.9f) return;
-
-            StartCoroutine(EnterBuffer());
+            if (other.attachedRigidbody.angularDrag > 0.9f) return;
+            
+            Debug.Log("Enter");
+            
+            spiritsOnAltar.Add(other.gameObject);
             _spiritAmount++;
             vfxdrop.Play();
             
@@ -70,12 +76,13 @@ namespace Spirits
 
         public void OnTriggerExit(Collider other)
         {
-            if (_exitBuffer) return;
             if (other.gameObject.layer != 7) return;
             if ((int)other.attachedRigidbody.drag != (int)spiritType) return;
-            //if (other.attachedRigidbody.angularDrag > 0.9f) return;
 
-            StartCoroutine(ExitBuffer());
+            if (!spiritsOnAltar.Contains(other.gameObject)) return;
+            
+            Debug.Log("Exit");
+            spiritsOnAltar.Remove(other.gameObject);
             _spiritAmount--;
             
             if (!_activated) return;
@@ -84,20 +91,6 @@ namespace Spirits
                 linkedObject.Deactivate();
                 _activated = false;
             }
-        }
-
-        private IEnumerator EnterBuffer()
-        {
-            _enterBuffer = true;
-            yield return new WaitForEndOfFrame();
-            _enterBuffer = false;
-        }
-        
-        private IEnumerator ExitBuffer()
-        {
-            _exitBuffer = true;
-            yield return new WaitForEndOfFrame();
-            _exitBuffer = false;
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Utilitaire
         }
         private void OnTriggerExit(Collider other)
         {
-            if(other.gameObject.layer != 6/* && other.gameObject.layer != 7*/) return;
+            if(other.gameObject.layer != 6) return;
             other.transform.SetParent(null);
         }
     }

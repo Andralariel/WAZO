@@ -88,12 +88,12 @@ public class PickUpObjects : MonoBehaviour
             if (pickedObject != null)
             {
                 StartCoroutine(Animation());
-                Debug.Log("je prend ce qui est devant moi");
                 _rbObject = pickedObject.GetComponent<Rigidbody>();
-                _rbObject.angularDrag = 1;
                 pickedObjectMass = Mathf.RoundToInt(_rbObject.mass);
                 transform.parent.gameObject.GetComponent<Rigidbody>().mass += pickedObjectMass;
                 _rbObject.mass -= pickedObjectMass;
+                _rbObject.angularDrag = 1;
+                Debug.Log("AngDrag is 1");
                 pickedObject.transform.parent = pickUpPosition.transform;
                 MoveToBeak();
                 if (pickedObject.gameObject.layer == 7)
@@ -144,11 +144,11 @@ public class PickUpObjects : MonoBehaviour
         if (pickedObject != null && isThingTaken && !_moveOnLadder)
         {
             if(_currentTween.IsActive()) _currentTween.Kill();
-            Debug.Log("je relache l'objet devant moi");
             isThingTaken = false;
-            transform.parent.gameObject.GetComponent<Rigidbody>().mass -= pickedObjectMass;
             _rbObject.mass += pickedObjectMass;
             _rbObject.angularDrag = 0;
+            Debug.Log("AngDrag is 0");
+            transform.parent.gameObject.GetComponent<Rigidbody>().mass -= pickedObjectMass;
             if (pickedObject.gameObject.layer == 7)
             {
                 pickedObject.GetComponent<Spirit>().isTaken = false;
