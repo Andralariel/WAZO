@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 726642129757956978}
   - component: {fileID: 726642129757956988}
   - component: {fileID: 726642129757956989}
+  - component: {fileID: 3411882934155949315}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -229,6 +230,34 @@ MonoBehaviour:
   isFocused: 0
   isVerticalLerp: 0
   StartToPlayer: 0
+--- !u!114 &3411882934155949315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726642129757956976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdaf5d098049f3249b7edd54d7bed7d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 2376010427920918709}
+  mats:
+  - {fileID: 2100000, guid: 721d361b7fe9fe4419656ebb13d3fb24, type: 2}
+  - {fileID: 2100000, guid: 206538f3c6270ef4c9079ba802a1a2c8, type: 2}
+  - {fileID: 2100000, guid: f5cf8685283b93c44bdfd31865ca9ccd, type: 2}
+  - {fileID: 2100000, guid: d9574946dbb47bd47a898dfa0aa65a9c, type: 2}
+  - {fileID: 2100000, guid: f291949c25a8f5b439e83eb8c346860c, type: 2}
+  - {fileID: 2100000, guid: ab395fb39df873e459fc0784c9a74027, type: 2}
+  - {fileID: 2100000, guid: 49bdcd7128398994695ab610343ad99a, type: 2}
+  - {fileID: 2100000, guid: 96e7903f2e544d44cbfcde44c2c9065e, type: 2}
+  maskToTarget:
+    serializedVersion: 2
+    m_Bits: 8
+  size: 0.15
+  detectionRadius: 1
+  mainCamera: {fileID: 726642129757956978}
 --- !u!1 &1842877564316662386
 GameObject:
   m_ObjectHideFlags: 0
