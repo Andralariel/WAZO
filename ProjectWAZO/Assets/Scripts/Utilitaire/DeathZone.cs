@@ -26,14 +26,20 @@ public class DeathZone : MonoBehaviour
 
    private void OnTriggerEnter(Collider other)
    {
-      if (other.gameObject.layer == 6)
+      switch (other.gameObject.layer)
       {
-         StartCoroutine(RespawnPlayer());
-      }
-
-      if (other.gameObject.layer == 7)
-      {
-         other.GetComponent<Spirit>()?.Respawn();
+         //Character
+         case 6:
+            StartCoroutine(RespawnPlayer());
+            break;
+         //Spirit
+         case 7:
+            other.GetComponent<Spirit>()?.Respawn();
+            break;
+         //Object
+         case 14:
+            StartCoroutine(MakeObjectDisappear(other.gameObject));
+            break;
       }
    }
    
@@ -58,4 +64,9 @@ public class DeathZone : MonoBehaviour
       Controller.instance.canJump = true;
    }
 
+   private static IEnumerator MakeObjectDisappear(GameObject other)
+   {
+      yield return new WaitForSeconds(1);
+      other.SetActive(false);
+   }
 }
