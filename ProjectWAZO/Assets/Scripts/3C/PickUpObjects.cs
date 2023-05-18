@@ -27,7 +27,8 @@ public class PickUpObjects : MonoBehaviour
     [Header("Valeurs")] 
     public bool isThingTaken;
     public float pickUpSpeed;
-    public Transform pickUpPosition; 
+    public Transform pickUpPosition;
+    [SerializeField] private float objectEjectionSpeed;
     
     [Header("Data")]
     private float velocity;
@@ -88,21 +89,24 @@ public class PickUpObjects : MonoBehaviour
             if (pickedObject != null)
             {
                 StartCoroutine(Animation());
+                
                 _rbObject = pickedObject.GetComponent<Rigidbody>();
-                pickedObjectMass = Mathf.RoundToInt(_rbObject.mass);
-                transform.parent.gameObject.GetComponent<Rigidbody>().mass += pickedObjectMass;
-                _rbObject.mass -= pickedObjectMass;
-                _rbObject.angularDrag = 1;
-                Debug.Log("AngDrag is 1");
                 pickedObject.transform.parent = pickUpPosition.transform;
+                
                 MoveToBeak();
+                
                 if (pickedObject.gameObject.layer == 7)
                 {
+                    pickedObjectMass = Mathf.RoundToInt(_rbObject.mass);
+                    transform.parent.gameObject.GetComponent<Rigidbody>().mass += pickedObjectMass;
+                    _rbObject.mass -= pickedObjectMass;
+                    _rbObject.angularDrag = 1;
+                    
                     pickedObject.GetComponent<Spirit>().isTaken = true;
                 }
                 else
                 {
-                    pickedObject.GetComponent<carotteManager>().isTaken = true;
+                    pickedObject.GetComponent<carotteManager>().IsTaken();
                 }
 
                 Controller.instance.ResetWeightOnDetector(pickedObject.transform);
@@ -145,17 +149,19 @@ public class PickUpObjects : MonoBehaviour
         {
             if(_currentTween.IsActive()) _currentTween.Kill();
             isThingTaken = false;
-            _rbObject.mass += pickedObjectMass;
-            _rbObject.angularDrag = 0;
-            Debug.Log("AngDrag is 0");
-            transform.parent.gameObject.GetComponent<Rigidbody>().mass -= pickedObjectMass;
+            
             if (pickedObject.gameObject.layer == 7)
             {
+                _rbObject.mass += pickedObjectMass;
+                _rbObject.angularDrag = 0;
+                transform.parent.gameObject.GetComponent<Rigidbody>().mass -= pickedObjectMass;
+                
                 pickedObject.GetComponent<Spirit>().isTaken = false;
             }
             else
             {
-                pickedObject.GetComponent<carotteManager>().isTaken = false;
+                pickedObject.GetComponent<carotteManager>().IsLeft();
+                _rbObject.AddForce(transform.forward*objectEjectionSpeed,ForceMode.Impulse);
             }
             pickedObject.transform.parent = null;
             pickedObject = null;
