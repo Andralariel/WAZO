@@ -5,6 +5,8 @@ namespace Utilitaire
 {
    public class AscendingWind : MonoBehaviour
    {
+      public bool isHuge;
+      public float gravityScaleToGive;
       public float windForce;
       public int MassFactor;
    
@@ -16,6 +18,13 @@ namespace Utilitaire
             Controller.instance.canJump = false;
             other.gameObject.GetComponent<Controller>().isWind = true;
             other.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(0,windForce - other.attachedRigidbody.mass*MassFactor,0),ForceMode.Acceleration);
+        
+            if (isHuge)
+            {
+               Controller.instance.isOnHugeWind = true;
+               Controller.instance.currentWindGravityScale = gravityScaleToGive;
+            }
+            
          }
       }
    

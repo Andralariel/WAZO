@@ -36,14 +36,16 @@ namespace _3C
         public float jumpForce;
         public float onMoveJumpForce = 7f;
         public float gravityScale;
+        [HideInInspector] public float currentWindGravityScale;
         public float planingGravity;
         public float coyoteTime;
         [SerializeField] private int stuckBuffer = 10;
-        [Range(0, 1)] public float deadZone;
+        [Range(0f, 1f)] public float deadZone;
 
         [Header("Tracker Controller")] 
         public bool ultraBlock;
         public bool isRuning;
+        public bool isOnHugeWind;
         public bool isGrounded;
         public bool canPlaner;
         public bool canJump;
@@ -219,6 +221,11 @@ namespace _3C
                 {
                     anim.speed = 1;
                 }
+
+                if (isOnHugeWind)
+                {
+                    isOnHugeWind = false;
+                }
                 StopAllCoroutines();
             
                 isCoyote = false;
@@ -269,9 +276,13 @@ namespace _3C
                 Planer();
                 DoOnce = true;
                 isGrounded = false;
-                if (!isEchelle && !isWind)
+                if (!isEchelle && !isWind && !isOnHugeWind)
                 {
                     gravityScale -= 5f * Time.deltaTime;
+                }
+                else if(isOnHugeWind)
+                {
+                    gravityScale -= currentWindGravityScale * Time.deltaTime;
                 }
             
                 if (!isEchelle) 
