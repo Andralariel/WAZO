@@ -39843,17 +39843,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cdf12e275349054583cc5f0682336e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 65
-  airControlSpeed: 50
+  runMoveSpeed: 60
+  runAirControlSpeed: 50
+  walkMoveSpeed: 45
+  walkAirControlSpeed: 40
+  timeToRun: 5
   slopeSpeed: 8
+  runSlopeSpeed: 9
   jumpForce: 14.5
-  onMoveJumpForce: 5
+  onMoveJumpForce: 10
   gravityScale: -4
   planingGravity: 1
   coyoteTime: 0.1
   stuckBuffer: 20
   deadZone: 0.1
   ultraBlock: 0
+  isRuning: 0
   isGrounded: 1
   canPlaner: 1
   canJump: 1
