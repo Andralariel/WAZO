@@ -104,6 +104,7 @@ namespace _3C
                         _rbObject.angularDrag = 1;
                     
                         pickedObject.GetComponent<Spirit>().isTaken = true;
+                        Controller.instance.isHoldingASpirit = true;
                     }
                     else
                     {
@@ -158,6 +159,7 @@ namespace _3C
                     transform.parent.gameObject.GetComponent<Rigidbody>().mass -= pickedObjectMass;
                 
                     pickedObject.GetComponent<Spirit>().isTaken = false;
+                    Controller.instance.isHoldingASpirit = false;
                 }
                 else
                 {
