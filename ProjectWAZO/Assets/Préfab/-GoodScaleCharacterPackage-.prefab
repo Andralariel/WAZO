@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 726642129757956988}
   - component: {fileID: 726642129757956989}
   - component: {fileID: 3411882934155949315}
+  - component: {fileID: 2031547242}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -111,13 +112,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 726642129757956976}
   m_LocalRotation: {x: 0.26513818, y: -0.14546928, z: 0.04050082, w: 0.9523131}
-  m_LocalPosition: {x: 5.31, y: 8.58, z: -11.31}
+  m_LocalPosition: {x: 21.6, y: 53.2, z: -203}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7728356183602126225}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 31.116, y: -17.37, z: 0}
+  m_LocalEulerAnglesHint: {x: 1, y: 99, z: 351}
 --- !u!20 &726642129757956978
 Camera:
   m_ObjectHideFlags: 0
@@ -213,6 +214,8 @@ MonoBehaviour:
   canMove: 1
   canRotate: 0
   player: {fileID: 8471131677271567744}
+  maxFoV: 90
+  backToBaseFoVFactor: 3
   camShake: 0
   shakeAmount: 0
   ShakeManager: {fileID: 0}
@@ -258,6 +261,26 @@ MonoBehaviour:
   size: 0.15
   detectionRadius: 1
   mainCamera: {fileID: 726642129757956978}
+--- !u!95 &2031547242
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726642129757956976}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &1842877564316662386
 GameObject:
   m_ObjectHideFlags: 0
@@ -39817,7 +39840,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8471131677271567744}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.68, y: 20.55, z: 121.99}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -39853,12 +39876,14 @@ MonoBehaviour:
   jumpForce: 14.5
   onMoveJumpForce: 10
   gravityScale: -4
+  currentWindGravityScale: 0
   planingGravity: 1
   coyoteTime: 0.1
   stuckBuffer: 20
   deadZone: 0.1
   ultraBlock: 0
   isRuning: 0
+  isOnHugeWind: 0
   isGrounded: 1
   canPlaner: 1
   canJump: 1
