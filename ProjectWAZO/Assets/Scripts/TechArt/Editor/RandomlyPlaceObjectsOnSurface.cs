@@ -1,48 +1,48 @@
-﻿using System;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
-using System.Collections;
 
-public class RandomlyPlaceObjectsOnSurface : EditorWindow
+namespace TechArt.Editor
 {
-	private string objectBaseName = "";
-	//public GameObject[] objectsToSpawn;
-	//public float spawnRadius = 10.0f;
-	private int numberOfObjects = 10;
-	//public bool randomOrientation = false;
-	//private bool orientToSurface = false;
-	private GameObject objectToSpawn;
-	private GameObject zoneToSpawn;
-
-
-
-	[MenuItem("Tools/Item Spawner")]
-	public static void ShowWindow()
+	public class RandomlyPlaceObjectsOnSurface : EditorWindow
 	{
-		GetWindow(typeof(RandomlyPlaceObjectsOnSurface));
-	}
+		private string objectBaseName = "";
+		//public GameObject[] objectsToSpawn;
+		//public float spawnRadius = 10.0f;
+		private int numberOfObjects = 10;
+		//public bool randomOrientation = false;
+		//private bool orientToSurface = false;
+		private GameObject objectToSpawn;
+		private GameObject zoneToSpawn;
 
-	private void OnGUI()
-	{
-		GUILayout.Label("Spawn New Object", EditorStyles.boldLabel);
 
-		objectBaseName = EditorGUILayout.TextField("Base Name", objectBaseName);
-		numberOfObjects = EditorGUILayout.IntField("Number of Object", numberOfObjects);
-		objectToSpawn = EditorGUILayout.ObjectField("Prefab to Spawn", objectToSpawn,typeof(GameObject), false) as GameObject;
 
-		if (GUILayout.Button("SPAAAAWN"))
+		[MenuItem("Tools/Item Spawner")]
+		public static void ShowWindow()
 		{
-			SpawnObject();
+			GetWindow(typeof(RandomlyPlaceObjectsOnSurface));
 		}
-	}
+
+		private void OnGUI()
+		{
+			GUILayout.Label("Spawn New Object", EditorStyles.boldLabel);
+
+			objectBaseName = EditorGUILayout.TextField("Base Name", objectBaseName);
+			numberOfObjects = EditorGUILayout.IntField("Number of Object", numberOfObjects);
+			objectToSpawn = EditorGUILayout.ObjectField("Prefab to Spawn", objectToSpawn,typeof(GameObject), false) as GameObject;
+
+			if (GUILayout.Button("SPAAAAWN"))
+			{
+				SpawnObject();
+			}
+		}
 	
-	private void SpawnObject()
-	{
-		Debug.Log("Bonjour" + numberOfObjects );
-	}
+		private void SpawnObject()
+		{
+			Debug.Log("Bonjour" + numberOfObjects );
+		}
 	
-	// Use this for initialization
-	/*
+		// Use this for initialization
+		/*
 	void Start ()
 	{
 		for(int i = 0; i < numberOfObjects; i++)
@@ -81,4 +81,5 @@ public class RandomlyPlaceObjectsOnSurface : EditorWindow
 		}
 	}
 	*/
+	}
 }

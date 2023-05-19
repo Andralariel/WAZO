@@ -1,5 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
+using _3C;
 using DG.Tweening;
 using UnityEngine;
 using WeightSystem.Activator;

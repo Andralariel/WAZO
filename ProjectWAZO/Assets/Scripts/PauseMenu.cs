@@ -1,11 +1,8 @@
-    using System;
-using System.Collections;
 using System.Collections.Generic;
+using _3C;
 using DG.Tweening;
-    using TMPro;
-    using UnityEngine;
-    using UnityEngine.Audio;
-    using UnityEngine.UIElements;
+using UnityEngine;
+using UnityEngine.Audio;
 
 public class PauseMenu : MonoBehaviour
 {
