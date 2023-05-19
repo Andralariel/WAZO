@@ -12,14 +12,17 @@ namespace _3C
         public Vector3 normalRotation;
         private Vector3 savePosition;
 
-        [Header("Utilitaire")] 
-   
+        [Header("Utilitaire")]
         public bool canMove;
         public bool canRotate;
         public GameObject player;
         private Vector3 velocity;
         private Camera camera;
-    
+
+        [Header("FoV")] 
+        public float maxFoV;
+        public float backToBaseFoVFactor;
+        
         [Header("Shake")] 
         public bool camShake;
         public float shakeAmount;
@@ -88,6 +91,8 @@ namespace _3C
             {
                 ShakeManager.transform.localPosition = Random.insideUnitSphere * shakeAmount;
             }
+
+            camera.fieldOfView = Mathf.Clamp(camera.fieldOfView, 60, maxFoV);
         }
 
         public void Zoom(float zoomAmount)  // zoomAmount est entre 0 et 1
@@ -143,6 +148,14 @@ namespace _3C
                 transform.position =  Vector3.SmoothDamp(transform.position,toGo,ref velocity,SmoothMoveFactor);
             }
 
+            if (!Controller.instance.isGrounded && Controller.instance.isOnHugeWind)
+            {
+                camera.fieldOfView += Controller.instance.rb.velocity.y/20f;
+            }
+            else if (Controller.instance.isGrounded)
+            {
+                camera.fieldOfView = Mathf.Lerp(camera.fieldOfView,60,Time.deltaTime*backToBaseFoVFactor);
+            }
         }
 
         public void SavePosition()
