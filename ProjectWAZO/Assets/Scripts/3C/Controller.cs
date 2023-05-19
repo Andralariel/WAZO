@@ -56,6 +56,7 @@ namespace _3C
         public bool StopGravity;
         public bool MoveEnding;
         public bool onHeightChangingPlatform;
+        public bool isHoldingASpirit;
 
         [Header("Utilitaire")] 
         public float rotationSpeed;
@@ -112,7 +113,7 @@ namespace _3C
             {
                 _timeToRunTimer += Time.deltaTime;
             }
-            else if(moveInput == Vector3.zero)
+            else if(moveInput == Vector3.zero || isHoldingASpirit)
             {
                 _timeToRunTimer = 0;
                 isRuning = false;
@@ -456,11 +457,11 @@ namespace _3C
             {
                 if (isRuning)
                 {
-                    rb.velocity += _moveDir * (runMoveSpeed * Time.deltaTime);
+                    rb.velocity += new Vector3((float)_moveDir.x,0,_moveDir.z) * (runMoveSpeed * Time.deltaTime);
                 }
                 else
                 {
-                    rb.velocity += _moveDir * (walkMoveSpeed * Time.deltaTime);
+                    rb.velocity += new Vector3((float)_moveDir.x,0,_moveDir.z) * (walkMoveSpeed * Time.deltaTime);
                 }
             }
         }

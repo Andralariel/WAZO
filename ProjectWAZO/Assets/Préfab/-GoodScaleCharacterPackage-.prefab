@@ -39866,11 +39866,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cdf12e275349054583cc5f0682336e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runMoveSpeed: 60
+  runMoveSpeed: 55
   runAirControlSpeed: 50
   walkMoveSpeed: 45
   walkAirControlSpeed: 40
-  timeToRun: 5
+  timeToRun: 2
   slopeSpeed: 8
   runSlopeSpeed: 9
   jumpForce: 14.5
@@ -39893,6 +39893,7 @@ MonoBehaviour:
   StopGravity: 0
   MoveEnding: 0
   onHeightChangingPlatform: 0
+  isHoldingASpirit: 0
   rotationSpeed: 720
   globalGravity: 9.81
   moveInput: {x: 0, y: 0, z: 0}
