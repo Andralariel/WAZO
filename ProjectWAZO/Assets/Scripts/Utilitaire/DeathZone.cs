@@ -6,26 +6,9 @@ namespace Utilitaire
 {
    public class DeathZone : MonoBehaviour
    {
-      public Vector3 respawnPoint;
-      public float timeToChangeRespawn;
-      public float timer;
-
-      public void Update()
-      {
-         if (Controller.instance.isGrounded)
-         {
-            timer += Time.deltaTime;
-         }
-         
-         if (timer >= timeToChangeRespawn)
-         {
-            respawnPoint = Controller.instance.transform.position;
-            timer = 0;
-         }
-      }
-
       private void OnTriggerEnter(Collider other)
       {
+         Debug.Log("DeathZone");
          switch (other.gameObject.layer)
          {
             //Character
@@ -34,7 +17,12 @@ namespace Utilitaire
                break;
             //Spirit
             case 7:
-               other.GetComponent<Spirit>()?.Respawn();
+               var instance = PickUpObjects.instance;
+               if (other.gameObject == instance.pickedObject)
+               {
+                  if(PickUpObjects.instance.isThingTaken) other.GetComponent<Spirit>()?.Respawn();
+               }
+               else other.GetComponent<Spirit>()?.Respawn();
                break;
             //Object
             case 14:
@@ -49,19 +37,20 @@ namespace Utilitaire
       {
          KeyUI.instance.FadeInBlackScreen(0.5f);
          CinématiqueManager.instance.isCinématique = true;
-         Controller.instance.canMove = false;
-         Controller.instance.canJump = false;
-         Controller.instance.rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
+         var instance = Controller.instance;
+         instance.canMove = false;
+         instance.canJump = false;
+         instance.rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
          yield return new WaitForSeconds(0.6f);
-         Controller.instance.transform.position = respawnPoint + new Vector3(0, 2, 0);
+         instance.transform.position = instance.respawnPoint + new Vector3(0, 2, 0);
          yield return new WaitForSeconds(0.6f);
          KeyUI.instance.FadeOutBlackScreen(0.5f);
          yield return new WaitForSeconds(0.5f);
          CinématiqueManager.instance.isCinématique = true;
-         Controller.instance.rb.constraints = RigidbodyConstraints.FreezeRotation;
+         instance.rb.constraints = RigidbodyConstraints.FreezeRotation;
          CinématiqueManager.instance.isCinématique = false;
-         Controller.instance.canMove = true;
-         Controller.instance.canJump = true;
+         instance.canMove = true;
+         instance.canJump = true;
       }
 
       private static IEnumerator MakeObjectDisappear(GameObject other)
