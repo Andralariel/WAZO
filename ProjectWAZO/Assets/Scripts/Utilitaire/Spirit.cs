@@ -13,6 +13,7 @@ namespace Utilitaire
         public bool isVisible;
         public bool isTaken;
         public bool isClosest;
+        public float spiritMass;
         
         [SerializeField] private Rigidbody rb;
         [SerializeField] private NavMeshAgent spiritAgent;

@@ -30,6 +30,7 @@ namespace _3C
         public float pickUpSpeed;
         public Transform pickUpPosition;
         [SerializeField] private float objectEjectionSpeed;
+        [SerializeField] private float birdMass = 1;
     
         [Header("Data")]
         private float velocity;
@@ -49,6 +50,7 @@ namespace _3C
 
         //CleanerRbReference
         private Rigidbody _rbObject;
+        [SerializeField] private Rigidbody birdRb;
     
         //BUG fix : pickUp button state
         private bool _beakPinch;
@@ -67,6 +69,7 @@ namespace _3C
             inputAction.Player.PickUp.performed += ctx => isPressing = true;
             inputAction.Player.PickUp.canceled += ctx => isPressing = false;
 
+            birdRb = transform.parent.gameObject.GetComponent<Rigidbody>();
         }
 
         private void Update()
@@ -99,8 +102,8 @@ namespace _3C
                     if (pickedObject.gameObject.layer == 7)
                     {
                         pickedObjectMass = Mathf.RoundToInt(_rbObject.mass);
-                        transform.parent.gameObject.GetComponent<Rigidbody>().mass += pickedObjectMass;
-                        _rbObject.mass -= pickedObjectMass;
+                        birdRb.mass += pickedObjectMass;
+                        _rbObject.mass = 0;
                         _rbObject.angularDrag = 1;
                     
                         pickedObject.GetComponent<Spirit>().isTaken = true;
@@ -154,11 +157,12 @@ namespace _3C
             
                 if (pickedObject.gameObject.layer == 7)
                 {
-                    _rbObject.mass += pickedObjectMass;
                     _rbObject.angularDrag = 0;
-                    transform.parent.gameObject.GetComponent<Rigidbody>().mass -= pickedObjectMass;
+                    birdRb.mass = birdMass;
                 
-                    pickedObject.GetComponent<Spirit>().isTaken = false;
+                    var spirit = pickedObject.GetComponent<Spirit>();
+                    spirit.isTaken = false;
+                    _rbObject.mass = spirit.spiritMass;
                     Controller.instance.isHoldingASpirit = false;
                 }
                 else

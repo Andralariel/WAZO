@@ -213,9 +213,13 @@ MonoBehaviour:
   normalRotation: {x: 50, y: 345, z: 0}
   canMove: 1
   canRotate: 0
+  isFlou: 0
+  changeFlouFactor: 0
   player: {fileID: 8471131677271567744}
+  globalVolume: {fileID: 0}
   maxFoV: 90
-  backToBaseFoVFactor: 3
+  timeToMaxFoVFactor: 0
+  backToMinFoVFactor: 0
   camShake: 0
   shakeAmount: 0
   ShakeManager: {fileID: 0}
@@ -261,6 +265,8 @@ MonoBehaviour:
   size: 0.15
   detectionRadius: 1
   mainCamera: {fileID: 726642129757956978}
+  mainShader: {fileID: 0}
+  seeThroughShader: {fileID: 0}
 --- !u!95 &2031547242
 Animator:
   serializedVersion: 5
@@ -24935,6 +24941,7 @@ MonoBehaviour:
   pickUpSpeed: 0.25
   pickUpPosition: {fileID: 1499467975046855774}
   objectEjectionSpeed: 2
+  birdMass: 1
   pickedObject: {fileID: 0}
   anim: {fileID: 5441999099964459035}
   objectsInRange: []
@@ -24944,6 +24951,7 @@ MonoBehaviour:
   spiritRespawn: {fileID: 0}
   isPressing: 0
   hasTriggerIn: 0
+  birdRb: {fileID: 7059646029140555298}
 --- !u!1 &4859398622246068180
 GameObject:
   m_ObjectHideFlags: 0
@@ -39870,6 +39878,7 @@ MonoBehaviour:
   runAirControlSpeed: 50
   walkMoveSpeed: 45
   walkAirControlSpeed: 40
+  hugeWindAirSpeed: 0
   timeToRun: 2
   slopeSpeed: 8
   runSlopeSpeed: 9
