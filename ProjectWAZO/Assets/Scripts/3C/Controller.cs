@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Utilitaire;
@@ -230,7 +231,7 @@ namespace _3C
                     CameraController.instance.isFlou = true;
                     isOnHugeWind = false;
                 }
-                StopAllCoroutines();
+                if(canJump) StopAllCoroutines();
             
                 isCoyote = false;
                 if (DoOnce)
@@ -361,6 +362,7 @@ namespace _3C
                 Debug.DrawRay(transform.position, Vector3.down*0.2f, Color.green,2);
                 rb.AddForce(new Vector3(0,onHeightChangingPlatform?onMoveJumpForce:jumpForce,0),ForceMode.VelocityChange);
                 _stuckFrameAmount = 0;
+                StartCoroutine(CheckIfStillOnGround());
             }
             else if (!canJump)
             {
@@ -484,6 +486,17 @@ namespace _3C
                     rb.velocity += new Vector3((float)_moveDir.x,0,_moveDir.z) * (walkMoveSpeed * Time.deltaTime);
                 }
             }
+        }
+
+        private IEnumerator CheckIfStillOnGround()
+        {
+            yield return new WaitForSeconds(0.1f);
+            if (isGrounded)
+            {
+                canJump = true;
+                Debug.Log("Can jump");
+            }
+            else Debug.Log("Not on ground");
         }
     }
 }
