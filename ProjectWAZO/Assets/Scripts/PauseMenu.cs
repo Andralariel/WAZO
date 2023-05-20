@@ -53,7 +53,7 @@ public class PauseMenu : MonoBehaviour
 
     public void PauseUnPause()
     {
-        if (!isOption && canPause)
+        if (!isOption && canPause && !CarnetManager.instance.isOpened)
         {
             if (!isPause)
             {
@@ -63,6 +63,7 @@ public class PauseMenu : MonoBehaviour
                 CG.DOFade(1, 0.5f);
                 eventSystem.SetSelectedGameObject(boutonReprendre);
                 CinématiqueManager.instance.isCinématique = true;
+                Controller.instance.ultraBlock = true;
                 Controller.instance.canMove = false;
                 Controller.instance.canJump = false;
             }
@@ -74,13 +75,36 @@ public class PauseMenu : MonoBehaviour
                 CG.DOFade(0, 0.5f);
                 eventSystem.SetSelectedGameObject(null);
                 CinématiqueManager.instance.isCinématique = false;
+                Controller.instance.ultraBlock = false;
                 Controller.instance.canMove = true;
                 Controller.instance.canJump = true;
             }
         }
-        else
+        else if (isOption)
         {
             CloseOptions();
+        }
+    }
+
+    public void QuitMenu()
+    {
+        if (isPause)
+        {
+            if (isOption) // quitte les options
+            {
+                CloseOptions();
+            }
+            else // quitte la pause
+            {
+                isPause = false;
+                CG.interactable = false;
+                CG.blocksRaycasts = false;
+                CG.DOFade(0, 0.5f);
+                eventSystem.SetSelectedGameObject(null);
+                CinématiqueManager.instance.isCinématique = false;
+                Controller.instance.canMove = true;
+                Controller.instance.canJump = true;
+            }
         }
     }
 
