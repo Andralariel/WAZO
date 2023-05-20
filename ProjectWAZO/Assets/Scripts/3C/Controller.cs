@@ -123,7 +123,7 @@ namespace _3C
                 isRuning = false;
             }
         }
-     
+        
         private void DeadZone()
         {
             if(moveInput.magnitude<deadZone) moveInput = Vector3.zero;
@@ -316,7 +316,7 @@ namespace _3C
                         rb.velocity +=(new Vector3((float)_moveDir.x,0,_moveDir.z) * (walkAirControlSpeed * Time.deltaTime));
                     }
                 }
-
+                
                 CheckIfStuck();
             }
         
@@ -343,6 +343,27 @@ namespace _3C
             else
             {
                 flyIndicator.SetActive(false);
+            }
+            
+            CheckpointDetection();
+        }
+        
+        //Moved Checkpoint Detection to controller
+        [Header("Checkpoint Detection")]
+        public Vector3 respawnPoint;
+        public float timeToChangeRespawn = 0.3f;
+        public float timer;
+        private void CheckpointDetection()
+        {
+            if (isGrounded)
+            {
+                timer += Time.deltaTime;
+            }
+         
+            if (timer >= timeToChangeRespawn)
+            {
+                respawnPoint = transform.position;
+                timer = 0;
             }
         }
     

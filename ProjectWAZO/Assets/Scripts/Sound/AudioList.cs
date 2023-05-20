@@ -54,6 +54,9 @@ namespace Sound
         [Range(0, 1)] public float poserEspritSurAltarVolume;
         public AudioClip altarActive;
 
+        [Header("enemy")]
+        public AudioClip enemyHit;
+
         [Header("Non-spatialize")]
         public AudioClip playerHit;
         [Range(0, 1)] public float playerHitVolume;
