@@ -297,7 +297,7 @@ namespace _3C
                 }
                 else
                 {
-                    gravityScale = Mathf.Clamp(gravityScale,-25, -4);
+                    gravityScale = Mathf.Clamp(gravityScale,-20, -4);
                 }
               
              
