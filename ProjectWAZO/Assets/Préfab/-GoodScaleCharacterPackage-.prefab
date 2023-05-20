@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 3411882934155949315}
   - component: {fileID: 2031547242}
   - component: {fileID: 523905376819672209}
+  - component: {fileID: 4778423392793595228}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -301,8 +302,24 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2, y: 2, z: 10}
-  m_Center: {x: 0, y: 0, z: 5}
+  m_Size: {x: 2, y: 2, z: 8}
+  m_Center: {x: 0, y: 0, z: 3}
+--- !u!54 &4778423392793595228
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726642129757956976}
+  serializedVersion: 2
+  m_Mass: 0.1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 1
 --- !u!1 &1842877564316662386
 GameObject:
   m_ObjectHideFlags: 0
