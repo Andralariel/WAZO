@@ -11,7 +11,9 @@ namespace Sound
             main,
             menu,
             ending,
-            puzzle
+            intro,
+            zoneOuverte,
+            temple,
         }
     
         public static AudioList Instance;
@@ -32,8 +34,12 @@ namespace Sound
         [SerializeField] [Range(0, 1)] private float menuVolume;
         [SerializeField] private AudioClip endingTheme;
         [SerializeField] [Range(0, 1)] private float endingVolume;
-        [SerializeField] private AudioClip puzzleTheme;
-        [SerializeField] [Range(0, 1)] private float puzzleVolume;
+        [SerializeField] private AudioClip zoneIntroTheme;
+        [SerializeField] [Range(0, 1)] private float zoneIntroVolume;
+        [SerializeField] private AudioClip zoneOuverteTheme;
+        [SerializeField] [Range(0, 1)] private float zoneOuverteVolume;
+        [SerializeField] private AudioClip zoneTempleTheme;
+        [SerializeField] [Range(0, 1)] private float zoneTempleVolume;
 
         [Header("UI")]
         public AudioClip uiClick;
@@ -46,7 +52,7 @@ namespace Sound
         public AudioClip plancheBasculeMove;
         public AudioClip poserEspritSurAltar;
         [Range(0, 1)] public float poserEspritSurAltarVolume;
-        public AudioClip altarActivé;
+        public AudioClip altarActive;
 
         [Header("Non-spatialize")]
         public AudioClip playerHit;
@@ -86,9 +92,17 @@ namespace Sound
                     _currentSource.clip = endingTheme;
                     _targetVolume = endingVolume;
                     break;
-                case Music.puzzle:
-                    _currentSource.clip = puzzleTheme;
-                    _targetVolume = puzzleVolume;
+                case Music.intro:
+                    _currentSource.clip = zoneIntroTheme;
+                    _targetVolume = zoneIntroVolume;
+                    break;
+                case Music.zoneOuverte:
+                    _currentSource.clip = zoneOuverteTheme;
+                    _targetVolume = zoneOuverteVolume;
+                    break;
+                case Music.temple:
+                    _currentSource.clip = zoneTempleTheme;
+                    _targetVolume = zoneTempleVolume;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(music), music, null);
