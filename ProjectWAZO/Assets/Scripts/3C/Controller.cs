@@ -1,4 +1,5 @@
 using System.Collections;
+using Sound;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Utilitaire;
@@ -369,6 +370,7 @@ namespace _3C
     
         private void Sauter()
         {
+            AudioList.Instance.PlayOneShot(AudioList.Instance.saut, 0.2f);
             if (canJump)
             {
                 if (isEchelle)
@@ -515,9 +517,7 @@ namespace _3C
             if (isGrounded)
             {
                 canJump = true;
-                Debug.Log("Can jump");
             }
-            else Debug.Log("Not on ground");
         }
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Sound;
 using UnityEngine;
 using Utilitaire;
 
@@ -98,6 +99,7 @@ namespace _3C
                     pickedObject.transform.parent = pickUpPosition.transform;
                 
                     MoveToBeak();
+                    SwitchSpiritSound();
                 
                     if (pickedObject.gameObject.layer == 7)
                     {
@@ -338,6 +340,29 @@ namespace _3C
                 //closestObject.GetComponent<Spirit>().isClosest = true;
             }
             return closestObject;
+        }
+
+        private void SwitchSpiritSound()
+        {
+            var audioList = AudioList.Instance;
+            switch (_rbObject.mass)
+            {
+                case 1:
+                    audioList.PlayOneShot(audioList.grabPetitAir,audioList.grabPetitAirVolume);
+                    Debug.Log("Petit esprit air");
+                    break;
+                case 2:
+                    audioList.PlayOneShot(audioList.grabGrosAir,audioList.grabGrosAirVolume);
+                    Debug.Log("Gros esprit air");
+                    break;
+                case 4:
+                    audioList.PlayOneShot(audioList.grabGrosTerre,audioList.grabGrosTerreVolume);
+                    Debug.Log("Gros esprit terre");
+                    break;
+                default:
+                    audioList.PlayOneShot(audioList.buyInShop,audioList.buyInShopVolume);
+                    break;
+            }
         }
     }
 }

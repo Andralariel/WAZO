@@ -46,16 +46,21 @@ namespace Sound
 
         [Header("Player")]
         public AudioClip saut;
-        public AudioClip planer;
-        
+        public AudioClip grabPetitAir;
+        [Range(0, 1)] public float grabPetitAirVolume;
+        public AudioClip grabGrosAir;
+        [Range(0, 1)] public float grabGrosAirVolume;
+        public AudioClip grabGrosTerre;
+        [Range(0, 1)] public float grabGrosTerreVolume;
+
         [Header("Interacteur")]
         public AudioClip auraKey;
         public AudioClip poserEspritSurAltar;
         [Range(0, 1)] public float poserEspritSurAltarVolume;
         public AudioClip altarActive;
 
-        [Header("enemy")]
-        public AudioClip enemyHit;
+        [Header("environnement")]
+        public AudioClip waterfall;
 
         [Header("Non-spatialize")]
         public AudioClip playerHit;
