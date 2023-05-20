@@ -411,6 +411,7 @@ namespace _3C
         private void CheckIfStuck()
         {
             if(isPressing) return;
+            if (moveInput != Vector3.zero) return;
         
             if ((transform.position - _lastPos).magnitude < PosRange) _stuckFrameAmount++;
             else _stuckFrameAmount = 0;
