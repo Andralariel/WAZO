@@ -100,6 +100,8 @@ namespace _3C
             inputAction.Player.Jump.canceled += ctx => isPressing = false;
             inputAction.Player.MenuCarte.performed += ctx => CarnetManager.instance.OpenCloseCarnet();
             inputAction.Player.MenuPause.performed += ctx => PauseMenu.instance.PauseUnPause();
+            inputAction.Player.QuitMenu.performed += ctx => PauseMenu.instance.QuitMenu();
+            inputAction.Player.QuitMenu.performed += ctx => CarnetManager.instance.QuitMenu();
         }
 
         void FixedUpdate () // Gravité
@@ -287,8 +289,17 @@ namespace _3C
                     gravityScale -= currentWindGravityScale * Time.deltaTime;
                 }
 
-                gravityScale = Mathf.Clamp(gravityScale,-23, -4);
-            
+
+                if (isOnHugeWind)
+                {
+                    gravityScale = Mathf.Clamp(gravityScale,-15, -4);
+                }
+                else
+                {
+                    gravityScale = Mathf.Clamp(gravityScale,-25, -4);
+                }
+              
+             
                 if (!isEchelle) 
                 {
                     if (isOnHugeWind)

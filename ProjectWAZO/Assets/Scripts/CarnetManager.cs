@@ -108,6 +108,24 @@ public class CarnetManager : MonoBehaviour
         }
     }
 
+    public void QuitMenu()
+    {
+        if (isOpened)
+        {
+            isOpened = false;
+            carnet.DOFade(0, 0.5f);
+            MapManager.instance.MapMenu.DOFade(0, 0.5f);
+            Controller.instance.canJump = true;
+            Controller.instance.canMove = true;   
+            KeyUI.instance.HideMapKey();
+                
+            foreach (Image img in MapManager.instance.doneFilterList)
+            {
+                img.DOFade(0, 0.5f);
+            }
+        }
+    }
+
     public void ChangePageRight()
     {
         canChangePage = false;

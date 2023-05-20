@@ -64,7 +64,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Menu Carte"",
+                    ""name"": ""MenuCarte"",
                     ""type"": ""Button"",
                     ""id"": ""5209d3a5-b89c-4b9e-b47b-e54ec710147d"",
                     ""expectedControlType"": ""Button"",
@@ -76,6 +76,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""name"": ""Menu Pause"",
                     ""type"": ""Button"",
                     ""id"": ""db73bc92-4a8d-43ba-b6ce-1e62b903d2a5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""QuitMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""ba7fec40-4da0-4a63-b9e8-30dcb79385ad"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -266,7 +275,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Menu Carte"",
+                    ""action"": ""MenuCarte"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -277,7 +286,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Menu Carte"",
+                    ""action"": ""MenuCarte"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -302,6 +311,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Menu Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bbe6f6ea-0828-40b1-a3c5-1a4fb8d5d748"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""QuitMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -314,8 +334,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_PickUp = m_Player.FindAction("PickUp", throwIfNotFound: true);
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
-        m_Player_MenuCarte = m_Player.FindAction("Menu Carte", throwIfNotFound: true);
+        m_Player_MenuCarte = m_Player.FindAction("MenuCarte", throwIfNotFound: true);
         m_Player_MenuPause = m_Player.FindAction("Menu Pause", throwIfNotFound: true);
+        m_Player_QuitMenu = m_Player.FindAction("QuitMenu", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -383,6 +404,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Dash;
     private readonly InputAction m_Player_MenuCarte;
     private readonly InputAction m_Player_MenuPause;
+    private readonly InputAction m_Player_QuitMenu;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -393,6 +415,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Dash => m_Wrapper.m_Player_Dash;
         public InputAction @MenuCarte => m_Wrapper.m_Player_MenuCarte;
         public InputAction @MenuPause => m_Wrapper.m_Player_MenuPause;
+        public InputAction @QuitMenu => m_Wrapper.m_Player_QuitMenu;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -420,6 +443,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @MenuPause.started += instance.OnMenuPause;
             @MenuPause.performed += instance.OnMenuPause;
             @MenuPause.canceled += instance.OnMenuPause;
+            @QuitMenu.started += instance.OnQuitMenu;
+            @QuitMenu.performed += instance.OnQuitMenu;
+            @QuitMenu.canceled += instance.OnQuitMenu;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -442,6 +468,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @MenuPause.started -= instance.OnMenuPause;
             @MenuPause.performed -= instance.OnMenuPause;
             @MenuPause.canceled -= instance.OnMenuPause;
+            @QuitMenu.started -= instance.OnQuitMenu;
+            @QuitMenu.performed -= instance.OnQuitMenu;
+            @QuitMenu.canceled -= instance.OnQuitMenu;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -467,5 +496,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnDash(InputAction.CallbackContext context);
         void OnMenuCarte(InputAction.CallbackContext context);
         void OnMenuPause(InputAction.CallbackContext context);
+        void OnQuitMenu(InputAction.CallbackContext context);
     }
 }
