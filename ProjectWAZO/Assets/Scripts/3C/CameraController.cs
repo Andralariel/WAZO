@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace _3C
 {
@@ -15,12 +16,16 @@ namespace _3C
         [Header("Utilitaire")]
         public bool canMove;
         public bool canRotate;
+        public bool isFlou;
+        public float changeFlouFactor;
         public GameObject player;
+        public Volume globalVolume;
         private Vector3 velocity;
         private Camera camera;
 
         [Header("FoV")] 
         public float maxFoV;
+        public float timeToChangeFoVFactor;
         public float backToBaseFoVFactor;
         
         [Header("Shake")] 
@@ -92,6 +97,15 @@ namespace _3C
                 ShakeManager.transform.localPosition = Random.insideUnitSphere * shakeAmount;
             }
 
+            if (isFlou && globalVolume.weight < 1)
+            {
+                globalVolume.weight += changeFlouFactor * Time.deltaTime;
+            }
+            else if(!isFlou && globalVolume.weight > 0.7f)
+            {
+                globalVolume.weight -= changeFlouFactor * Time.deltaTime;
+            }
+            
             camera.fieldOfView = Mathf.Clamp(camera.fieldOfView, 60, maxFoV);
         }
 
@@ -150,7 +164,7 @@ namespace _3C
 
             if (!Controller.instance.isGrounded && Controller.instance.isOnHugeWind)
             {
-                camera.fieldOfView += Controller.instance.rb.velocity.y/20f;
+                camera.fieldOfView += Controller.instance.rb.velocity.y/timeToChangeFoVFactor;
             }
             else if (Controller.instance.isGrounded)
             {

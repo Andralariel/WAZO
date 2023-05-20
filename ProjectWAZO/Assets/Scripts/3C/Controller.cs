@@ -29,6 +29,7 @@ namespace _3C
         public float runAirControlSpeed;
         public float walkMoveSpeed;
         public float walkAirControlSpeed;
+        public float hugeWindAirSpeed;
         public float timeToRun;
         private float _timeToRunTimer;
         public float slopeSpeed;
@@ -224,6 +225,7 @@ namespace _3C
 
                 if (isOnHugeWind)
                 {
+                    CameraController.instance.isFlou = true;
                     isOnHugeWind = false;
                 }
                 StopAllCoroutines();
@@ -284,14 +286,20 @@ namespace _3C
                 {
                     gravityScale -= currentWindGravityScale * Time.deltaTime;
                 }
+
+                gravityScale = Mathf.Clamp(gravityScale,-23, -4);
             
                 if (!isEchelle) 
                 {
-                    if (isRuning)
+                    if (isOnHugeWind)
+                    { 
+                        rb.velocity +=(new Vector3((float)_moveDir.x,0,_moveDir.z) * (hugeWindAirSpeed * Time.deltaTime));
+                    }
+                    else if (isRuning)
                     {
                         rb.velocity +=(new Vector3((float)_moveDir.x,0,_moveDir.z) * (runAirControlSpeed * Time.deltaTime));
                     }
-                    else
+                    else if (!isRuning && !isOnHugeWind)
                     {
                         rb.velocity +=(new Vector3((float)_moveDir.x,0,_moveDir.z) * (walkAirControlSpeed * Time.deltaTime));
                     }

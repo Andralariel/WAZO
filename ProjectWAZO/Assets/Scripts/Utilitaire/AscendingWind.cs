@@ -1,5 +1,6 @@
 using _3C;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Utilitaire
 {
@@ -7,6 +8,7 @@ namespace Utilitaire
    {
       public bool isHuge;
       public float gravityScaleToGive;
+      public float AirSpeedToGive;
       public float windForce;
       public int MassFactor;
    
@@ -21,7 +23,9 @@ namespace Utilitaire
         
             if (isHuge)
             {
+               CameraController.instance.isFlou = false;
                Controller.instance.isOnHugeWind = true;
+               Controller.instance.hugeWindAirSpeed = AirSpeedToGive;
                Controller.instance.currentWindGravityScale = gravityScaleToGive;
             }
             

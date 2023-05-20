@@ -64,7 +64,7 @@ public class CinématiqueManager : MonoBehaviour
     
     public IEnumerator CinématiqueBOTW() // index 1
     {
-        globalVolume.weight = 0;
+        CameraController.instance.isFlou = false;
         //dof.enabled.value = false;
             isCinématique = false;
         Controller.instance.canMove = false;
@@ -88,7 +88,9 @@ public class CinématiqueManager : MonoBehaviour
         Controller.instance.anim.SetBool("isFlying",false);
         Controller.instance.anim.SetBool("isIdle",true);
         cinematiqueManager.Play();
-        yield return new WaitForSeconds((float)cinematiqueManager.duration);
+        yield return new WaitForSeconds((float)cinematiqueManager.duration - 1);
+        CameraController.instance.isFlou = true;
+        yield return new WaitForSeconds(1);
         cinematiqueManager.Stop();
         MapManager.instance.Map.sprite = MapManager.instance.mapPleine;
         MapManager.instance.MapGot = true;
@@ -100,5 +102,6 @@ public class CinématiqueManager : MonoBehaviour
         Controller.instance.canJump = true;
         globalVolume.weight = 1;
         isCinématique = false;
+       
     }
 }
