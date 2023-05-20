@@ -49,7 +49,7 @@ namespace Sound
         public AudioClip planer;
         
         [Header("Interacteur")]
-        public AudioClip plancheBasculeMove;
+        public AudioClip auraKey;
         public AudioClip poserEspritSurAltar;
         [Range(0, 1)] public float poserEspritSurAltarVolume;
         public AudioClip altarActive;
