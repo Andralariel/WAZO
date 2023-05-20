@@ -25,8 +25,8 @@ namespace _3C
 
         [Header("FoV")] 
         public float maxFoV;
-        public float timeToChangeFoVFactor;
-        public float backToBaseFoVFactor;
+        public float timeToMaxFoVFactor;
+        public float backToMinFoVFactor;
         
         [Header("Shake")] 
         public bool camShake;
@@ -164,11 +164,11 @@ namespace _3C
 
             if (!Controller.instance.isGrounded && Controller.instance.isOnHugeWind)
             {
-                camera.fieldOfView += Controller.instance.rb.velocity.y/timeToChangeFoVFactor;
+                camera.fieldOfView += Controller.instance.rb.velocity.y/timeToMaxFoVFactor;
             }
             else if (Controller.instance.isGrounded)
             {
-                camera.fieldOfView = Mathf.Lerp(camera.fieldOfView,60,Time.deltaTime*backToBaseFoVFactor);
+                camera.fieldOfView = Mathf.Lerp(camera.fieldOfView,60,Time.deltaTime*backToMinFoVFactor);
             }
         }
 
