@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 726642129757956989}
   - component: {fileID: 3411882934155949315}
   - component: {fileID: 2031547242}
+  - component: {fileID: 523905376819672209}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -265,8 +266,10 @@ MonoBehaviour:
   size: 0.15
   detectionRadius: 1
   mainCamera: {fileID: 726642129757956978}
-  mainShader: {fileID: 0}
-  seeThroughShader: {fileID: 0}
+  mainShader: {fileID: -6465566751694194690, guid: 26e1818ef30dc2546a4ec9b7dac45ff3,
+    type: 3}
+  seeThroughShader: {fileID: -6465566751694194690, guid: 3362592144e62fa4ea61ba24ad8cf141,
+    type: 3}
 --- !u!95 &2031547242
 Animator:
   serializedVersion: 5
@@ -287,6 +290,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!65 &523905376819672209
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726642129757956976}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2, z: 10}
+  m_Center: {x: 0, y: 0, z: 5}
 --- !u!1 &1842877564316662386
 GameObject:
   m_ObjectHideFlags: 0
