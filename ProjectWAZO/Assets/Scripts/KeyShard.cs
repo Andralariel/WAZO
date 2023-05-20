@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using _3C;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.VFX;
 using Utilitaire;
 using Random = UnityEngine.Random;
 
@@ -19,6 +20,7 @@ public class KeyShard : MonoBehaviour
    private Rigidbody rb;
    [SerializeField] private ParticleSystem vfxpickup;
    [SerializeField] private ParticleSystem vfxidle;
+   [SerializeField] private VisualEffect beacon;
 
    private bool ispickedup;
    public enum Region
@@ -88,6 +90,7 @@ public class KeyShard : MonoBehaviour
    void PickUp()
    {
       vfxidle.Stop();
+      beacon.Stop();
       if (!ispickedup) vfxpickup.Play();
       ispickedup = true;
       Debug.Log("1");
