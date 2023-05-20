@@ -53,7 +53,10 @@ namespace Spirits
             if (_spiritAmount == spiritSlots)
             {
                 vfxcomplete.Play();
-                linkedObject.Activate();
+                if (!isTemple)
+                {
+                    linkedObject.Activate();
+                }
                 _activated = true;
                 if (isTemple)
                 {

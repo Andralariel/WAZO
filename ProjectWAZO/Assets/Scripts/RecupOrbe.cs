@@ -42,6 +42,7 @@ public class RecupOrbe : MonoBehaviour
     {
         if (other.gameObject.layer == 6)
         {
+            Controller.instance.ultraBlock = false;
             CinématiqueManager.instance.isCinématique = true;
             isMoving = true;
             player.canMove = false;
