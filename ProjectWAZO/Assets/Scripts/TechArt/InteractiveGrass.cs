@@ -20,7 +20,7 @@ namespace TechArt
             for (int i = 0; i < beacons.Length; i++)
             {
                 float distance = Vector3.Distance (character.transform.position, new Vector3(beacons[i].transform.position.x,beacons[i].transform.position.y-6,beacons[i].transform.position.z));
-                Debug.Log(distance);
+               // Debug.Log(distance);
                 beacons[i].SetFloat("Distance_Joueur", distance);
             }
         }
@@ -33,7 +33,8 @@ namespace TechArt
             }
             for (int i = 0; i < beacons.Length; i++)
             {
-                beacons[i].SetVector3("Distance_Joueur", new Vector3(0,0,0));
+                //beacons[i].SetVector3("Distance_Joueur", new Vector3(0,0,0));
+                beacons[i].SetFloat("Distance_Joueur", 0);
             }
         }
     }
