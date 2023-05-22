@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Sound;
 using UnityEngine;
 using WeightSystem;
 using Activator = WeightSystem.Activator.Activator;
@@ -43,12 +44,11 @@ namespace Spirits
             if (other.gameObject.layer != 7) return;
             if ((int)other.attachedRigidbody.drag != (int)spiritType) return;
             if (other.attachedRigidbody.angularDrag > 0.9f) return;
-            
-            Debug.Log("Enter");
-            
+
             spiritsOnAltar.Add(other.gameObject);
             _spiritAmount++;
             vfxdrop.Play();
+            
             
             if (_spiritAmount == spiritSlots)
             {
@@ -72,8 +72,16 @@ namespace Spirits
                     }
                    
                 }
-            } 
-            
+            }
+
+            if (_activated)  //Play sound onComplete
+            {
+                AudioList.Instance.PlayOneShot(AudioList.Instance.altarActive, AudioList.Instance.altarActiveVolume);
+            }
+            else  //Play sound spiritDropped
+            {
+                AudioList.Instance.PlayOneShot(AudioList.Instance.putSpiritAltar, AudioList.Instance.putSpiritAltarVolume);
+            }
         }
 
         public void OnTriggerExit(Collider other)
@@ -83,7 +91,6 @@ namespace Spirits
 
             if (!spiritsOnAltar.Contains(other.gameObject)) return;
             
-            Debug.Log("Exit");
             spiritsOnAltar.Remove(other.gameObject);
             _spiritAmount--;
             

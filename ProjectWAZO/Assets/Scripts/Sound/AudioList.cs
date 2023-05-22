@@ -56,9 +56,10 @@ namespace Sound
         [Header("Interacteur")]
         public AudioClip getKey;
         [Range(0, 1)] public float getKeyVolume;
-        public AudioClip poserEspritSurAltar;
-        [Range(0, 1)] public float poserEspritSurAltarVolume;
+        public AudioClip putSpiritAltar;
+        [Range(0, 1)] public float putSpiritAltarVolume;
         public AudioClip altarActive;
+        [Range(0, 1)] public float altarActiveVolume;
         public AudioClip turnWindmill;
 
         [Header("environnement")]
