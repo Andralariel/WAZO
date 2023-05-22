@@ -54,13 +54,14 @@ namespace Sound
         [Range(0, 1)] public float grabGrosTerreVolume;
 
         [Header("Interacteur")]
-        public AudioClip auraKey;
+        public AudioClip getKey;
         public AudioClip poserEspritSurAltar;
         [Range(0, 1)] public float poserEspritSurAltarVolume;
         public AudioClip altarActive;
 
         [Header("environnement")]
         public AudioClip waterfall;
+        public AudioClip auraKey;
 
         [Header("Non-spatialize")]
         public AudioClip playerHit;
