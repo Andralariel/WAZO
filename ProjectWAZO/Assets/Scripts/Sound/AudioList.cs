@@ -55,6 +55,7 @@ namespace Sound
 
         [Header("Interacteur")]
         public AudioClip getKey;
+        [Range(0, 1)] public float getKeyVolume;
         public AudioClip poserEspritSurAltar;
         [Range(0, 1)] public float poserEspritSurAltarVolume;
         public AudioClip altarActive;

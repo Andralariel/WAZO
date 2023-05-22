@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using _3C;
 using DG.Tweening;
+using Sound;
 using UnityEngine;
 using UnityEngine.VFX;
 using Utilitaire;
@@ -91,6 +92,7 @@ public class KeyShard : MonoBehaviour
    {
       vfxidle.Stop();
       beacon.Stop();
+      AudioList.Instance.PlayOneShot(AudioList.Instance.getKey, AudioList.Instance.getKeyVolume);
       if (!ispickedup) vfxpickup.Play();
       ispickedup = true;
       Debug.Log("1");
