@@ -54,13 +54,17 @@ namespace Sound
         [Range(0, 1)] public float grabGrosTerreVolume;
 
         [Header("Interacteur")]
-        public AudioClip auraKey;
-        public AudioClip poserEspritSurAltar;
-        [Range(0, 1)] public float poserEspritSurAltarVolume;
+        public AudioClip getKey;
+        [Range(0, 1)] public float getKeyVolume;
+        public AudioClip putSpiritAltar;
+        [Range(0, 1)] public float putSpiritAltarVolume;
         public AudioClip altarActive;
+        [Range(0, 1)] public float altarActiveVolume;
+        public AudioClip turnWindmill;
 
         [Header("environnement")]
         public AudioClip waterfall;
+        public AudioClip auraKey;
 
         [Header("Non-spatialize")]
         public AudioClip playerHit;
