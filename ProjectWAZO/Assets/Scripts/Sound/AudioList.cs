@@ -59,6 +59,7 @@ namespace Sound
         public AudioClip poserEspritSurAltar;
         [Range(0, 1)] public float poserEspritSurAltarVolume;
         public AudioClip altarActive;
+        public AudioClip turnWindmill;
 
         [Header("environnement")]
         public AudioClip waterfall;
