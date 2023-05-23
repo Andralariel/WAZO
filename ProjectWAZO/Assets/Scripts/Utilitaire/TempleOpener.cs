@@ -68,9 +68,10 @@ namespace Utilitaire
          Controller.instance.anim.SetBool("isIdle",true);
          Controller.instance.canMove = false;
          Controller.instance.canJump = false;
+         Controller.instance.ultraBlock = true;
          CameraController.instance.canMove = false;
          CameraController.instance.transform.DOMove(CameraController.instance.transform.position + CameraController.instance.transform.forward*18, 7f); 
-         yield return new WaitForSeconds(0.1f);
+         yield return new WaitForSeconds(3f);
          Controller.instance.anim.SetBool("isIdle",true);
          foreach (GameObject obj in keyShardCinématique)
          {
@@ -98,7 +99,9 @@ namespace Utilitaire
          }
          yield return new WaitForSeconds(3f);
          Clé.transform.DOMove(Serrure.transform.position, 5f);
-         yield return new WaitForSeconds(5.5f);
+         yield return new WaitForSeconds(4.5f);
+         Clé.transform.DOLocalRotate(new Vector3(0,90,-45), 0.5f);
+         yield return new WaitForSeconds(0.5f);
          animDoor.SetBool("Open",true);
          CameraController.instance.transform.DOShakePosition(5, 1, 11);
          yield return new WaitForSeconds(0.5f);
@@ -107,6 +110,7 @@ namespace Utilitaire
          CinématiqueManager.instance.isCinématique = false;
          Controller.instance.canMove = true;
          Controller.instance.canJump = true;
+         Controller.instance.ultraBlock = false;
          CameraController.instance.canMove = true;
          colliderPorte.enabled = false;
          Destroy(gameObject);
