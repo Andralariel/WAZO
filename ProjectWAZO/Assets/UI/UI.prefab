@@ -993,11 +993,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60cc63fcd7a44cf4e9bc19d21701d70c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentlySelected: {fileID: 0}
   isPause: 0
   canPause: 1
   eventSystem: {fileID: 92312090139204827}
   boutonReprendre: {fileID: 92312089512070190}
-  boutonRetour: {fileID: 92312089023524414}
+  boutonOptions: {fileID: 92312090678188149}
+  firstSelecOptions: {fileID: 92312089023524414}
   canvasOptions: {fileID: 92312089971222084}
   enableText: 1
   isOption: 0
