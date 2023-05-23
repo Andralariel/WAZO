@@ -6,7 +6,7 @@ namespace TechArt
     public class InteractiveGrass : MonoBehaviour
     {
         [SerializeField] Material[] mats;
-        [SerializeField] VisualEffect[] beacons;
+        [SerializeField]  VisualEffect[] beacons;
         [SerializeField] private GameObject character;
 
         // Update is called once per frame
