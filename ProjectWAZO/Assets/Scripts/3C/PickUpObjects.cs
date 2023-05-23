@@ -349,15 +349,12 @@ namespace _3C
             {
                 case 1:
                     audioList.PlayOneShot(audioList.grabPetitAir,audioList.grabPetitAirVolume);
-                    Debug.Log("Petit esprit air");
                     break;
                 case 2:
-                    audioList.PlayOneShot(audioList.grabGrosAir,audioList.grabGrosAirVolume);
-                    Debug.Log("Gros esprit air");
+                    audioList.PlayOneShot(audioList.grabGrosAir, audioList.grabGrosAirVolume);
                     break;
                 case 4:
                     audioList.PlayOneShot(audioList.grabGrosTerre,audioList.grabGrosTerreVolume);
-                    Debug.Log("Gros esprit terre");
                     break;
                 default:
                     audioList.PlayOneShot(audioList.buyInShop,audioList.buyInShopVolume);
