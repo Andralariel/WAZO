@@ -1,16 +1,20 @@
+using System;
 using System.Collections.Generic;
 using _3C;
 using DG.Tweening;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Audio;
 
 public class PauseMenu : MonoBehaviour
 {
+    public GameObject currentlySelected;
     public bool isPause;
     public bool canPause;
     public UnityEngine.EventSystems.EventSystem eventSystem;
     public GameObject boutonReprendre;
-    public GameObject boutonRetour;
+    public GameObject boutonOptions;
+    public GameObject firstSelecOptions;
     private CanvasGroup CG;
     public CanvasGroup canvasOptions;
     public static PauseMenu instance;
@@ -57,11 +61,13 @@ public class PauseMenu : MonoBehaviour
         {
             if (!isPause)
             {
+                boutonReprendre.transform.DOScale(boutonReprendre.transform.localScale * 1.2f, 0.2f);
                 isPause = true;
                 CG.interactable = true;
                 CG.blocksRaycasts = true;
                 CG.DOFade(1, 0.5f);
                 eventSystem.SetSelectedGameObject(boutonReprendre);
+                currentlySelected = boutonReprendre;
                 CinématiqueManager.instance.isCinématique = true;
                 Controller.instance.ultraBlock = true;
                 Controller.instance.canMove = false;
@@ -74,6 +80,7 @@ public class PauseMenu : MonoBehaviour
                 CG.blocksRaycasts = false;
                 CG.DOFade(0, 0.5f);
                 eventSystem.SetSelectedGameObject(null);
+                currentlySelected = null;
                 CinématiqueManager.instance.isCinématique = false;
                 Controller.instance.ultraBlock = false;
                 Controller.instance.canMove = true;
@@ -83,6 +90,19 @@ public class PauseMenu : MonoBehaviour
         else if (isOption)
         {
             CloseOptions();
+        }
+    }
+
+    private void Update()
+    {
+        if (isPause)
+        {
+            if (currentlySelected != eventSystem.currentSelectedGameObject)
+            {
+                eventSystem.currentSelectedGameObject.gameObject.transform.DOScale(gameObject.transform.localScale * 1.2f, 0.2f);
+                currentlySelected.transform.DOScale(currentlySelected.transform.localScale * 0.8f, 0.2f);
+                currentlySelected = eventSystem.currentSelectedGameObject;
+            } 
         }
     }
 
@@ -101,6 +121,7 @@ public class PauseMenu : MonoBehaviour
                 CG.blocksRaycasts = false;
                 CG.DOFade(0, 0.5f);
                 eventSystem.SetSelectedGameObject(null);
+                currentlySelected = null;
                 CinématiqueManager.instance.isCinématique = false;
                 Controller.instance.canMove = true;
                 Controller.instance.canJump = true;
@@ -116,7 +137,10 @@ public class PauseMenu : MonoBehaviour
     public void OpenOptions()
     {
         isOption = true;
-        eventSystem.SetSelectedGameObject(boutonRetour);
+        eventSystem.SetSelectedGameObject(firstSelecOptions);
+        currentlySelected = firstSelecOptions;
+        boutonOptions.transform.DOScale(boutonOptions.transform.localScale * 0.8f, 0.2f);
+        firstSelecOptions.transform.DOScale(firstSelecOptions.transform.localScale * 1.2f, 0.2f);
         CG.interactable = false;
         CG.blocksRaycasts = false;
         CG.DOFade(0, 0.5f);
@@ -130,6 +154,8 @@ public class PauseMenu : MonoBehaviour
     {
         isOption = false;
         eventSystem.SetSelectedGameObject(boutonReprendre);
+        currentlySelected = boutonReprendre;
+        boutonReprendre.transform.DOScale(boutonReprendre.transform.localScale * 1.2f, 0.2f);
         CG.interactable = true;
         CG.blocksRaycasts = true;
         CG.DOFade(1, 0.5f); 
