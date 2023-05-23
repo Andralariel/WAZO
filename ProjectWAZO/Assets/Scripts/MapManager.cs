@@ -15,6 +15,7 @@ public class MapManager : MonoBehaviour
     public RectTransform iconMapUpdate;
     public Image Map;
     public Sprite mapPleine;
+    public List<Image> pontIntero;
     public List<Image> listCroix;
     public List<Image> doneFilterList;
     public List<Image> fresquesList;
