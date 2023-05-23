@@ -46,6 +46,7 @@ namespace Sound
 
         [Header("Player")]
         public AudioClip saut;
+        [Range(0, 1)] public float sautVolume;
         public AudioClip grabPetitAir;
         [Range(0, 1)] public float grabPetitAirVolume;
         public AudioClip grabGrosAir;
