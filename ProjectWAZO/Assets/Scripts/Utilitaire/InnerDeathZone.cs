@@ -4,34 +4,16 @@ using UnityEngine;
 
 namespace Utilitaire
 {
-   public class DeathZone : MonoBehaviour
-   {
-      private bool _characterIsInside;
+    public class InnerDeathZone : MonoBehaviour
+    {
+        private bool _characterIsInside;
       
       private void OnTriggerEnter(Collider other)
       {
-         Debug.Log("DeathZone");
-         switch (other.gameObject.layer)
-         {
-            //Character
-            case 6:
-               _characterIsInside = true;
-               StartCoroutine(CharacterBuffer());
-               break;
-            //Spirit
-            case 7:
-               var instance = PickUpObjects.instance;
-               if (other.gameObject == instance.pickedObject)
-               {
-                  if(PickUpObjects.instance.isThingTaken) other.GetComponent<Spirit>()?.Respawn();
-               }
-               else other.GetComponent<Spirit>()?.Respawn();
-               break;
-            //Object
-            case 14:
-               StartCoroutine(MakeObjectDisappear(other.gameObject));
-               break;
-         }
+         if (other.gameObject.layer != 6) return;
+         
+         _characterIsInside = true;
+         StartCoroutine(CharacterBuffer());
       }
 
       private void OnTriggerExit(Collider other)
@@ -66,11 +48,5 @@ namespace Utilitaire
          instance.canMove = true;
          instance.canJump = true;
       }
-
-      private static IEnumerator MakeObjectDisappear(GameObject other)
-      {
-         yield return new WaitForSeconds(1);
-         other.SetActive(false);
-      }
-   }
+    }
 }
