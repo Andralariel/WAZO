@@ -4,33 +4,31 @@ using UnityEngine;
 
 namespace Utilitaire
 {
-   public class DeathZone : MonoBehaviour
-   {
+    public class InnerDeathZone : MonoBehaviour
+    {
+        private bool _characterIsInside;
+      
       private void OnTriggerEnter(Collider other)
       {
-         Debug.Log("DeathZone");
-         switch (other.gameObject.layer)
-         {
-            //Character
-            case 6:
-               StartCoroutine(RespawnPlayer());
-               break;
-            //Spirit
-            case 7:
-               var instance = PickUpObjects.instance;
-               if (other.gameObject == instance.pickedObject)
-               {
-                  if(PickUpObjects.instance.isThingTaken) other.GetComponent<Spirit>()?.Respawn();
-               }
-               else other.GetComponent<Spirit>()?.Respawn();
-               break;
-            //Object
-            case 14:
-               StartCoroutine(MakeObjectDisappear(other.gameObject));
-               break;
-         }
+         if (other.gameObject.layer != 6) return;
+         
+         _characterIsInside = true;
+         StartCoroutine(CharacterBuffer());
       }
-      
+
+      private void OnTriggerExit(Collider other)
+      {
+         if (other.gameObject.layer != 6) return;
+         _characterIsInside = false;
+      }
+
+
+      private IEnumerator CharacterBuffer()
+      {
+         yield return new WaitForSeconds(0.1f);
+         if (_characterIsInside) StartCoroutine(RespawnPlayer());
+      }
+   
       IEnumerator RespawnPlayer()
       {
          KeyUI.instance.FadeInBlackScreen(0.5f);
@@ -50,11 +48,5 @@ namespace Utilitaire
          instance.canMove = true;
          instance.canJump = true;
       }
-
-      private static IEnumerator MakeObjectDisappear(GameObject other)
-      {
-         yield return new WaitForSeconds(1);
-         other.SetActive(false);
-      }
-   }
+    }
 }
