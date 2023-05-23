@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 
 namespace TechArt
@@ -30,6 +31,7 @@ namespace TechArt
 
         [SerializeField] private Shader mainShader;
         [SerializeField] private Shader seeThroughShader;
+        [SerializeField] private Shader pipelineLit;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -42,7 +44,16 @@ namespace TechArt
         {
             if (other.gameObject.layer != 3) return; //layer 3 = ground
             Debug.Log(other.gameObject.name + " is opaque");
-            other.GetComponent<MeshRenderer>().material.shader = mainShader;
+            ResetShader(other.GetComponent<MeshRenderer>().material);
+        }
+
+        private void ResetShader(Material other)
+        {
+            if(mats.Contains(other))
+            {
+                other.shader = mainShader;
+            }
+            else other.shader = pipelineLit;
         }
     }
 }
