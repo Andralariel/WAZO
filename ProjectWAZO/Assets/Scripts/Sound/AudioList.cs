@@ -66,6 +66,7 @@ namespace Sound
         [Header("environnement")]
         public AudioClip waterfall;
         public AudioClip auraKey;
+        public AudioClip river;
 
         [Header("Non-spatialize")]
         public AudioClip playerHit;
