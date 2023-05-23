@@ -1,4 +1,4 @@
-using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -33,18 +33,34 @@ namespace TechArt
         [SerializeField] private Shader seeThroughShader;
         [SerializeField] private Shader pipelineLit;
 
+        [SerializeField] private List<Renderer> meshes;
+        [SerializeField] private List<Shader> meshesShader;
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.layer != 3) return; //layer 3 = ground
             Debug.Log(other.gameObject.name + " is transparent");
-            other.GetComponent<MeshRenderer>().material.shader = seeThroughShader;
+            var mesh = other.GetComponent<Renderer>();
+            
+            if (mesh == null) return;
+            meshes.Add(mesh);
+            meshesShader.Add(mesh.material.shader);
+            mesh.material.shader = seeThroughShader;
         }
 
         private void OnTriggerExit(Collider other)
         {
             if (other.gameObject.layer != 3) return; //layer 3 = ground
             Debug.Log(other.gameObject.name + " is opaque");
-            ResetShader(other.GetComponent<MeshRenderer>().material);
+            var mesh = other.GetComponent<Renderer>();
+            var index = meshes.IndexOf(mesh);
+            
+            if (index == -1) return;
+            mesh.material.shader = meshesShader[index];
+            meshesShader.RemoveAt(index);
+            meshes.RemoveAt(index);
+
+            //ResetShader(other.GetComponent<MeshRenderer>().material);
         }
 
         private void ResetShader(Material other)
