@@ -31,10 +31,6 @@ public class KeyUI : MonoBehaviour
         keyInRegion.Add("Hameau",2);
         keyInRegion.Add("Plaine",2);
         keyInRegion.Add("Cimetière",1);
-        /*foreach (KeyValuePair<string,int> oui in keyInRegion)
-        {
-            Debug.Log(oui.Key + oui.Value);
-        }*/
     }
 
     public void ShowKey() // Affiche l'UI
@@ -64,22 +60,24 @@ public class KeyUI : MonoBehaviour
         {
             keyInRegion["Hameau"] -= 1;
         }
-        else if (keyObjectList[ID].choseRegion == KeyShard.Region.Hameau)
+        else if (keyObjectList[ID].choseRegion == KeyShard.Region.Cimetière)
         {
             keyInRegion["Cimetière"] -= 1;
         }
 
-        if (currentShard == TempleOpener.instance.AmountToOpen)
+        /*if (currentShard == TempleOpener.instance.AmountToOpen)
         {
             Contour.DOColor(Color.yellow, 0.5f);
-        }
-
+        }*/
     }
     
     public IEnumerator HideKey(float timeToHide) // Faire apparaitre un morceau de clé puis faire disparaitre l'UI
     {
         yield return new WaitForSeconds(timeToHide/2);
-        shardImageList[currentShard - 1].DOFade(1, 0.5f);
+        if (currentShard < 7)
+        {
+            shardImageList[currentShard - 1].DOFade(0, 0.5f);
+        }
         yield return new WaitForSeconds(timeToHide);
         myRect.DOAnchorPos(hidePosition, 0.5f).OnComplete((() =>   MapManager.instance.IconMapUpdate(1.5f)));
     }
