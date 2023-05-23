@@ -78,7 +78,7 @@ public class KeyUI : MonoBehaviour
             shardImageList[currentShard - 1].DOFade(0, 0.5f);
         }
         yield return new WaitForSeconds(timeToHide);
-        myRect.DOAnchorPos(hidePosition, 0.5f).OnComplete((() =>   MapManager.instance.IconMapUpdate(1.5f)));
+        myRect.DOAnchorPos(hidePosition, 0.5f).OnComplete((() =>   MapManager.instance.IconMapUpdate(3)));
     }
 
     public void FadeInBlackScreen(float duration) // Fade out et Fade in un écran noir
