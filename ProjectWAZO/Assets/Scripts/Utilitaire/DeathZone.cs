@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using _3C;
 using UnityEngine;
@@ -7,8 +6,6 @@ namespace Utilitaire
 {
    public class DeathZone : MonoBehaviour
    {
-      private bool _characterIsInside;
-      
       private void OnTriggerEnter(Collider other)
       {
          Debug.Log("DeathZone");
@@ -16,8 +13,7 @@ namespace Utilitaire
          {
             //Character
             case 6:
-               _characterIsInside = true;
-               StartCoroutine(CharacterBuffer());
+               StartCoroutine(RespawnPlayer());
                break;
             //Spirit
             case 7:
@@ -34,20 +30,7 @@ namespace Utilitaire
                break;
          }
       }
-
-      private void OnTriggerExit(Collider other)
-      {
-         if (other.gameObject.layer != 6) return;
-         _characterIsInside = false;
-      }
-
-
-      private IEnumerator CharacterBuffer()
-      {
-         yield return new WaitForSeconds(0.1f);
-         if (_characterIsInside) StartCoroutine(RespawnPlayer());
-      }
-   
+      
       IEnumerator RespawnPlayer()
       {
          KeyUI.instance.FadeInBlackScreen(0.5f);

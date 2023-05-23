@@ -370,7 +370,7 @@ namespace _3C
     
         private void Sauter()
         {
-            AudioList.Instance.PlayOneShot(AudioList.Instance.saut, 0.2f);
+            AudioList.Instance.PlayOneShot(AudioList.Instance.saut, AudioList.Instance.sautVolume);
             if (canJump)
             {
                 if (isEchelle)

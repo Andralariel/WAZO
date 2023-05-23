@@ -46,6 +46,7 @@ namespace Sound
 
         [Header("Player")]
         public AudioClip saut;
+        [Range(0, 1)] public float sautVolume;
         public AudioClip grabPetitAir;
         [Range(0, 1)] public float grabPetitAirVolume;
         public AudioClip grabGrosAir;
@@ -65,6 +66,7 @@ namespace Sound
         [Header("environnement")]
         public AudioClip waterfall;
         public AudioClip auraKey;
+        public AudioClip river;
 
         [Header("Non-spatialize")]
         public AudioClip playerHit;
