@@ -100,6 +100,7 @@ public class CinématiqueManager : MonoBehaviour
         CameraController.instance.canMove = true;
         Controller.instance.canMove = true;
         Controller.instance.canJump = true;
+        CarnetManager.instance.canOpen = true;
         globalVolume.weight = 1;
         isCinématique = false;
        
