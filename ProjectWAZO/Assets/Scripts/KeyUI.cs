@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Utilitaire;
+using WeightSystem.Activator;
 
 public class KeyUI : MonoBehaviour
 {
@@ -15,6 +17,7 @@ public class KeyUI : MonoBehaviour
     public List<KeyShard> keyObjectList;
     public int currentShard;
     public Image blackScreen;
+    public TextMeshProUGUI compteur;
     public Dictionary<string, int> keyInRegion = new Dictionary<string, int>();
     private void Awake()
     {
@@ -76,6 +79,7 @@ public class KeyUI : MonoBehaviour
         if (currentShard < 7)
         {
             shardImageList[currentShard - 1].DOFade(0, 0.5f);
+            compteur.text = currentShard + " / 6"; 
         }
         yield return new WaitForSeconds(timeToHide);
         myRect.DOAnchorPos(hidePosition, 0.5f).OnComplete((() =>   MapManager.instance.IconMapUpdate(3)));
@@ -94,7 +98,17 @@ public class KeyUI : MonoBehaviour
     
     public void ShowMapKey() // Faire apparaite et disparaitre l'UI dans le menu de la carte
     {
+        compteur.text = currentShard + " / 6"; 
         myRect.DOAnchorPos(showPosition, 0.5f);
+    }
+    
+    public IEnumerator ShowMapKeyWithDelay(float delay) // Faire apparaite et disparaitre l'UI dans le menu de la carte
+    {
+        yield return new WaitForSeconds(delay-0.5f);
+        compteur.text = currentShard + " / 6"; 
+        myRect.DOAnchorPos(showPosition, 0.5f);
+        yield return new WaitForSeconds(0.3f);
+        CarnetManager.instance.canOpen = true;
     }
     
     public void HideMapKey()

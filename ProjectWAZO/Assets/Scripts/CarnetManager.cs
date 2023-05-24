@@ -10,19 +10,13 @@ public class CarnetManager : MonoBehaviour
     public static CarnetManager instance;
     public List<GameObject> pagesList;
     public CanvasGroup carnet;
-    public TextMeshProUGUI texteGauche;
-    public TextMeshProUGUI texteDroite;
-    public TextMeshProUGUI texteCentre;
+    public Animator anim;
+    public Image imageTuTo;
+    public GameObject map;
+    
 
-    [Header("Float et Int")] 
-    public int openedPage;
-    public int maxPages;
-    public float changePageBuffer;
-    private float changePageBufferTimer;
-
-    [Header("Bool")] 
+    [Header("Bool")] public bool firstTime;
     public bool canOpen = true;
-    public bool canChangePage;
     public bool isOpened;
     public bool isOptions;
 
@@ -34,39 +28,18 @@ public class CarnetManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (!canChangePage)
-        {
-            changePageBufferTimer += Time.deltaTime;
-            if (changePageBufferTimer > changePageBuffer)
-            {
-                changePageBufferTimer = 0;
-                canChangePage = true;
-            }
-        }
-        
-        if (isOpened && Controller.instance.moveInput.x > 0.5f && canChangePage && openedPage < maxPages)
-        {
-            ChangePageRight();
-        }
-        
-        if (isOpened && Controller.instance.moveInput.x < -0.5f  && canChangePage && openedPage > 0)
-        {
-            ChangePageLeft();
-        }
-    }
-
     public void OpenCloseCarnet()
     {
         if (Controller.instance.isGrounded && !CinématiqueManager.instance.isCinématique && canOpen && !PauseMenu.instance.isOption)
         {
             if (isOpened)
             {
+                anim.SetBool("isOpen",false);
                 isOpened = false;
                 carnet.DOFade(0, 0.5f);
                 MapManager.instance.MapMenu.DOFade(0, 0.5f);
                 Controller.instance.canJump = true;
+                Controller.instance.ultraBlock = false;
                 Controller.instance.canMove = true;   
                 KeyUI.instance.HideMapKey();
                 
@@ -77,14 +50,19 @@ public class CarnetManager : MonoBehaviour
             }
             else
             {
+                anim.SetBool("isOpen",true);
+                canOpen = false;
                 isOpened = true;
                 MapManager.instance.MovePlayerIcon();
-                carnet.DOFade(1, 0.5f);
-                MapManager.instance.MapMenu.DOFade(1, 0.5f);
+                MapManager.instance.MapMenu.DOFade(1, 0.5f)
+                    .OnComplete((() => carnet.DOFade(1, 0.5f)));
+                StartCoroutine(KeyUI.instance.ShowMapKeyWithDelay(0.8f));
+                Controller.instance.anim.SetBool("isWalking",false);
+                Controller.instance.anim.SetBool("isIdle",true);
                 Controller.instance.canJump = false;
+                Controller.instance.ultraBlock = true;
                 Controller.instance.canMove = false;  
-                KeyUI.instance.ShowMapKey();
-
+                
                 if (KeyUI.instance.keyInRegion["Village"] <= 0) // Met les zones en couleur si toutes les clés sont récupérées
                 {
                     MapManager.instance.doneFilterList[0].DOFade(0.9f, 1.2f);
@@ -108,26 +86,10 @@ public class CarnetManager : MonoBehaviour
                 {
                     MapManager.instance.doneFilterList[4].DOFade(0.9f, 1.2f);
                 }
-                
-                texteGauche.gameObject.SetActive(true);
-                texteDroite.gameObject.SetActive(true);
-                texteCentre.text = "PAGE " + (openedPage+1);
-                texteGauche.text = "< PAGE " + (openedPage+1 - 1);
-                texteDroite.text = "PAGE " + (openedPage+1 + 1) + " >";
-                if (openedPage + 1 > maxPages)
-                {
-                    texteDroite.gameObject.SetActive(false);
-                    texteGauche.gameObject.SetActive(true);
-                }
-                else if (openedPage - 1 < 0)
-                {
-                    texteGauche.gameObject.SetActive(false);
-                    texteDroite.gameObject.SetActive(true);
-                }
             }
         }
     }
-
+    
     public void QuitMenu()
     {
         if (isOpened)
@@ -143,54 +105,6 @@ public class CarnetManager : MonoBehaviour
             {
                 img.DOFade(0, 0.5f);
             }
-        }
-    }
-
-    public void ChangePageRight()
-    {
-        canChangePage = false;
-        pagesList[openedPage].SetActive(false);
-        openedPage += 1;
-        pagesList[openedPage].SetActive(true);
-        
-        texteGauche.gameObject.SetActive(true);
-        texteDroite.gameObject.SetActive(true);
-        texteCentre.text = "PAGE " + (openedPage+1);
-        texteGauche.text = "< PAGE " + (openedPage+1 - 1);
-        texteDroite.text = "PAGE " + (openedPage+1 + 1) + " >";
-        if (openedPage + 1 > maxPages)
-        {
-            texteDroite.gameObject.SetActive(false);
-            texteGauche.gameObject.SetActive(true);
-        }
-        else if (openedPage - 1 < 0)
-        {
-            texteGauche.gameObject.SetActive(false);
-            texteDroite.gameObject.SetActive(true);
-        }
-    }
-    
-    public void ChangePageLeft()
-    {
-        canChangePage = false;
-        pagesList[openedPage].SetActive(false);
-        openedPage -= 1;
-        pagesList[openedPage].SetActive(true);
-        
-        texteGauche.gameObject.SetActive(true);
-        texteDroite.gameObject.SetActive(true);
-        texteCentre.text = "PAGE " + (openedPage+1);
-        texteGauche.text = "< PAGE " + (openedPage+1 - 1);
-        texteDroite.text = "PAGE " + (openedPage+1 + 1) + " >";
-        if (openedPage + 1 > maxPages)
-        {
-            texteDroite.gameObject.SetActive(false);
-            texteGauche.gameObject.SetActive(true);
-        }
-        else if (openedPage - 1 < 0)
-        {
-            texteGauche.gameObject.SetActive(false);
-            texteDroite.gameObject.SetActive(true);
         }
     }
 }

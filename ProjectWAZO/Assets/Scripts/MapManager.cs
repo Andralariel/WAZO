@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using _3C;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,15 +11,21 @@ public class MapManager : MonoBehaviour
     
     public static MapManager instance;
     public bool MapGot;
-    public bool isMenuOpened;
+    public bool isRotated;
+    public bool canRotate;
+    public TextMeshProUGUI textIndication;
     public CanvasGroup MapMenu;
     public RectTransform iconMapUpdate;
     public Image Map;
     public Sprite mapPleine;
+    public Sprite mapRetournee;
+    public GameObject mapElements;
+    public GameObject loreElements;
     public List<Image> pontIntero;
     public List<Image> listCroix;
     public List<Image> doneFilterList;
     public List<Image> fresquesList;
+    public List<Image> lockList;
 
     [Header("PlayerIcon")]
     [SerializeField] private RectTransform playerIcon;
@@ -44,6 +51,43 @@ public class MapManager : MonoBehaviour
         }
     }
     
+    public IEnumerator RotateMap()
+    {
+        if (CarnetManager.instance.isOpened && canRotate)
+        {
+            if (!isRotated)
+            {
+                textIndication.text = "Map";
+                isRotated = true;
+                canRotate = false;
+                Map.transform.DORotate(new Vector3(0, 90, 0),0.3f);
+                yield return new WaitForSeconds(0.3f);
+                playerIcon.gameObject.SetActive(false);
+                mapElements.SetActive(false);
+                Map.sprite = mapRetournee;
+                loreElements.SetActive(true);
+                Map.transform.DORotate(new Vector3(0, 0, 0), 0.3f);
+                yield return new WaitForSeconds(0.3f);
+                canRotate = true;
+            }
+            else
+            {
+                textIndication.text = "Forgoten Frescos";
+                isRotated = false;
+                canRotate = false;
+                Map.transform.DORotate(new Vector3(0, 90, 0),0.3f);
+                yield return new WaitForSeconds(0.3f);
+                playerIcon.gameObject.SetActive(true);
+                mapElements.SetActive(true);
+                Map.sprite = mapPleine;
+                loreElements.SetActive(false);
+                Map.transform.DORotate(new Vector3(0, 0, 0), 0.3f);
+                yield return new WaitForSeconds(0.3f);
+                canRotate = true;
+            }
+        }
+    }
+    
     public void IconMapUpdate(float duration)
     {
         StartCoroutine(ShowAndHide(duration));
@@ -58,10 +102,22 @@ public class MapManager : MonoBehaviour
       
     }
 
+    public void UnlockFresque(int ID)
+    {
+        fresquesList[ID].DOColor(Color.white, 0.5f);
+        if (lockList[ID] is not null)
+        {
+            Destroy(lockList[ID]);
+        }
+    }
+    
     public void MovePlayerIcon()
     {
-        var worldPos = Controller.instance.transform.position;
-        var mapPos = new Vector2(worldPos.x + widthOffset, worldPos.z + heightOffset);
-        playerIcon.anchoredPosition = Vector2.Scale(mapPos, Vector2.Scale(Map.rectTransform.rect.size, new Vector2(1/worldWidth, 1/worldHeight)));
+        if (!isRotated)
+        {
+            var worldPos = Controller.instance.transform.position;
+            var mapPos = new Vector2(worldPos.x + widthOffset, worldPos.z + heightOffset);
+            playerIcon.anchoredPosition = Vector2.Scale(mapPos, Vector2.Scale(Map.rectTransform.rect.size, new Vector2(1/worldWidth, 1/worldHeight)));
+        }
     }
 }

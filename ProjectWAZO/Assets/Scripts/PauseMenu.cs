@@ -95,7 +95,7 @@ public class PauseMenu : MonoBehaviour
 
     private void Update()
     {
-        if (isPause)
+        if (isPause && currentlySelected is not null)
         {
             if (currentlySelected != eventSystem.currentSelectedGameObject)
             {

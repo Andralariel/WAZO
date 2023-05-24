@@ -77,13 +77,13 @@ namespace Utilitaire
          {
             obj.transform.position = Controller.instance.transform.position;
          }
-         for (int i = 0; i < 10; i++)
+         for (int i = 0; i < 6; i++)
          {
             keyShardCinématique[i].SetActive(true);
             keyShardCinématique[i].transform.DOMove(emptyPosition[i].transform.position, 3f);
          }
          yield return new WaitForSeconds(3.5f);
-         for (int i = 0; i < 10; i++)
+         for (int i = 0; i < 6; i++)
          {
             keyShardCinématique[i].transform.DOMove(rassemblementClé.transform.position, 3f);
          }
@@ -93,7 +93,7 @@ namespace Utilitaire
          Clé.SetActive(true);
          yield return new WaitForSeconds(0.3f);
          whiteScreen.DOFade(0, 0.3f);
-         for (int i = 0; i < 10; i++)
+         for (int i = 0; i < 6; i++)
          {
             Destroy(keyShardCinématique[i]);
          }

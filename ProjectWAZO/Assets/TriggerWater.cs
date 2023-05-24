@@ -12,8 +12,8 @@ public class TriggerWater : MonoBehaviour
    {
       if (other.gameObject.layer == 6)
       {
-         originalSpeed = Controller.instance.runMoveSpeed; 
-         Controller.instance.runMoveSpeed = waterSpeed;
+         originalSpeed = Controller.instance.walkMoveSpeed; 
+         Controller.instance.walkMoveSpeed = waterSpeed;
       }
    }
 
@@ -21,7 +21,7 @@ public class TriggerWater : MonoBehaviour
    {
       if (other.gameObject.layer == 6)
       {
-         Controller.instance.runMoveSpeed = originalSpeed;
+         Controller.instance.walkMoveSpeed = originalSpeed;
       }   
    }
 }

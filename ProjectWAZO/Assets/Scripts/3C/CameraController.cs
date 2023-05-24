@@ -26,7 +26,7 @@ namespace _3C
         [Header("FoV")] 
         public float maxFoV;
         public float timeToMaxFoVFactor;
-        public float backToMinFoVFactor;
+        public float timeToMinFoV;
         
         [Header("Shake")] 
         public bool camShake;
@@ -157,18 +157,17 @@ namespace _3C
                 float yValue = target2.transform.position.y - target1.transform.position.y;
                 float relativePosition = (player.transform.position.y - target1.transform.position.y) / yValue;
                 Vector3 objectif = player.transform.position + offset + lerpGoal;
-                Debug.Log(relativePosition);
                 var toGo = Vector3.Lerp(savePosition,objectif,relativePosition);
                 transform.position =  Vector3.SmoothDamp(transform.position,toGo,ref velocity,SmoothMoveFactor);
             }
 
             if (!Controller.instance.isGrounded && Controller.instance.isOnHugeWind)
             {
-                camera.fieldOfView += Controller.instance.rb.velocity.y/timeToMaxFoVFactor;
+                camera.fieldOfView += Controller.instance.rb.velocity.y*timeToMaxFoVFactor;
             }
-            else if (Controller.instance.isGrounded)
+            else if (Controller.instance.isGrounded && camera.fieldOfView > 60)
             {
-                camera.fieldOfView = Mathf.Lerp(camera.fieldOfView,60,Time.deltaTime*backToMinFoVFactor);
+                camera.fieldOfView -= Time.deltaTime*timeToMinFoV;
             }
         }
 
