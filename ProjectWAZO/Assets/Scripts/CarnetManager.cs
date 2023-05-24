@@ -10,21 +10,13 @@ public class CarnetManager : MonoBehaviour
     public static CarnetManager instance;
     public List<GameObject> pagesList;
     public CanvasGroup carnet;
-    public TextMeshProUGUI texteGauche;
-    public TextMeshProUGUI texteDroite;
-    public TextMeshProUGUI texteCentre;
     public Animator anim;
     public Image imageTuTo;
-
-    [Header("Float et Int")] 
-    public int openedPage;
-    public int maxPages;
-    public float changePageBuffer;
-    private float changePageBufferTimer;
+    public GameObject map;
+    
 
     [Header("Bool")] public bool firstTime;
     public bool canOpen = true;
-    public bool canChangePage;
     public bool isOpened;
     public bool isOptions;
 
@@ -33,29 +25,6 @@ public class CarnetManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-        }
-    }
-
-    private void Update()
-    {
-        if (!canChangePage)
-        {
-            changePageBufferTimer += Time.deltaTime;
-            if (changePageBufferTimer > changePageBuffer)
-            {
-                changePageBufferTimer = 0;
-                canChangePage = true;
-            }
-        }
-        
-        if (isOpened && Controller.instance.moveInput.x > 0.5f && canChangePage && openedPage < maxPages)
-        {
-            ChangePageRight();
-        }
-        
-        if (isOpened && Controller.instance.moveInput.x < -0.5f  && canChangePage && openedPage > 0)
-        {
-            ChangePageLeft();
         }
     }
 
@@ -117,26 +86,10 @@ public class CarnetManager : MonoBehaviour
                 {
                     MapManager.instance.doneFilterList[4].DOFade(0.9f, 1.2f);
                 }
-                
-                texteGauche.gameObject.SetActive(true);
-                texteDroite.gameObject.SetActive(true);
-                texteCentre.text = "PAGE " + (openedPage+1);
-                texteGauche.text = "< PAGE " + (openedPage+1 - 1);
-                texteDroite.text = "PAGE " + (openedPage+1 + 1) + " >";
-                if (openedPage + 1 > maxPages)
-                {
-                    texteDroite.gameObject.SetActive(false);
-                    texteGauche.gameObject.SetActive(true);
-                }
-                else if (openedPage - 1 < 0)
-                {
-                    texteGauche.gameObject.SetActive(false);
-                    texteDroite.gameObject.SetActive(true);
-                }
             }
         }
     }
-
+    
     public void QuitMenu()
     {
         if (isOpened)
@@ -152,54 +105,6 @@ public class CarnetManager : MonoBehaviour
             {
                 img.DOFade(0, 0.5f);
             }
-        }
-    }
-
-    public void ChangePageRight()
-    {
-        canChangePage = false;
-        pagesList[openedPage].SetActive(false);
-        openedPage += 1;
-        pagesList[openedPage].SetActive(true);
-        
-        texteGauche.gameObject.SetActive(true);
-        texteDroite.gameObject.SetActive(true);
-        texteCentre.text = "PAGE " + (openedPage+1);
-        texteGauche.text = "< PAGE " + (openedPage+1 - 1);
-        texteDroite.text = "PAGE " + (openedPage+1 + 1) + " >";
-        if (openedPage + 1 > maxPages)
-        {
-            texteDroite.gameObject.SetActive(false);
-            texteGauche.gameObject.SetActive(true);
-        }
-        else if (openedPage - 1 < 0)
-        {
-            texteGauche.gameObject.SetActive(false);
-            texteDroite.gameObject.SetActive(true);
-        }
-    }
-    
-    public void ChangePageLeft()
-    {
-        canChangePage = false;
-        pagesList[openedPage].SetActive(false);
-        openedPage -= 1;
-        pagesList[openedPage].SetActive(true);
-        
-        texteGauche.gameObject.SetActive(true);
-        texteDroite.gameObject.SetActive(true);
-        texteCentre.text = "PAGE " + (openedPage+1);
-        texteGauche.text = "< PAGE " + (openedPage+1 - 1);
-        texteDroite.text = "PAGE " + (openedPage+1 + 1) + " >";
-        if (openedPage + 1 > maxPages)
-        {
-            texteDroite.gameObject.SetActive(false);
-            texteGauche.gameObject.SetActive(true);
-        }
-        else if (openedPage - 1 < 0)
-        {
-            texteGauche.gameObject.SetActive(false);
-            texteDroite.gameObject.SetActive(true);
         }
     }
 }

@@ -157,7 +157,6 @@ namespace _3C
                 float yValue = target2.transform.position.y - target1.transform.position.y;
                 float relativePosition = (player.transform.position.y - target1.transform.position.y) / yValue;
                 Vector3 objectif = player.transform.position + offset + lerpGoal;
-                Debug.Log(relativePosition);
                 var toGo = Vector3.Lerp(savePosition,objectif,relativePosition);
                 transform.position =  Vector3.SmoothDamp(transform.position,toGo,ref velocity,SmoothMoveFactor);
             }

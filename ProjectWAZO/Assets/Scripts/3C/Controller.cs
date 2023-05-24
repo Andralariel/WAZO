@@ -90,6 +90,10 @@ namespace _3C
             {
                 inputAction.Player.Move.performed += ctx => moveInput = ctx.ReadValue<Vector3>();
             }
+            
+           
+            inputAction.Player.Jump.performed += ctx => StartCoroutine(MapManager.instance.RotateMap());
+
             inputAction.Player.Jump.performed += ctx => Sauter();
             inputAction.Player.Jump.performed += ctx => NarrationMenuManager.instance.CloseMenu();
             inputAction.Player.Jump.performed += ctx => isPressing = true;
@@ -331,9 +335,11 @@ namespace _3C
     
         private void Sauter()
         {
-            AudioList.Instance.PlayOneShot(AudioList.Instance.saut, AudioList.Instance.sautVolume);
+           
             if (canJump)
             {
+                AudioList.Instance.PlayOneShot(AudioList.Instance.saut, AudioList.Instance.sautVolume);
+                
                 if (isEchelle)
                 {
                     PickUpObjects.instance.QuitEchelle();
