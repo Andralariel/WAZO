@@ -36,7 +36,6 @@ namespace Utilitaire
       {
          KeyUI.instance.FadeInBlackScreen(0.5f);
          AudioList.Instance.PlayOneShot(AudioList.Instance.deathScream, AudioList.Instance.deathScreamVolume);
-         Debug.Log("Death Scream");
          CinématiqueManager.instance.isCinématique = true;
          var instance = Controller.instance;
          instance.canMove = false;
