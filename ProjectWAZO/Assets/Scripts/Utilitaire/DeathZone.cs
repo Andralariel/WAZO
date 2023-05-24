@@ -1,5 +1,6 @@
 using System.Collections;
 using _3C;
+using Sound;
 using UnityEngine;
 
 namespace Utilitaire
@@ -34,6 +35,7 @@ namespace Utilitaire
       IEnumerator RespawnPlayer()
       {
          KeyUI.instance.FadeInBlackScreen(0.5f);
+         AudioList.Instance.PlayOneShot(AudioList.Instance.deathScream, AudioList.Instance.deathScreamVolume);
          CinématiqueManager.instance.isCinématique = true;
          var instance = Controller.instance;
          instance.canMove = false;
