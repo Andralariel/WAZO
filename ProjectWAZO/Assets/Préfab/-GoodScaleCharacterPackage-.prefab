@@ -222,7 +222,7 @@ MonoBehaviour:
   globalVolume: {fileID: 0}
   maxFoV: 90
   timeToMaxFoVFactor: 0
-  backToMinFoVFactor: 0
+  timeToMinFoV: 0
   camShake: 0
   shakeAmount: 0
   ShakeManager: {fileID: 0}
@@ -273,6 +273,8 @@ MonoBehaviour:
   seeThroughShader: {fileID: -6465566751694194690, guid: 3362592144e62fa4ea61ba24ad8cf141,
     type: 3}
   pipelineLit: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  meshes: []
+  meshesShader: []
 --- !u!95 &2031547242
 Animator:
   serializedVersion: 5
@@ -39940,24 +39942,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cdf12e275349054583cc5f0682336e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runMoveSpeed: 55
-  runAirControlSpeed: 50
-  walkMoveSpeed: 45
-  walkAirControlSpeed: 40
+  airControlSpeed: 36
+  walkMoveSpeed: 53
   hugeWindAirSpeed: 0
-  timeToRun: 2
-  slopeSpeed: 8
-  runSlopeSpeed: 9
+  maxSpeed: 40
+  slopeSpeed: 7.2
   jumpForce: 14.5
   onMoveJumpForce: 10
   gravityScale: -4
   currentWindGravityScale: 0
   planingGravity: 1
-  coyoteTime: 0.1
   stuckBuffer: 20
   deadZone: 0.1
   ultraBlock: 0
-  isRuning: 0
   isOnHugeWind: 0
   isGrounded: 1
   canPlaner: 1

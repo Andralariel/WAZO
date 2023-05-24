@@ -27,27 +27,21 @@ namespace _3C
         #endregion
    
         [Header("Métrics Controller")]
-        public float runMoveSpeed;
-        public float runAirControlSpeed;
+        public float airControlSpeed = 40f;
         public float walkMoveSpeed;
-        public float walkAirControlSpeed;
         public float hugeWindAirSpeed;
-        public float timeToRun;
-        private float _timeToRunTimer;
+        public float maxSpeed;
         public float slopeSpeed;
-        public float runSlopeSpeed;
         public float jumpForce;
         public float onMoveJumpForce = 7f;
         public float gravityScale;
         [HideInInspector] public float currentWindGravityScale;
         public float planingGravity;
-        public float coyoteTime;
         [SerializeField] private int stuckBuffer = 10;
         [Range(0f, 1f)] public float deadZone;
 
         [Header("Tracker Controller")] 
         public bool ultraBlock;
-        public bool isRuning;
         public bool isOnHugeWind;
         public bool isGrounded;
         public bool canPlaner;
@@ -113,16 +107,6 @@ namespace _3C
                 Vector3 gravity = globalGravity * gravityScale * Vector3.up;
                 rb.AddForce(rb.mass*gravity, ForceMode.Force);
             }
-         
-            if (moveInput != Vector3.zero && !isRuning)
-            {
-                _timeToRunTimer += Time.deltaTime;
-            }
-            else if(moveInput == Vector3.zero || isHoldingASpirit)
-            {
-                _timeToRunTimer = 0;
-                isRuning = false;
-            }
         }
         
         private void DeadZone()
@@ -132,10 +116,11 @@ namespace _3C
      
         private void AlignInputWithCameraAngle()
         {
-            moveInput.Normalize();
-            var cameraAngle = -CameraController.instance.normalRotation.y*Mathf.Deg2Rad;
-            var newX = moveInput.x * Mathf.Cos(cameraAngle) - moveInput.z * Mathf.Sin(cameraAngle);
-            var newZ = moveInput.x * Mathf.Sin(cameraAngle) + moveInput.z * Mathf.Cos(cameraAngle);
+            if(moveInput.magnitude>1) moveInput.Normalize();
+            Debug.Log(moveInput);
+            // var cameraAngle = -CameraController.instance.normalRotation.y*Mathf.Deg2Rad;
+            // var newX = moveInput.x * Mathf.Cos(cameraAngle) - moveInput.z * Mathf.Sin(cameraAngle);
+            // var newZ = moveInput.x * Mathf.Sin(cameraAngle) + moveInput.z * Mathf.Cos(cameraAngle);
             // _moveDir = new Vector3(newX,0,newZ);
             _moveDir = new Vector3(moveInput.x,0,moveInput.z);  // J'AI ENLEVÉ LES DEPALCEMENTS DANS L'AXE DE LA CAMERA
         }
@@ -156,7 +141,7 @@ namespace _3C
         
             if (_moveDir.x != 0 && _moveDir.z != 0) // Limite la vitesse lors des déplacements en diagonale
             {
-                Vector2 groundMovement = Vector2.ClampMagnitude(new Vector2(rb.velocity.x, rb.velocity.z), 7.8f);
+                Vector2 groundMovement = Vector2.ClampMagnitude(new Vector2(rb.velocity.x, rb.velocity.z), maxSpeed);
                 rb.velocity = new Vector3(groundMovement.x, rb.velocity.y, groundMovement.y);
             }
 
@@ -180,16 +165,10 @@ namespace _3C
 
             if (MoveEnding)
             {
-                rb.velocity += (new Vector3(0f,0f,1f) * (runAirControlSpeed));
+                rb.velocity += (new Vector3(0f,0f,1f) * (airControlSpeed));
                 Vector3 velocityClamp = new Vector3(Mathf.Clamp(rb.velocity.x, -3f,3f),0,Mathf.Clamp(rb.velocity.z, -5f,5f));
                 rb.velocity = velocityClamp; 
                 canMove = false;
-            }
-
-            if (_timeToRunTimer >= timeToRun)
-            {
-                isRuning = true;
-                _timeToRunTimer = 0;
             }
 
             if (isEchelle) // Si le perso est sur une echelle, son anim dépend de sa vitesse et il peut en sortir en touchant le sol
@@ -306,15 +285,11 @@ namespace _3C
                 {
                     if (isOnHugeWind)
                     { 
-                        rb.velocity +=(new Vector3((float)_moveDir.x,0,_moveDir.z) * (hugeWindAirSpeed * Time.deltaTime));
+                        rb.velocity +=(new Vector3((float)_moveDir.x,0,_moveDir.z) * (hugeWindAirSpeed * (1+(-1*gravityScale-4)/40) * Time.deltaTime));
                     }
-                    else if (isRuning)
+                    else
                     {
-                        rb.velocity +=(new Vector3((float)_moveDir.x,0,_moveDir.z) * (runAirControlSpeed * Time.deltaTime));
-                    }
-                    else if (!isRuning && !isOnHugeWind)
-                    {
-                        rb.velocity +=(new Vector3((float)_moveDir.x,0,_moveDir.z) * (walkAirControlSpeed * Time.deltaTime));
+                        rb.velocity +=(new Vector3((float)_moveDir.x,0,_moveDir.z) * (airControlSpeed * (1+(-1*gravityScale-4)/40) * Time.deltaTime));
                     }
                 }
                 
@@ -478,9 +453,11 @@ namespace _3C
             Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit,2,groundMask);
             Debug.DrawRay(hit.point,hit.normal,Color.green);
             
-            if (Vector3.Dot(hit.normal, Vector3.up) < 0.97)
+            if (Vector3.Dot(hit.normal, Vector3.up) < 0.97f)
             {
-                if(canJump && !onMovingPlank) rb.constraints = _moveDir.magnitude == 0
+                var magnitude = _moveDir.magnitude;
+                if (magnitude > 0.9) magnitude = 0.9f;
+                if(canJump && !onMovingPlank) rb.constraints = magnitude == 0
                     ? RigidbodyConstraints.FreezeRotation|RigidbodyConstraints.FreezePositionY
                     : RigidbodyConstraints.FreezeRotation;
             
@@ -489,25 +466,11 @@ namespace _3C
                 direction = Vector3.Cross(direction,hit.normal);
                 Debug.DrawRay(hit.point,direction.normalized,Color.red);
 
-                if (isRuning)
-                {
-                    rb.velocity = direction.normalized * runSlopeSpeed;
-                }
-                else
-                {
-                    rb.velocity = direction.normalized * slopeSpeed;
-                }
+                rb.velocity = direction.normalized * (slopeSpeed * magnitude);
             }
             else
             {
-                if (isRuning)
-                {
-                    rb.velocity += new Vector3((float)_moveDir.x,0,_moveDir.z) * (runMoveSpeed * Time.deltaTime);
-                }
-                else
-                {
-                    rb.velocity += new Vector3((float)_moveDir.x,0,_moveDir.z) * (walkMoveSpeed * Time.deltaTime);
-                }
+                rb.velocity += new Vector3((float)_moveDir.x,0,_moveDir.z) * (walkMoveSpeed * Time.deltaTime);
             }
         }
 
