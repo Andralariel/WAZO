@@ -109,25 +109,14 @@ namespace _3C
             }
         }
         
-        private void DeadZone()
-        {
-            if(moveInput.magnitude<deadZone) moveInput = Vector3.zero;
-        }
+       
      
-        private void AlignInputWithCameraAngle()
-        {
-            if(moveInput.magnitude>1) moveInput.Normalize();
-            Debug.Log(moveInput);
-            // var cameraAngle = -CameraController.instance.normalRotation.y*Mathf.Deg2Rad;
-            // var newX = moveInput.x * Mathf.Cos(cameraAngle) - moveInput.z * Mathf.Sin(cameraAngle);
-            // var newZ = moveInput.x * Mathf.Sin(cameraAngle) + moveInput.z * Mathf.Cos(cameraAngle);
-            // _moveDir = new Vector3(newX,0,newZ);
-            _moveDir = new Vector3(moveInput.x,0,moveInput.z);  // J'AI ENLEVÉ LES DEPALCEMENTS DANS L'AXE DE LA CAMERA
-        }
+        
         void Update()
         {
-            DeadZone();
-            AlignInputWithCameraAngle();
+            if(moveInput.magnitude<deadZone) moveInput = Vector3.zero; // DeadZone
+            
+            _moveDir = new Vector3(moveInput.x,0,moveInput.z); // Mouvement
 
             if (Input.GetKeyDown(KeyCode.M))
             {

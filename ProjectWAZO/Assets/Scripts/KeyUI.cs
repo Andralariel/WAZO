@@ -102,6 +102,15 @@ public class KeyUI : MonoBehaviour
         myRect.DOAnchorPos(showPosition, 0.5f);
     }
     
+    public IEnumerator ShowMapKeyWithDelay(float delay) // Faire apparaite et disparaitre l'UI dans le menu de la carte
+    {
+        yield return new WaitForSeconds(delay-0.5f);
+        compteur.text = currentShard + " / 6"; 
+        myRect.DOAnchorPos(showPosition, 0.5f);
+        yield return new WaitForSeconds(0.3f);
+        CarnetManager.instance.canOpen = true;
+    }
+    
     public void HideMapKey()
     {
         myRect.DOAnchorPos(hidePosition, 0.5f);

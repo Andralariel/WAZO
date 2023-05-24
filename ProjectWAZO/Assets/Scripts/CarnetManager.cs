@@ -13,6 +13,7 @@ public class CarnetManager : MonoBehaviour
     public TextMeshProUGUI texteGauche;
     public TextMeshProUGUI texteDroite;
     public TextMeshProUGUI texteCentre;
+    public Animator anim;
 
     [Header("Float et Int")] 
     public int openedPage;
@@ -63,10 +64,12 @@ public class CarnetManager : MonoBehaviour
         {
             if (isOpened)
             {
+                anim.SetBool("isOpen",false);
                 isOpened = false;
                 carnet.DOFade(0, 0.5f);
                 MapManager.instance.MapMenu.DOFade(0, 0.5f);
                 Controller.instance.canJump = true;
+                Controller.instance.ultraBlock = false;
                 Controller.instance.canMove = true;   
                 KeyUI.instance.HideMapKey();
                 
@@ -77,14 +80,19 @@ public class CarnetManager : MonoBehaviour
             }
             else
             {
+                anim.SetBool("isOpen",true);
+                canOpen = false;
                 isOpened = true;
                 MapManager.instance.MovePlayerIcon();
-                carnet.DOFade(1, 0.5f);
-                MapManager.instance.MapMenu.DOFade(1, 0.5f);
+                MapManager.instance.MapMenu.DOFade(1, 0.5f)
+                    .OnComplete((() => carnet.DOFade(1, 0.5f)));
+                StartCoroutine(KeyUI.instance.ShowMapKeyWithDelay(0.8f));
+                Controller.instance.anim.SetBool("isWalking",false);
+                Controller.instance.anim.SetBool("isIdle",true);
                 Controller.instance.canJump = false;
+                Controller.instance.ultraBlock = true;
                 Controller.instance.canMove = false;  
-                KeyUI.instance.ShowMapKey();
-
+                
                 if (KeyUI.instance.keyInRegion["Village"] <= 0) // Met les zones en couleur si toutes les clés sont récupérées
                 {
                     MapManager.instance.doneFilterList[0].DOFade(0.9f, 1.2f);

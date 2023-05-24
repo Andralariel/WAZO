@@ -80,10 +80,12 @@ public class CinématiqueManager : MonoBehaviour
         {
             Controller.instance.ultraBlock = true;
         }
-        cinematiqueManager.playableAsset = cinématiqueList[1];
         Controller.instance.canMove = false;
         Controller.instance.canJump = false;
         CameraController.instance.canMove = false;
+        
+        
+        cinematiqueManager.playableAsset = cinématiqueList[1];
         Controller.instance.anim.SetBool("isWalking",false);
         Controller.instance.anim.SetBool("isFlying",false);
         Controller.instance.anim.SetBool("isIdle",true);
