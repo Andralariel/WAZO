@@ -175,6 +175,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4739304696094571110}
+  - component: {fileID: 5473936898706138993}
   m_Layer: 0
   m_Name: MOD_Abri
   m_TagString: Untagged
@@ -189,7 +190,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5372429516364767452}
-  m_LocalRotation: {x: -0, y: 0.8767456, z: -0, w: 0.48095447}
+  m_LocalRotation: {x: 0, y: 0.8767477, z: 0, w: 0.48095056}
   m_LocalPosition: {x: 49.332203, y: 12.76, z: 33.121475}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
@@ -201,6 +202,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 122.505, z: 0}
+--- !u!64 &5473936898706138993
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5372429516364767452}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &5691954264786562057
 GameObject:
   m_ObjectHideFlags: 0
