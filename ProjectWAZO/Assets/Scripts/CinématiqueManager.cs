@@ -14,6 +14,7 @@ public class CinématiqueManager : MonoBehaviour
     public List<PlayableAsset> cinématiqueList;
     private List<IEnumerator> coroutineList = new List<IEnumerator>();
     public static CinématiqueManager instance;
+    public BoxCollider box;
     public Volume globalVolume;
     private DepthOfField dof = null;
 
@@ -61,12 +62,11 @@ public class CinématiqueManager : MonoBehaviour
         KeyUI.instance.FadeOutBlackScreen(1);
         isCinématique = false;
     }
-    
+
     public IEnumerator CinématiqueBOTW() // index 1
     {
         CameraController.instance.isFlou = false;
-        //dof.enabled.value = false;
-            isCinématique = false;
+        isCinématique = false;
         Controller.instance.canMove = false;
         Controller.instance.canJump = false;
         CameraController.instance.canMove = false;
@@ -94,17 +94,18 @@ public class CinématiqueManager : MonoBehaviour
         CameraController.instance.isFlou = true;
         yield return new WaitForSeconds(1);
         cinematiqueManager.Stop();
+        yield return new WaitForSeconds(0.5f);
         MapManager.instance.Map.sprite = MapManager.instance.mapPleine;
         MapManager.instance.MapGot = true;
         CarnetManager.instance.canOpen = true;
-        Controller.instance.ultraBlock = false;
-        PauseMenu.instance.canPause = true;
         CameraController.instance.canMove = true;
-        Controller.instance.canMove = true;
-        Controller.instance.canJump = true;
-        CarnetManager.instance.canOpen = true;
-        globalVolume.weight = 1;
+        PauseMenu.instance.canPause = true;
+        box.enabled = true;
         isCinématique = false;
-       
+        globalVolume.weight = 1;
+       // Controller.instance.ultraBlock = false;
+       // Controller.instance.canMove = true;
+       // Controller.instance.canJump = true;
+      
     }
 }

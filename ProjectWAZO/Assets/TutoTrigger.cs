@@ -1,10 +1,14 @@
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class TutoTrigger : MonoBehaviour
 {
     public bool DoOnce;
+    public bool isMap;
+    public string textToDisplay;
+    public TextMeshProUGUI text;
     public Image ImageOBJ;
     public CanvasGroup CanvasG;
     public Sprite imageVISU; 
@@ -12,8 +16,20 @@ public class TutoTrigger : MonoBehaviour
     {
         if (other.gameObject.layer == 6)
         {
+            text.text = textToDisplay;
             ImageOBJ.sprite = imageVISU;
             CanvasG.DOFade(1, 1.5f);
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.layer == 6)
+        {
+            if (CarnetManager.instance.isOpened)
+            {
+                CanvasG.DOFade(0, 1.5f).OnComplete((() => Destroy(gameObject)));
+            }
         }
     }
 

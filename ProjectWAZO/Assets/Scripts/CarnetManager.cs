@@ -14,6 +14,7 @@ public class CarnetManager : MonoBehaviour
     public TextMeshProUGUI texteDroite;
     public TextMeshProUGUI texteCentre;
     public Animator anim;
+    public Image imageTuTo;
 
     [Header("Float et Int")] 
     public int openedPage;
@@ -21,7 +22,7 @@ public class CarnetManager : MonoBehaviour
     public float changePageBuffer;
     private float changePageBufferTimer;
 
-    [Header("Bool")] 
+    [Header("Bool")] public bool firstTime;
     public bool canOpen = true;
     public bool canChangePage;
     public bool isOpened;

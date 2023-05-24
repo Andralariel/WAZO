@@ -109,9 +109,6 @@ namespace _3C
             }
         }
         
-       
-     
-        
         void Update()
         {
             if(moveInput.magnitude<deadZone) moveInput = Vector3.zero; // DeadZone
@@ -128,7 +125,7 @@ namespace _3C
                 SceneManager.LoadScene("Temple Test");
             }
         
-            if (_moveDir.x != 0 && _moveDir.z != 0) // Limite la vitesse lors des déplacements en diagonale
+            if (isGrounded) // Limite la vitesse lors des déplacements en diagonale
             {
                 Vector2 groundMovement = Vector2.ClampMagnitude(new Vector2(rb.velocity.x, rb.velocity.z), maxSpeed);
                 rb.velocity = new Vector3(groundMovement.x, rb.velocity.y, groundMovement.y);
