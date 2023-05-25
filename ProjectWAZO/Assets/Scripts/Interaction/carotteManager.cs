@@ -7,6 +7,8 @@ namespace Interaction
     {
         public Rigidbody rb;
         public BoxCollider carotteColider;
+        
+        private PotBehaviour _myPot;
     
         private void Start()
         { 
@@ -17,6 +19,12 @@ namespace Interaction
 
         public void IsTaken()
         {
+            if (_myPot != null)
+            {
+                _myPot.EmptyPot();
+                _myPot = null;
+            }
+
             carotteColider.enabled = false;
             rb.isKinematic = true;
             rb.useGravity = false;
@@ -29,7 +37,7 @@ namespace Interaction
             rb.isKinematic = false;
         }
 
-        public void IsPlanted()
+        public void IsPlanted(PotBehaviour pot)
         {
             var tran = transform;
             tran.DOLocalRotate(Vector3.zero, 0.25f);
@@ -37,9 +45,7 @@ namespace Interaction
             carotteColider.enabled = false;
             rb.isKinematic = true;
             rb.useGravity = false;
-            
-            //Prevent Multiple Planting
-            this.enabled = false;
+            _myPot = pot;
         }
     }
 }
