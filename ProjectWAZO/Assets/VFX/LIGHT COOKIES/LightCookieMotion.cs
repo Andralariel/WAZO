@@ -14,6 +14,8 @@ public class LightCookieMotion : MonoBehaviour
     [SerializeField] Vector2 m_movementTimeOffset1UV = new Vector2();
     [SerializeField] Vector2 m_tex1TilingUV = new Vector2(1f, 1f);
     [SerializeField] Vector2 m_tex1OffsetUV = new Vector2();
+    [SerializeField] private float tex1DriftingSpeed;
+    [SerializeField] private Vector2 tex1DriftDirection;
 
     [Header("Texture 2")]
     [SerializeField] Vector2 m_cycleDuration2UV = new Vector2(20f, 20f);
@@ -23,6 +25,8 @@ public class LightCookieMotion : MonoBehaviour
     [SerializeField] Vector2 m_movementTimeOffset2UV = new Vector2();
     [SerializeField] Vector2 m_tex2TilingUV = new Vector2(2f, 2f);
     [SerializeField] Vector2 m_tex2OffsetUV = new Vector2();
+    [SerializeField] private float tex2DriftingSpeed;
+    [SerializeField] private Vector2 tex2DriftDirection;
 
     private float m_time1U;
     private float m_time1V;
@@ -45,10 +49,16 @@ public class LightCookieMotion : MonoBehaviour
         m_time2V = Time.time % m_cycleDuration2UV.y;
         m_time2V /= m_cycleDuration2UV.y;
 
+        Drift();
         UpdateMaterial(); 
     }
-
-
+    
+    private void Drift()
+    {
+        m_tex1OffsetUV += tex1DriftDirection * (tex1DriftingSpeed * Time.deltaTime);
+        m_tex2OffsetUV += tex2DriftDirection * (tex2DriftingSpeed * Time.deltaTime);
+    }
+    
     private void UpdateMaterial()
     {
         float newU1 = m_movementPath1U.Evaluate(m_time1U + m_movementTimeOffset1UV.x) * m_movementMagnitude1UV.x;
