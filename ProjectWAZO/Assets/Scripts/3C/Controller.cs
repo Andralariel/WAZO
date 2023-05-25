@@ -30,7 +30,6 @@ namespace _3C
         public float airControlSpeed = 40f;
         public float walkMoveSpeed;
         public float hugeWindAirSpeed;
-        public float maxSpeed;
         public float slopeSpeed;
         public float jumpForce;
         public float onMoveJumpForce = 7f;
@@ -116,6 +115,7 @@ namespace _3C
         void Update()
         {
             if(moveInput.magnitude<deadZone) moveInput = Vector3.zero; // DeadZone
+            if(moveInput.magnitude>1) moveInput.Normalize();
             
             _moveDir = new Vector3(moveInput.x,0,moveInput.z); // Mouvement
 
@@ -128,13 +128,7 @@ namespace _3C
             {
                 SceneManager.LoadScene("Temple Test");
             }
-        
-            if (isGrounded) // Limite la vitesse lors des déplacements en diagonale
-            {
-                Vector2 groundMovement = Vector2.ClampMagnitude(new Vector2(rb.velocity.x, rb.velocity.z), maxSpeed);
-                rb.velocity = new Vector3(groundMovement.x, rb.velocity.y, groundMovement.y);
-            }
-
+            
             if (CinématiqueManager.instance.isCinématique)
             {
                 anim.SetBool("isIdle",false);
@@ -259,18 +253,8 @@ namespace _3C
                 {
                     gravityScale -= currentWindGravityScale * Time.deltaTime;
                 }
-
-
-                if (isOnHugeWind)
-                {
-                    gravityScale = Mathf.Clamp(gravityScale,-15, -4);
-                }
-                else
-                {
-                    gravityScale = Mathf.Clamp(gravityScale,-20, -4);
-                }
-              
-             
+                gravityScale = Mathf.Clamp(gravityScale,-20, -4);
+                
                 if (!isEchelle) 
                 {
                     if (isOnHugeWind)
