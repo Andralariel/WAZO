@@ -8,7 +8,6 @@ using UnityEngine.UI;
 public class CarnetManager : MonoBehaviour
 {
     public static CarnetManager instance;
-    public List<GameObject> pagesList;
     public CanvasGroup carnet;
     public Animator anim;
     public Image imageTuTo;
@@ -42,6 +41,7 @@ public class CarnetManager : MonoBehaviour
                 Controller.instance.ultraBlock = false;
                 Controller.instance.canMove = true;   
                 KeyUI.instance.HideMapKey();
+                KeyUI.instance.HideMapBonusKey();
                 
                 foreach (Image img in MapManager.instance.doneFilterList)
                 {
@@ -57,6 +57,7 @@ public class CarnetManager : MonoBehaviour
                 MapManager.instance.MapMenu.DOFade(1, 0.5f)
                     .OnComplete((() => carnet.DOFade(1, 0.5f)));
                 StartCoroutine(KeyUI.instance.ShowMapKeyWithDelay(0.8f));
+                StartCoroutine(KeyUI.instance.ShowMapBonusKeyWithDelay(0.8f));
                 Controller.instance.anim.SetBool("isWalking",false);
                 Controller.instance.anim.SetBool("isIdle",true);
                 Controller.instance.canJump = false;

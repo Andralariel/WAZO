@@ -10,7 +10,7 @@ namespace Utilitaire
    public class TempleOpener : MonoBehaviour
    {
       public float currentAmount;
-      public float AmountToOpen;
+      public int AmountToOpen;
       public bool canOpen;
       public static TempleOpener instance;
       public Animator animDoor;
