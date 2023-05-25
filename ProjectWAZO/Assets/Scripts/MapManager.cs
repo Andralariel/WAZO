@@ -107,7 +107,7 @@ public class MapManager : MonoBehaviour
         fresquesList[ID].DOColor(Color.white, 0.5f);
         if (lockList[ID] is not null)
         {
-            Destroy(lockList[ID]);
+            Destroy(lockList[ID].gameObject);
         }
     }
     
