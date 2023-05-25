@@ -253,7 +253,7 @@ namespace _3C
                 {
                     gravityScale -= currentWindGravityScale * Time.deltaTime;
                 }
-                gravityScale = Mathf.Clamp(gravityScale,-20, -4);
+                gravityScale = Mathf.Clamp(gravityScale,-15, -4);
                 
                 if (!isEchelle) 
                 {
