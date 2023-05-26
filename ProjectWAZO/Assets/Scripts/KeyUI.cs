@@ -89,7 +89,7 @@ public class KeyUI : MonoBehaviour
         yield return new WaitForSeconds(timeToHide/2);
         if (currentShard <= 5)
         {
-            shardImageList[currentShard - 1].DOFade(0, 0.5f).OnComplete((() => currentShard += 1));;
+            shardImageList[currentShard].DOFade(0, 0.5f).OnComplete((() => currentShard += 1));;
             yield return new WaitForSeconds(0.5f);
             compteur.text = currentShard + " / 6"; 
         }
@@ -112,7 +112,7 @@ public class KeyUI : MonoBehaviour
         
         if (currentShard >= 6)
         {
-            addShardImageList[currentBonusShard - 1].DOColor(Color.white, 0.5f);
+            addShardImageList[currentBonusShard].DOColor(Color.white, 0.5f);
             compteurBonus.text = currentBonusShard + " / 4"; 
         }
         yield return new WaitForSeconds(timeToHide);
