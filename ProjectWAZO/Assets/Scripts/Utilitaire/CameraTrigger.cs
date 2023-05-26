@@ -143,7 +143,7 @@ namespace Utilitaire
                   camera.isIso = true;
                   camera.offset = originalOffset;
                   camera.focusedObject = null;
-                  camera.SmoothMoveFactor = oldSmoothFactor;
+                  CameraController.instance.filmPlayer = false;
                   break;
             }
          }
