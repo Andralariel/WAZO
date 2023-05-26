@@ -11,6 +11,7 @@ public class ActivateInteroPoints : MonoBehaviour
       if (other.gameObject.layer == 6)
       {
          MapManager.instance.pontIntero[ID-1].gameObject.SetActive(true);
+         Destroy(this);
       }
    }
 }
