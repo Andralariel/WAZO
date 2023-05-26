@@ -95,12 +95,15 @@ public class CarnetManager : MonoBehaviour
     {
         if (isOpened)
         {
+            anim.SetBool("isOpen",false);
             isOpened = false;
             carnet.DOFade(0, 0.5f);
             MapManager.instance.MapMenu.DOFade(0, 0.5f);
             Controller.instance.canJump = true;
+            Controller.instance.ultraBlock = false;
             Controller.instance.canMove = true;   
             KeyUI.instance.HideMapKey();
+            KeyUI.instance.HideMapBonusKey();
                 
             foreach (Image img in MapManager.instance.doneFilterList)
             {
