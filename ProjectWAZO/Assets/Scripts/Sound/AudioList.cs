@@ -43,6 +43,11 @@ namespace Sound
 
         [Header("UI")]
         public AudioClip uiClick;
+        
+        [Header("Cinematique")]
+        public AudioClip cinematiqueOrbe;
+        [Range(0, 1)] public float cinematiqueOrbeVolume;
+        public AudioClip earthquake;
 
         [Header("Player")]
         public AudioClip saut;
