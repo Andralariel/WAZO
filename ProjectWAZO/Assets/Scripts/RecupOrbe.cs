@@ -1,6 +1,7 @@
 using System.Collections;
 using _3C;
 using DG.Tweening;
+using Sound;
 using UnityEngine;
 
 public class RecupOrbe : MonoBehaviour
@@ -16,6 +17,12 @@ public class RecupOrbe : MonoBehaviour
     public bool EndedMoving;
     public float timeToGo;
     public float RotateSpeed;
+    [SerializeField] private AudioSource earthquakeSound;
+    
+    private void Start()
+    {
+        earthquakeSound.clip = AudioList.Instance.earthquake;
+    }
     private void Update()
     {
         if (isMoving)
@@ -50,6 +57,7 @@ public class RecupOrbe : MonoBehaviour
             player.anim.SetBool("isWalking",true);
             player.anim.SetBool("isIdle",false);
             player.canJump = false;
+            AudioList.Instance.PlayOneShot(AudioList.Instance.cinematiqueOrbe, AudioList.Instance.cinematiqueOrbeVolume);
             Vector3 pointToGo = new Vector3(PointToGo.position.x, player.transform.position.y, PointToGo.position.z);
             player.transform.DOMove(pointToGo, timeToGo).SetEase(Ease.Linear).OnComplete((() => StartCoroutine(EndCinématic())));
         }
@@ -69,6 +77,7 @@ public class RecupOrbe : MonoBehaviour
         vfxreplacing.Play();
         basic.Stop();
         yield return new WaitForSeconds(4.5f);
+        earthquakeSound.Play();
         CameraController.instance.camShake = true;
         yield return new WaitForSeconds(2f);
         Eboulement.SetActive(true);
@@ -81,5 +90,6 @@ public class RecupOrbe : MonoBehaviour
         player.enabled = true;
         Destroy(gameObject);
     }
+    
     
 }
