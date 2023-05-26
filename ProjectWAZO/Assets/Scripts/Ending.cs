@@ -1,6 +1,7 @@
 using System.Collections;
 using _3C;
 using DG.Tweening;
+using Sound;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -22,6 +23,12 @@ public class Ending : MonoBehaviour
     public float cameraSpeed1;
     public float cameraSpeed2;
     public float playerSpeed;
+    [SerializeField] private AudioSource earthquakeSound;
+    
+    private void Start()
+    {
+        earthquakeSound.clip = AudioList.Instance.earthquake;
+    }
     private void Update()
     {
         if (EndedMoving)
@@ -52,6 +59,7 @@ public class Ending : MonoBehaviour
             player.anim.SetBool("isIdle",false);
             player.canJump = false;
             Vector3 pointToGo = new Vector3(PointToGo.position.x, player.transform.position.y, PointToGo.position.z);
+            earthquakeSound.Stop();
             player.transform.DOMove(pointToGo, timeToGo).SetEase(Ease.Linear).OnComplete((() => StartCoroutine(EndCinématic())));
         }
     }
