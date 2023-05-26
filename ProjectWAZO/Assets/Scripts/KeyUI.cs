@@ -18,6 +18,7 @@ public class KeyUI : MonoBehaviour
     public Image contour;
     public int currentShard;
     public int currentBonusShard;
+    public CanvasGroup bonusKeyAlpha;
     public Image blackScreen;
     public TextMeshProUGUI compteur;
     public Dictionary<string, int> keyInRegion = new Dictionary<string, int>();
@@ -73,7 +74,7 @@ public class KeyUI : MonoBehaviour
         
         if (currentShard == TempleOpener.instance.AmountToOpen)
         {
-            contour.DOColor(Color.yellow, 5f);
+            contour.DOColor(Color.yellow, 4f);
         }
 
     }
@@ -86,12 +87,13 @@ public class KeyUI : MonoBehaviour
     public IEnumerator HideKey(float timeToHide) // Faire apparaitre un morceau de clé puis faire disparaitre l'UI
     {
         yield return new WaitForSeconds(timeToHide/2);
-        if (currentShard <= 6)
+        if (currentShard <= 5)
         {
-            shardImageList[currentShard - 1].DOFade(0, 0.5f);
+            shardImageList[currentShard - 1].DOFade(0, 0.5f).OnComplete((() => currentShard += 1));;
+            yield return new WaitForSeconds(0.5f);
             compteur.text = currentShard + " / 6"; 
         }
-        yield return new WaitForSeconds(timeToHide);
+        yield return new WaitForSeconds(timeToHide-0.5f);
         myRect.DOAnchorPos(hidePosition, 0.5f).OnComplete((() =>   MapManager.instance.IconMapUpdate(3)));
     }
     
@@ -103,7 +105,12 @@ public class KeyUI : MonoBehaviour
     public IEnumerator HideAdditionalKey(float timeToHide) // Faire apparaitre un morceau de clé puis faire disparaitre l'UI
     {
         yield return new WaitForSeconds(timeToHide/2);
-        if (currentShard >= 7)
+        if (currentShard == 5)
+        {
+            bonusKeyAlpha.DOFade(1,0.5f);
+        }
+        
+        if (currentShard >= 6)
         {
             addShardImageList[currentBonusShard - 1].DOColor(Color.white, 0.5f);
             compteurBonus.text = currentBonusShard + " / 4"; 
