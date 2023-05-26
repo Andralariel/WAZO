@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using _3C;
 using DG.Tweening;
@@ -53,6 +54,10 @@ public class CinématiqueTrigger : MonoBehaviour
       NarrationMenuManager.instance.ChangeFresque(FresqueID);
       NarrationMenuManager.instance.OpenMenu();
       MapManager.instance.UnlockFresque(FresqueID);
+      
+      //Fix rotation
+      Controller.instance.transform.rotation = Quaternion.Euler(Vector3.zero);
+      
       if (!repetable)
       {
          Destroy(gameObject);
