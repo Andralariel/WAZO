@@ -43,6 +43,11 @@ namespace Sound
 
         [Header("UI")]
         public AudioClip uiClick;
+        
+        [Header("Cinematique")]
+        public AudioClip cinematiqueOrbe;
+        [Range(0, 1)] public float cinematiqueOrbeVolume;
+        public AudioClip earthquake;
 
         [Header("Player")]
         public AudioClip saut;
@@ -55,8 +60,10 @@ namespace Sound
         [Range(0, 1)] public float grabGrosTerreVolume;
         public AudioClip deathScream;
         [Range(0, 1)] public float deathScreamVolume;
-        public AudioClip climb;
-        [Range(0, 1)] public float climbVolume;
+        public AudioClip step;
+        [Range(0, 1)] public float stepVolume;
+        public AudioClip grabOther;
+        [Range(0, 1)] public float grabOtherVolume;
 
         [Header("Interacteur")]
         public AudioClip getKey;
@@ -66,6 +73,7 @@ namespace Sound
         public AudioClip altarActive;
         [Range(0, 1)] public float altarActiveVolume;
         public AudioClip turnWindmill;
+        [Range(0, 1)] public float turnWindWillVolume;
 
         [Header("environnement")]
         public AudioClip waterfall;
@@ -130,7 +138,7 @@ namespace Sound
         
             FadeIn();
         }
-    
+
         public void PlayOneShot(AudioClip clip, float volumeScale)
         {
             audioSourceOneShot.PlayOneShot(clip,volumeScale);

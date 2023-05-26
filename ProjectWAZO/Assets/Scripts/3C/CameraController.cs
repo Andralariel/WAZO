@@ -18,6 +18,7 @@ namespace _3C
         public bool canRotate;
         public bool isFlou;
         public float changeFlouFactor;
+        public float filmPlayerDistance;
         public GameObject player;
         public Volume globalVolume;
         private Vector3 velocity;
@@ -51,8 +52,9 @@ namespace _3C
         public GameObject target1;
         public GameObject target2;
         public Vector3 lerpGoal;
-    
-        [Header("Camera State")]
+
+        [Header("Camera State")] 
+        public bool filmPlayer;
         public bool isIso;
         public bool isTopDown;
         public bool isFocused;
@@ -131,6 +133,14 @@ namespace _3C
                     Vector3 newPosition = player.transform.position + offset + (Controller.instance.moveInput * walkingLookFactor);
                     transform.localPosition = Vector3.SmoothDamp(transform.position,newPosition,ref velocity,SmoothMoveFactor);
                     transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(normalRotation), Time.deltaTime/SmoothRotateFactor);
+
+                    if(filmPlayer) return;
+                    if (Vector3.Distance(transform.position, newPosition) < filmPlayerDistance)
+                    {
+                        Debug.Log("oui");
+                        filmPlayer = true;
+                        SmoothMoveFactor = 0.2f;
+                    }
                 }
                 else
                 {

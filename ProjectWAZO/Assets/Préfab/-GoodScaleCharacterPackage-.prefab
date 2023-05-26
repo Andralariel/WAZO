@@ -218,11 +218,12 @@ MonoBehaviour:
   canRotate: 0
   isFlou: 1
   changeFlouFactor: 1
+  filmPlayerDistance: 3
   player: {fileID: 8471131677271567744}
   globalVolume: {fileID: 0}
   maxFoV: 75
-  timeToMaxFoVFactor: 70
-  timeToMinFoV: 0
+  timeToMaxFoVFactor: 0.03
+  timeToMinFoV: 0.01
   camShake: 0
   shakeAmount: 0
   ShakeManager: {fileID: 0}
@@ -235,6 +236,7 @@ MonoBehaviour:
   target1: {fileID: 0}
   target2: {fileID: 0}
   lerpGoal: {x: 0, y: 0, z: 0}
+  filmPlayer: 0
   isIso: 1
   isTopDown: 0
   isFocused: 0
@@ -39916,7 +39918,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8471131677271567744}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 16.349869, y: 20.4727, z: 263.1003}
+  m_LocalPosition: {x: -80.8, y: 47.8, z: 230.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -39945,7 +39947,6 @@ MonoBehaviour:
   airControlSpeed: 36
   walkMoveSpeed: 53
   hugeWindAirSpeed: 0
-  maxSpeed: 40
   slopeSpeed: 7.2
   jumpForce: 14.5
   onMoveJumpForce: 10

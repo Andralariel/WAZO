@@ -118,18 +118,22 @@ namespace Utilitaire
       {
          if (other.gameObject.layer == 6)
          {
+            
+            
             switch (cameraEffect)
             {
                case Effect.OnePointOffset:
                   if (!fixColline)
                   {
                      camera.offset = originalOffset;
-                     camera.SmoothMoveFactor = oldSmoothFactor;
+                     //camera.SmoothMoveFactor = oldSmoothFactor;
+                     CameraController.instance.filmPlayer = false;
                   }
                   else
                   {
                      camera.offset = new Vector3(2, 10, -8.5f);
-                     camera.SmoothMoveFactor = 0.2f;
+                     //camera.SmoothMoveFactor = 0.2f;
+                     CameraController.instance.filmPlayer = false;
                   }
              
                   originalOffset = Vector3.zero;
@@ -139,7 +143,7 @@ namespace Utilitaire
                   camera.isIso = true;
                   camera.offset = originalOffset;
                   camera.focusedObject = null;
-                  camera.SmoothMoveFactor = oldSmoothFactor;
+                  CameraController.instance.filmPlayer = false;
                   break;
             }
          }

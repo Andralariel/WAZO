@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using _3C;
 using DG.Tweening;
@@ -28,10 +29,10 @@ public class CinématiqueTrigger : MonoBehaviour
    {
       if (other.gameObject.layer == 6)
       {
-         //EndedMoving = true;
          player.canJump = false;
-         player.canMove = false;
+         
          Vector2 angle =  PointToGo.position - player.transform.position ;
+         Debug.Log(angle.normalized);
          player.moveInput = angle.normalized;
          CinématiqueManager.instance.isCinématique = false;
          CameraController.instance.SmoothMoveFactor = 0.8f;
@@ -41,7 +42,7 @@ public class CinématiqueTrigger : MonoBehaviour
          player.anim.SetBool("isWalking",true);
          player.anim.SetBool("isIdle",false);
          Vector3 pointToGo = new Vector3(PointToGo.position.x, player.transform.position.y, PointToGo.position.z);
-         player.transform.DOMove(pointToGo, timeToGo).SetEase(Ease.Linear).OnComplete((() => StartCoroutine(OpenMenu())));
+         //player.transform.DOMove(pointToGo, timeToGo).SetEase(Ease.Linear).OnComplete((() => StartCoroutine(OpenMenu())));
       }
    }
    
@@ -53,6 +54,10 @@ public class CinématiqueTrigger : MonoBehaviour
       NarrationMenuManager.instance.ChangeFresque(FresqueID);
       NarrationMenuManager.instance.OpenMenu();
       MapManager.instance.UnlockFresque(FresqueID);
+      
+      //Fix rotation
+      Controller.instance.transform.rotation = Quaternion.Euler(Vector3.zero);
+      
       if (!repetable)
       {
          Destroy(gameObject);

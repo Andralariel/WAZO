@@ -39,7 +39,7 @@ namespace TechArt
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.layer != 3) return; //layer 3 = ground
-            Debug.Log(other.gameObject.name + " is transparent");
+            //Debug.Log(other.gameObject.name + " is transparent");
             var mesh = other.GetComponent<Renderer>();
             
             if (mesh == null) return;
@@ -51,7 +51,7 @@ namespace TechArt
         private void OnTriggerExit(Collider other)
         {
             if (other.gameObject.layer != 3) return; //layer 3 = ground
-            Debug.Log(other.gameObject.name + " is opaque");
+            //Debug.Log(other.gameObject.name + " is opaque");
             var mesh = other.GetComponent<Renderer>();
             var index = meshes.IndexOf(mesh);
             
@@ -59,17 +59,6 @@ namespace TechArt
             mesh.material.shader = meshesShader[index];
             meshesShader.RemoveAt(index);
             meshes.RemoveAt(index);
-
-            //ResetShader(other.GetComponent<MeshRenderer>().material);
-        }
-
-        private void ResetShader(Material other)
-        {
-            if(mats.Contains(other))
-            {
-                other.shader = mainShader;
-            }
-            else other.shader = pipelineLit;
         }
     }
 }

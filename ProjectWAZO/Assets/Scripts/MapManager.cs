@@ -8,7 +8,6 @@ using UnityEngine.UI;
 
 public class MapManager : MonoBehaviour
 {
-    
     public static MapManager instance;
     public bool MapGot;
     public bool isRotated;
@@ -16,6 +15,7 @@ public class MapManager : MonoBehaviour
     public TextMeshProUGUI textIndication;
     public CanvasGroup MapMenu;
     public RectTransform iconMapUpdate;
+    public RectTransform iconMapFound;
     public Image Map;
     public Sprite mapPleine;
     public Sprite mapRetournee;
@@ -60,13 +60,14 @@ public class MapManager : MonoBehaviour
                 textIndication.text = "Map";
                 isRotated = true;
                 canRotate = false;
+                CarnetManager.instance.canOpen = false;
                 Map.transform.DORotate(new Vector3(0, 90, 0),0.3f);
                 yield return new WaitForSeconds(0.3f);
                 playerIcon.gameObject.SetActive(false);
                 mapElements.SetActive(false);
                 Map.sprite = mapRetournee;
                 loreElements.SetActive(true);
-                Map.transform.DORotate(new Vector3(0, 0, 0), 0.3f);
+                Map.transform.DORotate(new Vector3(0, 0, 0), 0.3f).OnComplete((() =>    CarnetManager.instance.canOpen = false));
                 yield return new WaitForSeconds(0.3f);
                 canRotate = true;
             }
@@ -87,6 +88,22 @@ public class MapManager : MonoBehaviour
             }
         }
     }
+
+    #region Update et Found Map
+
+    public void IconMapFound(float duration2)
+    {
+        StartCoroutine(ShowAndHide(duration2));
+    }
+
+    IEnumerator ShowAndHideFound(float duration2)
+    {
+        iconMapFound.gameObject.SetActive(true);
+        iconMapFound.DOAnchorPosX(-15, 0.5f);
+        yield return new WaitForSeconds(duration2);
+        iconMapFound.DOAnchorPosX(200, 0.5f).OnComplete((() =>   iconMapFound.gameObject.SetActive(false)));
+      
+    }
     
     public void IconMapUpdate(float duration)
     {
@@ -101,6 +118,9 @@ public class MapManager : MonoBehaviour
         iconMapUpdate.DOAnchorPosX(200, 0.5f).OnComplete((() =>   iconMapUpdate.gameObject.SetActive(false)));
       
     }
+
+    #endregion
+  
 
     public void UnlockFresque(int ID)
     {

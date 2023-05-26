@@ -358,7 +358,7 @@ namespace _3C
                     audioList.PlayOneShot(audioList.grabGrosTerre,audioList.grabGrosTerreVolume);
                     break;
                 default:
-                    audioList.PlayOneShot(audioList.buyInShop,audioList.buyInShopVolume);
+                    audioList.PlayOneShot(audioList.grabOther,audioList.grabOtherVolume);
                     break;
             }
         }
