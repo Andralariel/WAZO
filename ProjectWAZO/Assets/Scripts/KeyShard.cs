@@ -101,21 +101,31 @@ public class KeyShard : MonoBehaviour
       {
          Destroy(spiritsToKill[i]);
       }
-      if (KeyUI.instance.currentShard <= 6)
+      if (KeyUI.instance.currentShard <= 4)
       {
          Debug.Log("Clé Normale");
          KeyUI.instance.ShowKey();
          TempleOpener.instance.currentAmount += 1;
-         KeyUI.instance.currentShard += 1;
          TempleOpener.instance.CheckKeyState();
       }
       
-      if (KeyUI.instance.currentShard >= 7)
+      if (KeyUI.instance.currentShard == 5)
+      {
+         Debug.Log("Last Clé Normale");
+         KeyUI.instance.ShowAdditionalKey();
+         KeyUI.instance.ShowKey();
+         TempleOpener.instance.currentAmount += 1;
+         TempleOpener.instance.CheckKeyState();
+      }
+      
+      if (KeyUI.instance.currentShard >= 6)
       {
          Debug.Log("Clé Bonus");
          KeyUI.instance.ShowAdditionalKey();
-         TempleOpener.instance.CheckKeyState();
+         KeyUI.instance.ShowKey();
          KeyUI.instance.currentBonusShard += 1;
+         TempleOpener.instance.currentAmount += 1;
+         TempleOpener.instance.CheckKeyState();
       }
      
       Destroy(gameObject);

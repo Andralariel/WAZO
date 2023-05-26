@@ -99,7 +99,7 @@ public class CinématiqueManager : MonoBehaviour
         MapManager.instance.MapGot = true;
         CarnetManager.instance.canOpen = true;
         CameraController.instance.canMove = true;
-        PauseMenu.instance.canPause = true;
+        PauseMenu.instance.canPause = false;
         box.enabled = true;
         isCinématique = false;
         globalVolume.weight = 1;
