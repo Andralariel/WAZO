@@ -145,11 +145,14 @@ public class KeyUI : MonoBehaviour
     
     public IEnumerator ShowMapBonusKeyWithDelay(float delay) // Faire apparaite et disparaitre l'UI dans le menu de la carte
     {
-        yield return new WaitForSeconds(delay-0.5f);
-        compteurBonus.text = currentBonusShard + " / 4"; 
-        addShard.DOAnchorPos(showBonusPosition, 0.5f);
-        yield return new WaitForSeconds(0.3f);
-        CarnetManager.instance.canOpen = true;
+        if (currentShard >= 6)
+        {
+            yield return new WaitForSeconds(delay-0.5f);
+            compteurBonus.text = currentBonusShard + " / 4"; 
+            addShard.DOAnchorPos(showBonusPosition, 0.5f);
+            yield return new WaitForSeconds(0.3f);
+            CarnetManager.instance.canOpen = true; 
+        }
     }
     
     public void HideMapBonusKey()

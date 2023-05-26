@@ -114,6 +114,7 @@ public class KeyShard : MonoBehaviour
       {
          Debug.Log("Clé Bonus");
          KeyUI.instance.ShowAdditionalKey();
+         TempleOpener.instance.CheckKeyState();
          KeyUI.instance.currentBonusShard += 1;
       }
      
