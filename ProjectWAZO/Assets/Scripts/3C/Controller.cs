@@ -328,7 +328,8 @@ namespace _3C
         IEnumerator StopGoing()
         {
             moveCine = new Vector3(0, 0, 0);
-            transform.DOLocalRotate(new Vector3(0, 0, 0), 0.5f);
+            Vector3 toLook = thingToLook.transform.position - transform.position;
+            transform.DOLocalRotate(new Vector3(0,toLook.y,0), 0.5f);
             yield return new WaitForSeconds(0.6f);
             isGoing = false;
         }
