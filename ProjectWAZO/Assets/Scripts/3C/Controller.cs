@@ -314,6 +314,8 @@ namespace _3C
 
             if (isGoing)
             {
+                anim.SetBool("isWalking",true);
+                anim.SetBool("isIdle",false);
                 canMove = false;
                 canJump = false;
                 Vector3 toGo = pointToGo.transform.position - transform.position;
@@ -327,6 +329,8 @@ namespace _3C
 
         IEnumerator StopGoing()
         {
+            anim.SetBool("isWalking",false);
+            anim.SetBool("isIdle",true);
             moveCine = new Vector3(0, 0, 0);
             Vector3 toLook = thingToLook.transform.position - transform.position;
             transform.DOLocalRotate(new Vector3(0,toLook.y,0), 0.5f);

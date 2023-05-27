@@ -13,63 +13,32 @@ public class RecupOrbe : MonoBehaviour
     public GameObject thingToLook;
     public Transform PointToGo;
     public GameObject Eboulement;
-    public  bool isMoving;
-    public bool EndedMoving;
     public float timeToGo;
-    public float RotateSpeed;
+   
     [SerializeField] private AudioSource earthquakeSound;
     
     private void Start()
     {
         earthquakeSound.clip = AudioList.Instance.earthquake;
     }
-    private void Update()
-    {
-        if (isMoving)
-        {
-            var lookPos = PointToGo.position - player.transform.position;
-            lookPos.y = 0;
-            var rotation = Quaternion.LookRotation(lookPos);
-            player.transform.rotation = Quaternion.Slerp(player.transform.rotation, rotation, Time.deltaTime * RotateSpeed*5);
-        }
-      
-        if (EndedMoving)
-        {
-            player.ChangeAnimSpeed(1);
-            player.anim.SetBool("isWalking",false);
-            player.anim.SetBool("isIdle",true);
-            isMoving = false;
-            var lookPos = thingToLook.transform.position - PointToGo.position;
-            lookPos.y = 0;
-            var rotation = Quaternion.LookRotation(lookPos);
-            player.transform.rotation = Quaternion.Slerp(player.transform.rotation, rotation, Time.deltaTime * RotateSpeed);
-        }
-    }
     public void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == 6)
         {
-            Controller.instance.ultraBlock = false;
+            Controller.instance.isGoing = true;
+            Controller.instance.pointToGo = PointToGo.gameObject;
+            Controller.instance.cineSpeed = 0.8f;
+            Controller.instance.thingToLook = thingToLook;
             CinématiqueManager.instance.isCinématique = true;
-            isMoving = true;
-            player.canMove = false;
-            player.ChangeAnimSpeed(0.3f);
-            player.anim.SetBool("isWalking",true);
-            player.anim.SetBool("isIdle",false);
-            player.canJump = false;
             AudioList.Instance.PlayOneShot(AudioList.Instance.cinematiqueOrbe, AudioList.Instance.cinematiqueOrbeVolume);
-            Vector3 pointToGo = new Vector3(PointToGo.position.x, player.transform.position.y, PointToGo.position.z);
-            player.transform.DOMove(pointToGo, timeToGo).SetEase(Ease.Linear).OnComplete((() => StartCoroutine(EndCinématic())));
+            StartCoroutine(EndCinématic());
         }
     }
 
     IEnumerator EndCinématic()
     {
-        isMoving = false;
-        EndedMoving = true;
-        player.ChangeAnimSpeed(1f);
-        player.anim.SetBool("isWalking",false);
-        player.anim.SetBool("isIdle",true);
+        yield return new WaitForSeconds(timeToGo);
+        player.isGoing = false;
         CameraController.instance.transform.DOMove(CameraController.instance.transform.position + CameraController.instance.transform.forward*5, 8f);
         yield return new WaitForSeconds(2);
         orbe.transform.DOMove(Controller.instance.transform.position, 3f);
