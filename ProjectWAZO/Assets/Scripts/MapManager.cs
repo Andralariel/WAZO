@@ -26,6 +26,7 @@ public class MapManager : MonoBehaviour
     public List<Image> doneFilterList;
     public List<Image> fresquesList;
     public List<Image> lockList;
+    public List<bool> isFresqueUnlocked;
 
     [Header("PlayerIcon")]
     [SerializeField] private RectTransform playerIcon;
@@ -57,6 +58,13 @@ public class MapManager : MonoBehaviour
         {
             if (!isRotated)
             {
+                for (int i = 0; i < isFresqueUnlocked.Count; i++)
+                {
+                    if (isFresqueUnlocked[i])
+                    {
+                        StartCoroutine(UnlockFresque(i));
+                    }
+                }
                 textIndication.text = "Map";
                 isRotated = true;
                 canRotate = false;
@@ -117,18 +125,21 @@ public class MapManager : MonoBehaviour
         iconMapUpdate.DOAnchorPosX(-15, 0.5f);
         yield return new WaitForSeconds(duration);
         iconMapUpdate.DOAnchorPosX(200, 0.5f).OnComplete((() =>   iconMapUpdate.gameObject.SetActive(false)));
-      
+    
     }
 
     #endregion
   
 
-    public void UnlockFresque(int ID)
+    public IEnumerator UnlockFresque(int ID)
     {
-        fresquesList[ID].DOColor(Color.white, 0.5f);
+        yield return new WaitForSeconds(0.4f);
+        lockList[ID].DOColor(new Color(255,255,255,0),0.5f);
+        yield return new WaitForSeconds(1f);
+        fresquesList[ID].DOColor(Color.white, 1.55f);
         if (lockList[ID] is not null)
         {
-            Destroy(lockList[ID].gameObject);
+           lockList[ID].gameObject.SetActive(false);
         }
     }
     

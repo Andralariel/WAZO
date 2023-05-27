@@ -34,6 +34,7 @@ public class NarrationMenuManager : MonoBehaviour
     {
         if (isOpen)
         {
+            MapManager.instance.IconMapUpdate(3f);
             CarnetManager.instance.canOpen = true;
             Controller.instance.isGoing = false;
             Controller.instance._moveDir = Vector3.zero;

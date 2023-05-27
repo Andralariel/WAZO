@@ -50,6 +50,13 @@ public class CarnetManager : MonoBehaviour
             }
             else
             {
+                for (int i = 0; i < MapManager.instance.isFresqueUnlocked.Count; i++)
+                {
+                    if (MapManager.instance.isFresqueUnlocked[i])
+                    {
+                        StartCoroutine(MapManager.instance.UnlockFresque(i));
+                    }
+                }   
                 anim.SetBool("isOpen",true);
                 canOpen = false;
                 isOpened = true;

@@ -33,7 +33,8 @@ public class CinématiqueTrigger : MonoBehaviour
       yield return new WaitForSeconds(CinématiqueDuration);
       NarrationMenuManager.instance.ChangeFresque(FresqueID);
       NarrationMenuManager.instance.OpenMenu();
-      MapManager.instance.UnlockFresque(FresqueID);
+      MapManager.instance.isFresqueUnlocked[FresqueID] = true;
+     
       
       //Fix rotation
       Controller.instance.transform.rotation = Quaternion.Euler(Vector3.zero);
