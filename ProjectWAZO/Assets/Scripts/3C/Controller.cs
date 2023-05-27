@@ -314,19 +314,25 @@ namespace _3C
 
             if (isGoing)
             {
-                isGoing = true;
                 canMove = false;
+                canJump = false;
                 Vector3 toGo = pointToGo.transform.position - transform.position;
                 moveCine = toGo.normalized * cineSpeed;
-                if (toGo.magnitude <= 0.1f)
+                if (toGo.magnitude <= 1f)
                 {
-                    Vector2 look = thingToLook.transform.position - transform.position;
-                    transform.DORotate(new Vector3(0, 0, 0), 0.3f);
-                    isGoing = false;
+                    StartCoroutine(StopGoing());
                 }  
             }
         }
-        
+
+        IEnumerator StopGoing()
+        {
+            moveCine = new Vector3(0, 0, 0);
+            transform.DOLocalRotate(new Vector3(0, 0, 0), 0.5f);
+            yield return new WaitForSeconds(0.6f);
+            isGoing = false;
+        }
+
         //Moved Checkpoint Detection to controller
         [Header("Checkpoint Detection")]
         public Vector3 respawnPoint;

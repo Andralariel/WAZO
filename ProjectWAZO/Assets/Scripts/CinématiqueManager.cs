@@ -156,6 +156,7 @@ public class CinématiqueManager : MonoBehaviour
         Controller.instance.isGoing = false;
         CameraController.instance.offset = new Vector3(4, 15, -8.5f);
         box.enabled = true;
+        Controller.instance._moveDir = Vector3.zero;
         MapManager.instance.Map.sprite = MapManager.instance.mapPleine;
         MapManager.instance.MapGot = true;
         CarnetManager.instance.canOpen = true;

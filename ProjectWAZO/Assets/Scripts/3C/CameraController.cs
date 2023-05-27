@@ -173,6 +173,7 @@ namespace _3C
 
             if (!Controller.instance.isGrounded && Controller.instance.isOnHugeWind)
             {
+                Debug.Log("dezoooooom");
                 camera.fieldOfView += Controller.instance.rb.velocity.y*timeToMaxFoVFactor;
             }
             else if (Controller.instance.isGrounded && camera.fieldOfView > 60)

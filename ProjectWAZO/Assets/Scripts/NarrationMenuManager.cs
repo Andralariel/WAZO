@@ -34,6 +34,9 @@ public class NarrationMenuManager : MonoBehaviour
     {
         if (isOpen)
         {
+            CarnetManager.instance.canOpen = true;
+            Controller.instance.isGoing = false;
+            Controller.instance._moveDir = Vector3.zero;
             Controller.instance.canMove = true;
             Controller.instance.canJump = true;
             isOpen = false;

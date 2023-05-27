@@ -67,7 +67,7 @@ public class MapManager : MonoBehaviour
                 mapElements.SetActive(false);
                 Map.sprite = mapRetournee;
                 loreElements.SetActive(true);
-                Map.transform.DORotate(new Vector3(0, 0, 0), 0.3f).OnComplete((() =>    CarnetManager.instance.canOpen = false));
+                Map.transform.DORotate(new Vector3(0, 0, 0), 0.3f).OnComplete((() =>    CarnetManager.instance.canOpen = true));
                 yield return new WaitForSeconds(0.3f);
                 canRotate = true;
             }
@@ -76,13 +76,14 @@ public class MapManager : MonoBehaviour
                 textIndication.text = "Forgotten Frescos";
                 isRotated = false;
                 canRotate = false;
+                CarnetManager.instance.canOpen = false;
                 Map.transform.DORotate(new Vector3(0, 90, 0),0.3f);
                 yield return new WaitForSeconds(0.3f);
                 playerIcon.gameObject.SetActive(true);
                 mapElements.SetActive(true);
                 Map.sprite = mapPleine;
                 loreElements.SetActive(false);
-                Map.transform.DORotate(new Vector3(0, 0, 0), 0.3f);
+                Map.transform.DORotate(new Vector3(0, 0, 0), 0.3f).OnComplete((() => CarnetManager.instance.canOpen = true));
                 yield return new WaitForSeconds(0.3f);
                 canRotate = true;
             }

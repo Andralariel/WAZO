@@ -6,49 +6,29 @@ using UnityEngine;
 
 public class CinématiqueTrigger : MonoBehaviour
 {
-   public Controller player;
-   public GameObject thingToLook;
+   public GameObject fresque;
    public Transform PointToGo;
-   public bool EndedMoving;
    public float CinématiqueDuration;
-   public float timeToGo;
-   public float RotateSpeed;
    public int FresqueID;
    public bool repetable;
-
-   private void Update()
-  {
-     if (EndedMoving)
-     {
-        Vector3 pointToGo = new Vector3(PointToGo.position.x, player.transform.position.y, PointToGo.position.z);
-        var rotation = Quaternion.LookRotation(pointToGo);
-        player.transform.rotation = Quaternion.Slerp(player.transform.rotation, rotation, Time.deltaTime * RotateSpeed);
-     }
-  }
+   
    private void OnTriggerEnter(Collider other)
    {
       if (other.gameObject.layer == 6)
       {
-         player.canJump = false;
-         
-         Vector2 angle =  PointToGo.position - player.transform.position ;
-         Debug.Log(angle.normalized);
-         player.moveInput = angle.normalized;
-         CinématiqueManager.instance.isCinématique = false;
-         CameraController.instance.SmoothMoveFactor = 0.8f;
-         //CameraController.instance.player = PointToGo.gameObject;
-         //CameraController.instance.transform.DOMove(CameraController.instance.transform.position + CameraController.instance.transform.forward*3, 5f);
-         player.ChangeAnimSpeed(0.3f);
-         player.anim.SetBool("isWalking",true);
-         player.anim.SetBool("isIdle",false);
-         Vector3 pointToGo = new Vector3(PointToGo.position.x, player.transform.position.y, PointToGo.position.z);
-         //player.transform.DOMove(pointToGo, timeToGo).SetEase(Ease.Linear).OnComplete((() => StartCoroutine(OpenMenu())));
+         Controller.instance.pointToGo = PointToGo.gameObject;
+         Controller.instance.thingToLook = fresque;
+         Controller.instance.cineSpeed = 0.8f;
+         Controller.instance.isGoing = true;
+         Controller.instance.canMove = false;
+         Controller.instance.canJump = false;
+         StartCoroutine(OpenMenu());
       }
    }
    
    IEnumerator OpenMenu()
    {
-      EndedMoving = true;
+      CarnetManager.instance.canOpen = false;
       CameraController.instance.SmoothMoveFactor = 0.2f;
       yield return new WaitForSeconds(CinématiqueDuration);
       NarrationMenuManager.instance.ChangeFresque(FresqueID);
@@ -63,4 +43,21 @@ public class CinématiqueTrigger : MonoBehaviour
          Destroy(gameObject);
       }
    }
+   
+   //-------------------------Archives----------------------------------------------------------
+   
+   /*player.canJump = false;
+         
+         Vector2 angle =  PointToGo.position - player.transform.position ;
+         Debug.Log(angle.normalized);
+         player.moveInput = angle.normalized;
+         CinématiqueManager.instance.isCinématique = false;
+         CameraController.instance.SmoothMoveFactor = 0.8f;
+         //CameraController.instance.player = PointToGo.gameObject;
+         //CameraController.instance.transform.DOMove(CameraController.instance.transform.position + CameraController.instance.transform.forward*3, 5f);
+         player.ChangeAnimSpeed(0.3f);
+         player.anim.SetBool("isWalking",true);
+         player.anim.SetBool("isIdle",false);
+         Vector3 pointToGo = new Vector3(PointToGo.position.x, player.transform.position.y, PointToGo.position.z);
+         //player.transform.DOMove(pointToGo, timeToGo).SetEase(Ease.Linear).OnComplete((() => StartCoroutine(OpenMenu())));*/
 }
