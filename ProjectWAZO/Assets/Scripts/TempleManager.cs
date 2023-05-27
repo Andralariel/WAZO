@@ -50,10 +50,10 @@ public class TempleManager : Activator
         CameraController.instance.canMove = true;
         originalOffset = CameraController.instance.offset;
         CameraController.instance.offset = new Vector3(4, 25, -20.2f);
-        CameraController.instance.SmoothMoveFactor = 0.3f;
+        CameraController.instance.SmoothMoveFactor = 0.6f;
         CameraController.instance.walkingLookFactor = 0;
         CameraController.instance.player = Escalier1;
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(4f);
         CameraController.instance.camShake = true;
         Escalier1.transform.DOMove(
             new Vector3(Escalier1.transform.position.x, Escalier1.transform.position.y + 6,
