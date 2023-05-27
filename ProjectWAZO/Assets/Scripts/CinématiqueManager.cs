@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using _3C;
+using DG.Tweening;
+using EventSystem;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Rendering;
@@ -18,6 +20,13 @@ public class CinématiqueManager : MonoBehaviour
     public Volume globalVolume;
     private DepthOfField dof = null;
 
+    [Header("CineCarte")] 
+    public float playerSpeed;
+    public List<GameObject> spiritsList;
+    public List<ParticleSystem> spawnVfxList;
+    public ParticleSystem mapVfx;
+    public GameObject modeMap;
+    public GameObject playerCenterPoint;
     private void Awake()
     {
         if (instance == null)
@@ -26,6 +35,7 @@ public class CinématiqueManager : MonoBehaviour
         }
         coroutineList.Add(CinématiqueIntro());
         coroutineList.Add(CinématiqueBOTW());
+        coroutineList.Add(CinématiqueCarte());
     }
 
     void Start()
@@ -65,6 +75,12 @@ public class CinématiqueManager : MonoBehaviour
 
     public IEnumerator CinématiqueBOTW() // index 1
     {
+        Controller.instance.isGoing = true;
+        Controller.instance.thingToLook = modeMap;
+        Controller.instance.pointToGo = playerCenterPoint;
+        Controller.instance.cineSpeed = 1f;
+        PauseMenu.instance.canPause = false;
+        yield return new WaitForSeconds(1.5f);
         CameraController.instance.isFlou = false;
         isCinématique = false;
         Controller.instance.canMove = false;
@@ -72,10 +88,11 @@ public class CinématiqueManager : MonoBehaviour
         CameraController.instance.canMove = false;
         PauseMenu.instance.canPause = false;
         CarnetManager.instance.canOpen = false;
-        Controller.instance.moveInput = Vector3.zero;
+     
+        /*Controller.instance.moveInput = Vector3.zero;
         Controller.instance.anim.SetBool("isWalking",false);
         Controller.instance.anim.SetBool("isFlying",false);
-        Controller.instance.anim.SetBool("isIdle",true);
+        Controller.instance.anim.SetBool("isIdle",true);*/
         if (!Controller.instance.isGrounded)
         {
             Controller.instance.ultraBlock = true;
@@ -95,17 +112,96 @@ public class CinématiqueManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         cinematiqueManager.Stop();
         yield return new WaitForSeconds(0.5f);
+        CameraController.instance.SmoothMoveFactor = 0.5f;
+        CameraController.instance.canMove = true;
+        isCinématique = false;
+        globalVolume.weight = 1;
+        StartCoroutine(CinématiqueCarte());
+    }
+
+    public IEnumerator CinématiqueCarte()
+    {
+        Controller.instance.canMove = false;
+        Controller.instance.canJump = false;
+        Controller.instance.ultraBlock = true;
+        yield return new WaitForSeconds(1.5f);
+        CameraController.instance.SmoothMoveFactor = 1f;
+        CameraController.instance.offset = new Vector3(2, 10, -3.5f);
+        yield return new WaitForSeconds(0.8f);
+        CameraController.instance.transform.DOMove(CameraController.instance.transform.position + CameraController.instance.transform.forward*5, 3f).SetEase(Ease.Linear);
+        yield return new WaitForSeconds(3f);
+        CameraController.instance.transform.DOMove(CameraController.instance.transform.position + CameraController.instance.transform.forward*3, 19f);
+        for (int i = 0; i < spiritsList.Count; i++) // fait spawn les esprits
+        {
+            spawnVfxList[i].Play();
+            yield return new WaitForSeconds(0.1f);
+            spiritsList[i].SetActive(true);
+            yield return new WaitForSeconds(0.4f);
+        }
+        yield return new WaitForSeconds(3f);  // fait spawn la carte
+        mapVfx.Play();
+        modeMap.SetActive(true);
+        yield return new WaitForSeconds(4.5f);
+        modeMap.transform.DOMove(Controller.instance.transform.position + new Vector3(0,0.5f,0), 2f);
+        modeMap.transform.DOScale(new Vector3(0,0,0), 2.5f);
+        yield return new WaitForSeconds(6f);
+        for (int i = 0; i < spiritsList.Count; i++) // fait despawn les esprits
+        {
+            spawnVfxList[i].Play();
+            yield return new WaitForSeconds(0.1f);
+            spiritsList[i].SetActive(false);
+            yield return new WaitForSeconds(0.4f);
+        }
+        yield return new WaitForSeconds(3f);
+        Controller.instance.isGoing = false;
+        CameraController.instance.offset = new Vector3(4, 15, -8.5f);
+        box.enabled = true;
         MapManager.instance.Map.sprite = MapManager.instance.mapPleine;
         MapManager.instance.MapGot = true;
         CarnetManager.instance.canOpen = true;
-        CameraController.instance.canMove = true;
-        PauseMenu.instance.canPause = false;
-        box.enabled = true;
-        isCinématique = false;
-        globalVolume.weight = 1;
-       // Controller.instance.ultraBlock = false;
-       // Controller.instance.canMove = true;
-       // Controller.instance.canJump = true;
-      
+        yield return new WaitForSeconds(1f);
+        CameraController.instance.SmoothMoveFactor = 0.2f;
     }
+    
+    
+    //-------------------------------Cinématique carte sans le système de déplacement d'esprits------------------------------------------
+    /*for (int i = 0; i < 14; i++)
+       {
+           spiritList[i].SetActive(true);
+           spiritList[i].transform.DOMove(wayPoints[i].transform.position, 4f);
+       }
+       yield return new WaitForSeconds(5f);
+       vfxSpawn.Play();
+       modeMap.SetActive(true);
+       yield return new WaitForSeconds(3f);
+       modeMap.transform.DOMove(Controller.instance.transform.position + new Vector3(0,0.5f,0), 3f);
+       modeMap.transform.DOScale(new Vector3(0,0,0), 4f);
+       for (int i = 0; i < 7; i++)
+       {
+           spiritList[i].transform.DOMove(spawnPointG.transform.position, 5f);
+       }
+       for (int i = 7; i < 14; i++)
+       {
+           spiritList[i].transform.DOMove(spawnPointD.transform.position, 5f);
+       }
+       yield return new WaitForSeconds(4.5f);
+       for (int i = 0; i < 14; i++)
+       {
+           spiritList[i].SetActive(false);
+       }*/
+    
+    
+    
+    //-------------------------------Cinématique carte avec le système de déplacement d'esprits------------------------------------------
+    /*yield return new WaitForSeconds(2f);
+      gaucheManager.OnEventActivate();
+      droiteManager.OnEventActivate();
+      yield return new WaitForSeconds(2f);
+      vfxSpawn.Play();
+      modeMap.SetActive(true);
+      yield return new WaitForSeconds(1.5f);
+      modeMap.transform.DOMove(Controller.instance.transform.position + new Vector3(0,0.5f,0), 3f);
+      modeMap.transform.DOScale(new Vector3(0,0,0), 4f);*/
 }
+
+

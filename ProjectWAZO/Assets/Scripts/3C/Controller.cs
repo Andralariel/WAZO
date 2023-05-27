@@ -1,4 +1,5 @@
 using System.Collections;
+using DG.Tweening;
 using Sound;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -49,6 +50,7 @@ namespace _3C
         public bool isPressing;
         public bool isWind;
         private bool isCoyote;
+        public bool isGoing;
         public bool StopGravity;
         public bool MoveEnding;
         public bool onHeightChangingPlatform;
@@ -58,6 +60,7 @@ namespace _3C
         public float rotationSpeed;
         public float globalGravity;
         public Vector3 moveInput;
+       
         public LayerMask groundMask;
         [HideInInspector] public Rigidbody rb;
         public bool DoOnce = true;
@@ -70,9 +73,14 @@ namespace _3C
         public TrailRenderer trail;
         public TrailRenderer trail2;
     
-    
+        [Header("Aller à un point pendant une cinématique")] 
+        public Vector3 moveCine;
+        public GameObject pointToGo;
+        public GameObject thingToLook;
+        public float cineSpeed;
+        
         //DirectionAlignment
-        private Vector3 _moveDir;
+        public Vector3 _moveDir;
 
         private void Awake()
         {
@@ -116,8 +124,15 @@ namespace _3C
         {
             if(moveInput.magnitude<deadZone) moveInput = Vector3.zero; // DeadZone
             if(moveInput.magnitude>1) moveInput.Normalize();
-            
-            _moveDir = new Vector3(moveInput.x,0,moveInput.z); // Mouvement
+
+            if (canMove)
+            {
+                _moveDir = new Vector3(moveInput.x, 0, moveInput.z); // Mouvement
+            }
+            else
+            {
+                _moveDir = new Vector3(moveCine.x, 0, moveCine.z);
+            }
 
             if (Input.GetKeyDown(KeyCode.M))
             {
@@ -136,7 +151,7 @@ namespace _3C
                 anim.SetBool("isWalking",false);
             }
         
-            if (_moveDir != Vector3.zero && !isEchelle && canMove) //rotations
+            if (_moveDir != Vector3.zero && !isEchelle) //rotations
             {
                 Quaternion newRotation = Quaternion.LookRotation(_moveDir, Vector3.up);
                 transform.rotation = Quaternion.RotateTowards(transform.rotation,newRotation,rotationSpeed*Time.deltaTime);
@@ -211,7 +226,7 @@ namespace _3C
                     DoOnce = false;
                     //StopPlaner();
                 }
-                if (!isEchelle && canMove)
+                if (!isEchelle)
                 {
                     FixSpeedOnSlope();
                     if (_moveDir != Vector3.zero && CinématiqueManager.instance.isCinématique == false) // Modifie la vitesse de l'animation selon la vitesse du perso
@@ -296,6 +311,20 @@ namespace _3C
             }
             
             CheckpointDetection();
+
+            if (isGoing)
+            {
+                isGoing = true;
+                canMove = false;
+                Vector3 toGo = pointToGo.transform.position - transform.position;
+                moveCine = toGo.normalized * cineSpeed;
+                if (toGo.magnitude <= 0.1f)
+                {
+                    Vector2 look = thingToLook.transform.position - transform.position;
+                    transform.DORotate(new Vector3(0, 0, 0), 0.3f);
+                    isGoing = false;
+                }  
+            }
         }
         
         //Moved Checkpoint Detection to controller

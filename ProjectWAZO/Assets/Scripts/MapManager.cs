@@ -73,7 +73,7 @@ public class MapManager : MonoBehaviour
             }
             else
             {
-                textIndication.text = "Forgoten Frescos";
+                textIndication.text = "Forgotten Frescos";
                 isRotated = false;
                 canRotate = false;
                 Map.transform.DORotate(new Vector3(0, 90, 0),0.3f);

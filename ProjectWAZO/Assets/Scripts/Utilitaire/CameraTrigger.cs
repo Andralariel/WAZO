@@ -103,23 +103,23 @@ namespace Utilitaire
                   CinématiqueManager.instance.StartCinématique(cinématiqueToStart);
                   break;
             }
+            
+            foreach (GameObject obj in objectsToKill)
+            {
+               obj.GetComponent<BoxCollider>().enabled = false;
+            }
+            if (doOnce)
+            {
+               Destroy(gameObject);
+            }
          }
-         foreach (GameObject obj in objectsToKill)
-         {
-            obj.GetComponent<BoxCollider>().enabled = false;
-         }
-         if (doOnce)
-         {
-            Destroy(gameObject);
-         }
+        
       }
 
       private void OnTriggerExit(Collider other)
       {
          if (other.gameObject.layer == 6)
          {
-            
-            
             switch (cameraEffect)
             {
                case Effect.OnePointOffset:

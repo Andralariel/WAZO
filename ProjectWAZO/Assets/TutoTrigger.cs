@@ -26,8 +26,10 @@ public class TutoTrigger : MonoBehaviour
     {
         if (other.gameObject.layer == 6)
         {
+            Debug.Log("isOnTrigger");
             if (CarnetManager.instance.isOpened)
             {
+                Debug.Log("carteouverte");
                 CanvasG.DOFade(0, 1.5f).OnComplete((() => Destroy(gameObject)));
             }
         }
@@ -38,11 +40,13 @@ public class TutoTrigger : MonoBehaviour
         if (other.gameObject.layer == 6)
         {
             CanvasG.DOFade(0, 1.5f);
+            
+            if (DoOnce)
+            {
+                Destroy(gameObject);
+            }
         }
 
-        if (DoOnce)
-        {
-            Destroy(gameObject);
-        }
+        
     }
 }
