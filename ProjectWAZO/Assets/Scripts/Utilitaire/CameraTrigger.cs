@@ -67,6 +67,7 @@ namespace Utilitaire
                   camera.isVerticalLerp = false;
                   break;
                case Effect.GoVerticalLerp:
+                  if(camera.isVerticalLerp) return;
                   camera.isIso = false;
                   camera.isTopDown = false;
                   camera.isFocused = false;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using _3C;
@@ -47,6 +48,18 @@ public class CinématiqueManager : MonoBehaviour
         }
     }
 
+    private void Update()  // POUR TESTER LES CINEMATIQUES, A SUPPRIMER !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    {
+        if (Input.GetKey(KeyCode.A))
+        {
+            Time.timeScale = 5;
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
+    }
+
     public void StartCinématique(int cinématqueIndex)
     {
         StartCoroutine(coroutineList[cinématqueIndex]);
@@ -85,14 +98,6 @@ public class CinématiqueManager : MonoBehaviour
         isCinématique = false;
         Controller.instance.canMove = false;
         Controller.instance.canJump = false;
-        CameraController.instance.canMove = false;
-        PauseMenu.instance.canPause = false;
-        CarnetManager.instance.canOpen = false;
-     
-        /*Controller.instance.moveInput = Vector3.zero;
-        Controller.instance.anim.SetBool("isWalking",false);
-        Controller.instance.anim.SetBool("isFlying",false);
-        Controller.instance.anim.SetBool("isIdle",true);*/
         if (!Controller.instance.isGrounded)
         {
             Controller.instance.ultraBlock = true;
@@ -101,18 +106,24 @@ public class CinématiqueManager : MonoBehaviour
         Controller.instance.canJump = false;
         CameraController.instance.canMove = false;
         
+        CameraController.instance.canMove = false;
+        PauseMenu.instance.canPause = false;
+        CarnetManager.instance.canOpen = false;
+        CameraController.instance.transform.DOMove(new Vector3(-0.128173828f, 48.7220001f, 61.0791893f),0.4f);
+        yield return new WaitForSeconds(0.4f);
         
         cinematiqueManager.playableAsset = cinématiqueList[1];
-        Controller.instance.anim.SetBool("isWalking",false);
-        Controller.instance.anim.SetBool("isFlying",false);
-        Controller.instance.anim.SetBool("isIdle",true);
         cinematiqueManager.Play();
         yield return new WaitForSeconds((float)cinematiqueManager.duration - 1);
         CameraController.instance.isFlou = true;
         yield return new WaitForSeconds(1);
         cinematiqueManager.Stop();
+        
         yield return new WaitForSeconds(0.5f);
-        CameraController.instance.SmoothMoveFactor = 0.5f;
+        CameraController.instance.isVerticalLerp = false;
+        CameraController.instance.isIso = true;
+        CameraController.instance.offset = new Vector3(2, 10, -6.4f);
+        CameraController.instance.SmoothMoveFactor = 0.9f;
         CameraController.instance.canMove = true;
         isCinématique = false;
         globalVolume.weight = 1;
@@ -124,10 +135,8 @@ public class CinématiqueManager : MonoBehaviour
         Controller.instance.canMove = false;
         Controller.instance.canJump = false;
         Controller.instance.ultraBlock = true;
-        yield return new WaitForSeconds(1.5f);
-        CameraController.instance.SmoothMoveFactor = 1f;
-        CameraController.instance.offset = new Vector3(2, 10, -3.5f);
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(2.5f);
+        CameraController.instance.canMove = false;
         CameraController.instance.transform.DOMove(CameraController.instance.transform.position + CameraController.instance.transform.forward*5, 3f).SetEase(Ease.Linear);
         yield return new WaitForSeconds(3f);
         CameraController.instance.transform.DOMove(CameraController.instance.transform.position + CameraController.instance.transform.forward*3, 19f);
@@ -154,6 +163,8 @@ public class CinématiqueManager : MonoBehaviour
         }
         yield return new WaitForSeconds(3f);
         Controller.instance.isGoing = false;
+        CameraController.instance.canMove = true;
+        CameraController.instance.SmoothMoveFactor = 0.8f;
         CameraController.instance.offset = new Vector3(4, 15, -8.5f);
         box.enabled = true;
         Controller.instance._moveDir = Vector3.zero;
