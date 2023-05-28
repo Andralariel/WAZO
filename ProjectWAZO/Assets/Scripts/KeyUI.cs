@@ -29,6 +29,8 @@ public class KeyUI : MonoBehaviour
     public RectTransform addShard;
     public TextMeshProUGUI compteurBonus;
     public List<Image> addShardImageList;
+    public Image lockedFilter;
+    public Image lockImage;
     
     private void Awake()
     {
@@ -94,7 +96,16 @@ public class KeyUI : MonoBehaviour
             compteur.text = currentShard + " / 6"; 
         }
         yield return new WaitForSeconds(timeToHide-0.5f);
-        myRect.DOAnchorPos(hidePosition, 0.5f).OnComplete((() =>   MapManager.instance.IconMapUpdate(3)));
+
+        if (currentShard != 6)
+        {
+            myRect.DOAnchorPos(hidePosition, 0.5f).OnComplete((() =>   MapManager.instance.IconMapUpdate(3)));
+        }
+        else
+        {
+            myRect.DOAnchorPos(hidePosition, 0.5f);
+        }
+      
     }
     
     public void ShowAdditionalKey() // Affiche l'UI
@@ -112,13 +123,32 @@ public class KeyUI : MonoBehaviour
         
         if (currentShard >= 6)
         {
-            addShardImageList[currentBonusShard].DOColor(Color.white, 0.5f);
+            addShardImageList[currentBonusShard].DOColor(Color.white, 0.5f).OnComplete((() => currentBonusShard++));
+            yield return new WaitForSeconds(0.5f);
             compteurBonus.text = currentBonusShard + " / 4"; 
         }
-        yield return new WaitForSeconds(timeToHide);
+        yield return new WaitForSeconds(timeToHide-0.5f);
         addShard.DOAnchorPos(hideBonusPosition, 0.5f).OnComplete((() =>   MapManager.instance.IconMapUpdate(3)));
     }
 
+    public void UnlockAdditionalKey() // Affiche l'UI
+    {
+        
+        StartCoroutine(HideUnlockAdditionalKey(2f));
+    }
+    public IEnumerator HideUnlockAdditionalKey(float timeToHide) // Faire apparaitre un morceau de clé puis faire disparaitre l'UI
+    {
+        yield return new WaitForSeconds(timeToHide+1.5f);
+        addShard.DOAnchorPos(showBonusPosition, 0.5f);
+        yield return new WaitForSeconds(1.5f);
+        lockImage.DOFade(0,0.5f);
+        yield return new WaitForSeconds(1f);
+        lockedFilter.DOFade(0,0.5f);
+
+        yield return new WaitForSeconds(timeToHide+1.5f);
+        addShard.DOAnchorPos(hideBonusPosition, 0.5f).OnComplete((() =>   MapManager.instance.IconMapUpdate(3)));
+    }
+    
     public void FadeInBlackScreen(float duration) // Fade out et Fade in un écran noir
     {
         blackScreen.DOFade(1, duration);
@@ -152,14 +182,11 @@ public class KeyUI : MonoBehaviour
     
     public IEnumerator ShowMapBonusKeyWithDelay(float delay) // Faire apparaite et disparaitre l'UI dans le menu de la carte
     {
-        if (currentShard >= 6)
-        {
-            yield return new WaitForSeconds(delay-0.5f);
+        yield return new WaitForSeconds(delay-0.5f);
             compteurBonus.text = currentBonusShard + " / 4"; 
             addShard.DOAnchorPos(showBonusPosition, 0.5f);
             yield return new WaitForSeconds(0.3f);
-            CarnetManager.instance.canOpen = true; 
-        }
+            CarnetManager.instance.canOpen = true;
     }
     
     public void HideMapBonusKey()
