@@ -24,7 +24,6 @@ public class Ending : MonoBehaviour
     public float cameraSpeed2;
     public float playerSpeed;
     public GameObject earthquakeSound;
-    public GameObject endingMusic;
 
     private void Update()
     {
@@ -53,7 +52,6 @@ public class Ending : MonoBehaviour
     IEnumerator EndCinématic()
     {
         yield return new WaitForSeconds(timeToGo);
-        endingMusic.SetActive(true);
         CameraController.instance.camShake = false;
         CameraController.instance.transform.DOMove(CameraController.instance.transform.position + Vector3.forward * cameraSpeed1, 4f);
         player.canPlaner = true;
@@ -81,7 +79,6 @@ public class Ending : MonoBehaviour
         CameraController.instance.offset = new Vector3(8.5f,10f,-100.5f);
         BlackScreen.DOFade(1, 3f);
         yield return new WaitForSeconds(3.2f);
-        endingMusic.SetActive(false);
         SceneManager.LoadScene("Dev_CinematicIntro");
     }
 }
