@@ -1,5 +1,6 @@
 using System.Collections;
 using DG.Tweening;
+using Sound;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
@@ -68,6 +69,8 @@ public class MenuPrincipal : MonoBehaviour
         director.Play();
         yield return new WaitForSeconds((float)director.duration-0.5f);
         blackScreen.DOFade(1, 0.5f);
+        yield return new WaitForSeconds(0.3f);
+        AudioList.Instance.PlayOneShot(AudioList.Instance.crashGround, AudioList.Instance.crashGroundVolume);
         yield return new WaitForSeconds(0.5f);
         SceneManager.LoadScene("Dev_map");
     }

@@ -49,6 +49,8 @@ namespace Sound
         [Range(0, 1)] public float cinematiqueOrbeVolume;
         public AudioClip fallingRock;
         [Range(0, 1)] public float fallingRockVolume;
+        public AudioClip crashGround;
+        [Range(0, 1)] public float crashGroundVolume;
 
         [Header("Player")]
         public AudioClip saut;
