@@ -112,7 +112,7 @@ public class KeyShard : MonoBehaviour
       if (KeyUI.instance.currentShard == 5)
       {
          Debug.Log("Last Clé Normale");
-         KeyUI.instance.ShowAdditionalKey();
+         KeyUI.instance.UnlockAdditionalKey();
          KeyUI.instance.ShowKey();
          TempleOpener.instance.currentAmount += 1;
          TempleOpener.instance.CheckKeyState();
@@ -123,7 +123,6 @@ public class KeyShard : MonoBehaviour
          Debug.Log("Clé Bonus");
          KeyUI.instance.ShowAdditionalKey();
          KeyUI.instance.ShowKey();
-         KeyUI.instance.currentBonusShard += 1;
          TempleOpener.instance.currentAmount += 1;
          TempleOpener.instance.CheckKeyState();
       }
