@@ -5,6 +5,8 @@ namespace Interaction
 {
     public class carotteManager : MonoBehaviour
     {
+        public Vector3 plantedRotation;
+        public Vector3 plantedPosOffset;
         public Rigidbody rb;
         public BoxCollider carotteColider;
         
@@ -40,8 +42,8 @@ namespace Interaction
         public void IsPlanted(PotBehaviour pot)
         {
             var tran = transform;
-            tran.DOLocalRotate(Vector3.zero, 0.25f);
-            tran.DOLocalMove(Vector3.zero, 0.25f);
+            tran.DOLocalRotate(plantedRotation, 0.25f);
+            tran.DOLocalMove(plantedPosOffset, 0.25f);
             carotteColider.enabled = false;
             rb.isKinematic = true;
             rb.useGravity = false;
