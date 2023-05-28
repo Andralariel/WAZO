@@ -109,10 +109,11 @@ public class CarnetManager : MonoBehaviour
     
     public void QuitMenu()
     {
-        if (isOpened)
+        if (isOpened && canOpen)
         {
             anim.SetBool("isOpen",false);
             isOpened = false;
+            MapManager.instance.canRotate = true;
             carnet.DOFade(0, 0.5f);
             MapManager.instance.MapMenu.DOFade(0, 0.5f);
             Controller.instance.canJump = true;
