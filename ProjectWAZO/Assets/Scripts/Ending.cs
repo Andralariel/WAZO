@@ -23,12 +23,7 @@ public class Ending : MonoBehaviour
     public float cameraSpeed1;
     public float cameraSpeed2;
     public float playerSpeed;
-    [SerializeField] private AudioSource earthquakeSound;
-    
-    private void Start()
-    {
-        earthquakeSound.clip = AudioList.Instance.earthquake;
-    }
+    public GameObject earthquakeSound;
 
     private void Update()
     {
@@ -50,7 +45,6 @@ public class Ending : MonoBehaviour
                 .OnComplete( (() => CameraController.instance.transform.DOMove(CameraController.instance.transform.position + Vector3.forward* 11.1f + 
                                                                                CameraController.instance.transform.forward*3, 2.5f)));
             CameraController.instance.SmoothMoveFactor = 0.8f;
-            earthquakeSound.Stop();
             StartCoroutine(EndCinématic());
         }
     }
@@ -68,6 +62,7 @@ public class Ending : MonoBehaviour
         yield return new WaitForSeconds(4f);
         CameraController.instance.transform.DOMove(CameraController.instance.transform.position + Vector3.forward * cameraSpeed2, 4f);
         player.planingGravity = -2;
+        earthquakeSound.SetActive(false);
         yield return new WaitForSeconds(4f);
         CameraController.instance.canMove = true;
         CameraController.instance.SmoothMoveFactor = 1.5f;

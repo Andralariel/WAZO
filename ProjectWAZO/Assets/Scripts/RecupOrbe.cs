@@ -14,13 +14,8 @@ public class RecupOrbe : MonoBehaviour
     public Transform PointToGo;
     public GameObject Eboulement;
     public float timeToGo;
-   
-    [SerializeField] private AudioSource earthquakeSound;
+    public GameObject earthquakeSound;
     
-    private void Start()
-    {
-        earthquakeSound.clip = AudioList.Instance.earthquake;
-    }
     public void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == 6)
@@ -46,8 +41,8 @@ public class RecupOrbe : MonoBehaviour
         vfxreplacing.Play();
         basic.Stop();
         yield return new WaitForSeconds(4.5f);
-        earthquakeSound.Play();
         CameraController.instance.camShake = true;
+        earthquakeSound.SetActive(true);
         yield return new WaitForSeconds(2f);
         Eboulement.SetActive(true);
         Eboulement.transform.DOMove(new Vector3(Eboulement.transform.position.x, Eboulement.transform.position.y - 20, 
