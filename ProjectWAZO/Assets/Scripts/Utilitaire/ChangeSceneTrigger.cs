@@ -3,11 +3,13 @@ using _3C;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Utilitaire
 {
    public class ChangeSceneTrigger : MonoBehaviour
    {
+      public Image blackScreen;
       private void OnTriggerEnter(Collider other)
       {
          if (other.gameObject.layer == 6) //Si c'est le player
@@ -25,6 +27,8 @@ namespace Utilitaire
       {
          CameraController.instance.transform.DOMove(CameraController.instance.transform.position + CameraController.instance.transform.forward*20, 5f); 
          yield return new WaitForSeconds(1.2f);
+         blackScreen.DOFade(1, 0.8f);
+         yield return new WaitForSeconds(1f);
          SceneManager.LoadScene("Temple Test");
       }
    }

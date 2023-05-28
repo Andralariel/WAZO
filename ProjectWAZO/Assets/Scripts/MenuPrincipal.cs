@@ -3,6 +3,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
 
 public class MenuPrincipal : MonoBehaviour
@@ -19,6 +20,7 @@ public class MenuPrincipal : MonoBehaviour
     public Vector3 mainPos;
     public Vector3 optionsPos;
     public GameObject currentlySelected;
+    public Image blackScreen;
 
     private void Awake()
     {
@@ -48,11 +50,9 @@ public class MenuPrincipal : MonoBehaviour
 
     public void StartGame()
     {
-        cameraMenu.SetActive(false);
-        cameraCine.SetActive(true);
+        
         EventSystem.SetSelectedGameObject(null);
         currentlySelected = EventSystem.currentSelectedGameObject;
-        director.Play();
         MenuMain.interactable = false;
         MenuMain.blocksRaycasts = false;
         StartCoroutine(ChangeScene());
@@ -60,7 +60,15 @@ public class MenuPrincipal : MonoBehaviour
 
     IEnumerator ChangeScene()
     {
-        yield return new WaitForSeconds((float)director.duration);
+        blackScreen.DOFade(1, 0.5f);
+        yield return new WaitForSeconds(1.5f);
+        blackScreen.DOFade(0, 1f);
+        cameraMenu.SetActive(false);
+        cameraCine.SetActive(true);
+        director.Play();
+        yield return new WaitForSeconds((float)director.duration-0.5f);
+        blackScreen.DOFade(1, 0.5f);
+        yield return new WaitForSeconds(0.5f);
         SceneManager.LoadScene("Dev_map");
     }
     

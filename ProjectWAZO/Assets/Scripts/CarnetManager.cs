@@ -12,12 +12,14 @@ public class CarnetManager : MonoBehaviour
     public Animator anim;
     public Image imageTuTo;
     public GameObject map;
+    public Image blackScreen;
     
 
     [Header("Bool")] public bool firstTime;
     public bool canOpen = true;
     public bool isOpened;
     public bool isOptions;
+    public bool enableStartBlackScreen;
 
     private void Awake()
     {
@@ -25,6 +27,13 @@ public class CarnetManager : MonoBehaviour
         {
             instance = this;
         }
+
+        if (enableStartBlackScreen)
+        {
+            blackScreen.color = Color.black;
+            blackScreen.DOFade(0, 3f);
+        }
+        
     }
 
     public void OpenCloseCarnet()
