@@ -47,6 +47,8 @@ public class RecupOrbe : MonoBehaviour
         Eboulement.SetActive(true);
         Eboulement.transform.DOMove(new Vector3(Eboulement.transform.position.x, Eboulement.transform.position.y - 20, 
             Eboulement.transform.position.z), 0.5f);
+        yield return new WaitForSeconds(0.3f);
+        AudioList.Instance.PlayOneShot(AudioList.Instance.fallingRock, AudioList.Instance.fallingRockVolume);
         yield return new WaitForSeconds(2f);
         CinématiqueManager.instance.isCinématique = false;
         player.canMove = true;
