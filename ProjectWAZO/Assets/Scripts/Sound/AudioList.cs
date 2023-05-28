@@ -42,8 +42,10 @@ namespace Sound
         [SerializeField] [Range(0, 1)] private float zoneTempleVolume;
 
         [Header("UI")]
-        public AudioClip uiClick;
-        
+        public AudioClip uiClick1;
+        public AudioClip uiClick2;
+        public AudioClip uiClick3;
+
         [Header("Cinematique")]
         public AudioClip cinematiqueOrbe;
         [Range(0, 1)] public float cinematiqueOrbeVolume;
