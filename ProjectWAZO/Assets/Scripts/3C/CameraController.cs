@@ -126,6 +126,17 @@ namespace _3C
     
         public void Move()
         {
+            if (!Controller.instance.isGrounded && Controller.instance.isOnHugeWind)
+            {
+                Debug.Log("dezoooooom");
+                camera.fieldOfView += Controller.instance.rb.velocity.y*timeToMaxFoVFactor;
+            }
+            else if (Controller.instance.isGrounded && camera.fieldOfView > 60)
+            {
+                Debug.Log("zoooom");
+                camera.fieldOfView -= Time.deltaTime*timeToMinFoV;
+            }
+            
             if (isIso)
             {
                 if (Controller.instance.canMove)
@@ -169,16 +180,6 @@ namespace _3C
                 Vector3 objectif = player.transform.position + offset + lerpGoal;
                 var toGo = Vector3.Lerp(savePosition,objectif,relativePosition);
                 transform.position =  Vector3.SmoothDamp(transform.position,toGo,ref velocity,SmoothMoveFactor);
-            }
-
-            if (!Controller.instance.isGrounded && Controller.instance.isOnHugeWind)
-            {
-                Debug.Log("dezoooooom");
-                camera.fieldOfView += Controller.instance.rb.velocity.y*timeToMaxFoVFactor;
-            }
-            else if (Controller.instance.isGrounded && camera.fieldOfView > 60)
-            {
-                camera.fieldOfView -= Time.deltaTime*timeToMinFoV;
             }
         }
 
