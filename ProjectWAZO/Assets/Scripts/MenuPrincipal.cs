@@ -22,16 +22,19 @@ public class MenuPrincipal : MonoBehaviour
     public Vector3 optionsPos;
     public GameObject currentlySelected;
     public Image blackScreen;
+    public GameObject mainMusic;
 
     private void Awake()
     {
         if (enableMainMenu)
         {
+            mainMusic.SetActive(true);
             director.playOnAwake = false;
             EventSystem.SetSelectedGameObject(boutonStart.gameObject);
         }
         else
-        {
+        { 
+            mainMusic.SetActive(true);
             cameraMenu.SetActive(false);
             cameraCine.SetActive(true);
             director.Play();
@@ -54,8 +57,10 @@ public class MenuPrincipal : MonoBehaviour
         
         EventSystem.SetSelectedGameObject(null);
         currentlySelected = EventSystem.currentSelectedGameObject;
+        AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick2, 1f);
         MenuMain.interactable = false;
         MenuMain.blocksRaycasts = false;
+        mainMusic.SetActive(false);
         StartCoroutine(ChangeScene());
     }
 
@@ -78,6 +83,7 @@ public class MenuPrincipal : MonoBehaviour
     public void OpenOptions()
     {
         EventSystem.SetSelectedGameObject(dropdonOptions.gameObject);
+        AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick1, 1f);
         
         cameraMenu.transform.DOLocalMove(optionsPos,1.5f);
         MenuMain.interactable = false;
@@ -90,6 +96,7 @@ public class MenuPrincipal : MonoBehaviour
     {
         EventSystem.SetSelectedGameObject(boutonStart.gameObject);
         currentlySelected = EventSystem.currentSelectedGameObject;
+        AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick3, 1f);
         cameraMenu.transform.DOLocalMove(mainPos,1.5f);
         MenuMain.interactable = true;
         MenuMain.blocksRaycasts = true;
