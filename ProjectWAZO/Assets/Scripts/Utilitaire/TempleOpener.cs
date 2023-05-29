@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using _3C;
 using DG.Tweening;
+using Sound;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -73,6 +74,7 @@ namespace Utilitaire
          CameraController.instance.transform.DOMove(CameraController.instance.transform.position + CameraController.instance.transform.forward*18, 7f); 
          yield return new WaitForSeconds(3f);
          Controller.instance.anim.SetBool("isIdle",true);
+         AudioList.Instance.PlayOneShot(AudioList.Instance.keyOpenDoor, AudioList.Instance.keyOpenDoorVolume);
          foreach (GameObject obj in keyShardCinématique)
          {
             obj.transform.position = Controller.instance.transform.position;
@@ -104,6 +106,7 @@ namespace Utilitaire
          yield return new WaitForSeconds(0.5f);
          animDoor.SetBool("Open",true);
          CameraController.instance.transform.DOShakePosition(5, 1, 11);
+         AudioList.Instance.PlayOneShot(AudioList.Instance.openDoorTemple, AudioList.Instance.openDoorTempleVolume);
          yield return new WaitForSeconds(0.5f);
          Clé.transform.DOMove(Clé.transform.position - new Vector3(0,10,0), 5f);
          yield return new WaitForSeconds(4.5f);
