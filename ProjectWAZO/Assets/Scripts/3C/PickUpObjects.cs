@@ -261,7 +261,6 @@ namespace _3C
             anim.SetBool("isClimbing",false);
             anim.SetBool("isFlying",true);
             anim.ResetTrigger("startClimb");
-       
         }
     
         private void OnTriggerEnter(Collider other)

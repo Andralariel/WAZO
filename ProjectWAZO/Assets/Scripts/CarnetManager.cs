@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using _3C;
 using DG.Tweening;
+using Sound;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -42,6 +43,7 @@ public class CarnetManager : MonoBehaviour
         {
             if (isOpened)
             {
+                AudioList.Instance.PlayOneShot(AudioList.Instance.closeCarnet, AudioList.Instance.closeCarnetVolume);
                 anim.SetBool("isOpen",false);
                 isOpened = false;
                 carnet.DOFade(0, 0.5f);
@@ -66,6 +68,7 @@ public class CarnetManager : MonoBehaviour
                         StartCoroutine(MapManager.instance.UnlockFresque(i));
                     }
                 }   
+                AudioList.Instance.PlayOneShot(AudioList.Instance.openCarnet, AudioList.Instance.openCarnetVolume);
                 anim.SetBool("isOpen",true);
                 canOpen = false;
                 isOpened = true;
@@ -111,6 +114,7 @@ public class CarnetManager : MonoBehaviour
     {
         if (isOpened && canOpen)
         {
+            AudioList.Instance.PlayOneShot(AudioList.Instance.closeCarnet, AudioList.Instance.closeCarnetVolume);
             anim.SetBool("isOpen",false);
             isOpened = false;
             MapManager.instance.canRotate = true;
