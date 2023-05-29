@@ -45,6 +45,12 @@ namespace Sound
         public AudioClip uiClick1;
         public AudioClip uiClick2;
         public AudioClip uiClick3;
+        public AudioClip openCarnet;
+        [Range(0, 1)] public float openCarnetVolume;
+        public AudioClip turnCarnet;
+        [Range(0, 1)] public float turnCarnetVolume;
+        public AudioClip closeCarnet;
+        [Range(0, 1)] public float closeCarnetVolume;
 
         [Header("Cinematique")]
         public AudioClip cinematiqueOrbe;
