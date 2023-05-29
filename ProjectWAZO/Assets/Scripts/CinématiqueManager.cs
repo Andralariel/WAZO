@@ -107,7 +107,6 @@ public class CinématiqueManager : MonoBehaviour
         CameraController.instance.canMove = false;
         
         CameraController.instance.canMove = false;
-        PauseMenu.instance.canPause = false;
         CarnetManager.instance.canOpen = false;
         CameraController.instance.transform.DOMove(new Vector3(-0.128173828f, 48.7220001f, 61.0791893f),0.4f);
         yield return new WaitForSeconds(0.4f);
@@ -171,6 +170,7 @@ public class CinématiqueManager : MonoBehaviour
         MapManager.instance.Map.sprite = MapManager.instance.mapPleine;
         MapManager.instance.MapGot = true;
         CarnetManager.instance.canOpen = true;
+        PauseMenu.instance.canPause = true;
         yield return new WaitForSeconds(1f);
         CameraController.instance.SmoothMoveFactor = 0.2f;
     }

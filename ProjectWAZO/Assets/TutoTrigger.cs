@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -7,18 +8,19 @@ public class TutoTrigger : MonoBehaviour
 {
     public bool DoOnce;
     public bool isMap;
-    public string textToDisplay;
-    public TextMeshProUGUI text;
-    public Image ImageOBJ;
+    public GameObject ObjToActive;
+    public List<GameObject> tutoSectionsList;
     public CanvasGroup CanvasG;
-    public Sprite imageVISU; 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == 6)
         {
-            text.text = textToDisplay;
-            ImageOBJ.sprite = imageVISU;
-            CanvasG.DOFade(1, 1.5f);
+            for (int i = 0; i < tutoSectionsList.Count; i++)
+            {
+                tutoSectionsList[i].SetActive(false);
+            }
+            ObjToActive.SetActive(true);
+            CanvasG.DOFade(1, 1f);
         }
     }
 
@@ -26,10 +28,8 @@ public class TutoTrigger : MonoBehaviour
     {
         if (other.gameObject.layer == 6)
         {
-            Debug.Log("isOnTrigger");
-            if (CarnetManager.instance.isOpened)
+            if (CarnetManager.instance.isOpened && isMap)
             {
-                Debug.Log("carteouverte");
                 CanvasG.DOFade(0, 1.5f).OnComplete((() => Destroy(gameObject)));
             }
         }
@@ -39,7 +39,7 @@ public class TutoTrigger : MonoBehaviour
     {
         if (other.gameObject.layer == 6)
         {
-            CanvasG.DOFade(0, 1.5f);
+            CanvasG.DOFade(0, 1f);
             
             if (DoOnce)
             {

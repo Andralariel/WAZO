@@ -10,6 +10,8 @@ using UnityEngine.Audio;
 public class PauseMenu : MonoBehaviour
 {
     public GameObject currentlySelected;
+    public bool isScaling;
+    public bool bufferScaleBouton;
     public bool isPause;
     public bool canPause;
     public UnityEngine.EventSystems.EventSystem eventSystem;
@@ -62,6 +64,16 @@ public class PauseMenu : MonoBehaviour
         {
             if (!isPause)
             {
+                isScaling = true;
+                if (isScaling && bufferScaleBouton)
+                {
+                    bufferScaleBouton = false;
+                    isScaling = true;
+                    boutonReprendre.transform.DOScale( boutonReprendre.transform.localScale * 1.2f, 0.2f).OnComplete((() => isScaling = false));
+                    boutonReprendre.transform.DOMove(boutonReprendre.transform.position, 0.2f)
+                        .OnComplete((() => bufferScaleBouton = true));
+                }
+                
                 AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick2, 1f);
                 boutonReprendre.transform.DOScale(boutonReprendre.transform.localScale * 1.2f, 0.2f);
                 isPause = true;
@@ -77,6 +89,9 @@ public class PauseMenu : MonoBehaviour
             }
             else
             {
+                bufferScaleBouton = true;
+                isScaling = false;
+                boutonReprendre.transform.localScale = Vector3.one;
                 AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick3, 1f);
                 isPause = false;
                 CG.interactable = false;
@@ -102,9 +117,13 @@ public class PauseMenu : MonoBehaviour
         {
             if (currentlySelected != eventSystem.currentSelectedGameObject)
             {
-                eventSystem.currentSelectedGameObject.gameObject.transform.DOScale(gameObject.transform.localScale * 1.2f, 0.2f);
-                currentlySelected.transform.DOScale(currentlySelected.transform.localScale * 0.8f, 0.2f);
-                currentlySelected = eventSystem.currentSelectedGameObject;
+                if (!isScaling && bufferScaleBouton)
+                {
+                    isScaling = true;
+                    eventSystem.currentSelectedGameObject.gameObject.transform.DOScale(gameObject.transform.localScale * 1.2f, 0.2f);
+                    currentlySelected.transform.DOScale(currentlySelected.transform.localScale * 0.8f, 0.2f).OnComplete((() => isScaling = false));
+                    currentlySelected = eventSystem.currentSelectedGameObject;
+                }
             } 
         }
     }
@@ -120,6 +139,11 @@ public class PauseMenu : MonoBehaviour
             }
             else // quitte la pause
             {
+                if (isScaling)
+                {
+                    currentlySelected.transform.localScale = Vector3.one;
+                    eventSystem.currentSelectedGameObject.transform.localScale = Vector3.one;
+                }
                 AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick3, 1f);
                 isPause = false;
                 CG.interactable = false;
@@ -128,6 +152,7 @@ public class PauseMenu : MonoBehaviour
                 eventSystem.SetSelectedGameObject(null);
                 currentlySelected = null;
                 CinématiqueManager.instance.isCinématique = false;
+                Controller.instance.ultraBlock = false;
                 Controller.instance.canMove = true;
                 Controller.instance.canJump = true;
             }
@@ -158,6 +183,7 @@ public class PauseMenu : MonoBehaviour
 
     public void CloseOptions()
     {
+        currentlySelected.transform.DOScale(Vector3.one, 0.2f);
         AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick3, 1f);
         isOption = false;
         eventSystem.SetSelectedGameObject(boutonReprendre);
