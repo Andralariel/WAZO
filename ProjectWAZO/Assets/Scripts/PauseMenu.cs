@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using _3C;
 using DG.Tweening;
+using Sound;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -61,6 +62,7 @@ public class PauseMenu : MonoBehaviour
         {
             if (!isPause)
             {
+                AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick2, 1f);
                 boutonReprendre.transform.DOScale(boutonReprendre.transform.localScale * 1.2f, 0.2f);
                 isPause = true;
                 CG.interactable = true;
@@ -75,6 +77,7 @@ public class PauseMenu : MonoBehaviour
             }
             else
             {
+                AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick3, 1f);
                 isPause = false;
                 CG.interactable = false;
                 CG.blocksRaycasts = false;
@@ -112,10 +115,12 @@ public class PauseMenu : MonoBehaviour
         {
             if (isOption) // quitte les options
             {
+                AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick3, 1f);
                 CloseOptions();
             }
             else // quitte la pause
             {
+                AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick3, 1f);
                 isPause = false;
                 CG.interactable = false;
                 CG.blocksRaycasts = false;
@@ -136,6 +141,7 @@ public class PauseMenu : MonoBehaviour
 
     public void OpenOptions()
     {
+        AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick2, 1f);
         isOption = true;
         eventSystem.SetSelectedGameObject(firstSelecOptions);
         currentlySelected = firstSelecOptions;
@@ -152,6 +158,7 @@ public class PauseMenu : MonoBehaviour
 
     public void CloseOptions()
     {
+        AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick3, 1f);
         isOption = false;
         eventSystem.SetSelectedGameObject(boutonReprendre);
         currentlySelected = boutonReprendre;

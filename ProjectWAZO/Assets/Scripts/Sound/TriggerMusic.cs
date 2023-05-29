@@ -6,10 +6,10 @@ namespace Sound
     {
         [SerializeField] private AudioList.Music music;
         [SerializeField] private bool loop = true;
-    
         private void OnTriggerEnter(Collider other)
         {
             AudioList.Instance.StartMusic(music,loop);
+            gameObject.SetActive(false);
         }
     }
 }
