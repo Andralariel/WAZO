@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using DG.Tweening;
 using Sound;
@@ -22,26 +23,28 @@ public class MenuPrincipal : MonoBehaviour
     public Vector3 optionsPos;
     public GameObject currentlySelected;
     public Image blackScreen;
-    public GameObject mainMusic;
 
     private void Awake()
     {
         if (enableMainMenu)
         {
-            mainMusic.SetActive(true);
             director.playOnAwake = false;
             EventSystem.SetSelectedGameObject(boutonStart.gameObject);
         }
         else
         { 
-            mainMusic.SetActive(true);
             cameraMenu.SetActive(false);
             cameraCine.SetActive(true);
             director.Play();
             EventSystem.SetSelectedGameObject(null);
         }
     }
-    
+
+    private void Start()
+    {
+        AudioList.Instance.StartMusic(AudioList.Music.main, true);
+    }
+
     private void Update()
     {
         if (currentlySelected != EventSystem.currentSelectedGameObject)
@@ -60,7 +63,7 @@ public class MenuPrincipal : MonoBehaviour
         AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick2, 1f);
         MenuMain.interactable = false;
         MenuMain.blocksRaycasts = false;
-        mainMusic.SetActive(false);
+        AudioList.Instance.StopMusic(); // Arrêt de la musique du menu principal
         StartCoroutine(ChangeScene());
     }
 

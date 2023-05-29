@@ -144,6 +144,11 @@ namespace Sound
             FadeIn();
         }
 
+        public void StopMusic()
+        {
+            FadeOut();
+        }
+
         public void PlayOneShot(AudioClip clip, float volumeScale)
         {
             audioSourceOneShot.PlayOneShot(clip,volumeScale);
