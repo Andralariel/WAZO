@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using _3C;
 using DG.Tweening;
 using EventSystem;
+using Sound;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Rendering;
@@ -143,11 +144,13 @@ public class CinématiqueManager : MonoBehaviour
         for (int i = 0; i < spiritsList.Count; i++) // fait spawn les esprits
         {
             spawnVfxList[i].Play();
+            AudioList.Instance.PlayOneShot(AudioList.Instance.spiritSpawn, AudioList.Instance.spiritSpawnVolume);
             yield return new WaitForSeconds(0.1f);
             spiritsList[i].SetActive(true);
             yield return new WaitForSeconds(0.4f);
         }
         yield return new WaitForSeconds(3f);  // fait spawn la carte
+        AudioList.Instance.PlayOneShot(AudioList.Instance.mapSpawn, AudioList.Instance.mapSpawnVolume);
         mapVfx.Play();
         modeMap.SetActive(true);
         yield return new WaitForSeconds(4.5f);
@@ -157,6 +160,7 @@ public class CinématiqueManager : MonoBehaviour
         for (int i = 0; i < spiritsList.Count; i++) // fait despawn les esprits
         {
             spawnVfxList[i].Play();
+            AudioList.Instance.PlayOneShot(AudioList.Instance.spiritDespawn, AudioList.Instance.spiritDespawnVolume);
             yield return new WaitForSeconds(0.1f);
             spiritsList[i].SetActive(false);
             yield return new WaitForSeconds(0.4f);
