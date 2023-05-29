@@ -57,6 +57,12 @@ namespace Sound
         [Range(0, 1)] public float openDoorTempleVolume;
         public AudioClip keyOpenDoor;
         [Range(0, 1)] public float keyOpenDoorVolume;
+        public AudioClip spiritSpawn;
+        [Range(0, 1)] public float spiritSpawnVolume;
+        public AudioClip spiritDespawn;
+        [Range(0, 1)] public float spiritDespawnVolume;
+        public AudioClip mapSpawn;
+        [Range(0, 1)] public float mapSpawnVolume;
 
         [Header("Player")]
         public AudioClip saut;
