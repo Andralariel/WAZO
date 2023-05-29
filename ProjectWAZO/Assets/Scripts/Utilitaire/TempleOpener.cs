@@ -74,6 +74,7 @@ namespace Utilitaire
          CameraController.instance.transform.DOMove(CameraController.instance.transform.position + CameraController.instance.transform.forward*18, 7f); 
          yield return new WaitForSeconds(3f);
          Controller.instance.anim.SetBool("isIdle",true);
+         AudioList.Instance.PlayOneShot(AudioList.Instance.keyOpenDoor, AudioList.Instance.keyOpenDoorVolume);
          foreach (GameObject obj in keyShardCinématique)
          {
             obj.transform.position = Controller.instance.transform.position;
