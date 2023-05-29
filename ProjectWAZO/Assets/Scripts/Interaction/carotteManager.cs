@@ -42,7 +42,7 @@ namespace Interaction
         public void IsPlanted(PotBehaviour pot)
         {
             var tran = transform;
-            tran.DOLocalRotate(plantedRotation, 0.25f);
+            tran.DOLocalRotate(plantedRotation, 0.5f);
             tran.DOLocalMove(plantedPosOffset, 0.25f);
             carotteColider.enabled = false;
             rb.isKinematic = true;
