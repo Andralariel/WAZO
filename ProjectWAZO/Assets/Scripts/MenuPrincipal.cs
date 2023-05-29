@@ -45,8 +45,16 @@ public class MenuPrincipal : MonoBehaviour
         AudioList.Instance.StartMusic(AudioList.Music.main, true);
     }
 
+    //Fix null reference
+    private bool _firstTime = true;
     private void Update()
     {
+        if (_firstTime)
+        {
+            EventSystem.currentSelectedGameObject.gameObject.transform.DOScale(gameObject.transform.localScale * 1.2f, 0.2f);
+            currentlySelected = EventSystem.currentSelectedGameObject;
+            _firstTime = false;
+        }
         if (currentlySelected != EventSystem.currentSelectedGameObject)
         {
             EventSystem.currentSelectedGameObject.gameObject.transform.DOScale(gameObject.transform.localScale * 1.2f, 0.2f);
