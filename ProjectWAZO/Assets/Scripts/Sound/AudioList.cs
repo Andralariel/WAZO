@@ -116,7 +116,7 @@ namespace Sound
                 DontDestroyOnLoad(gameObject);
             }
         }
-    
+        
         public void StartMusic(Music music, bool loop)
         {
             if (_notFirstCall) FadeOut();

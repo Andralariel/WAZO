@@ -22,7 +22,9 @@ public class MapManager : MonoBehaviour
     public GameObject mapElements;
     public GameObject loreElements;
     public List<Image> pontIntero;
+    public List<Image> pontInteroFresques;
     public List<Image> listCroix;
+    public List<Image> listCercles;
     public List<Image> doneFilterList;
     public List<Image> fresquesList;
     public List<Image> lockList;
