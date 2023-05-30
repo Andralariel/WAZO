@@ -11,6 +11,10 @@ namespace Utilitaire
         //VARIABLES ************************************************************************************************************
         public List<Spirit> spiritsToRespawn;
         public float durationUntilReset = 3;
+        public bool isMoulin;
+        public bool isMultipleMoulin;
+        public Moulin associedMoulin;
+        public Moulin associedMoulin2;
         public Slider chargement;
         public CanvasGroup UI;
 

@@ -68,7 +68,7 @@ public class MenuPrincipal : MonoBehaviour
         
         EventSystem.SetSelectedGameObject(null);
         currentlySelected = EventSystem.currentSelectedGameObject;
-        AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick2, 1f);
+        AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick2, 0.4f);
         MenuMain.interactable = false;
         MenuMain.blocksRaycasts = false;
         AudioList.Instance.StopMusic(); // Arrêt de la musique du menu principal
@@ -94,7 +94,7 @@ public class MenuPrincipal : MonoBehaviour
     public void OpenOptions()
     {
         EventSystem.SetSelectedGameObject(dropdonOptions.gameObject);
-        AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick1, 1f);
+        AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick1, 0.4f);
         
         cameraMenu.transform.DOLocalMove(optionsPos,1.5f);
         MenuMain.interactable = false;
@@ -107,7 +107,7 @@ public class MenuPrincipal : MonoBehaviour
     {
         EventSystem.SetSelectedGameObject(boutonStart.gameObject);
         currentlySelected = EventSystem.currentSelectedGameObject;
-        AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick3, 1f);
+        AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick3, 0.4f);
         cameraMenu.transform.DOLocalMove(mainPos,1.5f);
         MenuMain.interactable = true;
         MenuMain.blocksRaycasts = true;
