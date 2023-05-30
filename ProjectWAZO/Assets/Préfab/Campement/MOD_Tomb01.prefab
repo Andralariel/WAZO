@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 6584165101463862031}
   - component: {fileID: 7849911397147866282}
   - component: {fileID: 5410102549465858144}
-  m_Layer: 0
+  - component: {fileID: 1638512566930316215}
+  m_Layer: 3
   m_Name: MOD_Tomb01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -83,3 +84,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &1638512566930316215
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5770368873332646325}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -7785091710237353905, guid: 34b971ec26e42a84396db7d54dde6795, type: 3}

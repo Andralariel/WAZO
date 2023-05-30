@@ -21,24 +21,35 @@ public class RecupOrbe : MonoBehaviour
     public float timeToGo;
     public AudioSource earthquakeSound;
     private float graphValue;
-    public AnimationCurve curveIntensity;
+    public AnimationCurve curveChromatic;
+    public AnimationCurve curveSaturation;
     private bool orbed;
     [SerializeField] private VolumeProfile v;
     private ChromaticAberration c;
+    private ColorAdjustments ca;
     private float time;
+    private ParticleSystem vfxsmoke1;
+    private ParticleSystem vfxsmoke3;
+    private ParticleSystem vfxsmoke2;
     private void Start()
     {
         time = 0;
         orbed = false;
         v.TryGet(out c);
+        v.TryGet(out ca);
+        Eboulement.TryGetComponent(out vfxsmoke1);
+        Eboulement2.TryGetComponent(out vfxsmoke2);
+        Eboulement3.TryGetComponent(out vfxsmoke3);
     }
     void Update()
     {
         if (orbed)
         {
             time ++;
-            graphValue = curveIntensity.Evaluate(time/100);
+            graphValue = curveChromatic.Evaluate(time/120);
             c.intensity.value = graphValue;
+            graphValue = curveSaturation.Evaluate(time/120);
+            ca.saturation.value = graphValue;
         }
 
     }
@@ -63,13 +74,12 @@ public class RecupOrbe : MonoBehaviour
         player.isGoing = false;
         CameraController.instance.transform.DOMove(CameraController.instance.transform.position + CameraController.instance.transform.forward*5, 8f);
         yield return new WaitForSeconds(2);
-        orbe.transform.DOMove(Controller.instance.transform.position, 3f);
+        orbe.transform.DOMove(new Vector3(Controller.instance.transform.position.x,Controller.instance.transform.position.y+1,Controller.instance.transform.position.z), 3f);
         yield return new WaitForSeconds(1.5f);
+        basic.Stop();
         vfxreplacing.Play();
         orbed = true;
-        basic.Stop();
         yield return new WaitForSeconds(4.5f);
-        orbed = true;
         CameraController.instance.camShake = true;
         earthquakeSound.Play();
         yield return new WaitForSeconds(2f);
@@ -82,9 +92,14 @@ public class RecupOrbe : MonoBehaviour
             Eboulement2.transform.position.z), 0.2f);
         Eboulement3.transform.DOMove(new Vector3(Eboulement3.transform.position.x, Eboulement3.transform.position.y - 20, 
             Eboulement.transform.position.z), 0.4f);
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.2f);
+        vfxsmoke2.Play();
         AudioList.Instance.PlayOneShot(AudioList.Instance.fallingRock, AudioList.Instance.fallingRockVolume);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.2f);
+        vfxsmoke1.Play();
+        yield return new WaitForSeconds(0.1f);
+        vfxsmoke3.Play();
+        yield return new WaitForSeconds(1f);
         CinématiqueManager.instance.isCinématique = false;
         player.canMove = true;
         player.canJump = true;
