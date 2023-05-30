@@ -1,7 +1,6 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using _3C;
+using Sound;
 using TechArt;
 using UnityEngine;
 
@@ -20,18 +19,14 @@ public class TriggerWater : MonoBehaviour
          originalSpeed = Controller.instance.walkMoveSpeed; 
          Controller.instance.walkMoveSpeed = waterSpeed;
 
-         var pos = other.transform.position;
-         _splash = SplashPoolingSystem.Instance.LendASplash();
-         _splash.transform.position = new Vector3(pos.x,thisCol.bounds.max.y,pos.z);
-         _splash.Play();
+         AudioList.Instance.PlayOneShot(AudioList.Instance.splashPlayer, AudioList.Instance.splashPlayerVolume);
+         Splash(other);
       }
 
       if (other.gameObject.layer == 14) //14 = objects
       {
-         var pos = other.transform.position;
-         _splash = SplashPoolingSystem.Instance.LendASplash();
-         _splash.transform.position = new Vector3(pos.x,thisCol.bounds.max.y,pos.z);
-         _splash.Play();
+         AudioList.Instance.PlayOneShot(AudioList.Instance.splashObject, AudioList.Instance.splashObjectVolume);
+         Splash(other);
          StartCoroutine(SinkingObject(other.gameObject));
       }
    }
@@ -42,6 +37,14 @@ public class TriggerWater : MonoBehaviour
       {
          Controller.instance.walkMoveSpeed = originalSpeed;
       }   
+   }
+
+   private void Splash(Collider other)
+   {
+      var pos = other.transform.position;
+      _splash = SplashPoolingSystem.Instance.LendASplash();
+      _splash.transform.position = new Vector3(pos.x,thisCol.bounds.max.y,pos.z);
+      _splash.Play();
    }
 
    private IEnumerator SinkingObject(GameObject other)
