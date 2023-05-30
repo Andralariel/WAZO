@@ -1,7 +1,6 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using _3C;
+using Sound;
 using TechArt;
 using UnityEngine;
 
@@ -20,11 +19,13 @@ public class TriggerWater : MonoBehaviour
          originalSpeed = Controller.instance.walkMoveSpeed; 
          Controller.instance.walkMoveSpeed = waterSpeed;
 
+         AudioList.Instance.PlayOneShot(AudioList.Instance.splashPlayer, AudioList.Instance.splashPlayerVolume);
          Splash(other);
       }
 
       if (other.gameObject.layer == 14) //14 = objects
       {
+         AudioList.Instance.PlayOneShot(AudioList.Instance.splashObject, AudioList.Instance.splashObjectVolume);
          Splash(other);
          StartCoroutine(SinkingObject(other.gameObject));
       }

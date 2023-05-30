@@ -81,10 +81,12 @@ namespace Sound
         [Range(0, 1)] public float grabGrosTerreVolume;
         public AudioClip deathScream;
         [Range(0, 1)] public float deathScreamVolume;
-        public AudioClip step;
-        [Range(0, 1)] public float stepVolume;
+        public AudioClip splashPlayer;
+        [Range(0, 1)] public float splashPlayerVolume;
         public AudioClip grabOther;
         [Range(0, 1)] public float grabOtherVolume;
+        public AudioClip splashObject;
+        [Range(0, 1)] public float splashObjectVolume;
 
         [Header("Interacteur")]
         public AudioClip getKey;
