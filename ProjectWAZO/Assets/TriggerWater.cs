@@ -20,18 +20,12 @@ public class TriggerWater : MonoBehaviour
          originalSpeed = Controller.instance.walkMoveSpeed; 
          Controller.instance.walkMoveSpeed = waterSpeed;
 
-         var pos = other.transform.position;
-         _splash = SplashPoolingSystem.Instance.LendASplash();
-         _splash.transform.position = new Vector3(pos.x,thisCol.bounds.max.y,pos.z);
-         _splash.Play();
+         Splash(other);
       }
 
       if (other.gameObject.layer == 14) //14 = objects
       {
-         var pos = other.transform.position;
-         _splash = SplashPoolingSystem.Instance.LendASplash();
-         _splash.transform.position = new Vector3(pos.x,thisCol.bounds.max.y,pos.z);
-         _splash.Play();
+         Splash(other);
          StartCoroutine(SinkingObject(other.gameObject));
       }
    }
@@ -42,6 +36,14 @@ public class TriggerWater : MonoBehaviour
       {
          Controller.instance.walkMoveSpeed = originalSpeed;
       }   
+   }
+
+   private void Splash(Collider other)
+   {
+      var pos = other.transform.position;
+      _splash = SplashPoolingSystem.Instance.LendASplash();
+      _splash.transform.position = new Vector3(pos.x,thisCol.bounds.max.y,pos.z);
+      _splash.Play();
    }
 
    private IEnumerator SinkingObject(GameObject other)
