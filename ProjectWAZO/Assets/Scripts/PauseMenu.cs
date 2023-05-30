@@ -9,6 +9,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Audio;
+using Utilitaire;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -31,6 +32,15 @@ public class PauseMenu : MonoBehaviour
     public TMPro.TMP_Dropdown resolutionDropdown;
     private Resolution[] resolutions;
     public AudioMixer mixer;
+
+    [Header("Triche")] 
+    public CanvasGroup menuTriche;
+
+    public GameObject boutonTpVillage;
+    public GameObject TPPVillage;
+    public GameObject TPPHamlet;
+    public GameObject TPPGraveyard;
+    public GameObject TPPTemple;
     
     public void Start()
     {
@@ -266,5 +276,60 @@ public class PauseMenu : MonoBehaviour
         currentlySelected = resolutionDropdown.gameObject;
         resolutionDropdown.gameObject.transform.DOScale(new Vector3(1.2f,1.2f,1.2f), 0.2f);
         isScaling = false;
+    }
+    
+    //---------------------------Fonction pour les Triches-----------------------------------
+
+    public void OpenTriche()
+    {
+        eventSystem.SetSelectedGameObject(boutonTpVillage);
+        currentlySelected = boutonTpVillage;
+        menuTriche.DOFade(1, 0.5f);
+        CG.DOFade(0, 0.5f);
+        CG.interactable = false;
+        CG.blocksRaycasts = false;
+        menuTriche.interactable = true;
+        menuTriche.blocksRaycasts = true;
+    }
+    
+    public void CloseTriche()
+    {
+        eventSystem.SetSelectedGameObject(boutonReprendre);
+        currentlySelected = boutonReprendre;
+        menuTriche.DOFade(0, 0.5f);
+        CG.DOFade(1, 0.5f);
+        CG.interactable = true;
+        CG.blocksRaycasts = true;
+        menuTriche.interactable = false;
+        menuTriche.blocksRaycasts = false;
+    }
+
+    public void TPVillage()
+    {
+        Controller.instance.transform.position = TPPVillage.transform.position;
+        Controller.instance.rb.velocity = Vector3.zero;
+    }
+    
+    public void TPHamlet()
+    {
+        Controller.instance.transform.position = TPPHamlet.transform.position;
+        Controller.instance.rb.velocity = Vector3.zero;
+    }
+    
+    public void TPGraveyard()
+    {
+        Controller.instance.transform.position = TPPGraveyard.transform.position;
+        Controller.instance.rb.velocity = Vector3.zero;
+    }
+    
+    public void TPTemple()
+    {
+        Controller.instance.transform.position = TPPTemple.transform.position;
+        Controller.instance.rb.velocity = Vector3.zero;
+    }
+    
+    public void OnOffTemple()
+    {
+        TempleOpener.instance.canOpen = !TempleOpener.instance.canOpen;
     }
 }
