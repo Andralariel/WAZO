@@ -191,7 +191,6 @@ public class PauseMenu : MonoBehaviour
 
     public void CloseOptions()
     {
-       
         boutonRetour.transform.DOScale(Vector3.one, 0.2f);
         AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick3, 0.4f);
         isOption = false;
