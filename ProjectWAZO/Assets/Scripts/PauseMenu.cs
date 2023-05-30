@@ -1,8 +1,11 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using _3C;
 using DG.Tweening;
 using Sound;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -11,7 +14,6 @@ public class PauseMenu : MonoBehaviour
 {
     public GameObject currentlySelected;
     public bool isScaling;
-    public bool bufferScaleBouton;
     public bool isPause;
     public bool canPause;
     public UnityEngine.EventSystems.EventSystem eventSystem;
@@ -25,6 +27,7 @@ public class PauseMenu : MonoBehaviour
 
     [Header("Options")] 
     public bool isOption;
+    public GameObject boutonRetour;
     public TMPro.TMP_Dropdown resolutionDropdown;
     private Resolution[] resolutions;
     public AudioMixer mixer;
@@ -64,16 +67,6 @@ public class PauseMenu : MonoBehaviour
         {
             if (!isPause)
             {
-                isScaling = true;
-                if (isScaling && bufferScaleBouton)
-                {
-                    bufferScaleBouton = false;
-                    isScaling = true;
-                    boutonReprendre.transform.DOScale( boutonReprendre.transform.localScale * 1.2f, 0.2f).OnComplete((() => isScaling = false));
-                    boutonReprendre.transform.DOMove(boutonReprendre.transform.position, 0.2f)
-                        .OnComplete((() => bufferScaleBouton = true));
-                }
-                
                 AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick2, 0.4f);
                 boutonReprendre.transform.DOScale(boutonReprendre.transform.localScale * 1.2f, 0.2f);
                 isPause = true;
@@ -89,7 +82,6 @@ public class PauseMenu : MonoBehaviour
             }
             else
             {
-                bufferScaleBouton = true;
                 isScaling = false;
                 boutonReprendre.transform.localScale = Vector3.one;
                 AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick3, 0.4f);
@@ -117,15 +109,30 @@ public class PauseMenu : MonoBehaviour
         {
             if (currentlySelected != eventSystem.currentSelectedGameObject)
             {
-                if (!isScaling && bufferScaleBouton)
+                if (!isScaling)
                 {
                     isScaling = true;
-                    eventSystem.currentSelectedGameObject.gameObject.transform.DOScale(gameObject.transform.localScale * 1.2f, 0.2f);
-                    currentlySelected.transform.DOScale(currentlySelected.transform.localScale * 0.8f, 0.2f).OnComplete((() => isScaling = false));
-                    currentlySelected = eventSystem.currentSelectedGameObject;
+                    try
+                    {
+                        eventSystem.currentSelectedGameObject.gameObject.transform.DOScale(gameObject.transform.localScale * 1.2f, 0.2f)
+                            .OnComplete((() => StartCoroutine(StopScaling())));
+                        currentlySelected.transform.DOScale(currentlySelected.transform.localScale * 0.8f, 0.2f).OnComplete((() => isScaling = false));
+                        currentlySelected = eventSystem.currentSelectedGameObject;
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                        throw;
+                    }
                 }
             } 
         }
+    }
+
+    IEnumerator StopScaling()
+    {
+        yield return new WaitForSeconds(0.1f);
+        isScaling = false;
     }
 
     public void QuitMenu()
@@ -166,6 +173,7 @@ public class PauseMenu : MonoBehaviour
 
     public void OpenOptions()
     {
+        resolutionDropdown.transform.DOScale(Vector3.one, 0.2f);
         AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick2, 0.4f);
         isOption = true;
         eventSystem.SetSelectedGameObject(firstSelecOptions);
@@ -183,7 +191,8 @@ public class PauseMenu : MonoBehaviour
 
     public void CloseOptions()
     {
-        currentlySelected.transform.DOScale(Vector3.one, 0.2f);
+       
+        boutonRetour.transform.DOScale(Vector3.one, 0.2f);
         AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick3, 0.4f);
         isOption = false;
         eventSystem.SetSelectedGameObject(boutonReprendre);
@@ -221,6 +230,10 @@ public class PauseMenu : MonoBehaviour
         {
             QualitySettings.SetQualityLevel(0,true);   
         }
+
+        currentlySelected = firstSelecOptions;
+        firstSelecOptions.gameObject.transform.DOScale(new Vector3(1.2f,1.2f,1.2f), 0.2f);
+        isScaling = false;
     }
 
     public void SetMasterLevel(float sliderValue)
@@ -251,5 +264,8 @@ public class PauseMenu : MonoBehaviour
     {
         Resolution resolution = resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+        currentlySelected = resolutionDropdown.gameObject;
+        resolutionDropdown.gameObject.transform.DOScale(new Vector3(1.2f,1.2f,1.2f), 0.2f);
+        isScaling = false;
     }
 }
