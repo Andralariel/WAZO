@@ -36,25 +36,25 @@ Material:
     m_Ints: []
     m_Floats:
     - _Distance: 1.04
-    - _FoamBorderDensity: 0
+    - _FoamBorderDensity: 9.27
     - _FoamBorderDistance: 0.84
-    - _FoamBorderNoiseScale: 0.44
-    - _FoamBorderSpeed: 1.69
+    - _FoamBorderNoiseScale: 0.58
+    - _FoamBorderSpeed: 0.3
     - _FoamNoiseScale: 0.92
-    - _FoamRandomScale: 0.26
-    - _FoamStep: 1
+    - _FoamRandomScale: 0.1
+    - _FoamStep: 0.21
     - _Foam_Amount: 1.74
     - _Foam_Random_Amount: 0.013
     - _Foam_Scale: 10
-    - _Foam_Speed: 5.68
-    - _FoaminverseSpeed: 1
+    - _Foam_Speed: 6.06
+    - _FoaminverseSpeed: 1.24
     - _OnlyFoam: 0
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _RefractionDepth: 0
-    - _Refraction_Scale: 0
-    - _Refraction_Speed: 0.01
-    - _Refraction_Strenght: 0.2
+    - _RefractionDepth: 3
+    - _Refraction_Scale: 0.07
+    - _Refraction_Speed: 0.044
+    - _Refraction_Strenght: 0.485
     - _Transparent: 1
     - _Use_Waves: 0
     - _Water_Depth_Fade_Distance: 1.5
@@ -62,18 +62,18 @@ Material:
     - _Wave_Scale: 0.1
     - _Wave_Speed: 0.05
     - _X_Direction: -1
-    - _Y_Direction: -0.57
+    - _Y_Direction: -0
     - _distance: 3
     - _foamdistance: 1.54
     - _foamfallof: 15.96
     - _stp: 0.27
     - _timink: 0.5
     m_Colors:
-    - _Deep_Water_Color: {r: 0.03043787, g: 0.104930565, b: 0.11320752, a: 1}
-    - _FoamRandomRemap: {r: 0, g: 0.53, b: 0, a: 0}
-    - _Foam_Color: {r: 0.2552065, g: 0.3490566, b: 0.34673932, a: 1}
-    - _FoamborderRemap: {r: -3.51, g: 4.43, b: 0, a: 0}
-    - _Shallow_Water_Color: {r: 0.03675686, g: 0.09517794, b: 0.13207549, a: 1}
+    - _Deep_Water_Color: {r: 0.18845674, g: 0.25932273, b: 0.3301887, a: 1}
+    - _FoamRandomRemap: {r: 0, g: 0.39, b: 0, a: 0}
+    - _Foam_Color: {r: 0.7973923, g: 0.9003451, b: 0.9339623, a: 0.29803923}
+    - _FoamborderRemap: {r: -2.16, g: 2.23, b: 0, a: 0}
+    - _Shallow_Water_Color: {r: 0.21266466, g: 0.657462, b: 0.764151, a: 1}
     - _Vector2: {r: 0, g: 1.8, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &2108846147085968490
