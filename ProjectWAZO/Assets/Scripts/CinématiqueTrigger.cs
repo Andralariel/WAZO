@@ -28,6 +28,8 @@ public class CinématiqueTrigger : MonoBehaviour
    
    IEnumerator OpenMenu()
    {
+      MapManager.instance.pontInteroFresques[FresqueID].gameObject.SetActive(false);
+      MapManager.instance.listCercles[FresqueID].gameObject.SetActive(false);
       CarnetManager.instance.canOpen = false;
       CameraController.instance.SmoothMoveFactor = 0.2f;
       yield return new WaitForSeconds(CinématiqueDuration);
