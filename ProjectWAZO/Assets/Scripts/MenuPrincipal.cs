@@ -11,10 +11,17 @@ using Button = UnityEngine.UI.Button;
 public class MenuPrincipal : MonoBehaviour
 {
     public bool enableMainMenu;
+    public bool isScaling;
     public PlayableDirector director;
-    public UnityEngine.EventSystems.EventSystem EventSystem;
+    public UnityEngine.EventSystems.EventSystem eventSystem;
+    
     public Button boutonStart;
-    public GameObject dropdonOptions;
+    public GameObject dropDownQuality;
+    public GameObject dropDownResolution;
+    public GameObject boutonOptions;
+    public GameObject boutonRetour;
+    public GameObject boutonReprendre;
+    
     public CanvasGroup MenuMain;
     public CanvasGroup MenuOptions;
     public GameObject cameraMenu;
@@ -29,14 +36,14 @@ public class MenuPrincipal : MonoBehaviour
         if (enableMainMenu)
         {
             director.playOnAwake = false;
-            EventSystem.SetSelectedGameObject(boutonStart.gameObject);
+            eventSystem.SetSelectedGameObject(boutonStart.gameObject);
         }
         else
         { 
             cameraMenu.SetActive(false);
             cameraCine.SetActive(true);
             director.Play();
-            EventSystem.SetSelectedGameObject(null);
+            eventSystem.SetSelectedGameObject(null);
         }
     }
 
@@ -44,30 +51,38 @@ public class MenuPrincipal : MonoBehaviour
     {
         AudioList.Instance.StartMusic(AudioList.Music.main, true);
     }
-
-    //Fix null reference
-    private bool _firstTime = true;
     private void Update()
     {
-        if (_firstTime)
+        if (currentlySelected is not null && currentlySelected != eventSystem.currentSelectedGameObject)
         {
-            EventSystem.currentSelectedGameObject.gameObject.transform.DOScale(gameObject.transform.localScale * 1.2f, 0.2f);
-            currentlySelected = EventSystem.currentSelectedGameObject;
-            _firstTime = false;
-        }
-        if (currentlySelected != EventSystem.currentSelectedGameObject)
-        {
-            EventSystem.currentSelectedGameObject.gameObject.transform.DOScale(gameObject.transform.localScale * 1.2f, 0.2f);
-            currentlySelected.transform.DOScale(currentlySelected.transform.localScale * 0.8f, 0.2f);
-            currentlySelected = EventSystem.currentSelectedGameObject;
-        }
+            if (!isScaling)
+            {
+                isScaling = true;
+                try
+                {
+                    //eventSystem.currentSelectedGameObject.gameObject.transform.DOScale(gameObject.transform.localScale * 1.2f, 0.2f)
+                     //   .OnComplete((() => StartCoroutine(StopScaling())));
+                    currentlySelected.transform.DOScale(currentlySelected.transform.localScale * 0.8f, 0.2f).OnComplete((() => isScaling = false));
+                    currentlySelected = eventSystem.currentSelectedGameObject;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+            }
+        } 
+    }
+    IEnumerator StopScaling()
+    {
+        yield return new WaitForSeconds(0.1f);
+        isScaling = false;
     }
 
     public void StartGame()
     {
         
-        EventSystem.SetSelectedGameObject(null);
-        currentlySelected = EventSystem.currentSelectedGameObject;
+        eventSystem.SetSelectedGameObject(null);
+        currentlySelected = eventSystem.currentSelectedGameObject;
         AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick2, 0.4f);
         MenuMain.interactable = false;
         MenuMain.blocksRaycasts = false;
@@ -93,26 +108,34 @@ public class MenuPrincipal : MonoBehaviour
     
     public void OpenOptions()
     {
-        EventSystem.SetSelectedGameObject(dropdonOptions.gameObject);
+        currentlySelected = dropDownQuality.gameObject;
+        eventSystem.SetSelectedGameObject(dropDownQuality.gameObject);
         AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick1, 0.4f);
-        
-        cameraMenu.transform.DOLocalMove(optionsPos,1.5f);
         MenuMain.interactable = false;
         MenuMain.blocksRaycasts = false;
         MenuOptions.interactable = true;
         MenuOptions.blocksRaycasts = true;
+        MenuMain.DOFade(0, 0.5f);
+        MenuOptions.DOFade(1, 0.5f);
+        boutonOptions.transform.DOScale(currentlySelected.transform.localScale * 0.8f, 0.2f);
+        dropDownResolution.transform.DOScale(currentlySelected.transform.localScale * 0.8f, 0.2f);
+        dropDownQuality.transform.DOScale(currentlySelected.transform.localScale * 0.8f, 0.2f);
     }
     
     public void QuitOptions()
     {
-        EventSystem.SetSelectedGameObject(boutonStart.gameObject);
-        currentlySelected = EventSystem.currentSelectedGameObject;
+        eventSystem.SetSelectedGameObject(boutonStart.gameObject);
         AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick3, 0.4f);
         cameraMenu.transform.DOLocalMove(mainPos,1.5f);
         MenuMain.interactable = true;
         MenuMain.blocksRaycasts = true;
         MenuOptions.interactable = false;
         MenuOptions.blocksRaycasts = false;
+        MenuMain.DOFade(1, 0.5f);
+        MenuOptions.DOFade(0, 0.5f);
+        boutonRetour.transform.DOScale(currentlySelected.transform.localScale * 0.8f, 0.2f);
+        currentlySelected = boutonReprendre;
+        boutonReprendre.transform.DOScale(boutonReprendre.transform.localScale *1.2f, 0.2f);
     }
     
     public void Quitter()
