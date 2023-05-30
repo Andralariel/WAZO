@@ -196,6 +196,36 @@ namespace _3C
                     {
                         if (spiritRespawn.holdingDuration > spiritRespawn.durationUntilReset)
                         {
+                            if (spiritRespawn.isMoulin)
+                            {
+                                spiritRespawn.associedMoulin.isActive = false;
+                                spiritRespawn.associedMoulin.hélice.transform.rotation =
+                                    new Quaternion(0, 180, 0, 0);
+                                for (int i = 0; i < 3; i++)
+                                {
+                                    spiritRespawn.associedMoulin.plateformes[i].transform.position = spiritRespawn.associedMoulin.plateformesPoints[i].transform.position;
+                                }
+                            }
+
+                            if (spiritRespawn.isMultipleMoulin)
+                            {
+                                spiritRespawn.associedMoulin.isActive = false;
+                                spiritRespawn.associedMoulin.hélice.transform.rotation =
+                                    new Quaternion(0, 180, 0, 0);
+                                for (int i = 0; i < 3; i++)
+                                {
+                                    spiritRespawn.associedMoulin.plateformes[i].transform.position = spiritRespawn.associedMoulin.plateformesPoints[i].transform.position;
+                                }
+                                
+                                spiritRespawn.associedMoulin2.isActive = false;
+                                spiritRespawn.associedMoulin2.hélice.transform.rotation =
+                                    new Quaternion(0, 180, 0, 0);
+                                for (int i = 0; i < 3; i++)
+                                {
+                                    spiritRespawn.associedMoulin2.plateformes[i].transform.position = spiritRespawn.associedMoulin2.plateformesPoints[i].transform.position;
+                                }
+                            }
+                            
                             foreach (var spirit in spiritRespawn.spiritsToRespawn) 
                             {
                                 spirit.Respawn();

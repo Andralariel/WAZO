@@ -148,7 +148,6 @@ namespace _3C
                     if(filmPlayer) return;
                     if (Vector3.Distance(transform.position, newPosition) < filmPlayerDistance)
                     {
-                        Debug.Log("oui");
                         filmPlayer = true;
                         SmoothMoveFactor = 0.2f;
                     }
