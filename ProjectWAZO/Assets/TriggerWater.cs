@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using _3C;
 using TechArt;
 using UnityEngine;
@@ -25,6 +23,7 @@ public class TriggerWater : MonoBehaviour
 
       if (other.gameObject.layer == 14) //14 = objects
       {
+         if (other.attachedRigidbody.isKinematic) return;//if isHeld return
          Splash(other);
          StartCoroutine(SinkingObject(other.gameObject));
       }
@@ -38,7 +37,7 @@ public class TriggerWater : MonoBehaviour
       }   
    }
 
-   private void Splash(Collider other)
+   private void Splash(Component other)
    {
       var pos = other.transform.position;
       _splash = SplashPoolingSystem.Instance.LendASplash();
@@ -48,7 +47,7 @@ public class TriggerWater : MonoBehaviour
 
    private IEnumerator SinkingObject(GameObject other)
    {
-      yield return new WaitForSeconds(0.1f);
+      yield return new WaitForSeconds(0.15f);
       other.SetActive(false);
    }
 }
