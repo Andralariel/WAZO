@@ -74,7 +74,7 @@ public class PauseMenu : MonoBehaviour
                         .OnComplete((() => bufferScaleBouton = true));
                 }
                 
-                AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick2, 1f);
+                AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick2, 0.4f);
                 boutonReprendre.transform.DOScale(boutonReprendre.transform.localScale * 1.2f, 0.2f);
                 isPause = true;
                 CG.interactable = true;
@@ -92,7 +92,7 @@ public class PauseMenu : MonoBehaviour
                 bufferScaleBouton = true;
                 isScaling = false;
                 boutonReprendre.transform.localScale = Vector3.one;
-                AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick3, 1f);
+                AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick3, 0.4f);
                 isPause = false;
                 CG.interactable = false;
                 CG.blocksRaycasts = false;
@@ -134,7 +134,7 @@ public class PauseMenu : MonoBehaviour
         {
             if (isOption) // quitte les options
             {
-                AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick3, 1f);
+                AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick3, 0.4f);
                 CloseOptions();
             }
             else // quitte la pause
@@ -144,7 +144,7 @@ public class PauseMenu : MonoBehaviour
                     currentlySelected.transform.localScale = Vector3.one;
                     eventSystem.currentSelectedGameObject.transform.localScale = Vector3.one;
                 }
-                AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick3, 1f);
+                AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick3, 0.4f);
                 isPause = false;
                 CG.interactable = false;
                 CG.blocksRaycasts = false;
@@ -166,7 +166,7 @@ public class PauseMenu : MonoBehaviour
 
     public void OpenOptions()
     {
-        AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick2, 1f);
+        AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick2, 0.4f);
         isOption = true;
         eventSystem.SetSelectedGameObject(firstSelecOptions);
         currentlySelected = firstSelecOptions;
@@ -184,7 +184,7 @@ public class PauseMenu : MonoBehaviour
     public void CloseOptions()
     {
         currentlySelected.transform.DOScale(Vector3.one, 0.2f);
-        AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick3, 1f);
+        AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick3, 0.4f);
         isOption = false;
         eventSystem.SetSelectedGameObject(boutonReprendre);
         currentlySelected = boutonReprendre;
