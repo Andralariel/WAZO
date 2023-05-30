@@ -25,6 +25,8 @@ public class TriggerWater : MonoBehaviour
 
       if (other.gameObject.layer == 14) //14 = objects
       {
+         if(other.attachedRigidbody.isKinematic) return;
+         
          AudioList.Instance.PlayOneShot(AudioList.Instance.splashObject, AudioList.Instance.splashObjectVolume);
          Splash(other);
          StartCoroutine(SinkingObject(other.gameObject));

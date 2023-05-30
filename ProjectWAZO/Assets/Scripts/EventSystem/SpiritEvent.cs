@@ -1,5 +1,4 @@
 using System;
-using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
 using Utilitaire;
@@ -100,7 +99,7 @@ namespace EventSystem
             for (int i = 0; i < t.waypoints.Length; i++)
             {
                 if (t.waypoints[i].position == Vector3.zero) t.waypoints[i].position = t.transform.position;
-                t.waypoints[i].position = Handles.PositionHandle(t.waypoints[i].position, quaternion.identity);
+                t.waypoints[i].position = Handles.PositionHandle(t.waypoints[i].position, Quaternion.identity);
 
                 if (i <= 0) continue;
                 var color = t.waypoints[i].behaviour switch
