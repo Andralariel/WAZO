@@ -127,6 +127,11 @@ public class KeyUI : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
             compteurBonus.text = currentBonusShard + " / 4"; 
         }
+
+        if (currentShard >= 9)
+        {
+            StartCoroutine(CinématiqueManager.instance.SpawnChapeau());
+        }
         yield return new WaitForSeconds(timeToHide-0.5f);
         addShard.DOAnchorPos(hideBonusPosition, 0.5f).OnComplete((() =>   MapManager.instance.IconMapUpdate(3)));
     }

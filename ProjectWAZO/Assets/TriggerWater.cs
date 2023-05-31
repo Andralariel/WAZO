@@ -16,7 +16,6 @@ public class TriggerWater : MonoBehaviour
    {
       if (other.gameObject.layer == 6) //6 = player
       {
-         originalSpeed = Controller.instance.walkMoveSpeed; 
          Controller.instance.walkMoveSpeed = waterSpeed;
 
          AudioList.Instance.PlayOneShot(AudioList.Instance.splashPlayer, AudioList.Instance.splashPlayerVolume);
@@ -32,20 +31,12 @@ public class TriggerWater : MonoBehaviour
          StartCoroutine(SinkingObject(other.gameObject));
       }
    }
-
-   private void OnTriggerExit(Collider other)
-   {
-      if (other.gameObject.layer == 6)
-      {
-         Controller.instance.walkMoveSpeed = originalSpeed;
-      }   
-   }
-
+   
    private void Splash(Collider other)
    {
       var pos = other.transform.position;
       _splash = SplashPoolingSystem.Instance.LendASplash();
-      _splash.transform.position = new Vector3(pos.x,thisCol.bounds.max.y,pos.z);
+      _splash.transform.position = new Vector3(pos.x,thisCol.bounds.max.y+0.5f,pos.z);
       _splash.Play();
    }
 

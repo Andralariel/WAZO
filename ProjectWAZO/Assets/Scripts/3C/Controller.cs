@@ -30,6 +30,7 @@ namespace _3C
         [Header("Métrics Controller")]
         public float airControlSpeed = 40f;
         public float walkMoveSpeed;
+        public float originalWalkSpeed;
         public float hugeWindAirSpeed;
         public float slopeSpeed;
         public float jumpForce;
@@ -97,7 +98,8 @@ namespace _3C
             {
                 inputAction.Player.Move.performed += ctx => moveInput = ctx.ReadValue<Vector3>();
             }
-            
+
+            originalWalkSpeed = walkMoveSpeed;
            
             inputAction.Player.Jump.performed += ctx => StartCoroutine(MapManager.instance.RotateMap());
 
@@ -370,6 +372,7 @@ namespace _3C
                     anim.SetBool("isFlying",true);
                 }
                 rb.constraints = RigidbodyConstraints.FreezeRotation;
+                walkMoveSpeed = originalWalkSpeed;
                 canJump = false;
                 isCoyote = false;
                 StopAllCoroutines();
