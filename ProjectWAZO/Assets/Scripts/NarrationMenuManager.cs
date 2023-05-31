@@ -44,6 +44,7 @@ public class NarrationMenuManager : MonoBehaviour
             isOpen = false;
             myCG.DOFade(0, 0.5f);
             CinématiqueManager.instance.isCinématique = false;
+            PauseMenu.instance.canPause = true;
         }
     }
     

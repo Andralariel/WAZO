@@ -174,6 +174,7 @@ namespace _3C
 
             if (isEchelle) // Si le perso est sur une echelle, son anim dépend de sa vitesse et il peut en sortir en touchant le sol
             {
+                PauseMenu.instance.canPause = false;
                 trail.emitting = false;
                 trail2.emitting = false;
                 anim.SetBool("isClimbing",true);
@@ -182,7 +183,7 @@ namespace _3C
                 anim.SetBool("isIdle",false);
                 canPlaner = false;
                 rb.useGravity = false;
-                float animationSpeed = _moveDir.magnitude;
+                float animationSpeed = moveInput.magnitude;
                 animationSpeed = Mathf.Clamp(animationSpeed,0f, 1f);
                 anim.SetFloat("ClimbingSpeed",animationSpeed);
 
