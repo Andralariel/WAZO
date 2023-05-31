@@ -30,6 +30,8 @@ public class MenuPrincipal : MonoBehaviour
     public GameObject cameraCine;
     public GameObject currentlySelected;
     public Image blackScreen;
+    public Image bandeNoire1;
+    public Image bandeNoire2;
     public AudioMixer mixer;
 
     [Header("Ghetto")] 
@@ -139,7 +141,6 @@ public class MenuPrincipal : MonoBehaviour
 
     public void StartGame()
     {
-        
         eventSystem.SetSelectedGameObject(null);
         currentlySelected = eventSystem.currentSelectedGameObject;
         AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick2, 0.4f);
@@ -152,7 +153,10 @@ public class MenuPrincipal : MonoBehaviour
     IEnumerator ChangeScene()
     {
         blackScreen.DOFade(1, 0.5f);
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.5f);
+        bandeNoire1.gameObject.SetActive(true);
+        bandeNoire2.gameObject.SetActive(true);
+        yield return new WaitForSeconds(1f);
         blackScreen.DOFade(0, 1f);
         cameraMenu.SetActive(false);
         cameraCine.SetActive(true);
