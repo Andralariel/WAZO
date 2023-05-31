@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Sound;
 using UnityEngine;
 
 public class HatManager : MonoBehaviour
@@ -17,6 +18,7 @@ public class HatManager : MonoBehaviour
             transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
             transform.localPosition = putPosition;
             transform.Rotate(new Vector3(-18, 0, 0));
+            AudioList.Instance.PlayOneShot(AudioList.Instance.hatOnHead, AudioList.Instance.hatOnHeadVolume);
             VFX.gameObject.SetActive(false);
         }
     }
