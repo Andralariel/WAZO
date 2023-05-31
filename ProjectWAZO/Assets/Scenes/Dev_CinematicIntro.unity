@@ -23,7 +23,7 @@ RenderSettings:
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 0.25
+  m_AmbientIntensity: 0.62
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.5226504, g: 0.59099954, b: 0.764151, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: 6abe918ee1229b34f8557fc2a5a39825, type: 2}
@@ -8252,6 +8252,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Menu Principal 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8323814211642650401, guid: 7216b22b5bda373489f4be7168b4f85f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8323814211642650404, guid: 7216b22b5bda373489f4be7168b4f85f,
         type: 3}
       propertyPath: m_Pivot.x
@@ -9602,6 +9607,7 @@ PlayableDirector:
     m_References:
     - 05e91633eb8d70946896cac87c21ecd3: {fileID: 0}
     - a3578d302f61af841a1daa9d9468077d: {fileID: 1512994197}
+    - 38eb0c36ab67bab4984fdd1fc2c72eba: {fileID: 194690510}
     - 67c5a2b6218e410409285f78d30d4a33: {fileID: 945523500}
     - 6cbf39244856ed347a9ca640fe9deace: {fileID: 361293572}
     - 02a9d19c3436b6a4f80d5784b49f8bdc: {fileID: 4942914822578843439}
