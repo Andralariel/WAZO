@@ -29,6 +29,10 @@ public class CinématiqueManager : MonoBehaviour
     public ParticleSystem mapVfx;
     public GameObject modeMap;
     public GameObject playerCenterPoint;
+
+    [Header("CineChapeau")] 
+    public GameObject chapeau;
+    public ParticleSystem VFXChap;
     private void Awake()
     {
         if (instance == null)
@@ -123,22 +127,22 @@ public class CinématiqueManager : MonoBehaviour
         CameraController.instance.isVerticalLerp = false;
         CameraController.instance.isIso = true;
         CameraController.instance.offset = new Vector3(2, 10, -6.4f);
-        CameraController.instance.SmoothMoveFactor = 0.9f;
+        CameraController.instance.SmoothMoveFactor = 0.8f;
         CameraController.instance.canMove = true;
         isCinématique = false;
         globalVolume.weight = 1;
         StartCoroutine(CinématiqueCarte());
     }
 
-    public IEnumerator CinématiqueCarte()
+    public IEnumerator CinématiqueCarte() 
     {
         Controller.instance.canMove = false;
         Controller.instance.canJump = false;
         Controller.instance.ultraBlock = true;
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(2.1f);
         CameraController.instance.canMove = false;
-        CameraController.instance.transform.DOMove(CameraController.instance.transform.position + CameraController.instance.transform.forward*5, 3f).SetEase(Ease.Linear);
-        yield return new WaitForSeconds(3f);
+        CameraController.instance.transform.DOMove(CameraController.instance.transform.position + CameraController.instance.transform.forward*5, 2.5f).SetEase(Ease.Linear);
+        yield return new WaitForSeconds(2.5f);
         CameraController.instance.transform.DOMove(CameraController.instance.transform.position + CameraController.instance.transform.forward*3, 19f);
         for (int i = 0; i < spiritsList.Count; i++) // fait spawn les esprits
         {
@@ -148,7 +152,7 @@ public class CinématiqueManager : MonoBehaviour
             spiritsList[i].SetActive(true);
             yield return new WaitForSeconds(0.4f);
         }
-        yield return new WaitForSeconds(3f);  // fait spawn la carte
+        yield return new WaitForSeconds(2.5f);  // fait spawn la carte
         AudioList.Instance.PlayOneShot(AudioList.Instance.mapSpawn, AudioList.Instance.mapSpawnVolume);
         mapVfx.Play();
         modeMap.SetActive(true);
@@ -177,6 +181,27 @@ public class CinématiqueManager : MonoBehaviour
         PauseMenu.instance.canPause = true;
         yield return new WaitForSeconds(1f);
         CameraController.instance.SmoothMoveFactor = 0.2f;
+    }
+
+    public IEnumerator SpawnChapeau()
+    {
+        Controller.instance.canMove = false;
+        Controller.instance.canJump = false;
+        Controller.instance.ultraBlock = true;
+        CameraController.instance.SmoothMoveFactor = 0.8f;
+        CameraController.instance.player = chapeau;
+        yield return new WaitForSeconds(3.5f);
+        AudioList.Instance.PlayOneShot(AudioList.Instance.mapSpawn, AudioList.Instance.mapSpawnVolume);
+        VFXChap.Play();
+        yield return new WaitForSeconds(0.25f);
+        chapeau.SetActive(true);
+        yield return new WaitForSeconds(3.5f);
+        CameraController.instance.player = Controller.instance.gameObject;
+        yield return new WaitForSeconds(3.5f);
+        CameraController.instance.SmoothMoveFactor = 0.2f;
+        Controller.instance.canMove = true;
+        Controller.instance.canJump = true;
+        Controller.instance.ultraBlock = false;
     }
     
     

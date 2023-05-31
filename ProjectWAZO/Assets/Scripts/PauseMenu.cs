@@ -9,6 +9,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Audio;
+using Utilitaire;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -31,6 +32,18 @@ public class PauseMenu : MonoBehaviour
     public TMPro.TMP_Dropdown resolutionDropdown;
     private Resolution[] resolutions;
     public AudioMixer mixer;
+
+    [Header("Triche")] 
+    public bool isTriche;
+    public CanvasGroup menuTriche;
+    public GameObject boutonTpVillage;
+    public GameObject TPPVillage;
+    public GameObject TPPHamlet;
+    public GameObject TPPGraveyard;
+    public GameObject TPPTemple;
+    public GameObject boutonTriche;
+    public GameObject boutonRetourTriche;
+    
     
     public void Start()
     {
@@ -68,7 +81,7 @@ public class PauseMenu : MonoBehaviour
             if (!isPause)
             {
                 AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick2, 0.4f);
-                boutonReprendre.transform.DOScale(boutonReprendre.transform.localScale * 1.2f, 0.2f);
+                boutonReprendre.transform.DOScale(new Vector3(1.2f,1.2f,1.2f), 0.2f);
                 isPause = true;
                 CG.interactable = true;
                 CG.blocksRaycasts = true;
@@ -97,9 +110,26 @@ public class PauseMenu : MonoBehaviour
                 Controller.instance.canJump = true;
             }
         }
-        else if (isOption)
+        
+        if (isOption && !isTriche)
         {
             CloseOptions();
+        }
+
+        if (isTriche && !isOption)
+        {
+            CloseTriche();
+            boutonReprendre.transform.DOScale(new Vector3(1.2f,1.2f,1.2f), 0.2f);
+            isPause = true;
+            CG.interactable = true;
+            CG.blocksRaycasts = true;
+            CG.DOFade(1, 0.5f);
+            eventSystem.SetSelectedGameObject(boutonReprendre);
+            currentlySelected = boutonReprendre;
+            CinématiqueManager.instance.isCinématique = true;
+            Controller.instance.ultraBlock = true;
+            Controller.instance.canMove = false;
+            Controller.instance.canJump = false;
         }
     }
 
@@ -114,9 +144,9 @@ public class PauseMenu : MonoBehaviour
                     isScaling = true;
                     try
                     {
-                        eventSystem.currentSelectedGameObject.gameObject.transform.DOScale(gameObject.transform.localScale * 1.2f, 0.2f)
+                        eventSystem.currentSelectedGameObject.gameObject.transform.DOScale(new Vector3(1.2f,1.2f,1.2f), 0.2f)
                             .OnComplete((() => StartCoroutine(StopScaling())));
-                        currentlySelected.transform.DOScale(currentlySelected.transform.localScale * 0.8f, 0.2f).OnComplete((() => isScaling = false));
+                        currentlySelected.transform.DOScale(new Vector3(0.8f,0.8f,0.8f), 0.2f).OnComplete((() => isScaling = false));
                         currentlySelected = eventSystem.currentSelectedGameObject;
                     }
                     catch (Exception e)
@@ -139,12 +169,13 @@ public class PauseMenu : MonoBehaviour
     {
         if (isPause)
         {
-            if (isOption) // quitte les options
+            if (isOption && !isTriche) // quitte les options
             {
                 AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick3, 0.4f);
                 CloseOptions();
             }
-            else // quitte la pause
+            
+            if(!isOption && !isTriche)// quitte la pause
             {
                 if (isScaling)
                 {
@@ -163,6 +194,11 @@ public class PauseMenu : MonoBehaviour
                 Controller.instance.canMove = true;
                 Controller.instance.canJump = true;
             }
+
+            if (isTriche && !isOption) // quitte la triche
+            {
+                CloseTriche();
+            }
         }
     }
 
@@ -178,8 +214,8 @@ public class PauseMenu : MonoBehaviour
         isOption = true;
         eventSystem.SetSelectedGameObject(firstSelecOptions);
         currentlySelected = firstSelecOptions;
-        boutonOptions.transform.DOScale(boutonOptions.transform.localScale * 0.8f, 0.2f);
-        firstSelecOptions.transform.DOScale(firstSelecOptions.transform.localScale * 1.2f, 0.2f);
+        boutonOptions.transform.DOScale(new Vector3(0.8f,0.8f,0.8f), 0.2f);
+        firstSelecOptions.transform.DOScale(new Vector3(1.2f,1.2f,1.2f), 0.2f);
         CG.interactable = false;
         CG.blocksRaycasts = false;
         CG.DOFade(0, 0.5f);
@@ -191,13 +227,12 @@ public class PauseMenu : MonoBehaviour
 
     public void CloseOptions()
     {
-       
         boutonRetour.transform.DOScale(Vector3.one, 0.2f);
         AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick3, 0.4f);
         isOption = false;
         eventSystem.SetSelectedGameObject(boutonReprendre);
         currentlySelected = boutonReprendre;
-        boutonReprendre.transform.DOScale(boutonReprendre.transform.localScale * 1.2f, 0.2f);
+        boutonReprendre.transform.DOScale(new Vector3(1.2f,1.2f,1.2f), 0.2f);
         CG.interactable = true;
         CG.blocksRaycasts = true;
         CG.DOFade(1, 0.5f); 
@@ -267,5 +302,69 @@ public class PauseMenu : MonoBehaviour
         currentlySelected = resolutionDropdown.gameObject;
         resolutionDropdown.gameObject.transform.DOScale(new Vector3(1.2f,1.2f,1.2f), 0.2f);
         isScaling = false;
+    }
+    
+    //---------------------------Fonction pour les Triches-----------------------------------
+
+    public void OpenTriche()
+    {
+        AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick2, 0.4f);
+        boutonTriche.transform.DOScale(new Vector3(0.8f,0.8f,0.8f), 0.2f);
+        boutonRetourTriche.transform.DOScale(new Vector3(0.8f,0.8f,0.8f), 0.2f);
+        boutonTpVillage.transform.DOScale(new Vector3(1.2f,1.2f,1.2f), 0.2f);
+        isTriche = true;
+        eventSystem.SetSelectedGameObject(boutonTpVillage);
+        currentlySelected = boutonTpVillage;
+        menuTriche.DOFade(1, 0.5f);
+        CG.DOFade(0, 0.5f);
+        CG.interactable = false;
+        CG.blocksRaycasts = false;
+        menuTriche.interactable = true;
+        menuTriche.blocksRaycasts = true;
+    }
+    
+    public void CloseTriche()
+    {
+        AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick3, 0.4f);
+        boutonRetourTriche.transform.DOScale(new Vector3(0.8f,0.8f,0.8f), 0.2f);
+        boutonReprendre.transform.DOScale(new Vector3(1.2f,1.2f,1.2f), 0.2f);
+        isTriche = false;
+        eventSystem.SetSelectedGameObject(boutonReprendre);
+        currentlySelected = boutonReprendre;
+        menuTriche.DOFade(0, 0.5f);
+        CG.DOFade(1, 0.5f);
+        CG.interactable = true;
+        CG.blocksRaycasts = true;
+        menuTriche.interactable = false;
+        menuTriche.blocksRaycasts = false;
+    }
+
+    public void TPVillage()
+    {
+        Controller.instance.transform.position = TPPVillage.transform.position;
+        Controller.instance.rb.velocity = Vector3.zero;
+    }
+    
+    public void TPHamlet()
+    {
+        Controller.instance.transform.position = TPPHamlet.transform.position;
+        Controller.instance.rb.velocity = Vector3.zero;
+    }
+    
+    public void TPGraveyard()
+    {
+        Controller.instance.transform.position = TPPGraveyard.transform.position;
+        Controller.instance.rb.velocity = Vector3.zero;
+    }
+    
+    public void TPTemple()
+    {
+        Controller.instance.transform.position = TPPTemple.transform.position;
+        Controller.instance.rb.velocity = Vector3.zero;
+    }
+    
+    public void OnOffTemple()
+    {
+        TempleOpener.instance.canOpen = !TempleOpener.instance.canOpen;
     }
 }

@@ -69,6 +69,10 @@ namespace Sound
         [Range(0, 1)] public float spiritDespawnVolume;
         public AudioClip mapSpawn;
         [Range(0, 1)] public float mapSpawnVolume;
+        public AudioClip keyOnDoor;
+        [Range(0, 1)] public float keyOnDoorVolume;
+        public AudioClip hatOnHead;
+        [Range(0, 1)] public float hatOnHeadVolume;
 
         [Header("Player")]
         public AudioClip saut;
@@ -102,6 +106,7 @@ namespace Sound
         public AudioClip waterfall;
         public AudioClip auraKey;
         public AudioClip river;
+        public AudioClip insectField;
 
         [Header("Non-spatialize")]
         public AudioClip playerHit;

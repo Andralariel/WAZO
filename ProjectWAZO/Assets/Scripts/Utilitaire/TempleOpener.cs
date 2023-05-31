@@ -102,6 +102,7 @@ namespace Utilitaire
          yield return new WaitForSeconds(3f);
          Clé.transform.DOMove(Serrure.transform.position, 5f);
          yield return new WaitForSeconds(4.5f);
+         AudioList.Instance.PlayOneShot(AudioList.Instance.keyOnDoor, AudioList.Instance.keyOnDoorVolume);
          Clé.transform.DOLocalRotate(new Vector3(0,90,-45), 0.5f);
          yield return new WaitForSeconds(0.5f);
          animDoor.SetBool("Open",true);
