@@ -104,6 +104,7 @@ namespace Sound
         public AudioClip waterfall;
         public AudioClip auraKey;
         public AudioClip river;
+        public AudioClip insectField;
 
         [Header("Non-spatialize")]
         public AudioClip playerHit;
