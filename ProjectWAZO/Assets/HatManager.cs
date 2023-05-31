@@ -16,7 +16,8 @@ public class HatManager : MonoBehaviour
             transform.parent = other.transform;
             transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
             transform.localPosition = putPosition;
-            VFX.Stop();
+            transform.Rotate(new Vector3(-18, 0, 0));
+            VFX.gameObject.SetActive(false);
         }
     }
 }
