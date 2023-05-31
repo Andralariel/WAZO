@@ -372,6 +372,7 @@ namespace _3C
                     anim.SetBool("isFlying",true);
                 }
                 rb.constraints = RigidbodyConstraints.FreezeRotation;
+                walkMoveSpeed = originalWalkSpeed;
                 canJump = false;
                 isCoyote = false;
                 StopAllCoroutines();
