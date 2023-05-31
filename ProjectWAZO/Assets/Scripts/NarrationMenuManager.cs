@@ -14,10 +14,11 @@ public class NarrationMenuManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
+        if (instance != default && instance!=this)
         {
-            instance = this;
+            DestroyImmediate(this);
         }
+        instance = this;
 
         myCG = GetComponent<CanvasGroup>();
     }

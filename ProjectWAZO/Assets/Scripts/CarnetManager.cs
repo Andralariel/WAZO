@@ -1,8 +1,6 @@
-using System.Collections.Generic;
 using _3C;
 using DG.Tweening;
 using Sound;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,17 +22,17 @@ public class CarnetManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
+        if (instance != default && instance!=this)
         {
-            instance = this;
+            DestroyImmediate(this);
         }
+        instance = this;
 
         if (enableStartBlackScreen)
         {
             blackScreen.color = Color.black;
             blackScreen.DOFade(0, 3f);
         }
-        
     }
 
     public void OpenCloseCarnet()
