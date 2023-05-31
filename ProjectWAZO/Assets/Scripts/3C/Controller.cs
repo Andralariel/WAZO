@@ -490,6 +490,7 @@ namespace _3C
             else
             {
                 rb.velocity += new Vector3((float)_moveDir.x,0,_moveDir.z) * (walkMoveSpeed * Time.deltaTime);
+                rb.constraints = RigidbodyConstraints.FreezeRotation;
             }
         }
 
