@@ -31,6 +31,12 @@ public class MenuPrincipal : MonoBehaviour
     public GameObject currentlySelected;
     public Image blackScreen;
     public AudioMixer mixer;
+
+    [Header("Ghetto")] 
+    public GameObject boutonQuit;
+    public GameObject fondStart;
+    public GameObject fondOptions;
+    public GameObject fondQuitter;
     
     
     private Resolution[] resolutions;
@@ -90,6 +96,33 @@ public class MenuPrincipal : MonoBehaviour
                         .OnComplete((() => StartCoroutine(StopScaling())));
                     currentlySelected.transform.DOScale(new Vector3(0.8f,0.8f,0.8f), 0.2f).OnComplete((() => isScaling = false));
                     currentlySelected = eventSystem.currentSelectedGameObject;
+
+                    if (currentlySelected == boutonReprendre)
+                    {
+                        fondStart.transform.DOScale(new Vector3(1.2f, 1.2f, 1.2f), 0.2f);
+                    }
+                    else
+                    {
+                        fondStart.transform.DOScale(new Vector3(0.8f, 0.8f, 0.8f), 0.2f);
+                    }
+                    
+                    if (currentlySelected == boutonOptions)
+                    {
+                        fondOptions.transform.DOScale(new Vector3(1.2f, 1.2f, 1.2f), 0.2f);
+                    }
+                    else
+                    {
+                        fondOptions.transform.DOScale(new Vector3(0.8f, 0.8f, 0.8f), 0.2f);
+                    }
+                    
+                    if (currentlySelected == boutonQuit)
+                    {
+                        fondQuitter.transform.DOScale(new Vector3(1.2f, 1.2f, 1.2f), 0.2f);
+                    }
+                    else
+                    {
+                        fondQuitter.transform.DOScale(new Vector3(0.8f, 0.8f, 0.8f), 0.2f);
+                    }
                 }
                 catch (Exception e)
                 {
@@ -144,12 +177,13 @@ public class MenuPrincipal : MonoBehaviour
         MenuMain.DOFade(0, 0.5f);
         MenuOptions.DOFade(1, 0.5f);
         boutonOptions.transform.DOScale(new Vector3(0.8f,0.8f,0.8f), 0.2f);
-        dropDownQuality.transform.DOScale(new Vector3(0.8f,0.8f,0.8f), 0.2f);
+        dropDownQuality.transform.DOScale(new Vector3(1.2f,1.2f,1.2f), 0.2f);
         dropDownResolution.gameObject.transform.DOScale(new Vector3(0.8f,0.8f,0.8f), 0.2f);
     }
     
     public void QuitOptions()
     {
+        fondStart.transform.DOScale(new Vector3(1.2f, 1.2f, 1.2f), 0.2f);
         eventSystem.SetSelectedGameObject(boutonStart.gameObject);
         AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick3, 0.4f);
         MenuMain.interactable = true;
