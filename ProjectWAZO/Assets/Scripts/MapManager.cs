@@ -4,6 +4,7 @@ using _3C;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MapManager : MonoBehaviour
@@ -36,13 +37,17 @@ public class MapManager : MonoBehaviour
     [SerializeField] private float worldWidth;
     [SerializeField] private float heightOffset;
     [SerializeField] private float widthOffset;
+    
+    private int _sceneIndex;
+    [SerializeField] private Vector2 templePos;
 
     private void Awake()
     {
-        if (instance == null)
+        if (instance != default && instance!=this)
         {
-            instance = this;
+            DestroyImmediate(this);
         }
+        instance = this;
 
         if (MapGot)
         {
@@ -52,6 +57,8 @@ public class MapManager : MonoBehaviour
         {
             Map.sprite = mapPleine;
         }
+
+        _sceneIndex = SceneManager.GetActiveScene().buildIndex;
     }
     
     public IEnumerator RotateMap()
@@ -83,7 +90,7 @@ public class MapManager : MonoBehaviour
             }
             else
             {
-                textIndication.text = "Forgotten Frescos";
+                textIndication.text = "Forgotten Frescoes";
                 isRotated = false;
                 canRotate = false;
                 CarnetManager.instance.canOpen = false;
@@ -149,9 +156,14 @@ public class MapManager : MonoBehaviour
     {
         if (!isRotated)
         {
-            var worldPos = Controller.instance.transform.position;
-            var mapPos = new Vector2(worldPos.x + widthOffset, worldPos.z + heightOffset);
-            playerIcon.anchoredPosition = Vector2.Scale(mapPos, Vector2.Scale(Map.rectTransform.rect.size, new Vector2(1/worldWidth, 1/worldHeight)));
+            if (_sceneIndex != 2) //Not in temple
+            {
+                var worldPos = Controller.instance.transform.position;
+                var mapPos = new Vector2(worldPos.x + widthOffset, worldPos.z + heightOffset);
+                playerIcon.anchoredPosition = Vector2.Scale(mapPos,
+                    Vector2.Scale(Map.rectTransform.rect.size, new Vector2(1 / worldWidth, 1 / worldHeight)));
+            }
+            else playerIcon.anchoredPosition = templePos;
         }
     }
 }
