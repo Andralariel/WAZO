@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using _3C;
 using DG.Tweening;
 using Sound;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Playables;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
@@ -26,7 +28,7 @@ public class MenuPrincipal : MonoBehaviour
     
     public CanvasGroup MenuMain;
     public CanvasGroup MenuOptions;
-    public GameObject cameraMenu;
+    public Camera cameraMenu;
     public GameObject cameraCine;
     public GameObject currentlySelected;
     public Image blackScreen;
@@ -35,6 +37,10 @@ public class MenuPrincipal : MonoBehaviour
     public AudioMixer mixer;
 
     [Header("Ghetto")] 
+    public bool zoomCam;
+    public float zoomSpeed;
+    public float bloomSpeed;
+    public Volume globalVolume;
     public GameObject boutonQuit;
     public GameObject fondStart;
     public GameObject fondOptions;
@@ -52,7 +58,7 @@ public class MenuPrincipal : MonoBehaviour
         }
         else
         { 
-            cameraMenu.SetActive(false);
+            cameraMenu.gameObject.SetActive(false);
             cameraCine.SetActive(true);
             director.Play();
             eventSystem.SetSelectedGameObject(null);
@@ -131,7 +137,24 @@ public class MenuPrincipal : MonoBehaviour
                     Console.WriteLine(e);
                 }
             }
-        } 
+        }
+
+        /*if (zoomCam)
+        {
+            globalVolume.weight += bloomSpeed * Time.deltaTime;
+            if (cameraMenu.orthographicSize >= 0.1f)
+            {
+                cameraMenu.orthographicSize -= zoomSpeed * Time.deltaTime;
+            }
+        }
+        else
+        {
+            if (globalVolume.weight >= 0)
+            {
+                globalVolume.weight -= bloomSpeed * Time.deltaTime;   
+            }
+           
+        }*/
     }
     IEnumerator StopScaling()
     {
@@ -152,14 +175,26 @@ public class MenuPrincipal : MonoBehaviour
 
     IEnumerator ChangeScene()
     {
+        /*zoomCam = true;
+        yield return new WaitForSeconds(2.5f);
+        bandeNoire1.gameObject.SetActive(true);
+        bandeNoire2.gameObject.SetActive(true);
+        cameraMenu.gameObject.SetActive(false);
+        cameraCine.SetActive(true);
+        globalVolume.weight = 1;
+        yield return new WaitForSeconds(1f);
+        zoomCam = false;
+        yield return new WaitForSeconds(0.5f);*/
+        
         blackScreen.DOFade(1, 0.5f);
         yield return new WaitForSeconds(0.5f);
         bandeNoire1.gameObject.SetActive(true);
         bandeNoire2.gameObject.SetActive(true);
         yield return new WaitForSeconds(1f);
         blackScreen.DOFade(0, 1f);
-        cameraMenu.SetActive(false);
+        cameraMenu.gameObject.SetActive(false);
         cameraCine.SetActive(true);
+        director.Play();
         director.Play();
         yield return new WaitForSeconds((float)director.duration-0.5f);
         blackScreen.DOFade(1, 0.5f);
