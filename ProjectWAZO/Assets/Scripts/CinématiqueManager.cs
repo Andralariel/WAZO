@@ -191,6 +191,7 @@ public class CinématiqueManager : MonoBehaviour
         CameraController.instance.SmoothMoveFactor = 0.8f;
         CameraController.instance.player = chapeau;
         yield return new WaitForSeconds(3.5f);
+        AudioList.Instance.PlayOneShot(AudioList.Instance.mapSpawn, AudioList.Instance.mapSpawnVolume);
         VFXChap.Play();
         yield return new WaitForSeconds(0.25f);
         chapeau.SetActive(true);
