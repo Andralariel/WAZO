@@ -80,6 +80,7 @@ public class PauseMenu : MonoBehaviour
         {
             if (!isPause)
             {
+                Controller.instance.ultraBlock = true;
                 AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick2, 0.4f);
                 boutonReprendre.transform.DOScale(new Vector3(1.2f,1.2f,1.2f), 0.2f);
                 isPause = true;
@@ -95,6 +96,7 @@ public class PauseMenu : MonoBehaviour
             }
             else
             {
+                Controller.instance.ultraBlock = false;
                 isScaling = false;
                 boutonReprendre.transform.localScale = Vector3.one;
                 AudioList.Instance.PlayOneShot(AudioList.Instance.uiClick3, 0.4f);

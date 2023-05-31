@@ -28,6 +28,7 @@ public class CinématiqueTrigger : MonoBehaviour
    
    IEnumerator OpenMenu()
    {
+      PauseMenu.instance.canPause = false;
       MapManager.instance.pontInteroFresques[FresqueID].gameObject.SetActive(false);
       MapManager.instance.listCercles[FresqueID].gameObject.SetActive(true);
       CarnetManager.instance.canOpen = false;

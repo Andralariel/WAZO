@@ -283,6 +283,7 @@ namespace _3C
     
         public void QuitEchelle()
         {
+            PauseMenu.instance.canPause = true;
             Controller.instance.isEchelle = false;
             Controller.instance.canPlaner = true;
             Controller.instance.canMove = true;
