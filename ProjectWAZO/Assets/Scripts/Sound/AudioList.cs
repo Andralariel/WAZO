@@ -69,6 +69,8 @@ namespace Sound
         [Range(0, 1)] public float spiritDespawnVolume;
         public AudioClip mapSpawn;
         [Range(0, 1)] public float mapSpawnVolume;
+        public AudioClip keyOnDoor;
+        [Range(0, 1)] public float keyOnDoorVolume;
 
         [Header("Player")]
         public AudioClip saut;
