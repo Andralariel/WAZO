@@ -16,7 +16,6 @@ public class TriggerWater : MonoBehaviour
    {
       if (other.gameObject.layer == 6) //6 = player
       {
-         originalSpeed = Controller.instance.walkMoveSpeed; 
          Controller.instance.walkMoveSpeed = waterSpeed;
 
          AudioList.Instance.PlayOneShot(AudioList.Instance.splashPlayer, AudioList.Instance.splashPlayerVolume);
@@ -37,7 +36,7 @@ public class TriggerWater : MonoBehaviour
    {
       if (other.gameObject.layer == 6)
       {
-         Controller.instance.walkMoveSpeed = originalSpeed;
+         Controller.instance.walkMoveSpeed = Controller.instance.originalWalkSpeed;
       }   
    }
 
