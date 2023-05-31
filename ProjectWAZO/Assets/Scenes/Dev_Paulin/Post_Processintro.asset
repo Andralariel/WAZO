@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 1
   postExposure:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 0.3
   contrast:
     m_OverrideState: 1
     m_Value: 0
@@ -49,7 +49,7 @@ MonoBehaviour:
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.1
+    m_Value: 0.211
   smoothness:
     m_OverrideState: 1
     m_Value: 1
@@ -90,7 +90,7 @@ MonoBehaviour:
     m_Value: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 0.061
+    m_Value: 0.373
   response:
     m_OverrideState: 0
     m_Value: 0.8
@@ -118,6 +118,7 @@ MonoBehaviour:
   - {fileID: 4814043703352938838}
   - {fileID: -6476736854736951947}
   - {fileID: -7751545560134583502}
+  - {fileID: 8713622168648688984}
 --- !u!114 &1162006958638366504
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -151,11 +152,11 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: {x: 0.80007255, y: 0.8036193, z: 1, w: 0}
   midtones:
-    m_OverrideState: 0
-    m_Value: {x: 1, y: 1, z: 1, w: 0}
+    m_OverrideState: 1
+    m_Value: {x: 0.93493706, y: 1, z: 0.938939, w: 0}
   highlights:
-    m_OverrideState: 0
-    m_Value: {x: 1, y: 1, z: 1, w: 0}
+    m_OverrideState: 1
+    m_Value: {x: 1, y: 0.98383254, z: 0.9190761, w: 0}
   shadowsStart:
     m_OverrideState: 0
     m_Value: 0
@@ -188,6 +189,52 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: {r: 0.7264151, g: 0.687949, b: 0.56537026, a: 1}
   balance:
+    m_OverrideState: 0
+    m_Value: 0
+--- !u!114 &8713622168648688984
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c01700fd266d6914ababb731e09af2eb, type: 3}
+  m_Name: DepthOfField
+  m_EditorClassIdentifier: 
+  active: 1
+  mode:
+    m_OverrideState: 1
+    m_Value: 2
+  gaussianStart:
+    m_OverrideState: 1
+    m_Value: 10
+  gaussianEnd:
+    m_OverrideState: 1
+    m_Value: 30
+  gaussianMaxRadius:
+    m_OverrideState: 0
+    m_Value: 1
+  highQualitySampling:
+    m_OverrideState: 0
+    m_Value: 0
+  focusDistance:
+    m_OverrideState: 1
+    m_Value: 1.84
+  aperture:
+    m_OverrideState: 1
+    m_Value: 13.2
+  focalLength:
+    m_OverrideState: 1
+    m_Value: 71
+  bladeCount:
+    m_OverrideState: 1
+    m_Value: 5
+  bladeCurvature:
+    m_OverrideState: 0
+    m_Value: 1
+  bladeRotation:
     m_OverrideState: 0
     m_Value: 0
 --- !u!114 &8733961317009531748

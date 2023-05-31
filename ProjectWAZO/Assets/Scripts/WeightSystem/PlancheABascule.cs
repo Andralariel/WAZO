@@ -148,7 +148,7 @@ namespace WeightSystem
             var controller = Controller.instance;
             if (transform.localRotation != targetRotation)
             {
-                if (!characterOnDetector) return;
+                if (!master.characterOnDetector) return;
                 controller.onMovingPlank = true;
                 controller.onHeightChangingPlatform = true;
             }
@@ -156,7 +156,7 @@ namespace WeightSystem
             {
                 _isInPlace = true;
             
-                if (!characterOnDetector) return;
+                if (!master.characterOnDetector) return;
                 controller.onMovingPlank = false;
                 controller.onHeightChangingPlatform = false;
             }
