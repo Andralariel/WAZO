@@ -15,7 +15,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!224 &2284815663673926911
 RectTransform:
@@ -103,7 +103,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1274809679043344663
 Transform:
@@ -140,7 +140,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1274809680623927629
 Transform:
@@ -209,6 +209,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spiritsToRespawn: []
   durationUntilReset: 1.5
+  isMoulin: 0
+  isMultipleMoulin: 0
+  associedMoulin: {fileID: 0}
+  associedMoulin2: {fileID: 0}
   chargement: {fileID: 8910486217438301846}
   UI: {fileID: 962961701632164334}
   isInTrigger: 0
@@ -229,7 +233,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!224 &3803516653182476427
 RectTransform:
@@ -366,7 +370,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!224 &4101750287833543076
 RectTransform:
@@ -442,7 +446,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!224 &5183326074948435080
 RectTransform:
@@ -520,7 +524,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!224 &122412129397421721
 RectTransform:
@@ -699,6 +703,11 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7297606816264693821, guid: 65214df2252e37c46b6b45f80220d1d0,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: -7115432533547445343, guid: 65214df2252e37c46b6b45f80220d1d0,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -719,6 +728,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 79548a0caccd2be498757ab82e96d0e1, type: 2}
+    - target: {fileID: -2087962308158495216, guid: 65214df2252e37c46b6b45f80220d1d0,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 408368558829273810, guid: 65214df2252e37c46b6b45f80220d1d0,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -728,6 +742,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MOD_Observatoire
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 65214df2252e37c46b6b45f80220d1d0,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 1550612116741059217, guid: 65214df2252e37c46b6b45f80220d1d0,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300593632408891413, guid: 65214df2252e37c46b6b45f80220d1d0,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 2630596814797373727, guid: 65214df2252e37c46b6b45f80220d1d0,
         type: 3}
@@ -758,6 +787,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: -0.014
+      objectReference: {fileID: 0}
+    - target: {fileID: 6399413773904568273, guid: 65214df2252e37c46b6b45f80220d1d0,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 7120643502973992140, guid: 65214df2252e37c46b6b45f80220d1d0,
         type: 3}
