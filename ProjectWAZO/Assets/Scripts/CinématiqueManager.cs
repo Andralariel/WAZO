@@ -29,6 +29,10 @@ public class CinématiqueManager : MonoBehaviour
     public ParticleSystem mapVfx;
     public GameObject modeMap;
     public GameObject playerCenterPoint;
+
+    [Header("CineChapeau")] 
+    public GameObject chapeau;
+    public ParticleSystem VFXChap;
     private void Awake()
     {
         if (instance == null)
@@ -130,7 +134,7 @@ public class CinématiqueManager : MonoBehaviour
         StartCoroutine(CinématiqueCarte());
     }
 
-    public IEnumerator CinématiqueCarte()
+    public IEnumerator CinématiqueCarte() 
     {
         Controller.instance.canMove = false;
         Controller.instance.canJump = false;
@@ -177,6 +181,26 @@ public class CinématiqueManager : MonoBehaviour
         PauseMenu.instance.canPause = true;
         yield return new WaitForSeconds(1f);
         CameraController.instance.SmoothMoveFactor = 0.2f;
+    }
+
+    public IEnumerator SpawnChapeau()
+    {
+        Controller.instance.canMove = false;
+        Controller.instance.canJump = false;
+        Controller.instance.ultraBlock = true;
+        CameraController.instance.SmoothMoveFactor = 0.8f;
+        CameraController.instance.player = chapeau;
+        yield return new WaitForSeconds(3.5f);
+        VFXChap.Play();
+        yield return new WaitForSeconds(0.25f);
+        chapeau.SetActive(true);
+        yield return new WaitForSeconds(3.5f);
+        CameraController.instance.player = Controller.instance.gameObject;
+        yield return new WaitForSeconds(3.5f);
+        CameraController.instance.SmoothMoveFactor = 0.2f;
+        Controller.instance.canMove = true;
+        Controller.instance.canJump = true;
+        Controller.instance.ultraBlock = false;
     }
     
     
