@@ -9,16 +9,13 @@ namespace Sound
         public enum Music
         {
             main,
-            menu,
             ending,
-            intro,
             zoneOuverte,
             temple,
         }
     
         public static AudioList Instance;
-
-        [SerializeField] private StepsSoundVariator steps;
+        
         [SerializeField] private AudioSource audioSource0;
         [SerializeField] private AudioSource audioSource1;
         [SerializeField] private AudioSource audioSourceOneShot;
@@ -30,12 +27,8 @@ namespace Sound
         [Header("Global")]
         [SerializeField] private AudioClip mainTheme;
         [SerializeField] [Range(0, 1)] private float mainVolume;
-        [SerializeField] private AudioClip menuTheme;
-        [SerializeField] [Range(0, 1)] private float menuVolume;
         [SerializeField] private AudioClip endingTheme;
         [SerializeField] [Range(0, 1)] private float endingVolume;
-        [SerializeField] private AudioClip zoneIntroTheme;
-        [SerializeField] [Range(0, 1)] private float zoneIntroVolume;
         [SerializeField] private AudioClip zoneOuverteTheme;
         [SerializeField] [Range(0, 1)] private float zoneOuverteVolume;
         [SerializeField] private AudioClip zoneTempleTheme;
@@ -47,8 +40,6 @@ namespace Sound
         public AudioClip uiClick3;
         public AudioClip openCarnet;
         [Range(0, 1)] public float openCarnetVolume;
-        public AudioClip turnCarnet;
-        [Range(0, 1)] public float turnCarnetVolume;
         public AudioClip closeCarnet;
         [Range(0, 1)] public float closeCarnetVolume;
 
@@ -100,20 +91,7 @@ namespace Sound
         public AudioClip altarActive;
         [Range(0, 1)] public float altarActiveVolume;
         public AudioClip turnWindmill;
-        [Range(0, 1)] public float turnWindWillVolume;
 
-        [Header("environnement")]
-        public AudioClip waterfall;
-        public AudioClip auraKey;
-        public AudioClip river;
-        public AudioClip insectField;
-
-        [Header("Non-spatialize")]
-        public AudioClip playerHit;
-        [Range(0, 1)] public float playerHitVolume;
-        public AudioClip buyInShop;
-        [Range(0, 1)] public float buyInShopVolume;
-    
         private void Awake()
         {
             if (Instance != null && Instance != this) Destroy(gameObject);
@@ -138,17 +116,9 @@ namespace Sound
                     _currentSource.clip = mainTheme;
                     _targetVolume = mainVolume;
                     break;
-                case Music.menu:
-                    _currentSource.clip = menuTheme;
-                    _targetVolume = menuVolume;
-                    break;
                 case Music.ending:
                     _currentSource.clip = endingTheme;
                     _targetVolume = endingVolume;
-                    break;
-                case Music.intro:
-                    _currentSource.clip = zoneIntroTheme;
-                    _targetVolume = zoneIntroVolume;
                     break;
                 case Music.zoneOuverte:
                     _currentSource.clip = zoneOuverteTheme;
