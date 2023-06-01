@@ -7,9 +7,13 @@ using UnityEngine;
 public class EboulementManager : MonoBehaviour
 {
    //public int eventIndex;
-
+   public bool isDouble;
+   public float timeBeforeEvent1;
+   public float timeBeforeEvent2;
    [Header("Event Obj1")] 
    public GameObject ObjToMove;
+   public ParticleSystem vfx1;
+   public ParticleSystem vfx2;
    public Vector3 rotationToGo;
    public float timeToRotate;
    public float timeToWait;
@@ -29,22 +33,32 @@ public class EboulementManager : MonoBehaviour
       {
          Debug.Log("éboulement");
          StartCoroutine(Event1());
-         StartCoroutine(Event2());
+         
+         if (isDouble)
+         {
+            StartCoroutine(Event2());
+         }
       }
    }
 
    public IEnumerator Event1()
    {
+      yield return new WaitForSeconds(timeBeforeEvent1);
       ObjToMove.transform.DOLocalRotate(rotationToGo, timeToRotate);
-      yield return new WaitForSeconds(timeToWait);
       ObjToMove.transform.DOLocalMove(positionToGo, timeToMove);
+      yield return new WaitForSeconds(timeToWait);
+      vfx1.Play();
+      Destroy(gameObject);
    }
    
    public IEnumerator Event2()
    {
+      yield return new WaitForSeconds(timeBeforeEvent2);
       ObjToMove2.transform.DOLocalRotate(rotationToGo2, timeToRotate2);
-      yield return new WaitForSeconds(timeToWait2);
       ObjToMove2.transform.DOLocalMove(positionToGo2, timeToMove2);
+      yield return new WaitForSeconds(timeToWait2);
+      vfx2.Play();
+      Destroy(gameObject);
    }
    
 }

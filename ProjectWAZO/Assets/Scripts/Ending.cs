@@ -81,7 +81,7 @@ public class Ending : MonoBehaviour
         crédits.SetActive(true);
         yield return new WaitForSeconds(timeToEnd);
         BlackScreen.DOFade(1, fadeDuration);
-        yield return new WaitForSeconds(fadeDuration+1.8f);
+        yield return new WaitForSeconds(fadeDuration+1f);
         SceneManager.LoadScene("Dev_CinematicIntro");
 
     }
