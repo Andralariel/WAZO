@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using _3C;
@@ -20,54 +21,53 @@ public class EboulementManager : MonoBehaviour
    [Header("Event Obj1")] 
    public GameObject ObjToMove;
    public ParticleSystem vfx1;
-   public ParticleSystem vfx2;
    public Vector3 rotationToGo;
-   public float timeToRotate;
    public float timeToWait;
    public Vector3 positionToGo;
-   public float timeToMove;
-   
-   [Header("Event Obj2")] 
+
+   [Header("Event Obj2")]
+   private Collider collider;
    public GameObject ObjToMove2;
+   public ParticleSystem vfx2;
    public Vector3 rotationToGo2;
-   public float timeToRotate2;
    public float timeToWait2;
    public Vector3 positionToGo2;
-   public float timeToMove2;
+
+   private void Start()
+   {
+      collider = GetComponent<BoxCollider>();
+   }
+
    private void OnTriggerEnter(Collider other)
    {
       if (other.gameObject.layer == 6)
       {
-         Debug.Log("éboulement");
          StartCoroutine(Event1());
-         
          if (isDouble)
          {
             StartCoroutine(Event2());
          }
-
          CameraController.instance.transform.parent.DOShakePosition(duration,force,vibrato,10);
+         collider.enabled = false;
       }
    }
 
    public IEnumerator Event1()
    {
       yield return new WaitForSeconds(timeBeforeEvent1);
-      ObjToMove.transform.DOLocalRotate(rotationToGo, timeToRotate);
-      ObjToMove.transform.DOLocalMove(positionToGo, timeToMove);
+      ObjToMove.transform.DOLocalRotate(rotationToGo, timeToWait);
+      ObjToMove.transform.DOLocalMove(positionToGo, timeToWait);
       yield return new WaitForSeconds(timeToWait);
       vfx1.Play();
-      Destroy(gameObject);
    }
    
    public IEnumerator Event2()
    {
       yield return new WaitForSeconds(timeBeforeEvent2);
-      ObjToMove2.transform.DOLocalRotate(rotationToGo2, timeToRotate2);
-      ObjToMove2.transform.DOLocalMove(positionToGo2, timeToMove2);
+      ObjToMove2.transform.DOLocalRotate(rotationToGo2, timeToWait2);
+      ObjToMove2.transform.DOLocalMove(positionToGo2, timeToWait2);
       yield return new WaitForSeconds(timeToWait2);
       vfx2.Play();
-      Destroy(gameObject);
    }
    
 }
