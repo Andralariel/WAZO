@@ -241,6 +241,7 @@ MonoBehaviour:
   isTopDown: 0
   isFocused: 0
   isVerticalLerp: 0
+  cameraCollider: {fileID: 523905376819672209}
   StartToPlayer: 0
 --- !u!114 &3411882934155949315
 MonoBehaviour:
@@ -254,27 +255,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdaf5d098049f3249b7edd54d7bed7d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 2376010427920918709}
-  mats:
-  - {fileID: 2100000, guid: 721d361b7fe9fe4419656ebb13d3fb24, type: 2}
-  - {fileID: 2100000, guid: 206538f3c6270ef4c9079ba802a1a2c8, type: 2}
-  - {fileID: 2100000, guid: f5cf8685283b93c44bdfd31865ca9ccd, type: 2}
-  - {fileID: 2100000, guid: d9574946dbb47bd47a898dfa0aa65a9c, type: 2}
-  - {fileID: 2100000, guid: f291949c25a8f5b439e83eb8c346860c, type: 2}
-  - {fileID: 2100000, guid: ab395fb39df873e459fc0784c9a74027, type: 2}
-  - {fileID: 2100000, guid: 49bdcd7128398994695ab610343ad99a, type: 2}
-  - {fileID: 2100000, guid: 96e7903f2e544d44cbfcde44c2c9065e, type: 2}
-  maskToTarget:
-    serializedVersion: 2
-    m_Bits: 8
-  size: 0.15
-  detectionRadius: 1
-  mainCamera: {fileID: 726642129757956978}
-  mainShader: {fileID: -6465566751694194690, guid: 26e1818ef30dc2546a4ec9b7dac45ff3,
-    type: 3}
   seeThroughShader: {fileID: -6465566751694194690, guid: 3362592144e62fa4ea61ba24ad8cf141,
     type: 3}
-  pipelineLit: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   meshes: []
   meshesShader: []
 --- !u!65 &523905376819672209
@@ -39946,6 +39928,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   airControlSpeed: 36
   walkMoveSpeed: 53
+  originalWalkSpeed: 0
   hugeWindAirSpeed: 0
   slopeSpeed: 7.2
   jumpForce: 14.5
@@ -39963,6 +39946,7 @@ MonoBehaviour:
   canMove: 1
   isPressing: 0
   isWind: 0
+  isGoing: 0
   StopGravity: 0
   MoveEnding: 0
   onHeightChangingPlatform: 0
@@ -39980,6 +39964,11 @@ MonoBehaviour:
   anim: {fileID: 5441999099964459035}
   trail: {fileID: 997592038883347750}
   trail2: {fileID: 7178291390904173754}
+  moveCine: {x: 0, y: 0, z: 0}
+  pointToGo: {fileID: 0}
+  thingToLook: {fileID: 0}
+  cineSpeed: 0
+  _moveDir: {x: 0, y: 0, z: 0}
   respawnPoint: {x: 0, y: 0, z: 0}
   timeToChangeRespawn: 1
   timer: 0

@@ -60,6 +60,9 @@ namespace _3C
         public bool isFocused;
         public bool isVerticalLerp;
 
+        [Header("CutOut")]
+        [SerializeField] private Collider cameraCollider;
+
         public static CameraController instance;
         [HideInInspector] public bool StartToPlayer;
 
@@ -191,6 +194,11 @@ namespace _3C
             var bounds = new Bounds(player.transform.position, Vector3.zero);
             bounds.Encapsulate(focusedObject.transform.position);
             return bounds.center;
+        }
+
+        public void CameraCollider(bool enable)
+        {
+            cameraCollider.enabled = enable;
         }
     }
 }
