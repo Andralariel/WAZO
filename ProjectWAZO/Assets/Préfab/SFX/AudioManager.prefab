@@ -196,19 +196,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7903f912b7592d44981a6afd66d943f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  steps: {fileID: 2222947160863684344}
   audioSource0: {fileID: 44216180502407369}
   audioSource1: {fileID: 3450858235814577063}
   audioSourceOneShot: {fileID: 7623702846948786926}
   fadeDuration: 2
   mainTheme: {fileID: 8300000, guid: d51dc1b697440284e91e96acd005fdf6, type: 3}
   mainVolume: 0.1
-  menuTheme: {fileID: 0}
-  menuVolume: 0.3
   endingTheme: {fileID: 8300000, guid: 7b0dc314032ed9f46a2fecba011a5d60, type: 3}
   endingVolume: 0.3
-  zoneIntroTheme: {fileID: 8300000, guid: 52be1deeee069a146a8c545d5dd54289, type: 3}
-  zoneIntroVolume: 0.5
   zoneOuverteTheme: {fileID: 8300000, guid: c70dd71bea67d5b41a3c3bceee46aa69, type: 3}
   zoneOuverteVolume: 0.3
   zoneTempleTheme: {fileID: 8300000, guid: 0b3195b1aeddd624d85b6c159ae49791, type: 3}
@@ -218,16 +213,14 @@ MonoBehaviour:
   uiClick3: {fileID: 8300000, guid: a188bc225c5dc1547ae9f498b0f022c7, type: 3}
   openCarnet: {fileID: 8300000, guid: df9c456cfa40ea74d972dcd9c172e4d5, type: 3}
   openCarnetVolume: 1
-  turnCarnet: {fileID: 8300000, guid: df9c456cfa40ea74d972dcd9c172e4d5, type: 3}
-  turnCarnetVolume: 1
   closeCarnet: {fileID: 8300000, guid: 84c7cf3ffb7de0b4a86dd8bed1fbe06d, type: 3}
   closeCarnetVolume: 1
   cinematiqueOrbe: {fileID: 8300000, guid: 744e59e28bcd2f046965318f4b6903fc, type: 3}
   cinematiqueOrbeVolume: 1
   fallingRock: {fileID: 8300000, guid: 90e97f6f77c41a543a5696b4f6a3a9aa, type: 3}
   fallingRockVolume: 1
-  crashGround: {fileID: 8300000, guid: a06e730b6fae0964b961b9983e85cd0e, type: 3}
-  crashGroundVolume: 0.8
+  crashGround: {fileID: 8300000, guid: bab0db939780e974cbcf0dc740f56f27, type: 3}
+  crashGroundVolume: 0.5
   openDoorTemple: {fileID: 8300000, guid: a2baa0154be0c1945a2b6961c4e971ca, type: 3}
   openDoorTempleVolume: 1
   keyOpenDoor: {fileID: 8300000, guid: 3b8f6b493462adf458320cb2ec676f05, type: 3}
@@ -265,15 +258,6 @@ MonoBehaviour:
   altarActive: {fileID: 8300000, guid: 08212e7af1118bb4685b1b9df7c65408, type: 3}
   altarActiveVolume: 0.6
   turnWindmill: {fileID: 8300000, guid: 1d3fb7a849c89f3498f0971d9be9fc33, type: 3}
-  turnWindWillVolume: 0
-  waterfall: {fileID: 8300000, guid: 6ea56db831af1084aa7d0f965cf19575, type: 3}
-  auraKey: {fileID: 8300000, guid: b65651119066c6d40b0f47ae447ef5aa, type: 3}
-  river: {fileID: 8300000, guid: 3baa9877318528c4789807e2288bba70, type: 3}
-  insectField: {fileID: 8300000, guid: 544bf3daee369ef47b94ea9b99c1ceb1, type: 3}
-  playerHit: {fileID: 0}
-  playerHitVolume: 0
-  buyInShop: {fileID: 0}
-  buyInShopVolume: 0
 --- !u!82 &7623702846948786926
 AudioSource:
   m_ObjectHideFlags: 0
