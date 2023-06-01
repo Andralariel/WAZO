@@ -62,13 +62,13 @@ namespace Utilitaire
          if (keyed)
          {
             time ++;
-            graphValue = curveChromatic.Evaluate(time/200);
+            graphValue = curveChromatic.Evaluate(time/250);
             c.intensity.value = graphValue;
-            graphValue = curveSaturation.Evaluate(time/200);
+            graphValue = curveSaturation.Evaluate(time/250);
             ca.saturation.value = graphValue;
-            graphValue = curveBloom.Evaluate(time/200);
+            graphValue = curveBloom.Evaluate(time/250);
             b.intensity.value = graphValue;
-            graphValue = curveBloomT.Evaluate(time/200);
+            graphValue = curveBloomT.Evaluate(time/250);
             b.threshold.value = graphValue;
          }
 
