@@ -104,8 +104,7 @@ public class RecupOrbe : MonoBehaviour
         player.canMove = true;
         player.canJump = true;
         player.enabled = true;
+        CameraController.instance.CameraCollider(false);
         Destroy(gameObject);
     }
-    
-    
 }
