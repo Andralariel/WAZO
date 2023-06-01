@@ -186,15 +186,14 @@ public class MenuPrincipal : MonoBehaviour
         zoomCam = false;
         yield return new WaitForSeconds(0.5f);*/
         
-        blackScreen.DOFade(1, 0.5f);
-        yield return new WaitForSeconds(0.5f);
+        blackScreen.DOFade(1, 1f);
+        yield return new WaitForSeconds(1f);
         bandeNoire1.gameObject.SetActive(true);
         bandeNoire2.gameObject.SetActive(true);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2.5f);
         blackScreen.DOFade(0, 1f);
         cameraMenu.gameObject.SetActive(false);
         cameraCine.SetActive(true);
-        director.Play();
         director.Play();
         yield return new WaitForSeconds((float)director.duration-0.5f);
         blackScreen.DOFade(1, 0.5f);
