@@ -12,8 +12,8 @@ namespace WeightSystem.Detector
         public WeightUI associatedUI;
         protected override void LimitCheck()
         {
-            associatedUI.currentWeight = LocalWeight;
-            associatedUI.maxWeight = triggerWeight;
+            associatedUI.UpdateUI(LocalWeight);
+            associatedUI.SetMaxAmount(triggerWeight);
             if (LocalWeight >= triggerWeight)
             {
                 meshRenderer.material = materialOn;

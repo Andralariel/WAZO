@@ -16,7 +16,7 @@ namespace WeightSystem.Detector
         
         private void CheckState()
         {
-            associatedUI.currentWeight = LocalWeight;
+            associatedUI.UpdateUI(LocalWeight);
             var opposingWeight = linkedPiston.opposingPiston.linkedTrigger.LocalWeight;
             if (LocalWeight<opposingWeight)
             {
