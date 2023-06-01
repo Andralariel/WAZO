@@ -1,6 +1,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using _3C;
 using DG.Tweening;
 using UnityEngine;
 
@@ -10,6 +11,12 @@ public class EboulementManager : MonoBehaviour
    public bool isDouble;
    public float timeBeforeEvent1;
    public float timeBeforeEvent2;
+
+   [Header("CamShake")] 
+   public float duration;
+   public float force;
+   public int vibrato;
+   
    [Header("Event Obj1")] 
    public GameObject ObjToMove;
    public ParticleSystem vfx1;
@@ -38,6 +45,8 @@ public class EboulementManager : MonoBehaviour
          {
             StartCoroutine(Event2());
          }
+
+         CameraController.instance.transform.parent.DOShakePosition(duration,force,vibrato,10);
       }
    }
 
