@@ -33,10 +33,9 @@ namespace Spirits
         //Fix double activation
         [SerializeField] private List<GameObject> spiritsOnAltar;
 
-        private void Update()
+        private void Start()
         {
-            weightUI.currentWeight = _spiritAmount;
-            weightUI.maxWeight = spiritSlots;
+            weightUI.SetMaxAmount(spiritSlots);
         }
 
         public void OnTriggerEnter(Collider other)
@@ -47,6 +46,7 @@ namespace Spirits
 
             spiritsOnAltar.Add(other.gameObject);
             _spiritAmount++;
+            weightUI.UpdateUI(_spiritAmount);
             vfxdrop.Play();
             
             
@@ -93,6 +93,7 @@ namespace Spirits
             
             spiritsOnAltar.Remove(other.gameObject);
             _spiritAmount--;
+            weightUI.UpdateUI(_spiritAmount);
             
             if (!_activated) return;
             if (_spiritAmount < spiritSlots)
