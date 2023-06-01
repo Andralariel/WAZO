@@ -1,4 +1,5 @@
 using _3C;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
@@ -24,37 +25,27 @@ namespace WeightSystem
 
         public InteracteurAssocied interacteur;
    
-        void Start()
+        private void Start()
         {
             camera = GameObject.Find("Main Camera").GetComponent<CameraController>();
             rectTransform = GetComponent<RectTransform>();
             canvasGroup = GetComponent<CanvasGroup>();
             canvasGroup.alpha = 0;
         }
-   
-        void Update()
+
+        public void SetMaxAmount(int maxAmount)
         {
+            maxWeight = maxAmount;
+        }
+        
+        public void UpdateUI(int currentAmount)
+        {
+            currentWeight = currentAmount;
+            
             //text.rectTransform.LookAt(transform.position + camera.transform.rotation * Vector3.back, camera.transform.rotation * Vector3.up);
             //text.rectTransform.rotation = new Quaternion(50,text.rectTransform.rotation.y,0,0);
             //text.rectTransform.LookAt(camera.transform);
-
-            if (PauseMenu.instance.enableText)
-            {
-                if (isVisible && canvasGroup.alpha < 1)
-                {
-                    canvasGroup.alpha += Time.deltaTime;
-                }
-                else if(!isVisible && canvasGroup.alpha > 0)
-                {
-                    canvasGroup.alpha -= Time.deltaTime;
-                }
-            }
-            else
-            {
-                canvasGroup.alpha = 0;
-            }
-      
-       
+            
             if (currentWeight == 0)
             {
                 isVisible = false;
@@ -62,6 +53,19 @@ namespace WeightSystem
             else
             {
                 isVisible = true;
+            }
+            
+            if (PauseMenu.instance.enableText)
+            {
+                if (isVisible)
+                {
+                    canvasGroup.DOFade(1, 0.5f);
+                }
+                else canvasGroup.DOFade(0, 0.5f);
+            }
+            else
+            {
+                canvasGroup.alpha = 0;
             }
 
             switch (interacteur)

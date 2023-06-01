@@ -51,8 +51,8 @@ namespace WeightSystem
                     CheckRotation(positionNeutre);
                 }
 
-                associatedLeftUI.currentWeight = poidGauche;
-                associatedRightUI.currentWeight = poidDroite;
+                associatedLeftUI.UpdateUI(poidGauche);
+                associatedRightUI.UpdateUI(poidDroite);
           
             }
             // var transformRotation = transform.localRotation;
