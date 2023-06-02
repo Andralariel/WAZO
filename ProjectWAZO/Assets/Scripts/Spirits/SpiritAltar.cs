@@ -24,11 +24,8 @@ namespace Spirits
         public bool isTemple;
         public int index;
         
-        public int _spiritAmount;
-        public bool _activated;
-
-        private bool _enterBuffer;
-        private bool _exitBuffer;
+        private int _spiritAmount;
+        private bool _activated;
         
         //Fix double activation
         [SerializeField] private List<GameObject> spiritsOnAltar;
