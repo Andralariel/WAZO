@@ -67,7 +67,7 @@ public class MenuPrincipal : MonoBehaviour
 
     private void Start()
     {
-        AudioList.Instance.StartMusic(AudioList.Music.main, true);
+        AudioList.Instance.StartMusic(AudioList.Music.Main, true);
         boutonStart.gameObject.transform.DOScale(gameObject.transform.localScale * 1.2f, 0.2f);
         
         // Pour les résolutions
