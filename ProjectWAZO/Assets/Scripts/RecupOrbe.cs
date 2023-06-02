@@ -58,6 +58,7 @@ public class RecupOrbe : MonoBehaviour
     {
         if (other.gameObject.layer == 6)
         {
+            AudioList.Instance.StopMusic();
             Controller.instance.isGoing = true;
             Controller.instance.pointToGo = PointToGo.gameObject;
             Controller.instance.cineSpeed = 0.8f;

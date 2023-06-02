@@ -6,23 +6,46 @@ namespace Sound
 {
     public class AudioList : MonoBehaviour
     {
+        private enum SourceType
+        {
+            Music,
+            Ambiance
+        }
+        
         public enum Music
         {
-            main,
-            ending,
-            zoneOuverte,
-            temple,
+            Main,
+            Ending,
+            ZoneOuverte,
+            Temple
         }
-    
-        public static AudioList Instance;
         
-        [SerializeField] private AudioSource audioSource0;
-        [SerializeField] private AudioSource audioSource1;
+        public enum Ambiance
+        {
+            Rain,
+            Wind
+        }
+
+        #region variables
+        
+        public static AudioList Instance;
         [SerializeField] private AudioSource audioSourceOneShot;
-        [SerializeField] private float fadeDuration;
-        private bool _playOn1, _notFirstCall;
-        private float _targetVolume;
-        private AudioSource _currentSource;
+        
+        [Header("Music")]
+        [SerializeField] private AudioSource musicAudioSource0;
+        [SerializeField] private AudioSource musicAudioSource1;
+        [SerializeField] private float fadeMusicDuration = 2;
+        private bool _playMusicOn1, _notMusicFirstCall;
+        private float _targetMusicVolume;
+        private AudioSource _currentMusicSource;
+
+        [Header("Ambiance")]
+        [SerializeField] private AudioSource ambianceAudioSource0;
+        [SerializeField] private AudioSource ambianceAudioSource1;
+        [SerializeField] private float fadeAmbianceDuration = 2;
+        private bool _playAmbianceOn1, _notAmbianceFirstCall;
+        private float _targetAmbianceVolume;
+        private AudioSource _currentAmbianceSource;
 
         [Header("Global")]
         [SerializeField] private AudioClip mainTheme;
@@ -33,6 +56,10 @@ namespace Sound
         [SerializeField] [Range(0, 1)] private float zoneOuverteVolume;
         [SerializeField] private AudioClip zoneTempleTheme;
         [SerializeField] [Range(0, 1)] private float zoneTempleVolume;
+        [SerializeField] private AudioClip rainAmbiance;
+        [SerializeField] [Range(0, 1)] private float rainAmbianceVolume;
+        [SerializeField] private AudioClip windAmbiance;
+        [SerializeField] [Range(0, 1)] private float windAmbianceVolume;
 
         [Header("UI")]
         public AudioClip uiClick1;
@@ -95,7 +122,9 @@ namespace Sound
         public AudioClip altarActive;
         [Range(0, 1)] public float altarActiveVolume;
         public AudioClip turnWindmill;
-
+        
+        #endregion
+        
         private void Awake()
         {
             if (Instance != null && Instance != this) Destroy(gameObject);
@@ -108,42 +137,74 @@ namespace Sound
         
         public void StartMusic(Music music, bool loop)
         {
-            if (_notFirstCall) FadeOut();
-            else _notFirstCall = true;
+            if (_notMusicFirstCall) FadeOut(SourceType.Music);
+            else _notMusicFirstCall = true;
 
-            _currentSource = _playOn1? audioSource1 : audioSource0;
-            _playOn1 = !_playOn1;
+            _currentMusicSource = _playMusicOn1? musicAudioSource1 : musicAudioSource0;
+            _playMusicOn1 = !_playMusicOn1;
         
             switch (music)
             {
-                case Music.main:
-                    _currentSource.clip = mainTheme;
-                    _targetVolume = mainVolume;
+                case Music.Main:
+                    _currentMusicSource.clip = mainTheme;
+                    _targetMusicVolume = mainVolume;
                     break;
-                case Music.ending:
-                    _currentSource.clip = endingTheme;
-                    _targetVolume = endingVolume;
+                case Music.Ending:
+                    _currentMusicSource.clip = endingTheme;
+                    _targetMusicVolume = endingVolume;
                     break;
-                case Music.zoneOuverte:
-                    _currentSource.clip = zoneOuverteTheme;
-                    _targetVolume = zoneOuverteVolume;
+                case Music.ZoneOuverte:
+                    _currentMusicSource.clip = zoneOuverteTheme;
+                    _targetMusicVolume = zoneOuverteVolume;
                     break;
-                case Music.temple:
-                    _currentSource.clip = zoneTempleTheme;
-                    _targetVolume = zoneTempleVolume;
+                case Music.Temple:
+                    _currentMusicSource.clip = zoneTempleTheme;
+                    _targetMusicVolume = zoneTempleVolume;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(music), music, null);
             }
-            _currentSource.loop = loop;
-            _currentSource.Play();
+            _currentMusicSource.loop = loop;
+            _currentMusicSource.Play();
         
-            FadeIn();
+            FadeIn(SourceType.Music);
+        }
+        
+        public void StartAmbiance(Ambiance ambiance, bool loop)
+        {
+            if (_notAmbianceFirstCall) FadeOut(SourceType.Ambiance);
+            else _notAmbianceFirstCall = true;
+
+            _currentAmbianceSource = _playAmbianceOn1? ambianceAudioSource1 : ambianceAudioSource0;
+            _playAmbianceOn1 = !_playAmbianceOn1;
+        
+            switch (ambiance)
+            {
+                case Ambiance.Rain:
+                    _currentAmbianceSource.clip = rainAmbiance;
+                    _targetAmbianceVolume = rainAmbianceVolume;
+                    break;
+                case Ambiance.Wind:
+                    _currentAmbianceSource.clip = windAmbiance;
+                    _targetAmbianceVolume = windAmbianceVolume;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(ambiance), ambiance, null);
+            }
+            _currentAmbianceSource.loop = loop;
+            _currentAmbianceSource.Play();
+        
+            FadeIn(SourceType.Ambiance);
         }
 
         public void StopMusic()
         {
-            FadeOut();
+            FadeOut(SourceType.Music);
+        }
+
+        public void StopAmbiance()
+        {
+            FadeOut(SourceType.Ambiance);
         }
 
         public void PlayOneShot(AudioClip clip, float volumeScale)
@@ -151,14 +212,34 @@ namespace Sound
             audioSourceOneShot.PlayOneShot(clip,volumeScale);
         }
 
-        private void FadeIn()
+        private void FadeIn(SourceType type)
         {
-            _currentSource.DOFade(_targetVolume, fadeDuration);
+            switch (type)
+            {
+                case SourceType.Music:
+                    _currentMusicSource.DOFade(_targetMusicVolume, fadeMusicDuration);
+                    break;
+                case SourceType.Ambiance:
+                    _currentAmbianceSource.DOFade(_targetAmbianceVolume, fadeAmbianceDuration);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
+            }
         }
 
-        private void FadeOut()
+        private void FadeOut(SourceType type)
         {
-            _currentSource.DOFade(0f, fadeDuration);
+            switch (type)
+            {
+                case SourceType.Music:
+                    _currentMusicSource.DOFade(0, fadeMusicDuration);
+                    break;
+                case SourceType.Ambiance:
+                    _currentAmbianceSource.DOFade(0, fadeAmbianceDuration);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
+            }
         }
     }
 }
