@@ -64,8 +64,10 @@ namespace Sound
         [Range(0, 1)] public float keyOnDoorVolume;
         public AudioClip hatOnHead;
         [Range(0, 1)] public float hatOnHeadVolume;
-        public AudioClip earthquake;
-        [Range(0, 1)] public float earthquakeVolume;
+        public AudioClip eboulementEnding1;
+        [Range(0, 1)] public float eboulementEnding1Volume;
+        public AudioClip eboulementEnding2;
+        [Range(0, 1)] public float eboulementEnding2Volume;
 
         [Header("Player")]
         public AudioClip saut;

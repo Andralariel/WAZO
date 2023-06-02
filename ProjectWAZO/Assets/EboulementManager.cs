@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using _3C;
 using DG.Tweening;
+using Sound;
 using UnityEngine;
 
 public class EboulementManager : MonoBehaviour
@@ -57,6 +58,7 @@ public class EboulementManager : MonoBehaviour
       yield return new WaitForSeconds(timeBeforeEvent1);
       ObjToMove.transform.DOLocalRotate(rotationToGo, timeToWait);
       ObjToMove.transform.DOLocalMove(positionToGo, timeToWait);
+      AudioList.Instance.PlayOneShot(AudioList.Instance.eboulementEnding1, AudioList.Instance.eboulementEnding1Volume);
       yield return new WaitForSeconds(timeToWait);
       vfx1.Play();
    }
@@ -66,6 +68,7 @@ public class EboulementManager : MonoBehaviour
       yield return new WaitForSeconds(timeBeforeEvent2);
       ObjToMove2.transform.DOLocalRotate(rotationToGo2, timeToWait2);
       ObjToMove2.transform.DOLocalMove(positionToGo2, timeToWait2);
+      AudioList.Instance.PlayOneShot(AudioList.Instance.eboulementEnding2, AudioList.Instance.eboulementEnding2Volume);
       yield return new WaitForSeconds(timeToWait2);
       vfx2.Play();
    }
