@@ -10,6 +10,7 @@ public class TriggerWater : MonoBehaviour
    public float waterSpeed;
    
    [SerializeField] private Collider thisCol;
+   [SerializeField] private bool keepObjects;
    
    private ParticleSystem _splash;
    private void OnTriggerEnter(Collider other)
@@ -28,6 +29,8 @@ public class TriggerWater : MonoBehaviour
          
          AudioList.Instance.PlayOneShot(AudioList.Instance.splashObject, AudioList.Instance.splashObjectVolume);
          Splash(other);
+         
+         if (keepObjects) return;
          StartCoroutine(SinkingObject(other.gameObject));
       }
    }
