@@ -33,19 +33,7 @@ namespace Utilitaire
                 isClosest = false;
             }    
         }
-
-       /* private void OnBecameInvisible()
-        {
-            isVisible = false;
-            anim.enabled = false;
-        }
         
-        private void OnBecameVisible()
-        {
-            isVisible = true;
-            anim.enabled = true;
-        }*/
-
         private void Awake()
         {
             _startPos = transform.position;
