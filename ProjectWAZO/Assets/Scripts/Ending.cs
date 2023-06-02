@@ -74,6 +74,7 @@ public class Ending : MonoBehaviour
         Controller.instance.canJump = false;
         Controller.instance.ultraBlock = true;
         CameraJeu.SetActive(false);
+        earthquakeSound.DOFade(0f, fadeDuration).OnComplete(() => earthquakeSound.Stop());
         CameraCinématque.SetActive(true);
         timeLine.Play();
         yield return new WaitForSeconds(timeToCrédits);
