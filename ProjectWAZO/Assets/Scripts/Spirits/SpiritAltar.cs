@@ -24,14 +24,12 @@ namespace Spirits
         public bool isTemple;
         public int index;
         
-        public int _spiritAmount;
-        public bool _activated;
-
-        private bool _enterBuffer;
-        private bool _exitBuffer;
+        private int _spiritAmount;
+        private bool _activated;
         
         //Fix double activation
         [SerializeField] private List<GameObject> spiritsOnAltar;
+        private static readonly int OnAltar = Animator.StringToHash("OnAltar");
 
         private void Start()
         {
@@ -45,6 +43,7 @@ namespace Spirits
             if (other.attachedRigidbody.angularDrag > 0.9f) return;
 
             spiritsOnAltar.Add(other.gameObject);
+            other.gameObject.GetComponent<Animator>().SetBool(OnAltar,true);
             _spiritAmount++;
             weightUI.UpdateUI(_spiritAmount);
             vfxdrop.Play();
@@ -58,6 +57,7 @@ namespace Spirits
                     linkedObject.Activate();
                 }
                 _activated = true;
+
                 if (isTemple)
                 {
                     TempleManager.instance.indexCalling = index;
@@ -70,7 +70,6 @@ namespace Spirits
                     {
                         TempleManager.instance.Escalier2Done = true;
                     }
-                   
                 }
             }
 
@@ -92,6 +91,7 @@ namespace Spirits
             if (!spiritsOnAltar.Contains(other.gameObject)) return;
             
             spiritsOnAltar.Remove(other.gameObject);
+            other.gameObject.GetComponent<Animator>().SetBool(OnAltar,false);
             _spiritAmount--;
             weightUI.UpdateUI(_spiritAmount);
             
