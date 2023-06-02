@@ -38,6 +38,7 @@ namespace Utilitaire
       private float time;
       private bool keyed;
       [SerializeField] private ParticleSystem vfxsmoke;
+      [SerializeField] private float divider = 120;
 
       private void Start()
       {
@@ -61,14 +62,14 @@ namespace Utilitaire
       {
          if (keyed)
          {
-            time ++;
-            graphValue = curveChromatic.Evaluate(time/250);
+            time += Time.deltaTime;
+            graphValue = curveChromatic.Evaluate(time/divider);
             c.intensity.value = graphValue;
-            graphValue = curveSaturation.Evaluate(time/250);
+            graphValue = curveSaturation.Evaluate(time/divider);
             ca.saturation.value = graphValue;
-            graphValue = curveBloom.Evaluate(time/250);
+            graphValue = curveBloom.Evaluate(time/divider);
             b.intensity.value = graphValue;
-            graphValue = curveBloomT.Evaluate(time/250);
+            graphValue = curveBloomT.Evaluate(time/divider);
             b.threshold.value = graphValue;
          }
 
