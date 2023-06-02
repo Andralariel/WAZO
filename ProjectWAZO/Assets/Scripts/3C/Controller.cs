@@ -473,7 +473,7 @@ namespace _3C
             Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit,2,groundMask);
             Debug.DrawRay(hit.point,hit.normal,Color.green);
             
-            if (Vector3.Dot(hit.normal, Vector3.up) < 0.97f)
+            if (Vector3.Dot(hit.normal, Vector3.up) < 0.98f)
             {
                 var magnitude = _moveDir.magnitude;
                 if (magnitude > 0.9) magnitude = 0.9f;
@@ -490,7 +490,7 @@ namespace _3C
             }
             else
             {
-                rb.velocity += new Vector3((float)_moveDir.x,0,_moveDir.z) * (walkMoveSpeed * Time.deltaTime);
+                rb.velocity += new Vector3(_moveDir.x,0,_moveDir.z) * (walkMoveSpeed * Time.deltaTime);
                 rb.constraints = RigidbodyConstraints.FreezeRotation;
             }
         }
