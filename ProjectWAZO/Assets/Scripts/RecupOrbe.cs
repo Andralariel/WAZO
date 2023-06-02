@@ -45,10 +45,10 @@ public class RecupOrbe : MonoBehaviour
     {
         if (orbed)
         {
-            time ++;
-            graphValue = curveChromatic.Evaluate(time/120);
+            time += Time.deltaTime;;
+            graphValue = curveChromatic.Evaluate(time/3);
             c.intensity.value = graphValue;
-            graphValue = curveSaturation.Evaluate(time/120);
+            graphValue = curveSaturation.Evaluate(time/3);
             ca.saturation.value = graphValue;
         }
 
