@@ -99,6 +99,8 @@ namespace Sound
         [Header("Player")]
         public AudioClip saut;
         [Range(0, 1)] public float sautVolume;
+        public AudioClip step;
+        [Range(0, 1)] public float stepVolume;
         public AudioClip grabPetitAir;
         [Range(0, 1)] public float grabPetitAirVolume;
         public AudioClip grabGrosAir;

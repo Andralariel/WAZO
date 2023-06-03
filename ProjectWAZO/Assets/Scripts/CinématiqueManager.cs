@@ -151,6 +151,7 @@ public class CinématiqueManager : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
             spiritsList[i].SetActive(true);
             yield return new WaitForSeconds(0.4f);
+            spiritsList[i].GetComponent<Animator>().SetBool("OnAltar",true);
         }
         yield return new WaitForSeconds(2.5f);  // fait spawn la carte
         AudioList.Instance.PlayOneShot(AudioList.Instance.mapSpawn, AudioList.Instance.mapSpawnVolume);
@@ -185,6 +186,7 @@ public class CinématiqueManager : MonoBehaviour
 
     public IEnumerator SpawnChapeau()
     {
+        CarnetManager.instance.canOpen = false;
         Controller.instance.canMove = false;
         Controller.instance.canJump = false;
         Controller.instance.ultraBlock = true;
@@ -202,6 +204,7 @@ public class CinématiqueManager : MonoBehaviour
         Controller.instance.canMove = true;
         Controller.instance.canJump = true;
         Controller.instance.ultraBlock = false;
+        CarnetManager.instance.canOpen = true;
     }
     
     

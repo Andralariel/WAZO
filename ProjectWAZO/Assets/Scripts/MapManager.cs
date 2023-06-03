@@ -97,6 +97,7 @@ public class MapManager : MonoBehaviour
                 Map.transform.DORotate(new Vector3(0, 90, 0),0.3f);
                 yield return new WaitForSeconds(0.3f);
                 playerIcon.gameObject.SetActive(true);
+                MovePlayerIcon();
                 mapElements.SetActive(true);
                 Map.sprite = mapPleine;
                 loreElements.SetActive(false);

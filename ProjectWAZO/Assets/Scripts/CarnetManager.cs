@@ -61,7 +61,7 @@ public class CarnetManager : MonoBehaviour
             {
                 for (int i = 0; i < MapManager.instance.isFresqueUnlocked.Count; i++)
                 {
-                    if (MapManager.instance.isFresqueUnlocked[i])
+                    if (MapManager.instance.isFresqueUnlocked[i] && MapManager.instance.isRotated)
                     {
                         StartCoroutine(MapManager.instance.UnlockFresque(i));
                     }

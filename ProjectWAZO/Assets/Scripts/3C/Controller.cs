@@ -73,6 +73,13 @@ namespace _3C
         public static Controller instance;
         public TrailRenderer trail;
         public TrailRenderer trail2;
+        public ParticleSystem vfxMarche;
+        public ParticleSystem vfxDrop;
+        private bool DOOnceDrop = true;
+        public float timeBetweenSteps;
+        private float timeBetweenStepsT;
+        public float bufferDrop;
+        private float bufferDropT;
     
         [Header("Aller à un point pendant une cinématique")] 
         public Vector3 moveCine;
@@ -201,6 +208,7 @@ namespace _3C
             {
                 trail.emitting = false;
                 trail2.emitting = false;
+                
                 anim.SetBool("isFlying",false);
                 anim.SetBool("isIdle",true);
                 if (CinématiqueManager.instance.isCinématique == false)
@@ -218,6 +226,13 @@ namespace _3C
                 isCoyote = false;
                 if (DoOnce)
                 {
+                      
+                    if (DOOnceDrop)
+                    {
+                        ParticleSystem vfx = Instantiate(vfxDrop,transform.position,Quaternion.identity);
+                        vfx.Play();
+                        DOOnceDrop = false;
+                    }
                     if (!ultraBlock)
                     {
                         canJump = true;
@@ -227,7 +242,6 @@ namespace _3C
                     globalGravity = 9.81f;
                     isGrounded = true;
                     DoOnce = false;
-                    //StopPlaner();
                 }
                 if (!isEchelle)
                 {
@@ -251,6 +265,23 @@ namespace _3C
                         anim.SetBool("isWalking",false);
                     }
                 }
+                
+                if (_moveDir != Vector3.zero) // VFX marche + son pas
+                {
+                    vfxMarche.enableEmission = true;
+                    timeBetweenStepsT += Time.deltaTime;
+
+                    if (timeBetweenStepsT >= timeBetweenSteps)
+                    {
+                        AudioList.Instance.PlayOneShot(AudioList.Instance.step, AudioList.Instance.stepVolume); //CHANGER LE PTICH
+                        timeBetweenStepsT = 0;
+                    }
+                }
+                else
+                {
+                    vfxMarche.enableEmission = false;
+                }
+              
             }
             else // Si le personnage n'est pas au sol
             {
@@ -285,6 +316,7 @@ namespace _3C
                     }
                 }
                 
+                vfxMarche.enableEmission = false;
                 CheckIfStuck();
             }
         
@@ -315,6 +347,18 @@ namespace _3C
             
             CheckpointDetection();
 
+           
+
+            if (!DOOnceDrop)
+            {
+                bufferDropT += Time.deltaTime;
+                if (bufferDropT >= bufferDrop)
+                {
+                    DOOnceDrop = true;
+                    bufferDropT = 0;
+                }
+            }
+            
             if (isGoing)
             {
                 anim.SetBool("isWalking",true);
@@ -387,7 +431,7 @@ namespace _3C
                 Debug.DrawRay(transform.position, Vector3.down*0.2f, Color.red,2);
             }
         }
-    
+
         private void Planer()
         {
             if (canPlaner)
@@ -424,6 +468,12 @@ namespace _3C
             anim.speed = newSpeed;
         }
 
+        public IEnumerator BufferDrop()
+        {
+            yield return new WaitForSeconds(0.5f);
+            DOOnceDrop = true;
+        }
+        
         //Fix to prevent player from getting stuck between
         private Vector3 _lastPos;
         private const float PosRange = 0.05f;
