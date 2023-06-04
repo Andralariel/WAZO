@@ -7,6 +7,8 @@ using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class Ending : MonoBehaviour
 {
@@ -24,13 +26,45 @@ public class Ending : MonoBehaviour
     public GameObject CameraCinématque;
     public AudioSource earthquakeSound;
     [SerializeField] private float fadeDuration;
+    private float graphValue;
+    public AnimationCurve curveChromatic;
+    public AnimationCurve curveSaturation;
+    public AnimationCurve curveBloom;
+    public AnimationCurve curveBloomT;
+    [SerializeField] private VolumeProfile v;
+    private ChromaticAberration c;
+    private ColorAdjustments ca;
+    private Bloom b;
+    private float time;
+    private bool jumped;
 
     [Header("Timers")] 
     public float timeToCrédits;
     public float timeToEnd;
+    private void Start()
+    {
+        time = 0;
+        jumped = false;
+        v.TryGet(out c);
+        v.TryGet(out ca);
+        v.TryGet(out b);
+    }
 
     private void Update()
     {
+        if (jumped)
+        {
+            time += Time.deltaTime;
+            graphValue = curveChromatic.Evaluate(time/3);
+            c.intensity.value = graphValue;
+            graphValue = curveSaturation.Evaluate(time/3);
+            ca.saturation.value = graphValue;
+            graphValue = curveBloom.Evaluate(time/3);
+            b.intensity.value = graphValue;
+            graphValue = curveBloomT.Evaluate(time/3);
+            b.threshold.value = graphValue;
+        }
+        
         if (rollCredits)
         {
             crédits.transform.position += new Vector3(0, creditSpeed, 0)*Time.deltaTime;
@@ -77,6 +111,7 @@ public class Ending : MonoBehaviour
         earthquakeSound.DOFade(0f, fadeDuration).OnComplete(() => earthquakeSound.Stop());
         CameraCinématque.SetActive(true);
         timeLine.Play();
+        jumped = true;
         yield return new WaitForSeconds(timeToCrédits);
         rollCredits = true;
         crédits.SetActive(true);
