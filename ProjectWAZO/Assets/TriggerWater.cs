@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using _3C;
 using Sound;
@@ -6,7 +7,6 @@ using UnityEngine;
 
 public class TriggerWater : MonoBehaviour
 {
-   private float originalSpeed;
    public float waterSpeed;
    
    [SerializeField] private Collider thisCol;
@@ -17,8 +17,12 @@ public class TriggerWater : MonoBehaviour
    {
       if (other.gameObject.layer == 6) //6 = player
       {
-         Controller.instance.walkMoveSpeed = waterSpeed;
+         var instance = Controller.instance;
 
+         instance.inWater++;
+
+         if (instance.inWater > 1) return;
+         instance.walkMoveSpeed = waterSpeed;
          AudioList.Instance.PlayOneShot(AudioList.Instance.splashPlayer, AudioList.Instance.splashPlayerVolume);
          Splash(other);
       }
@@ -34,7 +38,18 @@ public class TriggerWater : MonoBehaviour
          StartCoroutine(SinkingObject(other.gameObject));
       }
    }
-   
+
+   private void OnTriggerExit(Collider other)
+   {
+      if (other.gameObject.layer == 6) //6 = player
+      {
+         var instance = Controller.instance;
+
+         instance.inWater--;
+         if(instance.inWater == 0) instance.walkMoveSpeed = instance.originalWalkSpeed;
+      }
+   }
+
    private void Splash(Collider other)
    {
       var pos = other.transform.position;

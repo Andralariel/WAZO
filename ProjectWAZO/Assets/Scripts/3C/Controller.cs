@@ -56,6 +56,7 @@ namespace _3C
         public bool MoveEnding;
         public bool onHeightChangingPlatform;
         public bool isHoldingASpirit;
+        public int inWater;
 
         [Header("Utilitaire")] 
         public float rotationSpeed;
@@ -231,9 +232,12 @@ namespace _3C
                     {
                         if (gravityScale < -5)
                         {
-                            ParticleSystem vfx = Instantiate(vfxDrop,transform.position,Quaternion.identity);
-                            vfx.Play();
-                            DOOnceDrop = false;
+                            if(!(walkMoveSpeed < originalWalkSpeed))
+                            {
+                                ParticleSystem vfx = Instantiate(vfxDrop,transform.position,Quaternion.identity);
+                                vfx.Play();
+                                DOOnceDrop = false;
+                            }
                         }
                     }
                     if (!ultraBlock)
