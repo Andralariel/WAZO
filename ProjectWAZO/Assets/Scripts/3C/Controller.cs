@@ -277,13 +277,13 @@ namespace _3C
                 if (_moveDir != Vector3.zero) // VFX marche + son pas
                 {
                     vfxMarche.enableEmission = (inWater<1);
-                    timeBetweenStepsT += Time.deltaTime;
-
-                    if (timeBetweenStepsT >= timeBetweenSteps)
-                    {
-                        AudioList.Instance.PlayOneShot(AudioList.Instance.step, AudioList.Instance.stepVolume); //CHANGER LE PTICH
-                        timeBetweenStepsT = 0;
-                    }
+                    // timeBetweenStepsT += Time.deltaTime;
+                    //
+                    // if (timeBetweenStepsT >= timeBetweenSteps)
+                    // {
+                    //     AudioList.Instance.PlayOneShot(AudioList.Instance.step, AudioList.Instance.stepVolume); //CHANGER LE PTICH
+                    //     timeBetweenStepsT = 0;
+                    // }
                 }
                 else
                 {
