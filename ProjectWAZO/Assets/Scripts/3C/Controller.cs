@@ -229,9 +229,12 @@ namespace _3C
                       
                     if (DOOnceDrop)
                     {
-                        ParticleSystem vfx = Instantiate(vfxDrop,transform.position,Quaternion.identity);
-                        vfx.Play();
-                        DOOnceDrop = false;
+                        if (gravityScale < -5)
+                        {
+                            ParticleSystem vfx = Instantiate(vfxDrop,transform.position,Quaternion.identity);
+                            vfx.Play();
+                            DOOnceDrop = false;
+                        }
                     }
                     if (!ultraBlock)
                     {
