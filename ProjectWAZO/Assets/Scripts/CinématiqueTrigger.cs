@@ -11,23 +11,38 @@ public class CinématiqueTrigger : MonoBehaviour
    public float CinématiqueDuration;
    public int FresqueID;
    public bool repetable;
+
+   private bool _inTrigger;
    
    private void OnTriggerEnter(Collider other)
    {
       if (other.gameObject.layer == 6)
       {
-         Controller.instance.pointToGo = PointToGo.gameObject;
-         Controller.instance.thingToLook = fresque;
-         Controller.instance.cineSpeed = 0.8f;
-         Controller.instance.isGoing = true;
-         Controller.instance.canMove = false;
-         Controller.instance.canJump = false;
+         _inTrigger = true;
          StartCoroutine(OpenMenu());
       }
    }
-   
+
+   private void OnTriggerExit(Collider other)
+   {
+      if (other.gameObject.layer == 6)
+      {
+         _inTrigger = false;
+      }
+   }
+
    IEnumerator OpenMenu()
    {
+      yield return new WaitUntil(() => Controller.instance.isGrounded);
+      if (!_inTrigger) yield break;
+      
+      Controller.instance.pointToGo = PointToGo.gameObject;
+      Controller.instance.thingToLook = fresque;
+      Controller.instance.cineSpeed = 0.8f;
+      Controller.instance.isGoing = true;
+      Controller.instance.canMove = false;
+      Controller.instance.canJump = false;
+      
       PauseMenu.instance.canPause = false;
       MapManager.instance.pontInteroFresques[FresqueID].gameObject.SetActive(false);
       MapManager.instance.listCercles[FresqueID].gameObject.SetActive(true);
