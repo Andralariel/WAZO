@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using _3C;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class DataKeeper : MonoBehaviour
