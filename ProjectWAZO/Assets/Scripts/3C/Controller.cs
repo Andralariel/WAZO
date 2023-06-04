@@ -1,6 +1,7 @@
 using System.Collections;
 using DG.Tweening;
 using Sound;
+using TechArt;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Utilitaire;
@@ -75,7 +76,6 @@ namespace _3C
         public TrailRenderer trail;
         public TrailRenderer trail2;
         public ParticleSystem vfxMarche;
-        public ParticleSystem vfxDrop;
         private bool DOOnceDrop = true;
         public float timeBetweenSteps;
         private float timeBetweenStepsT;
@@ -232,10 +232,11 @@ namespace _3C
                     {
                         if (gravityScale < -5)
                         {
-                            if(!(walkMoveSpeed < originalWalkSpeed))
+                            if(inWater<1)
                             {
-                                ParticleSystem vfx = Instantiate(vfxDrop,transform.position,Quaternion.identity);
-                                vfx.Play();
+                                var dustCloud = SplashPoolingSystem.Instance.LendADustCloud();
+                                dustCloud.transform.position = transform.position;
+                                dustCloud.Play();
                                 DOOnceDrop = false;
                             }
                         }
@@ -275,7 +276,7 @@ namespace _3C
                 
                 if (_moveDir != Vector3.zero) // VFX marche + son pas
                 {
-                    vfxMarche.enableEmission = true;
+                    vfxMarche.enableEmission = (inWater<1);
                     timeBetweenStepsT += Time.deltaTime;
 
                     if (timeBetweenStepsT >= timeBetweenSteps)
@@ -361,8 +362,10 @@ namespace _3C
                 bufferDropT += Time.deltaTime;
                 if (bufferDropT >= bufferDrop)
                 {
-                    DOOnceDrop = true;
-                    bufferDropT = 0;
+                    if (_onBufferDrop) return;
+
+                    _onBufferDrop = true;
+                    StartCoroutine(BufferDropVFX());
                 }
             }
             
@@ -392,6 +395,16 @@ namespace _3C
             isGoing = false;
         }
 
+        //Buffer Drop VFX
+        private bool _onBufferDrop;
+        private IEnumerator BufferDropVFX()
+        {
+            yield return new WaitForEndOfFrame();
+            _onBufferDrop = false;
+            DOOnceDrop = true;
+            bufferDropT = 0;
+        }
+        
         //Moved Checkpoint Detection to controller
         [Header("Checkpoint Detection")]
         public Vector3 respawnPoint;
@@ -475,12 +488,6 @@ namespace _3C
             anim.speed = newSpeed;
         }
 
-        public IEnumerator BufferDrop()
-        {
-            yield return new WaitForSeconds(0.5f);
-            DOOnceDrop = true;
-        }
-        
         //Fix to prevent player from getting stuck between
         private Vector3 _lastPos;
         private const float PosRange = 0.05f;
