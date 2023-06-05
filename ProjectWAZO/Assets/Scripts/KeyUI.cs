@@ -128,7 +128,7 @@ public class KeyUI : MonoBehaviour
             compteurBonus.text = currentBonusShard + " / 4"; 
         }
 
-        if (currentShard >= 9)
+        if (currentShard + currentBonusShard >= 10)
         {
             StartCoroutine(CinématiqueManager.instance.SpawnChapeau());
         }
