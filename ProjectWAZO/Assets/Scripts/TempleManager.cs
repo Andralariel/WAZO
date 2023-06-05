@@ -20,7 +20,6 @@ public class TempleManager : Activator
     {
         StartCoroutine(CinématiqueStart());
         DataKeeper.instance.CheckHat();
-        door.SetBool("Open",true);
         if (instance == null)
         {
             instance = this;
