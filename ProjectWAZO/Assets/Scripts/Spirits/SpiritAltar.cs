@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Sound;
 using UnityEngine;
+using Utilitaire;
 using WeightSystem;
 using Activator = WeightSystem.Activator.Activator;
 
@@ -43,7 +44,7 @@ namespace Spirits
             if (other.attachedRigidbody.angularDrag > 0.9f) return;
 
             spiritsOnAltar.Add(other.gameObject);
-            other.gameObject.GetComponent<Animator>().SetBool(OnAltar,true);
+            other.gameObject.GetComponent<Spirit>().anim.SetBool(OnAltar,true);
             _spiritAmount++;
             weightUI.UpdateUI(_spiritAmount);
             vfxdrop.Play();
@@ -91,7 +92,7 @@ namespace Spirits
             if (!spiritsOnAltar.Contains(other.gameObject)) return;
             
             spiritsOnAltar.Remove(other.gameObject);
-            other.gameObject.GetComponent<Animator>().SetBool(OnAltar,false);
+            other.gameObject.GetComponent<Spirit>().anim.SetBool(OnAltar,false);
             _spiritAmount--;
             weightUI.UpdateUI(_spiritAmount);
             
