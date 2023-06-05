@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5778685310182809299}
   - component: {fileID: 5778685310182809298}
   - component: {fileID: 5778685310182809309}
-  - component: {fileID: 8925529351779774360}
   m_Layer: 7
   m_Name: Esprit de l'air
   m_TagString: Untagged
@@ -72,7 +71,7 @@ MonoBehaviour:
   spiritAgent: {fileID: 0}
   vfxrespawn: {fileID: 4987192304582885963}
   modesprit: {fileID: 5471473543510705238}
-  anim: {fileID: 0}
+  anim: {fileID: 1790990075964482395}
 --- !u!54 &5778685310182809309
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -89,26 +88,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!95 &8925529351779774360
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5778685310182809311}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 29fb4602c319ebe4191faa2e4af5b5c1, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &9011640914961779303
 GameObject:
   m_ObjectHideFlags: 0
@@ -474,7 +453,7 @@ PrefabInstance:
     - target: {fileID: 1402607848543262738, guid: 8298e4ce5765f9a40b17f2401f558ade,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.04232569
+      value: 0.042325694
       objectReference: {fileID: 0}
     - target: {fileID: 1402607848543262738, guid: 8298e4ce5765f9a40b17f2401f558ade,
         type: 3}
@@ -484,7 +463,7 @@ PrefabInstance:
     - target: {fileID: 1402607848543262738, guid: 8298e4ce5765f9a40b17f2401f558ade,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.12120184
+      value: -0.12120185
       objectReference: {fileID: 0}
     - target: {fileID: 1402607848543262738, guid: 8298e4ce5765f9a40b17f2401f558ade,
         type: 3}
@@ -905,6 +884,26 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 3889646538811853629}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1790990075964482395
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5471473543510705238}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 29fb4602c319ebe4191faa2e4af5b5c1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1001 &6160559007775627742
 PrefabInstance:
   m_ObjectHideFlags: 0
