@@ -53,18 +53,6 @@ public class CinématiqueManager : MonoBehaviour
         }
     }
 
-    private void Update()  // POUR TESTER LES CINEMATIQUES, A SUPPRIMER !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    {
-        if (Input.GetKey(KeyCode.A))
-        {
-            Time.timeScale = 5;
-        }
-        else
-        {
-            Time.timeScale = 1;
-        }
-    }
-
     public void StartCinématique(int cinématqueIndex)
     {
         StartCoroutine(coroutineList[cinématqueIndex]);
