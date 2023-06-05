@@ -9,6 +9,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 using Utilitaire;
 
 public class PauseMenu : MonoBehaviour
@@ -44,7 +45,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject boutonTriche;
     public GameObject boutonRetourTriche;
     
-    
+  
     public void Start()
     {
         if (instance == null)

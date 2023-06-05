@@ -89,10 +89,11 @@ public class MenuPrincipal : MonoBehaviour
         dropDownResolution.AddOptions(options);
         dropDownResolution.value = currentResolutionIndex;
         dropDownResolution.RefreshShownValue();
-        
     }
+    
     private void Update()
     {
+        dropDownResolution.RefreshShownValue();
         if (currentlySelected is not null && currentlySelected != eventSystem.currentSelectedGameObject)
         {
             if (!isScaling)

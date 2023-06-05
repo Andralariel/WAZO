@@ -106,6 +106,7 @@ namespace Utilitaire
 
       IEnumerator CinémtiqueOuverture()
       {
+         PauseMenu.instance.canPause = false;
          CinématiqueManager.instance.isCinématique = true;
          CarnetManager.instance.canOpen = false;
          Controller.instance.anim.SetBool("isWalking",false);
@@ -169,6 +170,7 @@ namespace Utilitaire
          Controller.instance.ultraBlock = false;
          CameraController.instance.canMove = true;
          colliderPorte.enabled = false;
+         PauseMenu.instance.canPause = true;
          Destroy(gameObject);
       }
    }
