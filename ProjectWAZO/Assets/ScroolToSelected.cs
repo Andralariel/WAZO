@@ -54,7 +54,7 @@ public class ScroolToSelected : MonoBehaviour, IPointerEnterHandler, IPointerExi
     {
         if (m_Selectables.Count > 0)
         {
-            if (Input.GetButtonDown("Horizontal") || Input.GetButtonDown("Vertical") || Input.GetButton("Horizontal") || Input.GetButton("Vertical"))
+            if (Input.GetButtonDown("Vertical") || Input.GetButton("Vertical"))
             {
                 ScrollToSelected(false);
             }
