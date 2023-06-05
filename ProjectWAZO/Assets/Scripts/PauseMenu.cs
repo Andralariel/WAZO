@@ -370,4 +370,28 @@ public class PauseMenu : MonoBehaviour
     {
         TempleOpener.instance.canOpen = !TempleOpener.instance.canOpen;
     }
+
+    public void OpenEscalier1()
+    {
+        if (!TempleManager.instance.isCine)
+        {
+            CloseTriche();
+            CloseOptions();
+            QuitMenu();
+            TempleManager.instance.indexCalling = 1;
+            TempleManager.instance.Activate();
+        }
+    }
+    
+    public void OpenEscalier2()
+    {
+        if (!TempleManager.instance.isCine)
+        {
+            CloseTriche();
+            CloseOptions();
+            QuitMenu();
+            TempleManager.instance.indexCalling = 2;
+            TempleManager.instance.Activate();
+        }
+    }
 }

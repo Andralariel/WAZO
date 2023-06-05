@@ -14,6 +14,9 @@ public class TempleManager : Activator
     private Vector3 originalOffset;
     public GameObject Escalier1;
     public GameObject Escalier2;
+    private bool oneDone;
+    private bool twoDone;
+    public bool isCine;
     
     void Start()
     {
@@ -28,12 +31,18 @@ public class TempleManager : Activator
     {
         if (indexCalling == 1 && !Escalier1Done)
         {
-            StartCoroutine(ActivateEscalier1());
+            if (!oneDone)
+            {
+                StartCoroutine(ActivateEscalier1());
+            }
         }
 
         if (indexCalling == 2 && !Escalier2Done)
         {
-            StartCoroutine(ActivateEscalier2());
+            if (!twoDone)
+            {
+                StartCoroutine(ActivateEscalier2());
+            }
         }
     }
     public override void Deactivate()
@@ -42,6 +51,8 @@ public class TempleManager : Activator
     }
     IEnumerator ActivateEscalier1()
     {
+        isCine = true;
+        oneDone = true;
         CinématiqueManager.instance.isCinématique = true;
         Controller.instance.canMove = false;
         Controller.instance.canJump = false;
@@ -67,10 +78,13 @@ public class TempleManager : Activator
         Controller.instance.canMove = true;
         Controller.instance.canJump = true;
         CinématiqueManager.instance.isCinématique = false;
+        isCine = false;
     }
     
     IEnumerator ActivateEscalier2()
     {
+        isCine = true;
+        twoDone = true;
         CinématiqueManager.instance.isCinématique = true;
         Controller.instance.canMove = false;
         Controller.instance.canJump = false;
@@ -96,5 +110,6 @@ public class TempleManager : Activator
         Controller.instance.canMove = true;
         Controller.instance.canJump = true;
         CinématiqueManager.instance.isCinématique = false;
+        isCine = false;
     }
 }
