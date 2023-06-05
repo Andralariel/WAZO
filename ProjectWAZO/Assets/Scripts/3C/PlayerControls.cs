@@ -226,6 +226,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""54ed4efd-7941-4b4c-801d-e676b1b2bc28"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PickUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""1ee1070a-8048-4957-a4a0-e6867c331f86"",
                     ""path"": ""<Mouse>/middleButton"",
                     ""interactions"": """",
