@@ -56,7 +56,7 @@ public class CinématiqueManager : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.KeypadPlus))
         {
             Time.timeScale = 5;
         }
