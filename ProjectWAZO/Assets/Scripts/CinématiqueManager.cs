@@ -9,6 +9,7 @@ using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.PostProcessing;
+using Utilitaire;
 
 public class CinématiqueManager : MonoBehaviour
 {
@@ -50,6 +51,18 @@ public class CinématiqueManager : MonoBehaviour
         if (enableStartCinematic)
         {
             StartCoroutine(CinématiqueIntro());
+        }
+    }
+
+    public void Update()
+    {
+        if (Input.GetKey(KeyCode.A))
+        {
+            Time.timeScale = 5;
+        }
+        else
+        {
+            Time.timeScale = 1;
         }
     }
 
@@ -139,7 +152,7 @@ public class CinématiqueManager : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
             spiritsList[i].SetActive(true);
             yield return new WaitForSeconds(0.4f);
-            spiritsList[i].GetComponent<Animator>().SetBool("OnAltar",true);
+            spiritsList[i].GetComponent<Spirit>().anim.SetBool("OnAltar",true);
         }
         yield return new WaitForSeconds(2.5f);  // fait spawn la carte
         AudioList.Instance.PlayOneShot(AudioList.Instance.mapSpawn, AudioList.Instance.mapSpawnVolume);
