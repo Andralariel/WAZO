@@ -7,7 +7,6 @@ using WeightSystem.Activator;
 public class TempleManager : Activator
 {
     public static TempleManager instance;
-    public Animator door;
     public bool EnableCinématique;
     public int indexCalling;
     public bool Escalier1Done;
@@ -18,8 +17,7 @@ public class TempleManager : Activator
     
     void Start()
     {
-        StartCoroutine(CinématiqueStart());
-        DataKeeper.instance.CheckHat();
+        //DataKeeper.instance.CheckHat();
         if (instance == null)
         {
             instance = this;
@@ -98,21 +96,5 @@ public class TempleManager : Activator
         Controller.instance.canMove = true;
         Controller.instance.canJump = true;
         CinématiqueManager.instance.isCinématique = false;
-    }
-        
-    
-    IEnumerator CinématiqueStart()
-    {
-        if (EnableCinématique)
-        {
-            Controller.instance.canMove = false;
-            Controller.instance.canJump = false;
-            Controller.instance.transform.DOMove(new Vector3(Controller.instance.transform.position.x, Controller.instance.transform.position.y,
-                Controller.instance.transform.position.z + 6),1.5f);
-            yield return new WaitForSeconds(1.5f);
-            door.transform.DOMove(new Vector3(door.transform.position.x, door.transform.position.y + 5, door.transform.position.z), 1f);
-            Controller.instance.canMove = true;
-            Controller.instance.canJump = true;
-        }
     }
 }
