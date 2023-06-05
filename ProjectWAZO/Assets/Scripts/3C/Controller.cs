@@ -97,7 +97,7 @@ namespace _3C
             {
                 DestroyImmediate(this);
             }
-            instance = this;
+            else instance = this;
         
             rb = GetComponent<Rigidbody>();
 

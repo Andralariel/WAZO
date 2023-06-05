@@ -20,7 +20,7 @@ public class TempleManager : Activator
     
     void Start()
     {
-        //DataKeeper.instance.CheckHat();
+        DataKeeper.instance.CheckHat();
         if (instance == null)
         {
             instance = this;
